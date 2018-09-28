@@ -42,6 +42,17 @@ router.post('/registro_usuario', function(req, res, next) {
   })
 });
 
+router.get('/obtener_usuarios', function(req, res){
+  models.usuarios.findAll()
+    .then(resultado => {
+      res.status(200).json(resultado);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    })
+});
+
 router.post('/login', function(req, res) {
   models.usuarios.findOne(
     {where: {usuario: req.body.usuario}},
