@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, CardBody } from 'reactstrap'; 
 import './Main.css';
 
+/**
+ * TO DO
+ *  - Colocarle cursor: pointer a las opciones para que el puntero le indique al usuario que los cuadros son opciones
+ */
 export default class Main extends Component {
   constructor(props){
     super(props);
