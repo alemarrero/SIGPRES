@@ -1,0 +1,9 @@
+.opcion-menu-principal{
+    display: inline-block;
+}
+
+div.fila-opciones-menu-principal{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
