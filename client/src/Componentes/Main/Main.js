@@ -3,6 +3,26 @@ import {Container, Row, Col, Card, CardBody, CardFooter} from 'reactstrap';
 import './Main.css';
 
 export default class Main extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      autenticado: false,
+      id_usuario: undefined
+    }
+  }
+
+  async componentDidMount(){
+    const session_request = await fetch('/api/auth/session', {credentials: 'include', headers:{"accepts":"application/json"}});
+    const session_response = await session_request.json();
+
+    if(session_response !== 'err'){
+      this.setState({...session_response});
+    }
+    else{
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     return (
       <Container fluid style={{backgroundColor: "lightgray", minHeight: "100vh"}}>
