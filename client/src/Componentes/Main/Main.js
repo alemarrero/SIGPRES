@@ -19,7 +19,7 @@ export default class Main extends Component {
       this.setState({...session_response});
     }
     else{
-      this.props.history.push('/');
+      // this.props.history.push('/');
     }
   }
 
