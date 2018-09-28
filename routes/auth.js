@@ -4,7 +4,7 @@ var models = require('../models');
 var bcrypt = require('bcrypt');
 
 
-/* GET users listing. */
+/* */
 router.post('/registro_usuario', function(req, res, next) {
   bcrypt.hash(req.body.password, 10, function(err, hash){
     models.usuarios.findOne({
@@ -27,7 +27,6 @@ router.post('/registro_usuario', function(req, res, next) {
           password: hash,
         })
         .then(usuario => {
-          console.log(usuario);
           res.status(201).json(usuario);
         })
         .catch(error => {
@@ -48,11 +47,11 @@ router.post('/login', function(req, res) {
     {where: {usuario: req.body.usuario}},
   )
   .then(usuario => {
-    // Si encuentra un usuario validado que tenga dicho correo y este validado, procede a validar el inicio de sesión
+    // Si encuentra un usuario validado que tenga dicho correo, procede a validar el inicio de sesión
     if(usuario){
       bcrypt.compare(req.body.password, usuario.dataValues.password, (err, clave_valida) => {
         if(clave_valida){
-          
+          req.session.id_usuario = usuario.id;
           req.session.autenticado = true;
           req.session.save();
           res.send(req.session);
@@ -76,6 +75,15 @@ router.post('/login', function(req, res) {
 router.get('/logout', function(req,res){
   req.session.destroy();
   res.status(200).json('ok');
-})
+});
+
+router.get('/session', function(req, res){
+  if(req.session.autenticado){
+    res.send(session);
+  }
+  else{
+    res.status(401).json('err');
+  }
+});
 
 module.exports = router;
