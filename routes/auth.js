@@ -44,7 +44,32 @@ router.post('/registro_usuario', autorizarAdministrador, function(req, res, next
 });
 
 router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, next){
-  
+  models.usuarios.update({
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    cedula: req.body.cedula,
+    fecha_ingreso: req.body.fecha_ingreso,
+    fecha_nacimiento: req.body.fecha_nacimiento,
+    departamento: req.body.departamento,
+    cargo: req.body.cargo,
+    rol: req.body.rol,
+    correo: req.body.correo,
+    usuario: req.body.usuario
+  },
+  {where: {id: req.body.id}}
+  )
+    .then((resultado) => {
+      if(resultado[0]){
+        res.status(200).json('ok');
+      }
+      else{
+        res.status(404).json('usuario no encontrado')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    });
 });
 
 router.get('/obtener_usuarios', autorizarAdministrador,  function(req, res){
