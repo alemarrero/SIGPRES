@@ -27,7 +27,7 @@ router.post('/registro_usuario', function(req, res, next) {
           password: hash,
         })
         .then(usuario => {
-          res.status(201).json(usuario);
+          res.status(201).json('ok');
         })
         .catch(error => {
           console.log(error);
