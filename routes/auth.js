@@ -72,6 +72,46 @@ router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, ne
     });
 });
 
+router.post('/habilitar_usuario', autorizarAdministrador, function(req, res){
+  models.usuarios.update({
+    habilitado: true
+  },
+  {where: {id: req.body.id}}
+  )
+    .then((resultado) => {
+      if(resultado[0]){
+        res.status(200).json('ok');
+      }
+      else{
+        res.status(404).json('usuario no encontrado')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    });
+});
+
+router.post('/deshabilitar_usuario', autorizarAdministrador, function(req, res){
+  models.usuarios.update({
+    habilitado: false
+  },
+  {where: {id: req.body.id}}
+  )
+    .then((resultado) => {
+      if(resultado[0]){
+        res.status(200).json('ok');
+      }
+      else{
+        res.status(404).json('usuario no encontrado')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    });
+});
+
 router.post('/actualizar_password', autorizarAdministrador, function(req, res){
   bcrypt.hash(req.body.password, 10, function(err, hash){
     models.usuarios.update(
