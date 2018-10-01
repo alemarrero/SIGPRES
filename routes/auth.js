@@ -53,8 +53,7 @@ router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, ne
     departamento: req.body.departamento,
     cargo: req.body.cargo,
     rol: req.body.rol,
-    correo: req.body.correo,
-    usuario: req.body.usuario
+    correo: req.body.correo
   },
   {where: {id: req.body.id}}
   )
