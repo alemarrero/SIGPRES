@@ -43,14 +43,21 @@ router.post('/registro_usuario', function(req, res, next) {
 });
 
 router.get('/obtener_usuarios', function(req, res){
-  models.usuarios.findAll()
-    .then(resultado => {
-      res.status(200).json(resultado);
+  if(req.session.autenticado && req.session.rol === 'administrador'){
+    models.usuarios.findAll({
+      attributes: {exclude: ['password']}
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json('err');
-    })
+      .then(resultado => {
+        res.status(200).json(resultado);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json('err');
+      })
+  }
+  else{
+    res.status(403).json('err');
+  }
 });
 
 router.post('/login', function(req, res) {
@@ -64,6 +71,7 @@ router.post('/login', function(req, res) {
         if(clave_valida){
           req.session.id_usuario = usuario.id;
           req.session.autenticado = true;
+          req.session.rol = usuario.rol;
           req.session.save();
           res.send(req.session);
         }
@@ -83,11 +91,17 @@ router.post('/login', function(req, res) {
   });
 });
 
+/**
+ * Cierra la sesión del usuario
+ */
 router.get('/logout', function(req,res){
   req.session.destroy();
   res.status(200).json('ok');
 });
 
+/**
+ * Obtiene la sesión del usuario
+ */
 router.get('/session', function(req, res){
   if(req.session.autenticado){
     res.send(session);
