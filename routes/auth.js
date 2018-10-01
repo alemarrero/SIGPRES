@@ -157,6 +157,7 @@ router.post('/login', function(req, res) {
           req.session.id_usuario = usuario.id;
           req.session.autenticado = true;
           req.session.rol = usuario.rol;
+          req.session.nombre_completo = `${usuario.nombre} ${usuario.apellido}`;
           req.session.save();
           res.send(req.session);
         }
