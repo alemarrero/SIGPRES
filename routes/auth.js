@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var bcrypt = require('bcrypt');
+var autorizarAdministrador = require('../controllers/authentication/autorizarAdministrador');
 
 
 /* */
-router.post('/registro_usuario', function(req, res, next) {
+router.post('/registro_usuario', autorizarAdministrador, function(req, res, next) {
   bcrypt.hash(req.body.password, 10, function(err, hash){
     models.usuarios.findOne({
       where: {usuario: req.body.usuario}
@@ -42,22 +43,21 @@ router.post('/registro_usuario', function(req, res, next) {
   })
 });
 
-router.get('/obtener_usuarios', function(req, res){
-  if(req.session.autenticado && req.session.rol === 'administrador'){
-    models.usuarios.findAll({
-      attributes: {exclude: ['password']}
+router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, next){
+  
+});
+
+router.get('/obtener_usuarios', autorizarAdministrador,  function(req, res){
+  models.usuarios.findAll({
+    attributes: {exclude: ['password']}
+  })
+    .then(resultado => {
+      res.status(200).json(resultado);
     })
-      .then(resultado => {
-        res.status(200).json(resultado);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json('err');
-      })
-  }
-  else{
-    res.status(403).json('err');
-  }
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    });
 });
 
 router.post('/login', function(req, res) {
