@@ -150,7 +150,7 @@ router.get('/logout', function(req,res){
  */
 router.get('/session', function(req, res){
   if(req.session.autenticado){
-    res.send(session);
+    res.send(req.session);
   }
   else{
     res.status(401).json('err');
