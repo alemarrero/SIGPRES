@@ -11,6 +11,10 @@ export default class Login extends Component {
     this.autenticar = this.autenticar.bind(this);
   }
 
+  componentDidMount(){
+    document.title = "SICMB - Ingresar";
+  }
+
   async autenticar(e) {
     e.preventDefault();
 
