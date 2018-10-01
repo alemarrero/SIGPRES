@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col, Form, FormGroup, Input, Button } from 'reactstrap';
 
 export default class Login extends Component {
   constructor(props){
@@ -6,14 +7,17 @@ export default class Login extends Component {
     this.state = {
       usuario:'',
       password:'',
-      usuario_autenticado: false
     };
-    this.autenticar= this.autenticar.bind(this);
+    this.autenticar = this.autenticar.bind(this);
   }
 
-  autenticar(e) {
+  async autenticar(e) {
     e.preventDefault();
-    fetch('http://localhost:5000/api/auth/login', {
+
+    // Oculta errores previos
+    document.getElementById("error-credenciales-login").style.display = "none";
+
+    const login_request = await fetch('/api/auth/login', {
       method: 'post',
       credentials: 'include',
       headers: {'Content-Type':'application/json'},
@@ -21,36 +25,60 @@ export default class Login extends Component {
         usuario: this.state.usuario,
         password: this.state.password
       })
-    })
-    .then(res => res.json())
-    .then(respuesta => {
-      console.log(respuesta);
-      if (respuesta.autenticado === true) {
-        this.setState({usuario_autenticado: true}, () => {          
-          alert('login satisfactorio')
-        });
-      }
-      else {
-        alert('credenciales invalidas');
-      }
-    })
+    });
+
+    const login_response = await login_request.json();
+    
+    if (login_response.autenticado === true) {
+      this.props.history.push('/inicio');
+    }
+    else {
+      document.getElementById("error-credenciales-login").style.display = "block";
+    }
   }
 
   render() {
     return (
-      <div>
-        <form>
-          <label>Usuario</label>
-          <br/>
-          <input name='usuario' onChange={(e) => this.setState({usuario: e.target.value})}/>
-          <br/>
-          <label>Contraseña</label>
-          <br/>
-          <input name='contraseña' onChange={(e) => this.setState({password: e.target.value})}/>
-          <br/>
-          <button onClick={this.autenticar} >Entrar</button>
-        </form>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <Form>
+              {/* Nombre de usuario */}
+              <FormGroup row>
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Input type="text" placeholder="Nombre de usuario" name='usuario' onChange={(e) => this.setState({usuario: e.target.value})}/>
+                </Col>
+              </FormGroup>
+
+              {/* Contraseña */}
+              <FormGroup row>
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Input type="password" placeholder="Contraseña" name='contraseña' onChange={(e) => this.setState({password: e.target.value})}/>
+                </Col>
+              </FormGroup>
+
+              {/* Mensaje de error */}
+              <FormGroup row>
+                <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                  <span id="error-credenciales-login" className="error-login">Nombre de usuario o contraseña inválidos</span>
+                </Col>
+              </FormGroup>
+
+              {/* Botón de iniciar sesión */}
+              <FormGroup row>
+                <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                  <Button 
+                    onClick={this.autenticar}
+                    color="success"
+                  >
+                    Entrar
+                  </Button>
+                </Col>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
