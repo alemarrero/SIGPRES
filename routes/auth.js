@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var bcrypt = require('bcrypt');
-var autorizarAdministrador = require('../controllers/authentication/autorizarAdministrador');
+var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 
 
 /* */
