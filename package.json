@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon bin\\www --ignore client"
+    "start": "nodemon bin\\www --ignore client",
+    "heroku-postbuild": "sequelize db:migrate && cd client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
@@ -16,6 +17,7 @@
     "morgan": "~1.9.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.38.0"
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.1.1"
   }
 }
