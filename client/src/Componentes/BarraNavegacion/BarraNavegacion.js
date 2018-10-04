@@ -47,35 +47,83 @@ export default class BarraNavegacion extends Component {
             
             <Collapse isOpen={this.state.barra_navegacion_colapsada} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  Bienvenido {this.state.nombre_completo}
-                </NavItem>
-                <NavItem onClick={this.cerrarSesion} style={{cursor: "pointer", marginLeft: "30px"}}>
-                  Cerrar sesión
-                </NavItem>
-                {/* <NavItem>
-                  <NavLink href="/presupuesto">Presupuesto</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">Objetivos Específicos</NavLink>
-                </NavItem>
+                {/* Dropdown de presupuesto */}
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
-                    Options
+                    Presupuesto
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                      Option 1
+                      Gestión de partidas presupuestarias
                     </DropdownItem>
+                    
                     <DropdownItem>
-                      Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      Reset
+                      Solicitud de requerimientos
                     </DropdownItem>
                   </DropdownMenu>
-                </UncontrolledDropdown> */}
+                </UncontrolledDropdown>
+
+                {/* Dropdown de planeación */}
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Planeación 
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      Gestión de objetivos específicos
+                    </DropdownItem>
+                    
+                    <DropdownItem>
+                      Necesidades de la comunidad
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+
+                {/* Dropdown de administración */}
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Administración
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      Gestión de usuarios
+                    </DropdownItem>
+                    
+                    <DropdownItem>
+                      Gestión de indicadores
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      Gestión de medios de verificación
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      Gestión de unidades de medida
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      Gestión de planes históricos
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      Gestión de diagnóstico de la CMB
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      Gestión de áreas
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown> 
+              
+                {/* Mensaje de bienvenida */}
+                <NavItem style={{margin: "auto 0px"}}>
+                  Bienvenido {this.state.nombre_completo}
+                </NavItem>
+                
+                {/* Botón de cerrar sesión */}
+                <NavItem onClick={this.cerrarSesion} style={{cursor: "pointer", margin: "auto 0px auto 30px"}}>
+                  Cerrar sesión
+                </NavItem>
               </Nav>
             </Collapse>
           </Navbar>
