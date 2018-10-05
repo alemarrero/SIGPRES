@@ -16,11 +16,7 @@ module.exports = {
       habilitado: {
         type: Sequelize.BOOLEAN,
         allowNull: false
-      },
-      accion_recurrente_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
+      }
     }, {
       timestamps: false
     });

@@ -16,11 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
-    },
-    accion_recurrente_id: {
-      allowNull: false,
-      type: Sequelize.INTEGER
-    },
+    }
   }, {
     timestamps: false
   });
