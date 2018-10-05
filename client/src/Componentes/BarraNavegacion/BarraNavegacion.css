@@ -1,0 +1,11 @@
+.navbar{
+    width:100%;
+    background-color: #5e9b42;
+    color: white;
+    font-family: roboto;
+    font-weight: bold;
+}
+
+.col-12.col-navbar{
+    background-color: white;
+}
