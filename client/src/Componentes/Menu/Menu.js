@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Row, Col, Card, CardBody} from 'reactstrap';
 import './Menu.css';
+import management from '../../assets/img/management.png';
+import budget from '../../assets/img/budget.png';
+import solution from '../../assets/img/solution.png';
+
 
 export default class Menu extends Component {
   render() {
@@ -8,8 +12,9 @@ export default class Menu extends Component {
         <Row className="fila-opciones-menu-principal">
             {/* Gestión de usuarios */}
             <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push('/usuarios')}>
+            <Card onClick={() => this.props.history.push('/usuarios')} body outline color="success">
                 <CardBody>
+                <img src={management}/>    
                 <h2>Gestión de usuarios</h2>
                 </CardBody>
             </Card>
@@ -17,8 +22,9 @@ export default class Menu extends Component {
             
             {/* Gestión presupuestal  */}
             <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push('/presupuesto')}>
+            <Card onClick={() => this.props.history.push('/presupuesto')} body outline color="success">
                 <CardBody>
+                <img src={budget}/>    
                 <h2>Gestión presupuestal</h2>
                 </CardBody>
             </Card>
@@ -26,9 +32,10 @@ export default class Menu extends Component {
 
             {/* Gestión de objetivos específicos */}
             <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push('/objetivos-especificos')}>
+            <Card onClick={() => this.props.history.push('/objetivos-especificos')} body outline color="success">
                 <CardBody>
-                <h2>Gestión de objetivos específicos</h2>
+                <img src={solution}/>    
+                <h2>Gestión de planeación</h2>
                 </CardBody>
             </Card>
             </Col>
