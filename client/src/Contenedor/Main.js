@@ -33,8 +33,8 @@ export default class Main extends Component {
         
         {/* Rutas */}
         <Switch>
-          <Route path='/' component={Menu}/>
-          <Route exact path="/usuarios" component={Usuarios}/>
+          <Route exact path={this.props.match.path + '/'} component={Menu}/>
+          <Route path={this.props.match.path + '/usuarios'} component={Usuarios}/>
         </Switch>
         
       </Container>
