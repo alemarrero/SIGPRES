@@ -9,3 +9,12 @@
 .col-12.col-navbar{
     background-color: white;
 }
+
+a.navbar-brand{
+    color: white !important;
+}
+
+.logo{
+    width: 78px;
+    height: 78px;
+}

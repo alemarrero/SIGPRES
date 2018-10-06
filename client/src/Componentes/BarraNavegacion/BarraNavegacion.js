@@ -42,9 +42,11 @@ export default class BarraNavegacion extends Component {
       <Row>
         <Col xs={12} className="col-navbar"> 
         <Row>
-        <img src={logo}/>
           <Navbar light expand="sm" className="navbar">
-            <NavbarBrand href="/inicio">SICMB</NavbarBrand>
+            <NavbarBrand href="/inicio">        
+              <img src={logo} className="logo"/>
+              SICMB
+            </NavbarBrand>
 
             <NavbarToggler onClick={() => this.setState({barra_navegacion_colapsada: !this.state.barra_navegacion_colapsada})} />
             
