@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, 
   FormGroup, Input, Label, Table } from 'reactstrap';
+import './Usuarios.css'
+import usuarios from '../../assets/img/usuarios.png';
 
 /**
  * TO-DO
@@ -629,11 +631,11 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
         
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
-            <Button color="success" onClick={this.registrarUsuario}>
+            <Button color="success" onClick={this.registrarUsuario} className="boton-crear-modal">
               Crear usuario
             </Button>
             
-            <Button color="danger" onClick={() => this.setState({modal_registrar_usuario_abierto: false})}>
+            <Button color="danger" onClick={() => this.setState({modal_registrar_usuario_abierto: false})} className="boton-cancelar-modal">
               Cancelar
             </Button>
           </Col>
@@ -804,22 +806,22 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
         
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
-            <Button color="success" onClick={this.editarUsuario}>
+            <Button color="success" onClick={this.editarUsuario} className="boton-crear-modal">
               Editar usuario
             </Button>
 
             {this.state.habilitado ? 
-              <Button color="warning" onClick={this.deshabilitarUsuario}>
+              <Button color="success" onClick={this.deshabilitarUsuario} className="boton-crear-modal">
                 Deshabilitar usuario
               </Button>  
               : 
-              <Button color="info" onClick={this.habilitarUsuario}>
+              <Button color="success" onClick={this.habilitarUsuario} className="boton-crear-modal">
                 Habilitar usuario
               </Button>
                 
             }
             
-            <Button color="danger" onClick={() => this.setState({modal_editar_usuario_abierto: false})}>
+            <Button color="danger" onClick={() => this.setState({modal_editar_usuario_abierto: false})} className="boton-cancelar-modal">
               Cancelar
             </Button>
           </Col>
@@ -872,7 +874,7 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
     ;
 
     return (
-      <Container fluid>
+      <Container fluid className="container-usuarios">
 
         {/* Modales del componente */}
         {modal_registrar_usuario}
@@ -883,21 +885,23 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
         <Row>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <h1>Gestión de usuarios</h1>
+            <img src={usuarios} className="icono-titulo"/>    
+            <h1 className="titulo-usuarios" style={{color: "red !important"}}>Gestión de usuarios</h1>
           </Col>
 
           {/* Botón para agregar usuarios */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="info" onClick={() => this.setState({modal_registrar_usuario_abierto: true})}>
-              Agregar usuario
+            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_registrar_usuario_abierto: true})}>
+            <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+            Agregar usuario
             </Button>
           </Col>
         </Row>
 
         {/* Si existen usuarios, muestra una tabla con su información */}
         {this.state.usuarios.length > 0 && 
-          <Row>
-            <Table striped>
+          <Row className="row-usuario">
+            <Table striped className="tabla-usuarios">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -921,9 +925,10 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
                       <td>{usuario.habilitado ? <span>Si</span> : <span>No</span>}</td>
                       <td>
                         <Button 
-                          color="info"
+                          color="info" className="boton-gestionar"
                           onClick={() => this.cargarModalEditarUsuario(index)}
                         >
+                          <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
                           Gestionar
                         </Button>
                       </td>
