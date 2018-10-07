@@ -28,7 +28,7 @@ export default class Main extends Component {
 
   render() {
     return (
-      <Container fluid style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "lightgray" }}>
+      <Container fluid style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
         <BarraNavegacion/>
         
         {/* Rutas */}

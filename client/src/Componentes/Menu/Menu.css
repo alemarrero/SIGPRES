@@ -1,9 +1,40 @@
 .opcion-menu-principal{
     display: inline-block;
+    justify-content: center;
+    align-items: center;
 }
 
 div.fila-opciones-menu-principal{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    height: 100vh;
+    background-color: white;
+}
+
+.card.card-body.border-success{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;    
+    border-width: 3px;
+    margin-top: 200px;
+    margin-left: 70px;
+}
+
+.card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+img.iconos-menu{
+    width:78px;
+    height: 78px;
+    margin-right: 5px;
+}
+
+h2.modulo-menu{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;    
 }

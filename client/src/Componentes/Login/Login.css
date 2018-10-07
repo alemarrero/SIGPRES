@@ -1,0 +1,51 @@
+.container-login{
+    height: 100vh;
+    background: linear-gradient( rgba(255,255,255, 0.4), rgba(255,255,255, 0.4)), url("http://cdn.photos.sparkplatform.com/ven/20141014061620298071000000-o.jpg");       
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row-login{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+}
+
+.form-login{
+    width: 25%;
+    background-color: #5e9b42;
+    padding: 30px;
+    opacity: 0.9;
+    border-radius: 10px;
+}
+
+.titulo{
+    color:white;
+    font-family: roboto;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.btn.btn-success{
+    border-radius: 5px;
+    font-weight: bold;  
+    width: 40%;
+    background-color: #406e2d;
+}
+
+.error-login{
+    display: none;
+    font-size: 10px;
+    color: red;
+}

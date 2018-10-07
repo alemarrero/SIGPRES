@@ -44,13 +44,14 @@ export default class Login extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Form>
+      <Container fluid className="container-login">
+        <Row className="row-login">
+          <Col xs={12} sm={12} md={12} lg={12} className="col-login"> 
+            <Form className="form-login">
               {/* Nombre de usuario */}
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
+                  <h3 className="titulo">SICMB</h3>
                   <Input type="text" placeholder="Nombre de usuario" name='usuario' onChange={(e) => this.setState({usuario: e.target.value})}/>
                 </Col>
               </FormGroup>

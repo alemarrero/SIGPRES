@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './BarraNavegacion.css';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, 
          UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col } from 'reactstrap';
+import logo from '../../assets/img/logo-cmb.png';
 
 export default class BarraNavegacion extends Component {
   constructor(props) {
@@ -39,9 +40,13 @@ export default class BarraNavegacion extends Component {
   render() {
     return (
       <Row>
-        <Col xs={12}>
-          <Navbar color="light" light expand="sm">
-            <NavbarBrand href="/inicio">SICMB</NavbarBrand>
+        <Col xs={12} className="col-navbar"> 
+        <Row>
+          <Navbar light expand="sm" className="navbar">
+            <NavbarBrand href="/inicio">        
+              <img src={logo} className="logo"/>
+              SICMB
+            </NavbarBrand>
 
             <NavbarToggler onClick={() => this.setState({barra_navegacion_colapsada: !this.state.barra_navegacion_colapsada})} />
             
@@ -127,6 +132,7 @@ export default class BarraNavegacion extends Component {
               </Nav>
             </Collapse>
           </Navbar>
+          </Row>
         </Col>
       </Row>
     );
