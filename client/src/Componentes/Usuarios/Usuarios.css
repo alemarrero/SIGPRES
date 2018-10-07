@@ -77,3 +77,18 @@ button.close{
 label{
     font-weight: bold;
 }
+
+select.tipo-cedula.form-control{
+    width: 16%;
+    display: inline-block;
+}
+
+input.numero-cedula.form-control{
+    margin-left: 15px; 
+    display: inline-block;
+    width: 79%;
+}
+
+label.form-cedula{
+    width: 100%;
+}

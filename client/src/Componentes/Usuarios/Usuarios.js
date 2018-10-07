@@ -511,25 +511,29 @@ import usuarios from '../../assets/img/usuarios.png';
             {/* Cédula del usuario */}
             <FormGroup row>              
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Tipo de cédula</Label>
+                <Label className="form-cedula">Número de cédula</Label>
                 <Input 
                   type="select"
                   onChange={(e) => this.setState({tipo_cedula: e.target.value})}
+                  className="tipo-cedula"
                 >
                   <option value="V">V</option>
                   <option value="E">E</option>
                   <option value="J">J</option>
                 </Input>
+                <Input onChange={(e) => this.setState({numero_cedula: e.target.value})} className="numero-cedula"/>
+                <span id="numero-cedula-modal-registro" className="error-usuarios">Número de cédula inválido</span>                
               </Col>
-              
-              <Col>
-                <Label>Número de cédula</Label>
+
+            {/* Correo electrónico del usuario */}
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Correo electrónico</Label>
                 <Input
-                  onChange={(e) => this.setState({numero_cedula: e.target.value})}
+                  onChange={(e) => this.setState({correo: e.target.value})}
                 />
-                <span id="numero-cedula-modal-registro" className="error-usuarios">Número de cédula inválido</span>
+                <span id="correo-modal-registro" className="error-usuarios">Correo electrónico inválido</span>
               </Col>
-            </FormGroup>
+            </FormGroup>            
 
             {/* Fechas de nacimiento e ingreso */}
             <FormGroup row>
@@ -573,8 +577,8 @@ import usuarios from '../../assets/img/usuarios.png';
                 />
                 <span id="cargo-modal-registro" className="error-usuarios">Cargo inválido</span>
               </Col>
-            </FormGroup>
-            
+            </FormGroup>            
+                        
             {/* Nombre y password del usuario */}
             <FormGroup row>
               {/* Nombre de usuario */}
@@ -613,17 +617,6 @@ import usuarios from '../../assets/img/usuarios.png';
                   <option value="regular">Regular</option>
                 </Input>        
                 <span id="rol-modal-registro" className="error-usuarios">Rol inválido</span>
-              </Col>
-            </FormGroup>
-
-            {/* Correo electrónico del usuario */}
-            <FormGroup row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Correo electrónico</Label>
-                <Input
-                  onChange={(e) => this.setState({correo: e.target.value})}
-                />
-                <span id="correo-modal-registro" className="error-usuarios">Correo electrónico inválido</span>
               </Col>
             </FormGroup>
           </Form>
@@ -677,25 +670,33 @@ import usuarios from '../../assets/img/usuarios.png';
             {/* Cédula del usuario */}
             <FormGroup row>              
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Tipo de cédula</Label>
+                <Label className="form-cedula">Número de cédula</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.tipo_cedula}
                   onChange={(e) => this.setState({tipo_cedula: e.target.value})}
+                  className="tipo-cedula"
                 >
                   <option value="V">V</option>
                   <option value="E">E</option>
                   <option value="J">J</option>
                 </Input>
-              </Col>
-              
-              <Col>
-                <Label>Número de cédula</Label>
                 <Input
                   defaultValue={this.state.numero_cedula}
                   onChange={(e) => this.setState({numero_cedula: e.target.value})}
+                  className="numero-cedula"
                 />
-                <span id="numero-cedula-modal-edicion" className="error-usuarios">Número de cédula inválido</span>
+                <span id="numero-cedula-modal-edicion" className="error-usuarios">Número de cédula inválido</span>                
+              </Col>
+
+              {/* Correo electrónico del usuario */}
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Correo electrónico</Label>
+                <Input
+                  defaultValue={this.state.correo}
+                  onChange={(e) => this.setState({correo: e.target.value})}
+                />
+                <span id="correo-modal-edicion" className="error-usuarios">Correo electrónico inválido</span>
               </Col>
             </FormGroup>
 
@@ -787,18 +788,6 @@ import usuarios from '../../assets/img/usuarios.png';
                   <option value="regular">Regular</option>
                 </Input>        
                 <span id="rol-modal-edicion" className="error-usuarios">Rol inválido</span>
-              </Col>
-            </FormGroup>
-
-            {/* Correo electrónico del usuario */}
-            <FormGroup row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Correo electrónico</Label>
-                <Input
-                  defaultValue={this.state.correo}
-                  onChange={(e) => this.setState({correo: e.target.value})}
-                />
-                <span id="correo-modal-edicion" className="error-usuarios">Correo electrónico inválido</span>
               </Col>
             </FormGroup>
           </Form>
