@@ -54,15 +54,15 @@ export default class BarraNavegacion extends Component {
               <Nav className="ml-auto" navbar>
                 {/* Dropdown de presupuesto */}
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret className="menu-navbar">
                     Presupuesto
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de partidas presupuestarias
                     </DropdownItem>
                     
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Solicitud de requerimientos
                     </DropdownItem>
                   </DropdownMenu>
@@ -70,15 +70,15 @@ export default class BarraNavegacion extends Component {
 
                 {/* Dropdown de planeación */}
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret className="menu-navbar">
                     Planeación 
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de objetivos específicos
                     </DropdownItem>
                     
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Necesidades de la comunidad
                     </DropdownItem>
                   </DropdownMenu>
@@ -86,42 +86,42 @@ export default class BarraNavegacion extends Component {
 
                 {/* Dropdown de administración */}
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle nav caret className="menu-navbar">
                     Administración
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de usuarios
                     </DropdownItem>
                     
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de indicadores
                     </DropdownItem>
 
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de medios de verificación
                     </DropdownItem>
 
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de unidades de medida
                     </DropdownItem>
 
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de planes históricos
                     </DropdownItem>
 
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de diagnóstico de la CMB
                     </DropdownItem>
 
-                    <DropdownItem>
+                    <DropdownItem className="dropdown-navbar">
                       Gestión de áreas
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown> 
               
                 {/* Mensaje de bienvenida */}
-                <NavItem style={{margin: "auto 0px"}}>
+                <NavItem style={{margin: "auto 0px"}} className="usuario-navbar">
                   Bienvenido {this.state.nombre_completo}
                 </NavItem>
                 

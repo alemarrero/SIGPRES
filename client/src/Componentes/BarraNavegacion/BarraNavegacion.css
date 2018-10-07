@@ -18,3 +18,19 @@ a.navbar-brand{
     width: 78px;
     height: 78px;
 }
+
+a.menu-navbar.dropdown-toggle.nav-link{
+    color: white;
+}
+
+li.usuario-navbar.nav-item{
+    margin-left: 15px !important;
+}
+
+div.dropdown-menu.dropdown-menu-right.show{
+    border-color: #5e9b42;
+}
+
+button.dropdown-navbar.dropdown-item{
+    color: #5e9b42;
+}
