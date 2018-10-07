@@ -27,11 +27,11 @@ router.post('/actualizar_unidad_de_medida', autorizarAdministrador, function(req
   },
   {where: {id: req.body.id}})
   .then(resultado => {
-    if(resultado){
+    if(resultado[0]){
       res.status(200).json('ok');
     }
     else{
-      res.status(404).json('ok');
+      res.status(404).json('err');
     }
   })
   .catch(err => {
@@ -42,8 +42,8 @@ router.post('/actualizar_unidad_de_medida', autorizarAdministrador, function(req
 
 router.post('/eliminar_unidad_de_medida', autorizarAdministrador, function(req, res){
   models.unidades_de_medida.destroy({where: {id: req.body.id}})
-  .then(res => {
-    if(res){
+  .then(resultado => {
+    if(resultado){
       res.status(200).json('ok');
     }
     else{
@@ -62,7 +62,7 @@ router.post('/habilitar_unidad_de_medida', autorizarAdministrador, function(req,
     habilitado: true 
   }, {where: {id: req.body.id}})
   .then(x => {
-    if(x){
+    if(x[0]){
       res.json('ok').status(200);
     }
     else{
@@ -80,7 +80,7 @@ router.post('/deshabilitar_unidad_de_medida', autorizarAdministrador, function(r
     habilitado: false 
   }, {where: {id: req.body.id}})
   .then(x => {
-    if(x){
+    if(x[0]){
       res.json('ok').status(200);
     }
     else{
