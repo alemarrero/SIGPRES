@@ -4,13 +4,6 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
 import './Usuarios.css'
 import usuarios from '../../assets/img/usuarios.png';
 
-/**
- * TO-DO
- *  - Personalizar clase de errores para que por defecto esten ocultos, tengan un tamaño de letra de 10px y tengan color rojo
- *  - Agregar validaciones de todos los campos de los modales
- *  - Conectar con backend
- */
-
  export default class Usuarios extends Component {
   constructor(props){
     super(props);
@@ -875,7 +868,7 @@ import usuarios from '../../assets/img/usuarios.png';
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={usuarios} className="icono-titulo"/>    
-            <h1 className="titulo-usuarios" style={{color: "red !important"}}>Gestión de usuarios</h1>
+            <h1 className="titulo-usuarios">Gestión de usuarios</h1>
           </Col>
 
           {/* Botón para agregar usuarios */}
