@@ -8,6 +8,7 @@ var session = require('express-session');
 // Routers
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var udmRouter = require('./routes/unidades_de_medida');
 var cors = require('cors');
 
 // Se inicializa la app de express
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // Rutas
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/unidades_de_medida', udmRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
