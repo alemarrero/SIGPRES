@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true
     }
   }, {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
   unidades_de_medida.associate = function(models) {
     // associations can be defined here

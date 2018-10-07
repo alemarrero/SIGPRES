@@ -18,7 +18,8 @@ module.exports = {
         allowNull: false
       }
     }, {
-      timestamps: false
+      timestamps: false,
+      freezeTableName: true
     });
   },
   down: (queryInterface, Sequelize) => {
