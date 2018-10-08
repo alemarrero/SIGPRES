@@ -5,6 +5,7 @@ import BarraNavegacion from '../Componentes/BarraNavegacion/BarraNavegacion';
 import Menu from '../Componentes/Menu/Menu';
 import Usuarios from '../Componentes/Usuarios/Usuarios';
 import Administracion from '../Componentes/Administracion/Administracion';
+import UnidadesDeMedida from '../Componentes/UnidadesDeMedida/UnidadesDeMedida';
 
 /**
  * TO DO
@@ -37,6 +38,7 @@ export default class Main extends Component {
           <Route exact path={this.props.match.path + '/'} component={Menu}/>
           <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
           <Route path={this.props.match.path + '/administracion/'} component={Administracion}/>
+          <Route path={this.props.match.path + '/unidades-de-medida'} component={UnidadesDeMedida}/>
         </Switch>
         
       </Container>

@@ -1,0 +1,94 @@
+.container-unidades-de-medida{
+    background-color: white !important;
+}
+
+h1.titulo-unidades-de-medida{
+    font-family: roboto !important;
+    font-weight: bold !important;
+}
+
+.icono-titulo{
+    margin: 30px auto;
+    width: 92px;
+    height: 92px;
+}
+
+.iconos{    
+    margin-right: 7px;
+}
+
+.boton-agregar.btn.btn-info{
+    background-color: #406e2d;
+    border: #406e2d;
+    margin: 30px auto;
+}
+
+.boton-gestionar.btn.btn-info{
+    background-color: #406e2d;
+    border: #406e2d;
+}
+
+.row-unidades-de-medida{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabla-unidades-de-medida.table.table-striped{
+    width: 80%;
+}
+
+div.modal-header{
+    background-color: #5e9b42;
+    color: white;
+}
+
+h5.modal-title{
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    width: 100%;
+}
+
+button.close{
+    color: white;
+}
+
+.error-unidades-de-medida{
+    display: none;
+    color: red;
+    font-size: 15px;
+}
+
+.boton-crear-modal.btn.btn-success{
+    margin-right: 5px;
+    font-family: 'Roboto', sans-serif;
+    width:30%;
+}
+
+.boton-cancelar-modal.btn.btn-danger{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+label{
+    font-weight: bold;
+}
+
+select.tipo-cedula.form-control{
+    width: 16%;
+    display: inline-block;
+}
+
+input.numero-cedula.form-control{
+    margin-left: 15px; 
+    display: inline-block;
+    width: 79%;
+}
+
+label.form-cedula{
+    width: 100%;
+}
