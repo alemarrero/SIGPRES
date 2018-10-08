@@ -11,81 +11,32 @@ import medida from '../../assets/img/unidad-medida.png';
 import Usuarios from '../Usuarios/Usuarios';
 import UnidadesDeMedida from '../UnidadesDeMedida/UnidadesDeMedida';
 import { Switch, Route } from 'react-router-dom';
-
+import OpcionMenu from '../Menu/OpcionMenu';
 
 export default class Menu extends Component {
   render() {
     return (
       <Row className="fila-opciones-menu-principal">
-            {/* Gestión de usuarios */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/usuarios')} body outline color="success"> 
-                <CardBody>
-                <img src={usuarios} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de usuarios</h2>
-                </CardBody>
-            </Card>
-            </Col>     
+        {/* Gestión de usuarios */}
+        <OpcionMenu ruta={'/usuarios/'} nombre="Gestión de usuarios" icono={usuarios}/>
 
-            {/* Gestión de áreas */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/areas')} body outline color="success">
-                <CardBody>
-                <img src={areas} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de áreas</h2>
-                </CardBody>
-            </Card>
-            </Col>                
-      
-            {/* Gestión de indicadores */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/indicadores')} body outline color="success">
-                <CardBody>
-                <img src={indicadores} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de indicadores</h2>
-                </CardBody>
-            </Card>
-            </Col> 
+        {/* Gestión de áreas */}
+        <OpcionMenu ruta={'/areas/'} nombre="Gestión de áreas" icono={areas}/>             
+  
+        {/* Gestión de indicadores */}
+        <OpcionMenu ruta={'/indicadores/'} nombre="Gestión de indicadores" icono={indicadores}/>
 
-            {/* Gestión de medios de verificación */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/medios-de-verificacion')} body outline color="success">
-                <CardBody>
-                <img src={verificacion} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de medios de verificación</h2>
-                </CardBody>
-            </Card>
-            </Col> 
+        {/* Gestión de medios de verificación */}
+        <OpcionMenu ruta={'/medios-de-verificacion/'} nombre="Gestión de medios de verificación" icono={verificacion}/>
 
-            {/* Gestión de unidades de medida */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/unidades-de-medida')} body outline color="success">
-                <CardBody>
-                <img src={medida} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de unidades de medida</h2>
-                </CardBody>
-            </Card>
-            </Col> 
+        {/* Gestión de unidades de medida */}
+        <OpcionMenu ruta={'/unidades-de-medida/'} nombre="Gestión de unidades de medida" icono={medida}/>
 
-            {/* Gestión de planes historicos */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/planes-historicos')} body outline color="success">
-                <CardBody>
-                <img src={planes} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de planes históricos</h2>
-                </CardBody>
-            </Card>
-            </Col> 
+        {/* Gestión de planes historicos */}
+        <OpcionMenu ruta={'/planes-historicos/'} nombre="Gestión de planes históricos" icono={planes}/>
 
-            {/* Gestión de diagnostico de la CMB */}
-            <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + '/diagnostico')} body outline color="success">
-                <CardBody>
-                <img src={diagnostico} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de diagnóstico de la CMB</h2>
-                </CardBody>
-            </Card>
-            </Col>  
+        {/* Gestión de diagnostico de la CMB */}
+        <OpcionMenu ruta={'/diagnostico/'} nombre="Gestión de diagnóstico de la CMB" icono={diagnostico}/>
       </Row>
     )
   }
