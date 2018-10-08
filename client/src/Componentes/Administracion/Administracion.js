@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Row, Col, Card, CardBody} from 'reactstrap';
 import './Administracion.css';
-import usuarios from '../../assets/img/management.png';
+import usuarios from '../../assets/img/usuarios.png';
 import areas from '../../assets/img/areas.png';
 import planes from '../../assets/img/planes-historicos.png';
 import indicadores from '../../assets/img/indicadores.png';
