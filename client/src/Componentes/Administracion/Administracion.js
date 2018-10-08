@@ -7,6 +7,8 @@ import planes from '../../assets/img/planes-historicos.png';
 import indicadores from '../../assets/img/indicadores.png';
 import verificacion from '../../assets/img/verificacion.png';
 import diagnostico from '../../assets/img/diagnostico.png';
+import medida from '../../assets/img/unidad-medida.png';
+
 
 export default class Menu extends Component {
   render() {
@@ -54,9 +56,9 @@ export default class Menu extends Component {
 
             {/* Gestión de unidades de medida */}
             <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + 'unidades-medida')} body outline color="success">
+            <Card onClick={() => this.props.history.push(this.props.match.path + 'unidades-de-medida')} body outline color="success">
                 <CardBody>
-                <img src={usuarios} className="iconos-menu"/>    
+                <img src={medida} className="iconos-menu"/>    
                 <h2 className="modulo-menu">Gestión de unidades de medida</h2>
                 </CardBody>
             </Card>

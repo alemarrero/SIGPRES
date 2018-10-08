@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './UnidadesDeMedida.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
-import compass from '../../assets/img/compass.png';
+import medida from '../../assets/img/unidad-medida.png';
 import { request } from 'http';
 
 // https://www.flaticon.com/free-icon/compass_1156951
@@ -343,7 +343,7 @@ export default class UnidadesDeMedida extends Component {
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <img src={compass} className="icono-titulo"/>    
+              <img src={medida} className="icono-titulo"/>    
               <h1 className="titulo-unidades-de-medida">Gestión de Unidades de Medida</h1>
             </Col>
 
