@@ -1,8 +1,8 @@
-.container-unidades-de-medida{
+.container-medios-de-verificacion{
     background-color: white !important;
 }
 
-h1.titulo-unidades-de-medida{
+h1.titulo-medios-de-verificacion{
     font-family: roboto !important;
     font-weight: bold !important;
 }
@@ -28,7 +28,7 @@ h1.titulo-unidades-de-medida{
     border: #406e2d;
 }
 
-.row-unidades-de-medida{
+.row-medios-de-verificacion{
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -36,7 +36,7 @@ h1.titulo-unidades-de-medida{
     align-items: center;
 }
 
-.tabla-unidades-de-medida.table.table-striped{
+.tabla-medios-de-verificacion.table.table-striped{
     width: 80%;
 }
 
@@ -57,7 +57,7 @@ button.close{
     color: white;
 }
 
-.error-unidades-de-medida{
+.error-medios-de-verificacion{
     display: none;
     color: red;
     font-size: 15px;
