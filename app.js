@@ -9,6 +9,7 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var udmRouter = require('./routes/unidades_de_medida');
+var mdvRouter = require('./routes/medios_de_verificacion');
 var cors = require('cors');
 
 // Se inicializa la app de express
