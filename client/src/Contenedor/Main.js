@@ -7,6 +7,7 @@ import Usuarios from '../Componentes/Usuarios/Usuarios';
 import Administracion from '../Componentes/Administracion/Administracion';
 import UnidadesDeMedida from '../Componentes/UnidadesDeMedida/UnidadesDeMedida';
 import MediosDeVerificacion from '../Componentes/MediosDeVerificacion/MediosDeVerificacion';
+import Areas from '../Componentes/Areas/Areas';
 
 /**
  * TO DO
@@ -39,6 +40,7 @@ export default class Main extends Component {
           <Route exact path={this.props.match.path + '/'} component={Menu}/>
           <Route path={this.props.match.path + '/administracion/unidades-de-medida'} component={UnidadesDeMedida}/>
           <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
+          <Route path={this.props.match.path + '/administracion/areas'} component={Areas}/>
           <Route path={this.props.match.path + '/administracion/medios-de-verificacion'} component={MediosDeVerificacion}/>
           <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
         </Switch>
