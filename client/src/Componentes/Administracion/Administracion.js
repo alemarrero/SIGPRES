@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Card, CardBody} from 'reactstrap';
+import {Row } from 'reactstrap';
 import './Administracion.css';
 import usuarios from '../../assets/img/usuarios.png';
 import areas from '../../assets/img/areas.png';
@@ -8,9 +8,6 @@ import indicadores from '../../assets/img/indicadores.png';
 import verificacion from '../../assets/img/verificacion.png';
 import diagnostico from '../../assets/img/diagnostico.png';
 import medida from '../../assets/img/unidad-medida.png';
-import Usuarios from '../Usuarios/Usuarios';
-import UnidadesDeMedida from '../UnidadesDeMedida/UnidadesDeMedida';
-import { Switch, Route } from 'react-router-dom';
 import OpcionMenu from '../Menu/OpcionMenu';
 
 export default class Menu extends Component {
