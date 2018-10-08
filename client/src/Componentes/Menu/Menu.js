@@ -21,7 +21,7 @@ export default class Menu extends Component {
             
             {/* Gestión presupuestal  */}
             <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
-            <Card onClick={() => this.props.history.push(this.props.match.path + 'presupuesto')} body outline color="success">
+            <Card onClick={() => this.props.history.push(this.props.match.path + 'presupuesto/')} body outline color="success">
                 <CardBody>
                 <img src={presupuesto} className="iconos-menu"/>    
                 <h2 className="modulo-menu">Presupuesto</h2>

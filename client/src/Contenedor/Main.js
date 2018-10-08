@@ -8,6 +8,8 @@ import Administracion from '../Componentes/Administracion/Administracion';
 import UnidadesDeMedida from '../Componentes/UnidadesDeMedida/UnidadesDeMedida';
 import MediosDeVerificacion from '../Componentes/MediosDeVerificacion/MediosDeVerificacion';
 import Areas from '../Componentes/Areas/Areas';
+import Presupuesto from '../Componentes/Presupuesto/Presupuesto';
+
 
 /**
  * TO DO
@@ -43,6 +45,7 @@ export default class Main extends Component {
           <Route path={this.props.match.path + '/administracion/areas'} component={Areas}/>
           <Route path={this.props.match.path + '/administracion/medios-de-verificacion'} component={MediosDeVerificacion}/>
           <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
+          <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
         </Switch>
         
       </Container>
