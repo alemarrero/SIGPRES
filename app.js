@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/unidades_de_medida', udmRouter);
+app.use('/api/medios_de_verificacion', mdvRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
