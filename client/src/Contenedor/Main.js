@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import BarraNavegacion from '../Componentes/BarraNavegacion/BarraNavegacion';
 import Menu from '../Componentes/Menu/Menu';
 import Usuarios from '../Componentes/Usuarios/Usuarios';
+import Administracion from '../Componentes/Administracion/Administracion';
 
 /**
  * TO DO
@@ -34,7 +35,8 @@ export default class Main extends Component {
         {/* Rutas */}
         <Switch>
           <Route exact path={this.props.match.path + '/'} component={Menu}/>
-          <Route path={this.props.match.path + '/usuarios'} component={Usuarios}/>
+          <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
+          <Route path={this.props.match.path + '/administracion/'} component={Administracion}/>
         </Switch>
         
       </Container>
