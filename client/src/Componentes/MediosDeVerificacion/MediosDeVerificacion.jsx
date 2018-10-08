@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './MediosDeVerificacion.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
-import compass from '../../assets/img/compass.png';
+import verificacion from '../../assets/img/verificacion.png';
 import { request } from 'http';
 
 // https://www.flaticon.com/free-icon/compass_1156951
@@ -342,7 +342,7 @@ export default class MediosDeVerificacion extends Component {
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <img src={compass} className="icono-titulo"/>    
+              <img src={verificacion} className="icono-titulo"/>    
               <h1 className="titulo-medios-de-verificacion">Gestión de Medios de Verificación</h1>
             </Col>
 
