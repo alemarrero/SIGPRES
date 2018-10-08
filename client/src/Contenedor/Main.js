@@ -36,9 +36,9 @@ export default class Main extends Component {
         {/* Rutas */}
         <Switch>
           <Route exact path={this.props.match.path + '/'} component={Menu}/>
-          <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
-          <Route path={this.props.match.path + '/administracion/'} component={Administracion}/>
           <Route path={this.props.match.path + '/administracion/unidades-de-medida'} component={UnidadesDeMedida}/>
+          <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
+          <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
         </Switch>
         
       </Container>
