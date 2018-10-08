@@ -18,8 +18,9 @@ div.fila-opciones-menu-principal{
     align-items: center;
     width: 70%;    
     border-width: 3px;
-    margin-top: 200px;
-    margin-left: 70px;
+    margin: 0 auto; 
+    float: none; 
+    margin-top: 100px;    
 }
 
 .card-body{
