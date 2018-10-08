@@ -145,7 +145,7 @@ import usuarios from '../../assets/img/usuarios.png';
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Inicio";
+    document.title = "SICMB - Gestión de Usuarios";
 
     if(this.verificarSesion()){
       this.obtenerUsuarios();
