@@ -147,7 +147,7 @@ router.get('/obtener_usuarios', autorizarAdministrador,  function(req, res){
 
 router.post('/login', function(req, res) {
   models.usuarios.findOne(
-    {where: {usuario: req.body.usuario}},
+    {where: {usuario: req.body.usuario, habilitado: true}},
   )
   .then(usuario => {
     // Si encuentra un usuario validado que tenga dicho correo, procede a validar el inicio de sesión
