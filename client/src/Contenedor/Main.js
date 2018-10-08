@@ -7,6 +7,8 @@ import Usuarios from '../Componentes/Usuarios/Usuarios';
 import Administracion from '../Componentes/Administracion/Administracion';
 import UnidadesDeMedida from '../Componentes/UnidadesDeMedida/UnidadesDeMedida';
 import MediosDeVerificacion from '../Componentes/MediosDeVerificacion/MediosDeVerificacion';
+import Planeacion from '../Componentes/Planeacion/Planeacion';
+import Programas from '../Componentes/Programas/Programas';
 
 /**
  * TO DO
@@ -41,6 +43,8 @@ export default class Main extends Component {
           <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
           <Route path={this.props.match.path + '/administracion/medios-de-verificacion'} component={MediosDeVerificacion}/>
           <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
+          <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
+          <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
         </Switch>
         
       </Container>
