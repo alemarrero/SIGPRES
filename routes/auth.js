@@ -197,4 +197,10 @@ router.get('/session', function(req, res){
   }
 });
 
+router.get('/hola', function(req, res){
+  bcrypt.hash("admin", 10, function(err, hash){
+    res.json(hash);
+  });
+});
+
 module.exports = router;
