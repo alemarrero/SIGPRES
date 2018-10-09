@@ -184,10 +184,12 @@ export default class Areas extends Component {
     // Validación del nombre
     if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
       document.getElementById("nombre-modal-creacion").style.display = 'block';
+      document.getElementById("descripcion-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
       document.getElementById("nombre-modal-creacion").style.display = 'none';
+      document.getElementById("descripcion-modal-creacion").style.display = 'none';
     }
     return formulario_valido;
   }
@@ -198,10 +200,12 @@ export default class Areas extends Component {
     // Validación del nombre
     if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
       document.getElementById("nombre-modal-edicion").style.display = 'block';
+      document.getElementById("descripcion-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
     else{
       document.getElementById("nombre-modal-edicion").style.display = 'none';
+      document.getElementById("descripcion-modal-edicion").style.display = 'none';
     }
     return formulario_valido;
   }
@@ -235,7 +239,7 @@ export default class Areas extends Component {
               <Input 
                 onChange={(e) => this.setState({descripcion: e.target.value})}
               />
-              <span id="nombre-modal-creacion" className="error-areas">Descripción inválida</span>
+              <span id="descripcion-modal-creacion" className="error-areas">Descripción inválida</span>
             </Col>
           </FormGroup>          
 
@@ -285,7 +289,7 @@ export default class Areas extends Component {
                   defaultValue={this.state.descripcion}
                   onChange={(e) => this.setState({descripcion: e.target.value})}
                 />
-                <span id="nombre-modal-edicion" className="error-areas">Descripción inválida</span>
+                <span id="descripcion-modal-edicion" className="error-areas">Descripción inválida</span>
               </Col>
             </FormGroup>
           </Form>
