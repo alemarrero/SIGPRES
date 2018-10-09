@@ -1,0 +1,36 @@
+select.duracion-programa.form-control{
+  width: 30%;
+  display: inline-block;
+}
+
+select.tipo-duracion.form-control{
+  display: inline-block;
+  width: 60%;
+}
+
+.programas-label-duracion{
+  width: 100%;
+}
+
+.error-programas{
+  display: none;
+  color: red;
+  font-size: 15px;
+}
+
+button.boton-eliminar-modal-programas{
+  color: white;
+  width: 30%;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.boton-crear-modal-programas.btn.btn-success{
+  margin-right: 5px;
+  font-family: 'Roboto', sans-serif;
+  width: 30%;
+}
+
+.boton-cancelar-modal-programas.btn.btn-danger{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
