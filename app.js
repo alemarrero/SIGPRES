@@ -11,6 +11,7 @@ var authRouter = require('./routes/auth');
 var udmRouter = require('./routes/unidades_de_medida');
 var mdvRouter = require('./routes/medios_de_verificacion');
 var programasRouter = require('./routes/programas');
+var areasRouter = require('./routes/areas');
 var cors = require('cors');
 
 // Se inicializa la app de express
@@ -40,6 +41,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/unidades_de_medida', udmRouter);
 app.use('/api/medios_de_verificacion', mdvRouter);
 app.use('/api/programas', programasRouter);
+app.use('/api/areas', areasRouter);
+
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {

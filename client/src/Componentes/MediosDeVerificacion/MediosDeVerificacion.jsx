@@ -3,8 +3,6 @@ import './MediosDeVerificacion.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import verificacion from '../../assets/img/verificacion.png';
 
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export default class MediosDeVerificacion extends Component {
   constructor(props){
