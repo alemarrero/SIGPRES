@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var udmRouter = require('./routes/unidades_de_medida');
 var mdvRouter = require('./routes/medios_de_verificacion');
+var programasRouter = require('./routes/programas');
 var cors = require('cors');
 
 // Se inicializa la app de express
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/unidades_de_medida', udmRouter);
 app.use('/api/medios_de_verificacion', mdvRouter);
+app.use('/api/programas', programasRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
