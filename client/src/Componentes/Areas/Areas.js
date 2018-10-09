@@ -36,8 +36,7 @@ export default class Areas extends Component {
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         body: JSON.stringify({
-          id: this.state
-          .id,
+          id: this.state.id,
           nombre: this.state.nombre,
           descripcion: this.state.descripcion,
           habilitado: this.state.habilitado
@@ -50,7 +49,6 @@ export default class Areas extends Component {
       if(editar_area_response !== 'err'){
         this.setState({modal_editar_area_abierto: false, modal_operacion_exitosa: true, mensaje: "Área editada correctamente"}, async () => {
           this.obtenerAreas();
-
         });
       }
       else{
@@ -184,11 +182,18 @@ export default class Areas extends Component {
     // Validación del nombre
     if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
       document.getElementById("nombre-modal-creacion").style.display = 'block';
-      document.getElementById("descripcion-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
       document.getElementById("nombre-modal-creacion").style.display = 'none';
+    }    
+
+    // Validación de la descripcion
+    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\s]+$/)){
+      document.getElementById("descripcion-modal-creacion").style.display = 'block';
+      formulario_valido = false;    
+    }
+    else{
       document.getElementById("descripcion-modal-creacion").style.display = 'none';
     }
     return formulario_valido;
@@ -200,11 +205,18 @@ export default class Areas extends Component {
     // Validación del nombre
     if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
       document.getElementById("nombre-modal-edicion").style.display = 'block';
-      document.getElementById("descripcion-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
     else{
       document.getElementById("nombre-modal-edicion").style.display = 'none';
+    }
+    
+    // Validación de la descripcion    
+    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\s]+$/)){
+    document.getElementById("descripcion-modal-edicion").style.display = 'block';
+    formulario_valido = false;
+    }
+    else{
       document.getElementById("descripcion-modal-edicion").style.display = 'none';
     }
     return formulario_valido;
