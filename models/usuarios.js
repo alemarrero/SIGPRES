@@ -20,10 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     fecha_nacimiento: {
       type: DataTypes.DATE,
       allowNull: false
-    }, 
-    departamento: {
-      type: DataTypes.STRING,
-      allowNull: false
     },
     cargo: {
       type: DataTypes.STRING,
