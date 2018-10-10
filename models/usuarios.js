@@ -58,7 +58,13 @@ module.exports = (sequelize, DataTypes) => {
     usuarios.hasMany(models.bitacora, {
       foreignKey: 'usuario_id',
       as: 'registros_bitacora',
-    })
+    });
+
+    usuarios.belongsTo(models.areas, {
+      foreignKey: 'area_id',
+      as: 'area',
+      onDelete: 'CASCADE',
+    });
   };
   return usuarios;
 };
