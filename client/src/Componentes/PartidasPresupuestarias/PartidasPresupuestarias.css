@@ -1,0 +1,11 @@
+.boton-ver.btn.btn-info{
+    margin-right: 5px;
+    background-color: #406e2d;
+    border: #406e2d;    
+}
+
+.error-partidas_presupuestarias{
+    display: none;
+    font-size: 15px;
+    color: red;
+}
