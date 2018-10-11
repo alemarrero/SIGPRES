@@ -20,10 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     fecha_nacimiento: {
       type: DataTypes.DATE,
       allowNull: false
-    }, 
-    departamento: {
-      type: DataTypes.STRING,
-      allowNull: false
     },
     cargo: {
       type: DataTypes.STRING,
@@ -58,7 +54,13 @@ module.exports = (sequelize, DataTypes) => {
     usuarios.hasMany(models.bitacora, {
       foreignKey: 'usuario_id',
       as: 'registros_bitacora',
-    })
+    });
+
+    usuarios.belongsTo(models.areas, {
+      foreignKey: 'area_id',
+      as: 'area',
+      onDelete: 'CASCADE',
+    });
   };
   return usuarios;
 };

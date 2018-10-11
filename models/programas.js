@@ -27,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false
     },
-    direccion_id: {
-      allowNull: false,
-      type: DataTypes.INTEGER
-    },
     descripcion: {
       type: DataTypes.STRING,
       unique: true,
@@ -41,7 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
   programas.associate = function(models) {
-    // associations can be defined here
+    programas.belongsTo(models.areas, {
+      foreignKey: 'area_id',
+      as: 'area',
+      onDelete: 'CASCADE',
+    });
   };
   return programas;
 };

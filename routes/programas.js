@@ -11,7 +11,7 @@ router.post('/crear_programa', autorizarDirector, function(req, res, next) {
     fecha_inicio: req.body.fecha_inicio,
     fecha_finalizacion: req.body.fecha_finalizacion,
     duracion: req.body.duracion,
-    direccion_id: 1,
+    area_id: req.body.area_id,
     descripcion: req.body.descripcion
   })
   .then(resultado => {
@@ -31,7 +31,7 @@ router.post('/actualizar_programa', autorizarDirector, function(req, res, next){
     fecha_inicio: req.body.fecha_inicio,
     fecha_finalizacion: req.body.fecha_finalizacion,
     duracion: req.body.duracion,
-    direccion_id: 1,
+    area_id: req.body.area_id,
     descripcion: req.body.descripcion
   },
   {where: {id: req.body.id}}

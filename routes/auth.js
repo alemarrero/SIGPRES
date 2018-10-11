@@ -19,7 +19,7 @@ router.post('/registro_usuario', autorizarAdministrador, function(req, res, next
           cedula: req.body.cedula,
           fecha_ingreso: new Date(),
           fecha_nacimiento: new Date(),
-          departamento: req.body.departamento,
+          area_id: req.body.area_id,
           cargo: req.body.cargo,
           rol: req.body.rol,
           habilitado: req.body.habilitado,
@@ -50,7 +50,7 @@ router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, ne
     cedula: req.body.cedula,
     fecha_ingreso: req.body.fecha_ingreso,
     fecha_nacimiento: req.body.fecha_nacimiento,
-    departamento: req.body.departamento,
+    area_id: req.body.area_id,
     cargo: req.body.cargo,
     rol: req.body.rol,
     correo: req.body.correo
