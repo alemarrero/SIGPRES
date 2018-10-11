@@ -15,13 +15,15 @@ export default class Programas extends Component {
       nombre: undefined,
       duracion_programa: '1',
       tipo_duracion: 'día(s)',
-      direccion_id: undefined,
+      area_id: undefined,
       descripcion: undefined,
       fecha_inicio: undefined,
       fecha_finalizacion: undefined,
       id: undefined,
-      programas: []
+      programas: [],
+      areas: []
     };
+    this.obtenerAreas = this.obtenerAreas.bind(this);
     this.validarCamposModalCreacion = this.validarCamposModalCreacion.bind(this);
     this.validarCamposModalEdicion = this.validarCamposModalEdicion.bind(this);
     this.crearPrograma = this.crearPrograma.bind(this);
@@ -33,6 +35,18 @@ export default class Programas extends Component {
     this.cargarModalEditarPrograma = this.cargarModalEditarPrograma.bind(this);
   }
 
+  async obtenerAreas(){
+    const areas_request = await fetch('/api/areas/obtener_areas', {credentials: 'include'});
+    const areas_response = await areas_request.json();
+
+    if(areas_response !== 'err'){
+      this.setState({areas: areas_response});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las áreas"});
+    }
+  }
+
   cargarModalEditarPrograma(index){
     const programa = this.state.programas[index];
     
@@ -40,7 +54,7 @@ export default class Programas extends Component {
       nombre: programa.nombre,
       duracion_programa: programa.duracion.split(" ")[0],
       tipo_duracion: programa.duracion.split(" ")[1],
-      direccion_id: programa.direccion_id,
+      area_id: programa.area_id,
       descripcion: programa.descripcion,
       fecha_inicio: programa.fecha_inicio,
       fecha_finalizacion: programa.fecha_finalizacion,
@@ -106,7 +120,7 @@ export default class Programas extends Component {
       document.getElementById("duracion-modal-creacion").style.display = "none";
     }
 
-    if(this.state.direccion_id === undefined || this.state.direccion_id === ""){
+    if(this.state.area_id === undefined || this.state.area_id === ""){
       formulario_valido = false;
       document.getElementById("direccion-modal-creacion").style.display = "block";
     }
@@ -160,7 +174,7 @@ export default class Programas extends Component {
       document.getElementById("duracion-modal-edicion").style.display = "none";
     }
 
-    if(this.state.direccion_id === undefined || this.state.direccion_id === ""){
+    if(this.state.area_id === undefined || this.state.area_id === ""){
       formulario_valido = false;
       document.getElementById("direccion-modal-edicion").style.display = "block";
     }
@@ -184,7 +198,7 @@ export default class Programas extends Component {
       const request_body = JSON.stringify({
         nombre: this.state.nombre,
         duracion: `${this.state.duracion_programa} ${this.state.tipo_duracion}`,
-        direccion_id: 1,
+        area_id: this.state.area_id,
         descripcion: this.state.descripcion,
         fecha_inicio: this.state.fecha_inicio,
         fecha_finalizacion: this.state.fecha_finalizacion
@@ -216,7 +230,7 @@ export default class Programas extends Component {
       const request_body = JSON.stringify({
         nombre: this.state.nombre,
         duracion: `${this.state.duracion_programa} ${this.state.tipo_duracion}`,
-        direccion_id: 1,
+        area_id: this.state.area_id,
         descripcion: this.state.descripcion,
         fecha_inicio: this.state.fecha_inicio,
         fecha_finalizacion: this.state.fecha_finalizacion,
@@ -294,8 +308,9 @@ export default class Programas extends Component {
   async componentDidMount(){
     document.title = "SICMB - Gestión de Programas";
 
-    if(await this.verificarSesion()){
-      await this.obtenerProgramas();
+    if( this.verificarSesion()){
+       this.obtenerProgramas();
+       this.obtenerAreas();
     }
   }
 
@@ -386,9 +401,16 @@ export default class Programas extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Dirección de adscripción</Label>
                 <Input 
-                  defaultValue={this.state.direccion_id}
-                  onChange={(e) => this.setState({direccion_id: e.target.value})}
-                />
+                  type="select"
+                  defaultValue={this.state.area_id}
+                  onChange={(e) => this.setState({area_id: e.target.value})}
+                >
+                  {this.state.areas.map((area, index) => {
+                    return(
+                      <option value={area.id} key={`area_${area.id}`}>{area.nombre}</option>
+                    )
+                  })}
+                </Input>
                 <span id="direccion-modal-creacion" className="error-programas">Dirección inválida</span>
               </Col>
             </FormGroup>
@@ -495,9 +517,16 @@ export default class Programas extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Dirección de adscripción</Label>
                 <Input 
-                  defaultValue={this.state.direccion_id}
-                  onChange={(e) => this.setState({direccion_id: e.target.value})}
-                />
+                  type="select"
+                  defaultValue={this.state.area_id}
+                  onChange={(e) => this.setState({area_id: e.target.value})}
+                >
+                  {this.state.areas.map((area, index) => {
+                    return(
+                      <option value={area.id} key={`area_editar_programa_${index}`}>{area.nombre}</option>
+                    )
+                  })}
+                </Input>
                 <span id="direccion-modal-edicion" className="error-programas">Dirección inválida</span>
               </Col>
             </FormGroup>

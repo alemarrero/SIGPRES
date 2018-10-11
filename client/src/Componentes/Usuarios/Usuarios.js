@@ -3,6 +3,7 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
   FormGroup, Input, Label, Table } from 'reactstrap';
 import './Usuarios.css'
 import usuarios from '../../assets/img/usuarios.png';
+import { arch } from 'os';
 
  export default class Usuarios extends Component {
   constructor(props){
@@ -11,7 +12,7 @@ import usuarios from '../../assets/img/usuarios.png';
       apellido: undefined,
       cargo: undefined,
       correo: undefined,
-      direccion: undefined,
+      area_id: undefined,
       fecha_ingreso: undefined,
       fecha_nacimiento: undefined,
       habilitado: false,
@@ -28,9 +29,11 @@ import usuarios from '../../assets/img/usuarios.png';
       tipo_cedula: "V",
       usuario: undefined,
       usuarios: [],
-      usuario_id: undefined
+      usuario_id: undefined,
+      areas: []
     };
     this.obtenerUsuarios = this.obtenerUsuarios.bind(this);
+    this.obtenerAreas = this.obtenerAreas.bind(this);
     this.registrarUsuario = this.registrarUsuario.bind(this);
     this.editarUsuario = this.editarUsuario.bind(this);
     this.validarCamposModalNuevoUsuario = this.validarCamposModalNuevoUsuario.bind(this);
@@ -39,6 +42,18 @@ import usuarios from '../../assets/img/usuarios.png';
     this.habilitarUsuario = this.habilitarUsuario.bind(this);
     this.deshabilitarUsuario = this.deshabilitarUsuario.bind(this);
     this.correo_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  }
+
+  async obtenerAreas(){
+    const areas_request = await fetch('/api/areas/obtener_areas', {credentials: 'include'});
+    const areas_response = await areas_request.json();
+
+    if(areas_response !== 'err'){
+      this.setState({areas: areas_response});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las áreas"});
+    }
   }
 
   async habilitarUsuario() {
@@ -105,7 +120,7 @@ import usuarios from '../../assets/img/usuarios.png';
       apellido: usuario.apellido,
       cargo: usuario.cargo,
       correo: usuario.correo,
-      direccion: usuario.departamento,
+      area_id: usuario.area_id,
       fecha_ingreso: usuario.fecha_ingreso.split("T")[0],
       fecha_nacimiento: usuario.fecha_nacimiento.split("T")[0],
       nombre: usuario.nombre,
@@ -149,6 +164,7 @@ import usuarios from '../../assets/img/usuarios.png';
 
     if(this.verificarSesion()){
       this.obtenerUsuarios();
+      this.obtenerAreas();
     }
   }
 
@@ -165,7 +181,7 @@ import usuarios from '../../assets/img/usuarios.png';
         cedula: `${this.state.tipo_cedula}-${this.state.numero_cedula}`,
         fecha_ingreso: this.state.fecha_ingreso,
         fecha_nacimiento: this.state.fecha_nacimiento,
-        departamento: this.state.direccion,
+        area_id: this.state.area_id,
         cargo: this.state.cargo,
         rol: this.state.rol,
         correo: this.state.correo,
@@ -209,7 +225,7 @@ import usuarios from '../../assets/img/usuarios.png';
         cedula: `${this.state.tipo_cedula}-${this.state.numero_cedula}`,
         fecha_ingreso: this.state.fecha_ingreso,
         fecha_nacimiento: this.state.fecha_nacimiento,
-        departamento: this.state.direccion,
+        area_id: this.state.area_id,
         cargo: this.state.cargo,
         rol: this.state.rol,
         correo: this.state.correo,
@@ -300,12 +316,12 @@ import usuarios from '../../assets/img/usuarios.png';
     }
 
     // Validación de la dirección del usuario
-    if(this.state.direccion === undefined){
-      document.getElementById("direccion-modal-registro").style.display = 'block';
+    if(this.state.area_id === undefined){
+      document.getElementById("area-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("direccion-modal-registro").style.display = 'none';
+      document.getElementById("area-modal-registro").style.display = 'none';
     }
 
     // Validación del cargo del usuario
@@ -414,12 +430,12 @@ import usuarios from '../../assets/img/usuarios.png';
     }
 
     // Validación de la dirección del usuario
-    if(this.state.direccion === undefined){
-      document.getElementById("direccion-modal-edicion").style.display = 'block';
+    if(this.state.area_id === undefined){
+      document.getElementById("area-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("direccion-modal-edicion").style.display = 'none';
+      document.getElementById("area-modal-edicion").style.display = 'none';
     }
 
     // Validación del cargo del usuario
@@ -557,9 +573,17 @@ import usuarios from '../../assets/img/usuarios.png';
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Dirección</Label>
                 <Input
-                  onChange={(e) => this.setState({direccion: e.target.value})}
-                />
-                <span id="direccion-modal-registro" className="error-usuarios">Departamento inválido</span>
+                type="select"
+                  onChange={(e) => this.setState({area_id: e.target.value})}
+                >
+                  {this.state.areas.map((area, index) => {
+                    return(
+                      <option value={area.id} key={`area_${area.index}`}>{area.nombre}</option>
+                    )
+                  })}
+                </Input>
+
+                <span id="area-modal-registro" className="error-usuarios">Dirección inválida</span>
               </Col>
               
               {/* Cargo del usuario */}
@@ -718,16 +742,23 @@ import usuarios from '../../assets/img/usuarios.png';
               </Col>
             </FormGroup>
 
-            {/* Departamento y cargo */}
+            {/* Dirección y cargo */}
             <FormGroup row>
-              {/* Departamento al que pertenece el usuario */}
+              {/* Dirección al que pertenece el usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Dirección</Label>
                 <Input
-                  defaultValue={this.state.direccion}
-                  onChange={(e) => this.setState({direccion: e.target.value})}
-                />
-                <span id="direccion-modal-edicion" className="error-usuarios">Departamento inválido</span>
+                  type="select"
+                  defaultValue={this.state.area_id}
+                  onChange={(e) => this.setState({area_id: e.target.value})}
+                >
+                  {this.state.areas.map((area, index) => {
+                    return(
+                      <option value={area.id} key={`area_${area.index}`}>{area.nombre}</option>
+                    )
+                  })}
+               </Input>
+                <span id="area-modal-edicion" className="error-usuarios">Dirección inválida</span>
               </Col>
               
               {/* Cargo del usuario */}
@@ -889,7 +920,7 @@ import usuarios from '../../assets/img/usuarios.png';
                   <th>ID</th>
                   <th>Usuario</th>
                   <th>Nombre</th>
-                  <th>Departamento</th>
+                  <th>Dirección</th>
                   <th>Rol</th>
                   <th>Habilitado</th>
                   <th>Opciones</th>
@@ -902,7 +933,7 @@ import usuarios from '../../assets/img/usuarios.png';
                       <th scope="row">{usuario.id}</th>
                       <td>{usuario.usuario}</td>
                       <td>{usuario.nombre} {usuario.apellido}</td>
-                      <td>{usuario.departamento}</td>
+                      <td>{usuario.area_id}</td>
                       <td>{usuario.rol}</td>
                       <td>{usuario.habilitado ? <span>Si</span> : <span>No</span>}</td>
                       <td>
