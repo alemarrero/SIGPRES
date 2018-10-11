@@ -11,7 +11,7 @@ router.post('/crear_programa', autorizarDirector, function(req, res, next) {
     fecha_inicio: req.body.fecha_inicio,
     fecha_finalizacion: req.body.fecha_finalizacion,
     duracion: req.body.duracion,
-    ddarea_id: req.body.area_id,
+    area_id: req.body.area_id,
     descripcion: req.body.descripcion
   })
   .then(resultado => {
