@@ -8,20 +8,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     numero_generica: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false
     },    
     partida_presupuestaria_id: {
       type: DataTypes.INTEGER,
-      unique: true,
       allowNull: false
     },
     denominacion: {
         type: DataTypes.STRING,
         allowNull: false
       },   
-    habilitado: {
+    habilitada: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
@@ -33,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
   genericas.associate = function(models) {
     genericas.belongsTo(models.partidas_presupuestarias, {
       foreignKey: 'partida_presupuestaria_id',
+    }) 
+    genericas.hasMany(models.especificas, {
+      foreignKey: 'generica_id',
+      as: 'especificas',
     })  };
   return genericas;
 };

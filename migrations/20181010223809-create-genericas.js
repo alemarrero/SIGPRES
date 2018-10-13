@@ -9,15 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       numero_generica: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        unique: true,           
+        type: Sequelize.STRING
       },
       partida_presupuestaria_id: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       denominacion: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       habilitada: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       }
     }, {
