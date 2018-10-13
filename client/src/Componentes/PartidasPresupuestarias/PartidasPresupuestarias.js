@@ -423,6 +423,7 @@ export default class PartidasPresupuestarias extends Component {
                           <td>
                           <Button 
                               color="info" className="boton-ver"
+                              onClick={() => this.props.history.push('/inicio/presupuesto/partida-presupuestaria/' + partida_presupuestaria.numero_partida)}
                           >
                               <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Genérica
