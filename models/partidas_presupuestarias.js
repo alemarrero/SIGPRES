@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   partidas_presupuestarias.associate = function(models) {
     partidas_presupuestarias.hasMany(models.genericas, {
-      foreignKey: 'partidas_presupuestarias_id',
+      foreignKey: 'partida_presupuestaria_id',
       as: 'genericas',
     })  };
   return partidas_presupuestarias;
