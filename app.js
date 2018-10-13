@@ -13,6 +13,7 @@ var mdvRouter = require('./routes/medios_de_verificacion');
 var programasRouter = require('./routes/programas');
 var areasRouter = require('./routes/areas');
 var ppRouter = require('./routes/partidas_presupuestarias');
+var genericasRouter = require('./routes/genericas');
 var cors = require('cors');
 
 // Se inicializa la app de express
@@ -44,6 +45,7 @@ app.use('/api/medios_de_verificacion', mdvRouter);
 app.use('/api/programas', programasRouter);
 app.use('/api/areas', areasRouter);
 app.use('/api/partidas_presupuestarias', ppRouter);
+app.use('/api/genericas', genericasRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
