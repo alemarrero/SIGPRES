@@ -107,4 +107,18 @@ router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function
   })
 });
 
+
+router.post('/obtener_partida_presupuestaria', autorizarAdministrador, function(req, res){
+  models.partidas_presupuestarias.findOne({
+    where: {numero_partida: req.body.numero_partida}
+  })
+  .then( resultado => {
+    res.json(resultado).status(200);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
 module.exports = router;
