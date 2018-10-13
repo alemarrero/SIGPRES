@@ -13,6 +13,7 @@ import Areas from '../Componentes/Areas/Areas';
 import Presupuesto from '../Componentes/Presupuesto/Presupuesto';
 import PartidasPresupuestarias from '../Componentes/PartidasPresupuestarias/PartidasPresupuestarias';
 import Genericas from '../Componentes/PartidasPresupuestarias/Genericas';
+import Especificas from '../Componentes/PartidasPresupuestarias/Especificas';
 
 /**
  * TO DO
@@ -50,6 +51,7 @@ export default class Main extends Component {
           <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
           <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
           <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
+          <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
           <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
           <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
           <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
