@@ -14,6 +14,7 @@ var programasRouter = require('./routes/programas');
 var areasRouter = require('./routes/areas');
 var ppRouter = require('./routes/partidas_presupuestarias');
 var genericasRouter = require('./routes/genericas');
+var especificasRouter = require('./routes/especificas');
 var cors = require('cors');
 
 // Se inicializa la app de express
@@ -46,6 +47,7 @@ app.use('/api/programas', programasRouter);
 app.use('/api/areas', areasRouter);
 app.use('/api/partidas_presupuestarias', ppRouter);
 app.use('/api/genericas', genericasRouter);
+app.use('/api/especificas', especificasRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
