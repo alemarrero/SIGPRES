@@ -138,7 +138,7 @@ export default class PartidasPresupuestarias extends Component {
       this.setState({partidas_presupuestarias: partidas_presupuestarias_response});
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las áreas"});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las partidas presupuestarias"});
     }
 
   }
@@ -179,7 +179,7 @@ export default class PartidasPresupuestarias extends Component {
   validarModalCreacion(){
     let formulario_valido = true;
 
-    // Validación del numero_partida
+    // Validación del numero de la partida
     if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9]{3}$/)){
       document.getElementById("numero_partida-modal-creacion").style.display = 'block';
       formulario_valido = false;
@@ -202,7 +202,7 @@ export default class PartidasPresupuestarias extends Component {
   validarModalEdicion(){
     let formulario_valido = true;
 
-    // Validación del numero_partida
+    // Validación del numero de la partida
     if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9]{3}$/)){
       document.getElementById("numero_partida-modal-edicion").style.display = 'block';
       formulario_valido = false;
@@ -224,17 +224,17 @@ export default class PartidasPresupuestarias extends Component {
 
   render() {
 
-    // Modal que muestra el formulario para poder crear una nueva área
+    // Modal que muestra el formulario para poder crear una nueva partida presupuestaria
     let modal_crear_partida_presupuestaria = 
       <Modal isOpen={this.state.modal_crear_partida_presupuestaria_abierto} toggle={() => this.setState({modal_crear_partida_presupuestaria_abierto: !this.state.modal_crear_partida_presupuestaria_abierto})} size="md">
       <ModalHeader toggle={() => this.setState({modal_crear_partida_presupuestaria_abierto: !this.state.modal_crear_partida_presupuestaria_abierto})}>
-        Crear nueva área
+        Crear nueva partida presupuestaria
       </ModalHeader>
       
       <ModalBody>
         <Form> 
           <FormGroup row>
-            {/* Nombre del área*/}
+            {/* Número de la partida presupuestaria*/}
             <Col xs={12} sm={12} md={12} lg={12}>
               <Label>Número de la partida presupuestaria</Label>
               <Input 
@@ -245,7 +245,7 @@ export default class PartidasPresupuestarias extends Component {
           </FormGroup>
 
           <FormGroup row>
-            {/* Descripción del área*/}
+            {/* Denominación de la partida presupuestaria*/}
             <Col xs={12} sm={12} md={12} lg={12}>
               <Label>Denominación de la partida presupuestaria</Label>
               <Input 
@@ -272,7 +272,7 @@ export default class PartidasPresupuestarias extends Component {
     </Modal>
     ;
 
-    // Modal que muestra el formulario para poder editar un área existente
+    // Modal que muestra el formulario para poder editar un partida presupuestaria existente
     let modal_editar_partida_presupuestaria = 
       <Modal isOpen={this.state.modal_editar_partida_presupuestaria_abierto} toggle={() => this.setState({modal_editar_partida_presupuestaria_abierto: !this.state.modal_editar_partida_presupuestaria_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_editar_partida_presupuestaria_abierto: !this.state.modal_editar_partida_presupuestaria_abierto})}>
@@ -282,7 +282,7 @@ export default class PartidasPresupuestarias extends Component {
         <ModalBody>
           <Form> 
             <FormGroup row>
-              {/* Nombre del área */}
+              {/* Número de la partida presupuestaria */}
               <Col xs={12} sm={12} md={12} lg={12}>
                 <Label>Número de la partida presupuestaria</Label>
                 <Input 
@@ -294,7 +294,7 @@ export default class PartidasPresupuestarias extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Descripción del área */}
+              {/* Denominación de la partida presupuestaria */}
               <Col xs={12} sm={12} md={12} lg={12}>
                 <Label>Denominación</Label>
                 <Input 
@@ -390,7 +390,7 @@ export default class PartidasPresupuestarias extends Component {
               <h1 className="titulo-unidades-de-medida">Gestión de Partidas Presupuestarias</h1>
             </Col>
 
-            {/* Botón para agregar áreas */}
+            {/* Botón para agregar partidas presupuestarias */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_partida_presupuestaria_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
@@ -399,7 +399,7 @@ export default class PartidasPresupuestarias extends Component {
             </Col>
           </Row>
 
-          {/* Si existen áreas, muestra una tabla con su información */}
+          {/* Si existen partidas presupuestarias, muestra una tabla con su información */}
           {this.state.partidas_presupuestarias.length > 0 && 
               <Row className="row-unidades-de-medida">
               <Table striped className="tabla-unidades-de-medida">
