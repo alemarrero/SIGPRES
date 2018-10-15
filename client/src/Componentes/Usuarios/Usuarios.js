@@ -200,7 +200,9 @@ import { arch } from 'os';
       const registrar_usuario_response = await registrar_usuario_request.json();
 
       if(registrar_usuario_response === 'ok'){
-        this.setState({modal_registrar_usuario_abierto: false, modal_operacion_exitosa: true, mensaje: "Usuario creado correctamente"});
+        this.setState({modal_registrar_usuario_abierto: false, modal_operacion_exitosa: true, mensaje: "Usuario creado correctamente"}), async () => {
+          this.obtenerUsuarios();
+        };
       }
       else if(registrar_usuario_response === 'usuario ya existe'){
         document.getElementById("usuario-existente-modal-registro").style.display = 'block';
