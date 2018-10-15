@@ -217,7 +217,7 @@ export default class UnidadesDeMedida extends Component {
           <FormGroup row>
             {/* Nombre de la unidad de medida*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Nombre de la unidad</Label>
+              <Label>Nombre de la unidad*</Label>
               <Input 
                 onChange={(e) => this.setState({nombre: e.target.value})}
               />
@@ -253,7 +253,7 @@ export default class UnidadesDeMedida extends Component {
             <FormGroup row>
               {/* Nombre de la unidad de medida */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre</Label>
+                <Label>Nombre de la unidad de medida*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}

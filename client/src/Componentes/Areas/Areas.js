@@ -236,7 +236,7 @@ export default class Areas extends Component {
           <FormGroup row>
             {/* Nombre del área*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Nombre del área</Label>
+              <Label>Nombre del área*</Label>
               <Input 
                 onChange={(e) => this.setState({nombre: e.target.value})}
               />
@@ -247,7 +247,7 @@ export default class Areas extends Component {
           <FormGroup row>
             {/* Descripción del área*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Descripción del área</Label>
+              <Label>Descripción del área*</Label>
               <Input 
                 onChange={(e) => this.setState({descripcion: e.target.value})}
               />
@@ -284,7 +284,7 @@ export default class Areas extends Component {
             <FormGroup row>
               {/* Nombre del área */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre</Label>
+                <Label>Nombre del área</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -296,7 +296,7 @@ export default class Areas extends Component {
             <FormGroup row>
               {/* Descripción del área */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Descripción</Label>
+                <Label>Descripción del área*</Label>
                 <Input 
                   defaultValue={this.state.descripcion}
                   onChange={(e) => this.setState({descripcion: e.target.value})}

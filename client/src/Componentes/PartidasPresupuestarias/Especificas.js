@@ -261,7 +261,7 @@ export default class Especificas extends Component {
           <FormGroup row>
             {/* Número de la específica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Número de la específica</Label>
+              <Label>Número de la específica*</Label>
               <Input 
                 onChange={(e) => this.setState({numero_especifica: e.target.value})}
               />
@@ -272,7 +272,7 @@ export default class Especificas extends Component {
           <FormGroup row>
             {/* Denominación de la específica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Denominación de la específica</Label>
+              <Label>Denominación de la específica*</Label>
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
@@ -309,7 +309,7 @@ export default class Especificas extends Component {
             <FormGroup row>
               {/* Número de la específica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Número de la específica</Label>
+                <Label>Número de la específica*</Label>
                 <Input 
                   defaultValue={this.state.numero_especifica}
                   onChange={(e) => this.setState({numero_especifica: e.target.value})}
@@ -321,7 +321,7 @@ export default class Especificas extends Component {
             <FormGroup row>
               {/* Denominación de la específica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Denominación</Label>
+                <Label>Denominación*</Label>
                 <Input 
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}
