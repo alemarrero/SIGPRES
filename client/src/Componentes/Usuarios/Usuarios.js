@@ -300,7 +300,11 @@ import { arch } from 'os';
     }
 
     // Validación de la fecha de nacimiento
-    if(this.state.fecha_nacimiento === undefined){
+    const año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    const fecha_actual = new Date();
+    const año_actual = fecha_actual.getFullYear();
+
+    if(this.state.fecha_nacimiento === undefined || año_actual - año_nacimiento < 18){
       document.getElementById("fecha-nacimiento-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
@@ -414,7 +418,11 @@ import { arch } from 'os';
     }
 
     // Validación de la fecha de nacimiento
-    if(this.state.fecha_nacimiento === undefined){
+    const año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    const fecha_actual = new Date();
+    const año_actual = fecha_actual.getFullYear();
+
+    if(this.state.fecha_nacimiento === undefined || año_actual - año_nacimiento < 18){
       document.getElementById("fecha-nacimiento-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -560,7 +568,7 @@ import { arch } from 'os';
                   max={maxDate}
                   onChange={(e) => this.setState({fecha_nacimiento: e.target.value})}  
                 />
-                <span id="fecha-nacimiento-modal-registro" className="error-usuarios">Fecha de nacimiento inválida</span>
+                <span id="fecha-nacimiento-modal-registro" className="error-usuarios">Fecha de nacimiento inválida. El usuario debe ser mayor a 18 años.</span>
               </Col>
               
               {/* Fecha de ingreso */}
@@ -735,7 +743,7 @@ import { arch } from 'os';
                   type="date"
                   onChange={(e) => this.setState({fecha_nacimiento: e.target.value})}  
                 />
-                <span id="fecha-nacimiento-modal-edicion" className="error-usuarios">Fecha de nacimiento inválida</span>
+                <span id="fecha-nacimiento-modal-edicion" className="error-usuarios">Fecha de nacimiento inválida. El usuario debe ser mayor a 18 años.</span>
               </Col>
               
               {/* Fecha de ingreso */}
