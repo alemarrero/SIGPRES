@@ -490,6 +490,10 @@ import { arch } from 'os';
 
   render() {
 
+    const date = new Date();
+
+    const maxDate = date.toISOString().substring(0,10);
+
     // Modal que muestra el formulario para poder crear a un nuevo usuario
     let modal_registrar_usuario = 
       <Modal isOpen={this.state.modal_registrar_usuario_abierto} toggle={() => this.setState({modal_registrar_usuario_abierto: !this.state.modal_registrar_usuario_abierto})} size="lg">
@@ -553,6 +557,7 @@ import { arch } from 'os';
                 <Label>Fecha de nacimiento*</Label>
                 <Input 
                   type="date"
+                  max={maxDate}
                   onChange={(e) => this.setState({fecha_nacimiento: e.target.value})}  
                 />
                 <span id="fecha-nacimiento-modal-registro" className="error-usuarios">Fecha de nacimiento inválida</span>
@@ -563,6 +568,7 @@ import { arch } from 'os';
                 <Label>Fecha de ingreso a la CMB*</Label>
                 <Input 
                   type="date"
+                  max={maxDate}
                   onChange={(e) => this.setState({fecha_ingreso: e.target.value})}
                 />
                 <span id="fecha-ingreso-modal-registro" className="error-usuarios">Fecha de ingreso inválida</span>
