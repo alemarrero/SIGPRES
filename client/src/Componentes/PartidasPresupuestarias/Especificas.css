@@ -1,0 +1,11 @@
+.error-especificas{
+    display: none;
+    color: red;
+    font-size: 15px;    
+}
+
+button.boton-crear-modal-especifica.btn.btn-success{
+    margin-right: 5px;
+    font-family: 'Roboto', sans-serif;
+    width:35%;    
+}

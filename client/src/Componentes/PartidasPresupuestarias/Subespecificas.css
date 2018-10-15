@@ -1,0 +1,11 @@
+.error-subespecificas{
+    display: none;
+    color: red;
+    font-size: 15px;    
+}
+
+button.boton-crear-modal-subespecifica.btn.btn-success{
+    margin-right: 5px;
+    font-family: 'Roboto', sans-serif;
+    width:40%;    
+}

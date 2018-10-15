@@ -5,7 +5,7 @@ module.exports = {
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('usuarios', 'departamento', {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     });
   }

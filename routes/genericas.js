@@ -4,11 +4,12 @@ var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdmi
 var models = require('../models');
 
 
-router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(req, res, next) {
-  models.partidas_presupuestarias
+router.post('/crear_generica', autorizarAdministrador, function(req, res, next) {
+  models.genericas
   .create({
-    numero_partida: req.body.numero_partida, 
-    denominacion: req.body.denominacion
+    numero_generica: req.body.numero_generica, 
+    denominacion: req.body.denominacion,
+    partida_presupuestaria_id: req.body.partida_presupuestaria_id
   })  
   .then(response => {
     if(response){
@@ -22,10 +23,10 @@ router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(re
 });
 
 
-router.post('/actualizar_partida_presupuestaria', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.update({
-    numero_partida: req.body.numero_partida,
-    habilitado: req.body.habilitado,
+router.post('/actualizar_generica', autorizarAdministrador, function(req, res){
+  models.genericas.update({
+    numero_generica: req.body.numero_generica,
+    habilitada: req.body.habilitada,
     denominacion: req.body.denominacion
   },
   {where: {id: req.body.id}})
@@ -43,8 +44,8 @@ router.post('/actualizar_partida_presupuestaria', autorizarAdministrador, functi
   });
 });
 
-router.post('/eliminar_partida_presupuestaria', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.destroy({where: {id: req.body.id}})
+router.post('/eliminar_generica', autorizarAdministrador, function(req, res){
+  models.genericas.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
       res.status(200).json('ok');
@@ -60,9 +61,9 @@ router.post('/eliminar_partida_presupuestaria', autorizarAdministrador, function
 });
 
 
-router.post('/habilitar_partida_presupuestaria', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.update({
-    habilitado: true 
+router.post('/habilitar_generica', autorizarAdministrador, function(req, res){
+  models.genericas.update({
+    habilitada: true 
   }, {where: {id: req.body.id}})
   .then(x => {
     if(x[0]){
@@ -78,9 +79,9 @@ router.post('/habilitar_partida_presupuestaria', autorizarAdministrador, functio
   })
 });
 
-router.post('/deshabilitar_partida_presupuestaria', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.update({
-    habilitado: false 
+router.post('/deshabilitar_generica', autorizarAdministrador, function(req, res){
+  models.genericas.update({
+    habilitada: false 
   }, {where: {id: req.body.id}})
   .then(x => {
     if(x[0]){
@@ -96,8 +97,8 @@ router.post('/deshabilitar_partida_presupuestaria', autorizarAdministrador, func
   })
 });
 
-router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.findAll()
+router.get('/obtener_genericas', autorizarAdministrador, function(req, res){
+  models.genericas.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
   })
@@ -107,18 +108,17 @@ router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function
   })
 });
 
-
-router.post('/obtener_partida_presupuestaria', autorizarAdministrador, function(req, res){
-  models.partidas_presupuestarias.findOne({
-    where: {numero_partida: req.body.numero_partida}
-  })
-  .then( resultado => {
-    res.json(resultado).status(200);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json('err');
-  })
-});
+router.post('/obtener_generica', autorizarAdministrador, function(req, res){
+    models.genericas.findOne({
+      where: {numero_generica: req.body.numero_generica}
+    })
+    .then( resultado => {
+      res.json(resultado).status(200);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    })
+  });
 
 module.exports = router;

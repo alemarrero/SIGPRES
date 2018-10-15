@@ -1,22 +1,26 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const partidas_presupuestarias = sequelize.define('partidas_presupuestarias', {
+  const subespecificas = sequelize.define('subespecificas', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    numero_partida: {
-      type: DataTypes.INTEGER,
+    numero_subespecifica: {
+      type: DataTypes.STRING,
       unique: true,
+      allowNull: false
+    },    
+    especifica_id: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     denominacion: {
         type: DataTypes.STRING,
         allowNull: false
       },   
-    habilitado: {
+    habilitada: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
@@ -25,10 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     freezeTableName: true
   });
-  partidas_presupuestarias.associate = function(models) {
-    partidas_presupuestarias.hasMany(models.genericas, {
-      foreignKey: 'partida_presupuestaria_id',
-      as: 'genericas',
+  subespecificas.associate = function(models) {
+    subespecificas.belongsTo(models.especificas, {
+      foreignKey: 'especifica_id',
     })  };
-  return partidas_presupuestarias;
+  return subespecificas;
 };
