@@ -16,12 +16,11 @@ let subirArchivo =  function(preset){
       req.file.path, 
       preset, 
       function(error, result) {
-        console.log(result, error);
         if(error){
+          console.log(error);
           res.status(500).json('err');
         }
         else{
-          console.log(result);
           req.file_url = result.url;
           req.public_id = result.public_id;
           next();
