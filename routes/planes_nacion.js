@@ -3,6 +3,7 @@ var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var subirArchivo = require('../controllers/manejoDeArchivos/subirArchivo');
+var actualizarArchivo = require('../controllers/manejoDeArchivos/actualizarArchivo');
 var eliminarArchivo = require('../controllers/manejoDeArchivos/eliminarArchivo');
 var models = require('../models');
 
@@ -72,6 +73,40 @@ router.post('/actualizar_plan_nacion', autorizarAdministrador, function(req, res
   });
 });
 
+/**
+ * Endpoint que se encarga de actualizar los datos de un plan de la nación.
+ * 
+ * Parámetros:
+ * @param {Int} id id del plan de la nación dentro de la base de datos.
+ * @param {String} fichero_anterior public_id existente del archivo, utilizado para borrar el fichero anterior en Cloudinary.
+ * @param {File} fichero archivo con el contenido del plan que será subido a Cloudinary.
+ * 
+ * Respuestas:
+ * @return estado 200 y 'ok' si el archivo del plan se pudo actualizar correctamente.
+ * @return estado 500 y 'err' si ocurrió algún error en el servidor.
+ * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
+ * @return estado 403 y 'err' si el usuario no posee el rol necesario.
+ */
+router.post('/actualizar_archivo_plan_nacion', autorizarAdministrador, recibirArchivo, actualizarArchivo("planes_nacion"), function(req, res){
+  models.planes_nacion.findOne({where: {id: req.body.id}})
+  .then(plan => {
+    plan.fichero = req.public_id;
+    plan.enlace = req.file_url;
+    
+    plan.save()
+    .then(() => {
+      res.status(200).json('ok');
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json('err');
+    })
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
 /**
  * Endpoint que se encarga de eliminar un plan de la nación. Adicionalmente, 
  * borra el archivo de Cloudinary que tiene asociado.
