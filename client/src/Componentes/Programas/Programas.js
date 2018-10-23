@@ -333,7 +333,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Nombre del programa */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre del programa</Label>
+                <Label>Nombre del programa*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -345,7 +345,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Fecha de inicio del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de inicio</Label>
+                <Label>Fecha de inicio*</Label>
                 <Input 
                   type="date"
                   defaultValue={this.state.fecha_inicio}
@@ -357,7 +357,7 @@ export default class Programas extends Component {
 
               {/* Fecha de finalización del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de finalización</Label>
+                <Label>Fecha de finalización*</Label>
                 <Input 
                   type="date"
                   defaultValue={this.state.fecha_finalizacion}
@@ -374,7 +374,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Duración del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label className="programas-label-duracion">Duración del programa</Label>
+                <Label className="programas-label-duracion">Duración del programa*</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.duracion_programa}
@@ -399,7 +399,7 @@ export default class Programas extends Component {
 
               {/* Dirección asociada al programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Dirección de adscripción</Label>
+                <Label>Dirección de adscripción*</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.area_id}
@@ -418,7 +418,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Descripción del programa */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Descripción</Label>
+                <Label>Descripción*</Label>
                 <Input 
                   defaultValue={this.state.descripcion}
                   onChange={(e) => this.setState({descripcion: e.target.value})}
@@ -453,7 +453,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Nombre del programa */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre del programa</Label>
+                <Label>Nombre del programa*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -465,7 +465,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Fecha de inicio del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de inicio</Label>
+                <Label>Fecha de inicio*</Label>
                 <Input 
                   type="date"
                   defaultValue={this.state.fecha_inicio}
@@ -477,7 +477,7 @@ export default class Programas extends Component {
 
               {/* Fecha de finalización del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de finalización</Label>
+                <Label>Fecha de finalización*</Label>
                 <Input 
                   type="date"
                   defaultValue={this.state.fecha_finalizacion}
@@ -490,7 +490,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Duración del programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label className="programas-label-duracion">Duración del programa</Label>
+                <Label className="programas-label-duracion">Duración del programa*</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.duracion_programa}
@@ -515,7 +515,7 @@ export default class Programas extends Component {
 
               {/* Dirección asociada al programa */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Dirección de adscripción</Label>
+                <Label>Dirección de adscripción*</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.area_id}
@@ -534,7 +534,7 @@ export default class Programas extends Component {
             <FormGroup row>
               {/* Descripción del programa */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Descripción</Label>
+                <Label>Descripción*</Label>
                 <Input 
                   defaultValue={this.state.descripcion}
                   onChange={(e) => this.setState({descripcion: e.target.value})}

@@ -16,6 +16,7 @@ var ppRouter = require('./routes/partidas_presupuestarias');
 var genericasRouter = require('./routes/genericas');
 var especificasRouter = require('./routes/especificas');
 var subespecificasRouter = require('./routes/subespecificas');
+var planesNacionRouter = require('./routes/planes_nacion');
 
 var cors = require('cors');
 
@@ -51,6 +52,7 @@ app.use('/api/partidas_presupuestarias', ppRouter);
 app.use('/api/genericas', genericasRouter);
 app.use('/api/especificas', especificasRouter);
 app.use('/api/subespecificas', subespecificasRouter);
+app.use('/api/planes_nacion', planesNacionRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {

@@ -261,7 +261,7 @@ export default class Genericas extends Component {
           <FormGroup row>
             {/* Nombre de la genérica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Número de la genérica</Label>
+              <Label>Número de la genérica*</Label>
               <Input 
                 onChange={(e) => this.setState({numero_generica: e.target.value})}
               />
@@ -272,7 +272,7 @@ export default class Genericas extends Component {
           <FormGroup row>
             {/* Descripción de la genérica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Denominación de la genérica</Label>
+              <Label>Denominación de la genérica*</Label>
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
@@ -309,7 +309,7 @@ export default class Genericas extends Component {
             <FormGroup row>
               {/* Nombre de la genérica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Número de la genérica</Label>
+                <Label>Número de la genérica*</Label>
                 <Input 
                   defaultValue={this.state.numero_generica}
                   onChange={(e) => this.setState({numero_generica: e.target.value})}
@@ -321,7 +321,7 @@ export default class Genericas extends Component {
             <FormGroup row>
               {/* Descripción de la genérica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Denominación</Label>
+                <Label>Denominación*</Label>
                 <Input 
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}

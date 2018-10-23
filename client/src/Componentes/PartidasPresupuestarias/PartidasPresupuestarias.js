@@ -236,7 +236,7 @@ export default class PartidasPresupuestarias extends Component {
           <FormGroup row>
             {/* Número de la partida presupuestaria*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Número de la partida presupuestaria</Label>
+              <Label>Número de la partida presupuestaria*</Label>
               <Input 
                 onChange={(e) => this.setState({numero_partida: e.target.value})}
               />
@@ -247,7 +247,7 @@ export default class PartidasPresupuestarias extends Component {
           <FormGroup row>
             {/* Denominación de la partida presupuestaria*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Denominación de la partida presupuestaria</Label>
+              <Label>Denominación de la partida presupuestaria*</Label>
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
@@ -284,7 +284,7 @@ export default class PartidasPresupuestarias extends Component {
             <FormGroup row>
               {/* Número de la partida presupuestaria */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Número de la partida presupuestaria</Label>
+                <Label>Número de la partida presupuestaria*</Label>
                 <Input 
                   defaultValue={this.state.numero_partida}
                   onChange={(e) => this.setState({numero_partida: e.target.value})}
@@ -296,7 +296,7 @@ export default class PartidasPresupuestarias extends Component {
             <FormGroup row>
               {/* Denominación de la partida presupuestaria */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Denominación</Label>
+                <Label>Denominación*</Label>
                 <Input 
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}

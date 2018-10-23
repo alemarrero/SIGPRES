@@ -261,7 +261,7 @@ export default class Subespecificas extends Component {
           <FormGroup row>
             {/* Numero de la subespecífica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Número de la subespecífica</Label>
+              <Label>Número de la subespecífica*</Label>
               <Input 
                 onChange={(e) => this.setState({numero_subespecifica: e.target.value})}
               />
@@ -272,7 +272,7 @@ export default class Subespecificas extends Component {
           <FormGroup row>
             {/* Denominación de la subespecífica*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Denominación de la subespecífica</Label>
+              <Label>Denominación de la subespecífica*</Label>
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
@@ -309,7 +309,7 @@ export default class Subespecificas extends Component {
             <FormGroup row>
               {/* Numero de la subespecífica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Número de la subespecífica</Label>
+                <Label>Número de la subespecífica*</Label>
                 <Input 
                   defaultValue={this.state.numero_subespecifica}
                   onChange={(e) => this.setState({numero_subespecifica: e.target.value})}
@@ -321,7 +321,7 @@ export default class Subespecificas extends Component {
             <FormGroup row>
               {/* Denominación de la subespecífica */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Denominación</Label>
+                <Label>Denominación*</Label>
                 <Input 
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}

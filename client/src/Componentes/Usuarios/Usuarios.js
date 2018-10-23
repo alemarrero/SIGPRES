@@ -200,7 +200,9 @@ import { arch } from 'os';
       const registrar_usuario_response = await registrar_usuario_request.json();
 
       if(registrar_usuario_response === 'ok'){
-        this.setState({modal_registrar_usuario_abierto: false, modal_operacion_exitosa: true, mensaje: "Usuario creado correctamente"});
+        this.setState({modal_registrar_usuario_abierto: false, modal_operacion_exitosa: true, mensaje: "Usuario creado correctamente"}), async () => {
+          this.obtenerUsuarios();
+        };
       }
       else if(registrar_usuario_response === 'usuario ya existe'){
         document.getElementById("usuario-existente-modal-registro").style.display = 'block';
@@ -298,7 +300,11 @@ import { arch } from 'os';
     }
 
     // Validación de la fecha de nacimiento
-    if(this.state.fecha_nacimiento === undefined){
+    const año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    const fecha_actual = new Date();
+    const año_actual = fecha_actual.getFullYear();
+
+    if(this.state.fecha_nacimiento === undefined || año_actual - año_nacimiento < 18){
       document.getElementById("fecha-nacimiento-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
@@ -412,7 +418,11 @@ import { arch } from 'os';
     }
 
     // Validación de la fecha de nacimiento
-    if(this.state.fecha_nacimiento === undefined){
+    const año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    const fecha_actual = new Date();
+    const año_actual = fecha_actual.getFullYear();
+
+    if(this.state.fecha_nacimiento === undefined || año_actual - año_nacimiento < 18){
       document.getElementById("fecha-nacimiento-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -488,6 +498,10 @@ import { arch } from 'os';
 
   render() {
 
+    const date = new Date();
+
+    const maxDate = date.toISOString().substring(0,10);
+
     // Modal que muestra el formulario para poder crear a un nuevo usuario
     let modal_registrar_usuario = 
       <Modal isOpen={this.state.modal_registrar_usuario_abierto} toggle={() => this.setState({modal_registrar_usuario_abierto: !this.state.modal_registrar_usuario_abierto})} size="lg">
@@ -500,7 +514,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Nombre del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Nombre</Label>
+                <Label>Nombre*</Label>
                 <Input 
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
@@ -509,7 +523,7 @@ import { arch } from 'os';
               
               {/* Apellido del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Apellido</Label>
+                <Label>Apellido*</Label>
                 <Input
                   onChange={(e) => this.setState({apellido: e.target.value})}
                 />
@@ -520,7 +534,7 @@ import { arch } from 'os';
             {/* Cédula del usuario */}
             <FormGroup row>              
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label className="form-cedula">Número de cédula</Label>
+                <Label className="form-cedula">Número de cédula*</Label>
                 <Input 
                   type="select"
                   onChange={(e) => this.setState({tipo_cedula: e.target.value})}
@@ -536,7 +550,7 @@ import { arch } from 'os';
 
             {/* Correo electrónico del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Correo electrónico</Label>
+                <Label>Correo electrónico*</Label>
                 <Input
                   onChange={(e) => this.setState({correo: e.target.value})}
                 />
@@ -548,19 +562,21 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Fecha de nacimiento */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de nacimiento</Label>
+                <Label>Fecha de nacimiento*</Label>
                 <Input 
                   type="date"
+                  max={maxDate}
                   onChange={(e) => this.setState({fecha_nacimiento: e.target.value})}  
                 />
-                <span id="fecha-nacimiento-modal-registro" className="error-usuarios">Fecha de nacimiento inválida</span>
+                <span id="fecha-nacimiento-modal-registro" className="error-usuarios">Fecha de nacimiento inválida. El usuario debe ser mayor a 18 años.</span>
               </Col>
               
               {/* Fecha de ingreso */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de ingreso a la CMB</Label>
+                <Label>Fecha de ingreso a la CMB*</Label>
                 <Input 
                   type="date"
+                  max={maxDate}
                   onChange={(e) => this.setState({fecha_ingreso: e.target.value})}
                 />
                 <span id="fecha-ingreso-modal-registro" className="error-usuarios">Fecha de ingreso inválida</span>
@@ -571,7 +587,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Departamento al que pertenece el usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Dirección</Label>
+                <Label>Dirección*</Label>
                 <Input
                 type="select"
                   onChange={(e) => this.setState({area_id: e.target.value})}
@@ -588,7 +604,7 @@ import { arch } from 'os';
               
               {/* Cargo del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Cargo</Label>
+                <Label>Cargo*</Label>
                 <Input
                   onChange={(e) => this.setState({cargo: e.target.value})}
                 />
@@ -600,7 +616,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Nombre de usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Nombre de usuario</Label>
+                <Label>Nombre de usuario*</Label>
                 <Input
                   placeholder={this.state.nombre && this.state.apellido ? `Recomendación: ${(this.state.nombre.charAt(0) + this.state.apellido).toLowerCase()}` : undefined}
                   onChange={(e) => this.setState({usuario: e.target.value})}
@@ -611,7 +627,7 @@ import { arch } from 'os';
 
               {/* password */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Contraseña</Label>
+                <Label>Contraseña*</Label>
                 <Input 
                   placeholder="Mínimo 6 caracteres"
                   type="password"
@@ -624,7 +640,7 @@ import { arch } from 'os';
             {/* Rol del usuario */}
             <FormGroup row>
               <Col xs={12} sm={12} md={12} lg={12}> 
-                <Label>Rol del usuario</Label>   
+                <Label>Rol del usuario*</Label>   
                 <Input 
                   type="select"
                   onChange={(e) => this.setState({rol: e.target.value})}
@@ -665,7 +681,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Nombre del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Nombre</Label>
+                <Label>Nombre*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -675,7 +691,7 @@ import { arch } from 'os';
               
               {/* Apellido del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Apellido</Label>
+                <Label>Apellido*</Label>
                 <Input
                   defaultValue={this.state.apellido}
                   onChange={(e) => this.setState({apellido: e.target.value})}
@@ -687,7 +703,7 @@ import { arch } from 'os';
             {/* Cédula del usuario */}
             <FormGroup row>              
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label className="form-cedula">Número de cédula</Label>
+                <Label className="form-cedula">Número de cédula*</Label>
                 <Input 
                   type="select"
                   defaultValue={this.state.tipo_cedula}
@@ -708,7 +724,7 @@ import { arch } from 'os';
 
               {/* Correo electrónico del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Correo electrónico</Label>
+                <Label>Correo electrónico*</Label>
                 <Input
                   defaultValue={this.state.correo}
                   onChange={(e) => this.setState({correo: e.target.value})}
@@ -721,18 +737,18 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Fecha de nacimiento */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de nacimiento</Label>
+                <Label>Fecha de nacimiento*</Label>
                 <Input 
                   defaultValue={this.state.fecha_nacimiento}
                   type="date"
                   onChange={(e) => this.setState({fecha_nacimiento: e.target.value})}  
                 />
-                <span id="fecha-nacimiento-modal-edicion" className="error-usuarios">Fecha de nacimiento inválida</span>
+                <span id="fecha-nacimiento-modal-edicion" className="error-usuarios">Fecha de nacimiento inválida. El usuario debe ser mayor a 18 años.</span>
               </Col>
               
               {/* Fecha de ingreso */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fecha de ingreso a la CMB</Label>
+                <Label>Fecha de ingreso a la CMB*</Label>
                 <Input 
                   defaultValue={this.state.fecha_ingreso}
                   type="date"
@@ -746,7 +762,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Dirección al que pertenece el usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Dirección</Label>
+                <Label>Dirección*</Label>
                 <Input
                   type="select"
                   defaultValue={this.state.area_id}
@@ -763,7 +779,7 @@ import { arch } from 'os';
               
               {/* Cargo del usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Cargo</Label>
+                <Label>Cargo*</Label>
                 <Input
                   defaultValue={this.state.cargo}
                   onChange={(e) => this.setState({cargo: e.target.value})}
@@ -776,7 +792,7 @@ import { arch } from 'os';
             <FormGroup row>
               {/* Nombre de usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Nombre de usuario</Label>
+                <Label>Nombre de usuario*</Label>
                 <Input
                   disabled={true}
                   defaultValue={this.state.usuario}
@@ -801,7 +817,7 @@ import { arch } from 'os';
             {/* Rol del usuario */}
             <FormGroup row>
               <Col xs={12} sm={12} md={12} lg={12}> 
-                <Label>Rol del usuario</Label>   
+                <Label>Rol del usuario*</Label>   
                 <Input 
                   defaultValue={this.state.rol}
                   type="select"

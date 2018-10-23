@@ -213,7 +213,7 @@ export default class MediosDeVerificacion extends Component {
           <FormGroup row>
             {/* Nombre del medio de verificación*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Nombre del medio de verificación</Label>
+              <Label>Nombre del medio de verificación*</Label>
               <Input 
                 onChange={(e) => this.setState({nombre: e.target.value})}
               />
@@ -249,7 +249,7 @@ export default class MediosDeVerificacion extends Component {
             <FormGroup row>
               {/* Nombre del medio de verificación */}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre</Label>
+                <Label>Nombre del medio de verificación*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
