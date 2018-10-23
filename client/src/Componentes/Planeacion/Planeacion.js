@@ -7,7 +7,7 @@ export default class Planeacion extends Component {
   render() {
     return (
       <Row className="fila-opciones-menu-principal">
-        {/* Gestión de usuarios */}
+        {/* Gestión de Programas */}
         <OpcionMenu ruta={'/programas/'} nombre="Gestión de Programas" icono={usuarios}/>
       </Row>
     )
