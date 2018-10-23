@@ -259,7 +259,7 @@ export default class PlanesCGR extends Component {
               <Col xs={12} sm={12} md={126} lg={12}>
                 <CustomInput
                   type="file"
-                  label="Seleccione un archivo"
+                  label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
               </Col>
@@ -362,7 +362,7 @@ export default class PlanesCGR extends Component {
                 <Label>Subir nuevo archivo</Label>
                 <CustomInput
                   type="file"
-                  label="Seleccione un archivo"
+                  label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({nuevo_fichero: true, fichero: e.target.files[0]})}
                 />
               </Col>
