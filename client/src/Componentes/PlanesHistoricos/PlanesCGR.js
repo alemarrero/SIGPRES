@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Button,  Modal, ModalHeader, 
-  ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput, Table} from 'reactstrap';
+  ModalBody, ModalFooter, Input, Label, Form, FormGroup, Table} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
 import withContext from './../../Contenedor/withContext';
@@ -367,7 +367,7 @@ export class PlanesCGR extends Component {
                   })}
                 </Input>
               </Col>
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="periodo-modal-creacion" className="error-plan">Periodo inválido.</span>
                 <span id="periodo2-modal-creacion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
               </Col>
@@ -379,16 +379,16 @@ export class PlanesCGR extends Component {
                 <Label>Archivo del plan operativo*</Label>
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>
-                <CustomInput
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Input
                   id="ficher_modal_creacion"
                   type="file"
-                  label="Seleccione un archivo"
+                  label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="fichero-modal-creacion" className="error-plan">Fichero inválido.</span>
               </Col>
             </FormGroup>
@@ -463,7 +463,7 @@ export class PlanesCGR extends Component {
                   })}
                 </Input>
               </Col>
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="periodo-modal-edicion" className="error-plan">Periodo inválido.</span>
                 <span id="periodo2-modal-edicion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
               </Col>
@@ -484,7 +484,7 @@ export class PlanesCGR extends Component {
 
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Subir nuevo archivo</Label>
-                <CustomInput
+                <Input
                   id="ficher_modal_edicion"
                   type="file"
                   label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
@@ -492,7 +492,7 @@ export class PlanesCGR extends Component {
                 />
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="fichero-modal-edicion" className="error-plan">Fichero inválido.</span>
               </Col>
             </FormGroup>
