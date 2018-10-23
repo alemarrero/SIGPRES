@@ -48,7 +48,7 @@ export class PlanesCGR extends Component {
       body: body
     };
 
-    const eliminar_plan_request = await fetch('/api/planes_nacion/eliminar_plan_nacion', request_options);
+    const eliminar_plan_request = await fetch('/api/planes_cgr/eliminar_plan_cgr', request_options);
     const eliminar_plan_response = await eliminar_plan_request.json();
 
     if(eliminar_plan_response !== 'err'){
@@ -86,7 +86,7 @@ export class PlanesCGR extends Component {
           body: form_body
         };
 
-        const subir_nuevo_fichero_request = await fetch('/api/planes_nacion/actualizar_archivo_plan_nacion', request_options);
+        const subir_nuevo_fichero_request = await fetch('/api/planes_cgr/actualizar_archivo_plan_cgr', request_options);
         const subir_nuevo_fichero_response = await subir_nuevo_fichero_request.json();
 
         // Si el fichero se subió correctamente, procede a actualizar la información del plan
@@ -104,16 +104,16 @@ export class PlanesCGR extends Component {
             body: form_body_2
           };
 
-          const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options_2);
+          const actualizar_plan_request = await fetch('/api/planes_cgr/actualizar_plan_cgr', request_options_2);
           const actualizar_plan_response = await actualizar_plan_request.json();
 
           if(actualizar_plan_response !== 'err'){
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la Contraloría General de la República actualizada exitosamente"}, async () => {
               this.obtenerPlanesOperativos();
             });
           }
           else{
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la Contraloría General de la República"});
           }
         }
         // De lo contrario, ocurrió un error y se le notifica al usuario
@@ -135,30 +135,30 @@ export class PlanesCGR extends Component {
           body: form_body
         };
 
-        const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options);
+        const actualizar_plan_request = await fetch('/api/planes_cgr/actualizar_plan_cgr', request_options);
         const actualizar_plan_response = await actualizar_plan_request.json();
 
         if(actualizar_plan_response !== 'err'){
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la Contraloría General de la República actualizada exitosamente"}, async () => {
             this.obtenerPlanesOperativos();
           });
         }
         else{
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la Contraloría General de la República"});
         }
       }
     }
   }
 
   async obtenerPlanesOperativos(){
-    const planes_request = await fetch('/api/planes_nacion/obtener_planes_nacion', {credentials: 'include'});
+    const planes_request = await fetch('/api/planes_cgr/obtener_planes_cgr', {credentials: 'include'});
     const planes_response = await planes_request.json();
 
     if(planes_response !== 'err'){
       this.setState({planes_operativos: planes_response});
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los planes operativos de la nación"});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los planes operativos de la Contraloría General de la República"});
     }
   }
 
@@ -290,7 +290,7 @@ export class PlanesCGR extends Component {
         body: form_body
       };
 
-      const crear_plan_request = await fetch(`/api/planes_nacion/crear_plan_nacion`, request_options);
+      const crear_plan_request = await fetch(`/api/planes_cgr/crear_plan_cgr`, request_options);
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
