@@ -34,18 +34,89 @@ export class PlanesCGR extends Component {
     this.obtenerPlanes = this.obtenerPlanes.bind(this);
   }
 
-  editarPlanOperativo(){
+  async editarPlanOperativo(){
     if(this.verificarCamposModalEdicion()){
       // Verifica si se actualizó el archivo del plan operativo
       // Si se actualizó, primero se sube el archivo y luego se 
       // actualiza la información del plan
       if(this.state.nuevo_fichero){
+        let form_body = new FormData();
+
+        form_body.append('fichero', this.state.fichero);
+        form_body.append('fichero_anterior', this.state.fichero_anterior);
+        form_body.append('id', this.state.id);
         
+        const request_options = {
+          method: 'post',
+          credentials: 'include',
+          body: form_body
+        };
+
+        const subir_nuevo_fichero_request = await fetch('/api/planes_nacion/actualizar_archivo_plan_nacion', request_options);
+        const subir_nuevo_fichero_response = await subir_nuevo_fichero_request.json();
+
+        // Si el fichero se subió correctamente, procede a actualizar la información del plan
+        if(subir_nuevo_fichero_response !== 'err'){
+          let form_body_2 = JSON.stringify({
+            id: this.state.id,
+            nombre: this.state.nombre,
+            periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`
+          });
+
+          const request_options_2 = {
+            method: 'post',
+            credentials: 'include',
+            headers: {"Content-Type": "application/json"},
+            body: form_body_2
+          };
+
+          const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options_2);
+          const actualizar_plan_response = await actualizar_plan_request.json();
+
+          if(actualizar_plan_response !== 'err'){
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+              this.obtenerPlanesOperativos();
+            });
+          }
+          else{
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+          }
+      }
+        // De lo contrario, ocurrió un error y se le notifica al usuario
+        else{
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al subir el archivo al servidor"});
+    }
+  }
+      else{
+        let form_body = JSON.stringify({
+          id: this.state.id,
+          nombre: this.state.nombre,
+          periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`
+        });
+
+        const request_options = {
+          method: 'post',
+          credentials: 'include',
+          headers: {"Content-Type": "application/json"},
+          body: form_body
+        };
+
+        const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options);
+        const actualizar_plan_response = await actualizar_plan_request.json();
+
+        if(actualizar_plan_response !== 'err'){
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+            this.obtenerPlanesOperativos();
+          });
+        }
+        else{
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+        }
       }
     }
   }
 
-  async obtenerPlanes(){
+  async obtenerPlanesOperativos(){
     const planes_request = await fetch('/api/planes_nacion/obtener_planes_nacion', {credentials: 'include'});
     const planes_response = await planes_request.json();
 
