@@ -4,6 +4,12 @@
   margin: 30px auto;
 }
 
+.boton-eliminar-modal.btn.btn-warning{
+  margin-right: 5px;
+  color: white;
+  font-weight: bold;
+}
+
 .error-plan{
   display: none;
   color: red;

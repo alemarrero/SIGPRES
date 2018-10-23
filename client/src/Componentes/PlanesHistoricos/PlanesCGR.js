@@ -17,6 +17,7 @@ export class PlanesCGR extends Component {
       fin_periodo: 1950,
       periodo: undefined,
       fichero: undefined,
+      nuevo_fichero: false,
       enlace: undefined,
       id: undefined,
       habilitado: false,
@@ -32,6 +33,40 @@ export class PlanesCGR extends Component {
     this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
     this.cargarModalEdicion = this.cargarModalEdicion.bind(this);
     this.obtenerPlanesOperativos = this.obtenerPlanesOperativos.bind(this);
+    this.eliminarPlanOperativo = this.eliminarPlanOperativo.bind(this);
+  }
+
+  async eliminarPlanOperativo(){
+    const body = JSON.stringify({
+      id: this.state.id,
+      fichero: this.state.fichero,
+    });
+
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: body
+    };
+
+    const eliminar_plan_request = await fetch('/api/planes_nacion/eliminar_plan_nacion', request_options);
+    const eliminar_plan_response = await eliminar_plan_request.json();
+
+    if(eliminar_plan_response !== 'err'){
+      this.setState({
+        modal_editar_plan_operativo_abierto: false, 
+        modal_operacion_exitosa: true, 
+        mensaje: "Plan Operativo de la Contraloría General de la República eliminado exitosamente"}, async () => {
+        this.obtenerPlanesOperativos();
+      });
+    }
+    else{
+      this.setState({
+        modal_editar_plan_operativo_abierto: false, 
+        modal_operacion_fallida: true, 
+        mensaje: "Ha ocurrido un error al eliminar el Plan Operativo de la Contraloría General de la República"
+      });
+    }
   }
 
   async editarPlanOperativo(){
@@ -45,7 +80,7 @@ export class PlanesCGR extends Component {
         form_body.append('fichero', this.state.fichero);
         form_body.append('fichero_anterior', this.state.fichero_anterior);
         form_body.append('id', this.state.id);
-        
+
         const request_options = {
           method: 'post',
           credentials: 'include',
@@ -81,12 +116,12 @@ export class PlanesCGR extends Component {
           else{
             this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
           }
-      }
+        }
         // De lo contrario, ocurrió un error y se le notifica al usuario
         else{
           this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al subir el archivo al servidor"});
-    }
-  }
+        }
+      }
       else{
         let form_body = JSON.stringify({
           id: this.state.id,
@@ -203,17 +238,17 @@ export class PlanesCGR extends Component {
     else{
       document.getElementById("nombre-modal-edicion").style.display = "none";
     }
-
+    
     let periodo = undefined;
     let inicio_periodo = 0;
     let fin_periodo = 0;
-
+    
     if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
       periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
       inicio_periodo = parseInt(this.state.inicio_periodo);
       fin_periodo = parseInt(this.state.fin_periodo);
     }
-
+    
     if(periodo === undefined || periodo.includes('undefined')){
       formulario_valido = false;
       document.getElementById("periodo-modal-edicion").style.display = "block";
@@ -221,7 +256,7 @@ export class PlanesCGR extends Component {
     else{
       document.getElementById("periodo-modal-edicion").style.display = "none";
     }
-
+    
     if(inicio_periodo > fin_periodo){
       formulario_valido = false;
       document.getElementById("periodo2-modal-edicion").style.display = "block";
@@ -229,7 +264,7 @@ export class PlanesCGR extends Component {
     else{
       document.getElementById("periodo2-modal-edicion").style.display = "none";
     }
-
+    
     if(this.state.nuevo_fichero && this.state.fichero === undefined){
       formulario_valido = false;
       document.getElementById("fichero-modal-edicion").style.display = "block";
@@ -466,6 +501,10 @@ export class PlanesCGR extends Component {
             <Button onClick={this.editarPlanOperativo} color="success" type="submit" className="boton-crear-modal">
               Editar plan
             </Button>
+
+            <Button onClick={this.eliminarPlanOperativo} color="warning" type="submit" className="boton-eliminar-modal">
+              Eliminar plan
+            </Button>
             
             <Button color="danger" onClick={() => this.setState({modal_editar_plan_operativo_abierto: false})} className="boton-cancelar-modal">
               Cancelar
@@ -552,7 +591,6 @@ export class PlanesCGR extends Component {
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Periodo</th>                    
-                    <th>Habilitado</th>
                     <th>Enlace</th>
                     <th>Opciones</th>
                   </tr>
@@ -564,7 +602,6 @@ export class PlanesCGR extends Component {
                           <th scope="row">{plan.id}</th>
                           <td>{plan.nombre}</td>
                           <td>{plan.periodo}</td>
-                          <td>{plan.habilitado ? <span>Si</span> : <span>No</span>}</td>
                           <td>
                             <Button 
                                 color="info" className="boton-ver"
