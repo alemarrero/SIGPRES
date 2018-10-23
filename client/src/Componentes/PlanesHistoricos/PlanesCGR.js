@@ -3,6 +3,7 @@ import {Container, Row, Col, Button,  Modal, ModalHeader,
   ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
+import withContext from './../../Contenedor/withContext';
 
 export default class PlanesCGR extends Component {
   constructor(props){
@@ -458,3 +459,5 @@ export default class PlanesCGR extends Component {
     )
   }
 }
+
+export default withContext(PlanesCGR);
