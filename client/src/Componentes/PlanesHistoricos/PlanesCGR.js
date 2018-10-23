@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Button,  Modal, ModalHeader, 
-  ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
+  ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
 
@@ -237,8 +237,9 @@ export default class PlanesCGR extends Component {
               </Col>
 
               <Col xs={12} sm={12} md={126} lg={12}>
-                <Input
+                <CustomInput
                   type="file"
+                  label="Seleccione un archivo"
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
               </Col>
