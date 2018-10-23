@@ -22,7 +22,9 @@ export default class PlanesCGR extends Component {
       habilitado: false,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
-      mensaje: undefined
+      mensaje: undefined,
+      fichero_anterior: undefined,
+      id: undefined,
     };
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
