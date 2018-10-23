@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Button,  Modal, ModalHeader, 
-  ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput} from 'reactstrap';
+  ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput, Table} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
 import withContext from './../../Contenedor/withContext';
 
-export default class PlanesCGR extends Component {
+export class PlanesCGR extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -27,10 +27,22 @@ export default class PlanesCGR extends Component {
       id: undefined,
     };
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
+    this.editarPlanOperativo = this.editarPlanOperativo.bind(this);
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
     this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
     this.cargarModalEdicion = this.cargarModalEdicion.bind(this);
     this.obtenerPlanes = this.obtenerPlanes.bind(this);
+  }
+
+  editarPlanOperativo(){
+    if(this.verificarCamposModalEdicion()){
+      // Verifica si se actualizó el archivo del plan operativo
+      // Si se actualizó, primero se sube el archivo y luego se 
+      // actualiza la información del plan
+      if(this.state.nuevo_fichero){
+        
+      }
+    }
   }
 
   async obtenerPlanes(){
@@ -56,7 +68,9 @@ export default class PlanesCGR extends Component {
       habilitado: plan.habilitado,
       inicio_periodo: periodo[0],
       fin_periodo: periodo[1],
-      fichero: undefined
+      fichero: undefined,
+      fichero_anterior: plan.fichero,
+      id: plan.id
     });
   }
 
@@ -185,6 +199,7 @@ export default class PlanesCGR extends Component {
 
   async componentDidMount(){
     document.title = 'SICMB - Planes Operativos de la CGR';
+    console.log(this.props);
     this.obtenerPlanes();
   }
 
@@ -261,7 +276,7 @@ export default class PlanesCGR extends Component {
               <Col xs={12} sm={12} md={126} lg={12}>
                 <CustomInput
                   type="file"
-                  label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
+                  label="Seleccione un archivo"
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
               </Col>
@@ -516,6 +531,7 @@ export default class PlanesCGR extends Component {
             </Col>
           </Row>
         }
+        {console.log(this.props)}
       </Container>
     )
   }
