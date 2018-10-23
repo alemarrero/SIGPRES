@@ -21,11 +21,25 @@ export default class PlanesCGR extends Component {
       habilitado: false,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
+      mensaje: undefined
     };
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
     this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
     this.cargarModalEdicion = this.cargarModalEdicion.bind(this);
+    this.obtenerPlanes = this.obtenerPlanes.bind(this);
+  }
+
+  async obtenerPlanes(){
+    const planes_request = await fetch('/api/planes_nacion/obtener_planes_nacion', {credentials: 'include'});
+    const planes_response = await planes_request.json();
+
+    if(planes_response !== 'err'){
+      this.setState({planes_operativos: planes_response});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los planes operativos de la nación"});
+    }
   }
 
   cargarModalEdicion(index){
@@ -164,6 +178,11 @@ export default class PlanesCGR extends Component {
         this.setState({modal_operacion_fallida: true, modal_editar_medio_abierto: false, mensaje: "Error editando el medio de verificación"});
       }
     }
+  }
+
+  async componentDidMount(){
+    document.title = 'SICMB - Planes Operativos de la CGR';
+    this.obtenerPlanes();
   }
 
   render() {
