@@ -70,7 +70,7 @@ export default class PlanesCGR extends Component {
     }
     else{
       document.getElementById("periodo-modal-creacion").style.display = "none";
-  }
+    }
 
     if(inicio_periodo > fin_periodo){
       formulario_valido = false;
@@ -265,6 +265,109 @@ export default class PlanesCGR extends Component {
       </Modal>
     ;
 
+    let modal_editar_plan = 
+      <Modal isOpen={this.state.modal_editar_plan_operativo_abierto} toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})} size="md">
+        <ModalHeader toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})}>
+          Editar Plan Operativo de la CGR
+        </ModalHeader>
+      
+        <ModalBody>
+          <Form> 
+            <FormGroup row>
+              {/* Nombre del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Nombre del plan operativo*</Label>
+                <Input 
+                  defaultValue={this.state.nombre}
+                  onChange={(e) => this.setState({nombre: e.target.value})}
+                />
+                <span id="nombre-modal-edicion" className="error-plan">Nombre inválido</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              {/* Periodo del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Periodo de vigencia del plan operativo*</Label>
+              </Col>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Año de inicio*</Label>
+                <Input 
+                  type="select"
+                  defaultValue={this.state.inicio_periodo}
+                  onChange={(e) => this.setState({inicio_periodo: e.target.value})}
+                >
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`opcion_inicio_periodo_${año}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Año de culminación*</Label>
+                <Input 
+                  type="select"
+                  defaultValue={this.state.fin_periodo}
+                  onChange={(e) => this.setState({fin_periodo: e.target.value})}
+                >
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`opcion_fin_periodo_${año}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+              </Col>
+              <Col xs={12} sm={12} md={126} lg={12}>              
+                <span id="periodo-modal-creacion" className="error-plan">Periodo inválido.</span>
+                <span id="periodo2-modal-creacion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              {/* Fichero del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Archivo del plan operativo</Label>
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6} className="align-self-end">
+                <Label>Ver archivo actual</Label>
+                <Button color="primary" onClick={() => window.open(this.state.enlace,'_blank')}>
+                  Ver archivo actual
+                </Button>
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Subir nuevo archivo</Label>
+                <CustomInput
+                  type="file"
+                  label="Seleccione un archivo"
+                  onChange={(e) => this.setState({nuevo_fichero: true, fichero: e.target.files[0]})}
+                />
+              </Col>
+
+              <Col xs={12} sm={12} md={126} lg={12}>              
+                <span id="fichero-modal-edicion" className="error-plan">Fichero inválido.</span>
+              </Col>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+      
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
+            <Button onClick={this.editarPlanOperativo} color="success" type="submit" className="boton-crear-modal">
+              Editar plan
+            </Button>
+            
+            <Button color="danger" onClick={() => this.setState({modal_editar_plan_operativo_abierto: false})} className="boton-cancelar-modal">
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
     // Si al realizar cualquier operación ocurre algún error, se muestra este modal
     let modal_operacion_fallida = 
       <Modal isOpen={this.state.modal_operacion_fallida} toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
@@ -313,6 +416,7 @@ export default class PlanesCGR extends Component {
       <Container fluid className="container-planes">
         {/* Modales del componente */}
         {modal_crear_plan}
+        {modal_editar_plan}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
 
