@@ -455,6 +455,65 @@ export default class PlanesCGR extends Component {
             </Button>
           </Col>
         </Row>
+
+        {/* Si existen planes operativos, muestra una tabla con el contenido de los mismos. De lo contrario, invita al usuario a crear un nuevo plan */}
+        {this.state.planes_operativos.length > 0 ?
+          <Row className="justify-content-center">
+            <Table striped>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Periodo</th>                    
+                    <th>Habilitado</th>
+                    <th>Enlace</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  {this.state.planes_operativos.map((plan, index) => {
+                      return(
+                      <tr key={`plan_operativo_cgr_${index}`}>
+                          <th scope="row">{plan.id}</th>
+                          <td>{plan.nombre}</td>
+                          <td>{plan.periodo}</td>
+                          <td>{plan.habilitado ? <span>Si</span> : <span>No</span>}</td>
+                          <td>
+                            <Button 
+                                color="info" className="boton-ver"
+                                onClick={() =>  window.open(plan.enlace,'_blank')}
+                            >
+                                Ver plan
+                            </Button>
+                          </td>
+                          <td>
+                            <Button 
+                                color="info" className="boton-gestionar"
+                                onClick={() => this.cargarModalEdicion(index)}
+                            >
+                                <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                Gestionar
+                            </Button>
+                          </td>
+                      </tr>
+                      )
+                  })}
+                  </tbody>
+              </Table>
+          </Row>
+
+          :
+
+          <Row className="justify-content-center">
+            <Col xs={12} sm={12} md={6} lg={6} className="text-center"> 
+              <h3>
+                Aún no existen Planes Operativos de la Contraloría General de la República 
+                <br/> 
+                Haga click en el botón "Agregar plan operativo" o contacte a un administrador para agregar un nuevo plan.
+              </h3>
+            </Col>
+          </Row>
+        }
       </Container>
     )
   }
