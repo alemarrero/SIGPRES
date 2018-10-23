@@ -14,9 +14,11 @@ class SessionContextProvider extends React.Component {
         rol: undefined
       }
     };
+
+    this.verificarSesion = this.verificarSesion.bind(this);
   }
 
-  async componentDidMount(){
+  async verificarSesion(){
     const session_request = await fetch('/api/auth/session', {credentials: 'include', headers:{"accepts":"application/json"}});
     const session_response = await session_request.json();
 
@@ -26,6 +28,10 @@ class SessionContextProvider extends React.Component {
     else{
       this.props.history.push('/');
     }
+  }
+
+  async componentDidMount(){
+    this.verificarSesion();
   }
 
   render() {
