@@ -12,6 +12,8 @@ export default class PlanesCGR extends Component {
       modal_crear_plan_operativo_abierto: false,
       modal_editar_plan_operativo_abierto: false,
       nombre: undefined,
+      inicio_periodo: 1950,
+      fin_periodo: 1950,
       periodo: undefined,
       fichero: undefined,
       enlace: undefined,
