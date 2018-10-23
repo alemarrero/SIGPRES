@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './BarraNavegacion.css';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, 
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,  
          UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col } from 'reactstrap';
 import logo from '../../assets/img/logo-cmb.png';
 
@@ -27,8 +27,6 @@ export default class BarraNavegacion extends Component {
   async obtenerNombreDelUsuario(){
     const session_request = await fetch('/api/auth/session', {credentials: 'include'});
     const session_response = await session_request.json();
-
-    console.log(session_response);
 
     this.setState({nombre_completo: session_response.nombre_completo});
   }

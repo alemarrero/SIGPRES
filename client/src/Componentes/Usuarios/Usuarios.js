@@ -208,7 +208,6 @@ import { arch } from 'os';
         document.getElementById("usuario-existente-modal-registro").style.display = 'block';
       }
       else{
-        console.log(registrar_usuario_response);
         this.setState({modal_operacion_fallida: true, modal_registrar_usuario_abierto: false, mensaje: "Error creando el usuario"});
       }
     }
@@ -254,7 +253,6 @@ import { arch } from 'os';
       //   document.getElementById("usuario-existente-modal-edicion").style.display = 'block';
       // }
       else{
-        console.log(editar_usuario_response);
         this.setState({modal_operacion_fallida: true, modal_editar_usuario_abierto: false, mensaje: "Error editando el usuario"});
       }
     }

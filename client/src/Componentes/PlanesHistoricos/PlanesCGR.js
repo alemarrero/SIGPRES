@@ -25,7 +25,6 @@ export class PlanesCGR extends Component {
       modal_operacion_fallida: false,
       mensaje: undefined,
       fichero_anterior: undefined,
-      id: undefined,
     };
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
     this.editarPlanOperativo = this.editarPlanOperativo.bind(this);
@@ -197,8 +196,8 @@ export class PlanesCGR extends Component {
 
     if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
       periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
-      inicio_periodo = parseInt(this.state.inicio_periodo);
-      fin_periodo = parseInt(this.state.fin_periodo);
+      inicio_periodo = parseInt(this.state.inicio_periodo, 10);
+      fin_periodo = parseInt(this.state.fin_periodo, 10);
     }
 
     if(periodo === undefined){
@@ -245,8 +244,8 @@ export class PlanesCGR extends Component {
     
     if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
       periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
-      inicio_periodo = parseInt(this.state.inicio_periodo);
-      fin_periodo = parseInt(this.state.fin_periodo);
+      inicio_periodo = parseInt(this.state.inicio_periodo, 10);
+      fin_periodo = parseInt(this.state.fin_periodo, 10);
     }
     
     if(periodo === undefined || periodo.includes('undefined')){
@@ -380,6 +379,7 @@ export class PlanesCGR extends Component {
 
               <Col xs={12} sm={12} md={126} lg={12}>
                 <CustomInput
+                  id="ficher_modal_creacion"
                   type="file"
                   label="Seleccione un archivo"
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
@@ -483,6 +483,7 @@ export class PlanesCGR extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Subir nuevo archivo</Label>
                 <CustomInput
+                  id="ficher_modal_edicion"
                   type="file"
                   label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({nuevo_fichero: true, fichero: e.target.files[0]})}
@@ -607,7 +608,7 @@ export class PlanesCGR extends Component {
                                 color="info" className="boton-ver"
                                 onClick={() =>  window.open(plan.enlace,'_blank')}
                             >
-                                Ver plan
+                              <i className="far fa-eye"></i> Ver plan
                             </Button>
                           </td>
                           <td>
@@ -615,7 +616,7 @@ export class PlanesCGR extends Component {
                                 color="info" className="boton-gestionar"
                                 onClick={() => this.cargarModalEdicion(index)}
                             >
-                                <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                                 Gestionar
                             </Button>
                           </td>
@@ -638,7 +639,6 @@ export class PlanesCGR extends Component {
             </Col>
           </Row>
         }
-        {console.log(this.props)}
       </Container>
     )
   }

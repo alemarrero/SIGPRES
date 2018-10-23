@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Row, Col, Card, CardBody} from 'reactstrap';
+import {Col, Card, CardBody} from 'reactstrap';
 import './Menu.css';
 import { withRouter } from 'react-router-dom';
 import './OpcionMenu.css';

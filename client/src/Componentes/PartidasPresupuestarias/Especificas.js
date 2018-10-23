@@ -190,7 +190,6 @@ export default class Especificas extends Component {
 
   cargarModalEditarEspecifica(ind) {
     const especifica = this.state.especificas[ind];
-    console.log(especifica);
 
     this.setState({
       numero_especifica: especifica.numero_especifica,

@@ -165,7 +165,6 @@ export default class PartidasPresupuestarias extends Component {
 
   cargarModalEditarPartidaPresupuestaria(ind) {
     const partida_presupuestaria = this.state.partidas_presupuestarias[ind];
-    console.log(partida_presupuestaria);
 
     this.setState({
       numero_partida: partida_presupuestaria.numero_partida,

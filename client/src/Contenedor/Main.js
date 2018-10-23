@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap'; 
+import React, { PureComponent } from 'react';
+import { Container } from 'reactstrap'; 
 import { Switch, Route } from 'react-router-dom';
 import BarraNavegacion from '../Componentes/BarraNavegacion/BarraNavegacion';
 import Menu from '../Componentes/Menu/Menu';
@@ -26,10 +26,7 @@ import SessionContextProvider from './SessionContextProvider';
  * TO DO
  *  - Colocarle cursor: pointer a las opciones para que el puntero le indique al usuario que los cuadros son opciones
  */
-export default class Main extends Component {
-  constructor(props){
-    super(props);
-  }
+export default class Main extends PureComponent {
 
   render() {
     return (

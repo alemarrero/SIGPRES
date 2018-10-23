@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
-import { request } from 'http';
 import './Genericas.css'
 
 export default class Genericas extends Component {
@@ -44,7 +43,7 @@ export default class Genericas extends Component {
       const obtener_partida_presupuestaria_request = await fetch(`/api/partidas_presupuestarias/obtener_partida_presupuestaria`, request_options);
       const obtener_partida_presupuestaria_response = await obtener_partida_presupuestaria_request.json();
 
-      if(obtener_partida_presupuestaria_response == 'err'){
+      if(obtener_partida_presupuestaria_response === 'err'){
         this.setState({modal_operacion_fallida: true, mensaje: "Error obteniendo la partida presupuestaria"});
       }
       else{
@@ -190,7 +189,6 @@ export default class Genericas extends Component {
 
   cargarModalEditarGenerica(ind) {
     const generica = this.state.genericas[ind];
-    console.log(generica);
 
     this.setState({
       numero_generica: generica.numero_generica,

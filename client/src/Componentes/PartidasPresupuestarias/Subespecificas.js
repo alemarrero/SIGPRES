@@ -190,7 +190,6 @@ export default class Subespecificas extends Component {
 
   cargarModalEditarSubespecifica(ind) {
     const subespecifica = this.state.subespecificas[ind];
-    console.log(subespecifica);
 
     this.setState({
       numero_subespecifica: subespecifica.numero_subespecifica,

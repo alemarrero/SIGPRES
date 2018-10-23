@@ -165,7 +165,6 @@ export default class Areas extends Component {
 
   cargarModalEditarArea(ind) {
     const area = this.state.areas[ind];
-    console.log(area);
 
     this.setState({
       nombre: area.nombre,

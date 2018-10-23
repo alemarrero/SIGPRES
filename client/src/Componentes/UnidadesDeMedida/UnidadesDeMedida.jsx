@@ -165,7 +165,6 @@ export default class UnidadesDeMedida extends Component {
 
   cargarModalEditarUnidad(ind) {
     const unidad = this.state.unidades_de_medida[ind];
-    console.log(unidad);
 
     this.setState({
       nombre: unidad.nombre,

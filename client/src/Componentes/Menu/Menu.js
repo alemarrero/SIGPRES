@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Card, CardBody} from 'reactstrap';
+import {Row} from 'reactstrap';
 import './Menu.css';
 import administracion from '../../assets/img/work-team.png';
 import presupuesto from '../../assets/img/budget.png';
