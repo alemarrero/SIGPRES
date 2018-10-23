@@ -1,14 +1,208 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button} from 'reactstrap';
+import {Container, Row, Col, Button,  Modal, ModalHeader, 
+  ModalBody, ModalFooter, Input, Label, Form, FormGroup} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
 
 export default class PlanesCGR extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      planes_operativos: [],
+      modal_crear_plan_operativo_abierto: false,
+      modal_editar_plan_operativo_abierto: false,
+      nombre: undefined,
+      periodo: undefined,
+      fichero: undefined,
+      enlace: undefined,
+      id: undefined,
+      habilitado: false,
+      modal_operacion_exitosa: false,
+      modal_operacion_fallida: false,
+    };
+    this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
+    this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
+  }
+
+  verificarCamposModalCreacion(){
+    let formulario_valido = true;
+
+    return formulario_valido;
+  }
+
+  async crearPlanOperativo(){
+    if(this.verificarCamposModalCreacion()){
+      let form_body = new FormData();
+      form_body.append('fichero', this.state.fichero);
+      form_body.append('nombre', this.state.nombre);
+      form_body.append('periodo', `${this.state.inicio_periodo}-${this.state.fin_periodo}`);
+
+      const request_options = {
+        method: 'post',
+        credentials: 'include',
+        body: form_body
+      };
+
+      const crear_plan_request = await fetch(`/api/planes_nacion/crear_plan_nacion`, request_options);
+      const crear_plan_response = await crear_plan_request.json();
+
+      if(crear_plan_response !== 'err'){
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Contraloría General de la República creado correctamente"});
+      }
+      else{
+        this.setState({modal_operacion_fallida: true, modal_editar_medio_abierto: false, mensaje: "Error editando el medio de verificación"});
+      }
+    }
+  }
+
   render() {
+    let años = [];
+
+    for(let i = 1950; i < 2050; i++){
+      años.push(i);
+    }
+
+    let modal_crear_plan = 
+      <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
+        <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
+          Crear nuevo Plan Operativo de la CGR
+        </ModalHeader>
+      
+        <ModalBody>
+          <Form> 
+            <FormGroup row>
+              {/* Nombre del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Nombre del plan operativo*</Label>
+                <Input 
+                  onChange={(e) => this.setState({nombre: e.target.value})}
+                />
+                <span id="nombre-modal-creacion" className="error-plan">Nombre inválido</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              {/* Periodo del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Periodo de vigencia del plan operativo*</Label>
+              </Col>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Año de inicio*</Label>
+                <Input 
+                  type="select"
+                  onChange={(e) => this.setState({inicio_periodo: e.target.value})}
+                >
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`opcion_inicio_periodo_${año}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Año de culminación*</Label>
+                <Input 
+                  type="select"
+                  onChange={(e) => this.setState({fin_periodo: e.target.value})}
+                >
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`opcion_fin_periodo_${año}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+              </Col>
+              <Col xs={12} sm={12} md={126} lg={12}>              
+                <span id="periodo-modal-creacion" className="error-plan">Periodo inválido.</span>
+                <span id="periodo2-modal-creacion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              {/* Fichero del plan operativo*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Archivo del plan operativo*</Label>
+              </Col>
+
+              <Col xs={12} sm={12} md={126} lg={12}>
+                <Input
+                  type="file"
+                  onChange={(e) => this.setState({fichero: e.target.files[0]})}
+                />
+              </Col>
+
+              <Col xs={12} sm={12} md={126} lg={12}>              
+                <span id="fichero-modal-creacion" className="error-plan">Fichero inválido.</span>
+              </Col>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+      
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
+            <Button onClick={this.crearPlanOperativo} color="success" type="submit" className="boton-crear-modal">
+              Crear plan
+            </Button>
+            
+            <Button color="danger" onClick={() => this.setState({modal_crear_plan_operativo_abierto: false})} className="boton-cancelar-modal">
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
+    // Si al realizar cualquier operación ocurre algún error, se muestra este modal
+    let modal_operacion_fallida = 
+      <Modal isOpen={this.state.modal_operacion_fallida} toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
+        <ModalHeader toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
+          Error en la operación
+        </ModalHeader>
+
+        <ModalBody>
+          <p>Ha ocurrido un error al procesar la operación.</p>
+          <p>Mensaje: {this.state.mensaje}</p>
+          <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={() => this.setState({modal_operacion_fallida: false})}>
+              Cerrar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+
+    // Si al realizar cualquier operación, esta se realiza exitosamente, se muestra este modal
+    let modal_operacion_exitosa = 
+      <Modal isOpen={this.state.modal_operacion_exitosa} toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+        <ModalHeader toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+          Operación exitosa
+        </ModalHeader>
+        <ModalBody>
+          <p>La operación se ha realizado exitosamente.</p>
+          <p>Mensaje: {this.state.mensaje}</p>
+        </ModalBody>
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={() => this.setState({modal_operacion_exitosa: false})}>
+              Cerrar
+            </Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
     return (
       <Container fluid className="container-planes">
         {/* Modales del componente */}
-        
+        {modal_crear_plan}
+        {modal_operacion_fallida}
+        {modal_operacion_exitosa}
 
         <Row>
           {/* Título de la sección */}
