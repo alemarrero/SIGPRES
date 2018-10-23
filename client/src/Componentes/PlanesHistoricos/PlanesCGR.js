@@ -294,10 +294,12 @@ export class PlanesCGR extends Component {
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
-        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Contraloría General de la República creado correctamente"});
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Contraloría General de la República creado correctamente"}, async () => {
+          this.obtenerPlanesOperativos();
+        });
       }
       else{
-        this.setState({modal_operacion_fallida: true, modal_editar_medio_abierto: false, mensaje: "Error editando el medio de verificación"});
+        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Plan Operativo de la Contraloría General de la República"});
       }
     }
   }
