@@ -31,7 +31,7 @@ export class PlanesCGR extends Component {
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
     this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
     this.cargarModalEdicion = this.cargarModalEdicion.bind(this);
-    this.obtenerPlanes = this.obtenerPlanes.bind(this);
+    this.obtenerPlanesOperativos = this.obtenerPlanesOperativos.bind(this);
   }
 
   async editarPlanOperativo(){
@@ -145,55 +145,6 @@ export class PlanesCGR extends Component {
     });
   }
 
-  verificarCamposModalEdicion(){
-    let formulario_valido = true;
-
-    if(this.state.nombre === undefined || this.state.nombre.length === 0 || this.state.nombre === ''){
-      formulario_valido = false;
-      document.getElementById("nombre-modal-edicion").style.display = "block";
-    }
-    else{
-      document.getElementById("nombre-modal-edicion").style.display = "none";
-    }
-
-    let periodo = undefined;
-    let inicio_periodo = 0;
-    let fin_periodo = 0;
-
-    if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
-      periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
-      inicio_periodo = parseInt(this.state.inicio_periodo);
-      fin_periodo = parseInt(this.state.fin_periodo);
-    }
-
-    if(periodo === undefined){
-      formulario_valido = false;
-      document.getElementById("periodo-modal-creacion").style.display = "block";
-    }
-    else{
-      document.getElementById("periodo-modal-creacion").style.display = "none";
-    }
-
-    if(inicio_periodo > fin_periodo){
-      formulario_valido = false;
-      document.getElementById("periodo2-modal-creacion").style.display = "block";
-    }
-    else{
-      document.getElementById("periodo2-modal-creacion").style.display = "none";
-    }
-
-    if(this.state.nuevo_fichero && this.state.fichero === undefined){
-      formulario_valido = false;
-      document.getElementById("fichero-modal-edicion").style.display = "block";
-
-    }
-    else{
-      document.getElementById("fichero-modal-edicion").style.display = "none";
-    }
-
-    return formulario_valido;
-  }
-
   verificarCamposModalCreacion(){
     let formulario_valido = true;
 
@@ -243,6 +194,55 @@ export class PlanesCGR extends Component {
     return formulario_valido;
   }
 
+  verificarCamposModalEdicion(){
+    let formulario_valido = true;
+    if(this.state.nombre === undefined || this.state.nombre.length === 0 || this.state.nombre === ''){
+      formulario_valido = false;
+      document.getElementById("nombre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("nombre-modal-edicion").style.display = "none";
+    }
+
+    let periodo = undefined;
+    let inicio_periodo = 0;
+    let fin_periodo = 0;
+
+    if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
+      periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
+      inicio_periodo = parseInt(this.state.inicio_periodo);
+      fin_periodo = parseInt(this.state.fin_periodo);
+    }
+
+    if(periodo === undefined || periodo.includes('undefined')){
+      formulario_valido = false;
+      document.getElementById("periodo-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo-modal-edicion").style.display = "none";
+    }
+
+    if(inicio_periodo > fin_periodo){
+      formulario_valido = false;
+      document.getElementById("periodo2-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo2-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.nuevo_fichero && this.state.fichero === undefined){
+      formulario_valido = false;
+      document.getElementById("fichero-modal-edicion").style.display = "block";
+
+    }
+    else{
+      document.getElementById("fichero-modal-edicion").style.display = "none";
+    }
+
+    
+    return formulario_valido;
+  }
+
   async crearPlanOperativo(){
     if(this.verificarCamposModalCreacion()){
       let form_body = new FormData();
@@ -270,8 +270,7 @@ export class PlanesCGR extends Component {
 
   async componentDidMount(){
     document.title = 'SICMB - Planes Operativos de la CGR';
-    console.log(this.props);
-    this.obtenerPlanes();
+    this.obtenerPlanesOperativos();
   }
 
   render() {
@@ -428,8 +427,8 @@ export class PlanesCGR extends Component {
                 </Input>
               </Col>
               <Col xs={12} sm={12} md={126} lg={12}>              
-                <span id="periodo-modal-creacion" className="error-plan">Periodo inválido.</span>
-                <span id="periodo2-modal-creacion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
+                <span id="periodo-modal-edicion" className="error-plan">Periodo inválido.</span>
+                <span id="periodo2-modal-edicion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
               </Col>
             </FormGroup>
 
@@ -442,7 +441,7 @@ export class PlanesCGR extends Component {
               <Col xs={12} sm={12} md={6} lg={6} className="align-self-end">
                 <Label>Ver archivo actual</Label>
                 <Button color="primary" onClick={() => window.open(this.state.enlace,'_blank')}>
-                  Ver archivo actual
+                  Click para ver archivo
                 </Button>
               </Col>
 
