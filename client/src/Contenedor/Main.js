@@ -15,6 +15,11 @@ import PartidasPresupuestarias from '../Componentes/PartidasPresupuestarias/Part
 import Genericas from '../Componentes/PartidasPresupuestarias/Genericas';
 import Especificas from '../Componentes/PartidasPresupuestarias/Especificas';
 import Subespecificas from '../Componentes/PartidasPresupuestarias/Subespecificas';
+import PlanesNacion from '../Componentes/PlanesHistoricos/PlanesNacion';
+import PlanesAlcaldia from '../Componentes/PlanesHistoricos/PlanesAlcaldia';
+import PlanesCMB from '../Componentes/PlanesHistoricos/PlanesCMB';
+import PlanesCGR from '../Componentes/PlanesHistoricos/PlanesCGR';
+import PlanesHistoricos from '../Componentes/PlanesHistoricos/PlanesHistoricos';
 
 /**
  * TO DO
@@ -49,6 +54,11 @@ export default class Main extends Component {
           <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
           <Route path={this.props.match.path + '/administracion/areas'} component={Areas}/>
           <Route path={this.props.match.path + '/administracion/medios-de-verificacion'} component={MediosDeVerificacion}/>
+          <Route path={this.props.match.path + '/administracion/planes-historicos/planes-cgr'} component={PlanesCGR}/>          
+          <Route path={this.props.match.path + '/administracion/planes-historicos/planes-alcaldia'} component={PlanesAlcaldia}/>          
+          <Route path={this.props.match.path + '/administracion/planes-historicos/planes-cmb'} component={PlanesCMB}/>                    
+          <Route path={this.props.match.path + '/administracion/planes-historicos/planes-nacion'} component={PlanesNacion}/>          
+          <Route path={this.props.match.path + '/administracion/planes-historicos'} component={PlanesHistoricos}/>
           <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
           <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
           <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
