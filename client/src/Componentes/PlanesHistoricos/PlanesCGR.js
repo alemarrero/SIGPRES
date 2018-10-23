@@ -23,6 +23,22 @@ export default class PlanesCGR extends Component {
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
     this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
+    this.cargarModalEdicion = this.cargarModalEdicion.bind(this);
+  }
+
+  cargarModalEdicion(index){
+    const plan = this.state.planes_operativos[index];
+    const periodo = plan.periodo.split("-");
+    
+    this.setState({
+      modal_editar_plan_operativo_abierto: true,
+      nombre: plan.nombre,
+      enlace: plan.enlace,
+      habilitado: plan.habilitado,
+      inicio_periodo: periodo[0],
+      fin_periodo: periodo[1],
+      fichero: undefined
+    });
   }
 
   verificarCamposModalEdicion(){
