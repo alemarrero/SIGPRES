@@ -22,10 +22,103 @@ export default class PlanesCGR extends Component {
     };
     this.crearPlanOperativo = this.crearPlanOperativo.bind(this);
     this.verificarCamposModalCreacion = this.verificarCamposModalCreacion.bind(this);
+    this.verificarCamposModalEdicion = this.verificarCamposModalEdicion.bind(this);
+  }
+
+  verificarCamposModalEdicion(){
+    let formulario_valido = true;
+
+    if(this.state.nombre === undefined || this.state.nombre.length === 0 || this.state.nombre === ''){
+      formulario_valido = false;
+      document.getElementById("nombre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("nombre-modal-edicion").style.display = "none";
+    }
+
+    let periodo = undefined;
+    let inicio_periodo = 0;
+    let fin_periodo = 0;
+
+    if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
+      periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
+      inicio_periodo = parseInt(this.state.inicio_periodo);
+      fin_periodo = parseInt(this.state.fin_periodo);
+    }
+
+    if(periodo === undefined){
+      formulario_valido = false;
+      document.getElementById("periodo-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo-modal-creacion").style.display = "none";
+  }
+
+    if(inicio_periodo > fin_periodo){
+      formulario_valido = false;
+      document.getElementById("periodo2-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo2-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.nuevo_fichero && this.state.fichero === undefined){
+      formulario_valido = false;
+      document.getElementById("fichero-modal-edicion").style.display = "block";
+
+    }
+    else{
+      document.getElementById("fichero-modal-edicion").style.display = "none";
+    }
+
+    return formulario_valido;
   }
 
   verificarCamposModalCreacion(){
     let formulario_valido = true;
+
+    if(this.state.nombre === undefined || this.state.nombre.length === 0 || this.state.nombre === ''){
+      formulario_valido = false;
+      document.getElementById("nombre-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("nombre-modal-creacion").style.display = "none";
+    }
+
+    let periodo = undefined;
+    let inicio_periodo = 0;
+    let fin_periodo = 0;
+
+    if(this.state.inicio_periodo !== undefined && this.state.fin_periodo !== undefined){
+      periodo = `${this.state.inicio_periodo}-${this.state.fin_periodo}`;
+      inicio_periodo = parseInt(this.state.inicio_periodo);
+      fin_periodo = parseInt(this.state.fin_periodo);
+    }
+
+    if(periodo === undefined){
+      formulario_valido = false;
+      document.getElementById("periodo-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo-modal-creacion").style.display = "none";
+    }
+
+    if(inicio_periodo > fin_periodo){
+      formulario_valido = false;
+      document.getElementById("periodo2-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("periodo2-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.fichero === undefined){
+      formulario_valido = false;
+      document.getElementById("fichero-modal-creacion").style.display = "block";
+
+    }
+    else{
+      document.getElementById("fichero-modal-creacion").style.display = "none";
+    }
 
     return formulario_valido;
   }
