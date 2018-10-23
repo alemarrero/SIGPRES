@@ -15,6 +15,9 @@ import PartidasPresupuestarias from '../Componentes/PartidasPresupuestarias/Part
 import Genericas from '../Componentes/PartidasPresupuestarias/Genericas';
 import Especificas from '../Componentes/PartidasPresupuestarias/Especificas';
 import Subespecificas from '../Componentes/PartidasPresupuestarias/Subespecificas';
+import Requerimientos from '../Componentes/Requerimientos/Requerimientos'
+import RequerimientosYNecesidades from '../Componentes/Requerimientos/RequerimientosYNecesidades'
+import SolicitudPersonal from '../Componentes/Requerimientos/SolicitudPersonal'
 
 /**
  * TO DO
@@ -56,6 +59,9 @@ export default class Main extends Component {
           <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
           <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
           <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
+          <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
+          <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
+          <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
           <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
         </Switch>
         
