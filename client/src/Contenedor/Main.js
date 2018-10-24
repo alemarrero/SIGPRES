@@ -24,6 +24,7 @@ import SessionContextProvider from './SessionContextProvider';
 import Requerimientos from '../Componentes/Requerimientos/Requerimientos'
 import RequerimientosYNecesidades from '../Componentes/Requerimientos/RequerimientosYNecesidades'
 import SolicitudPersonal from '../Componentes/Requerimientos/SolicitudPersonal'
+import Cargos from '../Componentes/Requerimientos/Cargos'
 
 /**
  * TO DO
@@ -56,6 +57,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
             <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/cargos'} component={Cargos}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
