@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
   areas.associate = function(models) {
-    // associations can be defined here
-  };
+    areas.hasMany(models.solicitud_personal, {
+      foreignKey: 'area_id',
+      as: 'solicitud_personal',
+    })
+    };
   return areas;
 };
