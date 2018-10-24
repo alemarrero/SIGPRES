@@ -9,27 +9,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     nombre: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     fecha_inicio: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     fecha_finalizacion: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     duracion: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     descripcion: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
   }, {
