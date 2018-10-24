@@ -38,7 +38,7 @@ export class PlanesCMB extends Component {
   async eliminarPlanOperativo(){
     const body = JSON.stringify({
       id: this.state.id,
-      fichero: this.state.fichero,
+      fichero: this.state.fichero_anterior,
     });
 
     const request_options = {

@@ -1,4 +1,5 @@
 var cloudinary = require('cloudinary').v2;
+const obtenerNombreCarpeta = require('./obtenerCarpeta');
 
 /**
  * Controlador que se encarga de eliminar el archivo que se encontraba previamente en Cloudinary y lo actualiza
@@ -13,16 +14,19 @@ var cloudinary = require('cloudinary').v2;
 let actualizarArchivo =  function(preset){
   return function(req, res, next){
     // Primero se procede a eliminar el archivo anterior almacenado en Cloudinary haciendo uso de su Public ID
-    cloudinary.uploader.destroy(`${req.body.fichero_anterior}`, function(error, result){
+    cloudinary.uploader.destroy(req.body.fichero_anterior, {resource_type: "raw"}, function(error, result){
       if(error){
         console.log(error);
-        res.status(500).json('err');
       }
       else{
         // Una vez que se haya eliminado el archivo anterior, se procede a subir el nuevo archivo    
-        cloudinary.uploader.unsigned_upload(
+        cloudinary.uploader.upload(
           req.file.path, 
-          preset, 
+          {
+            resource_type: "raw",
+            use_filename: true,
+            folder: obtenerNombreCarpeta(preset)
+          },
           function(error, result) {
             if(error){
               console.log(error);

@@ -38,7 +38,7 @@ export class PlanesNacion extends Component {
   async eliminarPlanOperativo(){
     const body = JSON.stringify({
       id: this.state.id,
-      fichero: this.state.fichero,
+      fichero: this.state.fichero_anterior,
     });
 
     const request_options = {
@@ -305,7 +305,7 @@ export class PlanesNacion extends Component {
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Planes Operativos de la CMB';
+    document.title = 'SICMB - Planes Operativos de la Nación';
     this.obtenerPlanesOperativos();
   }
 
@@ -319,7 +319,7 @@ export class PlanesNacion extends Component {
     let modal_crear_plan = 
       <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
-          Crear nuevo Plan Operativo de la CMB
+          Crear nuevo Plan Operativo de la Nación
         </ModalHeader>
       
         <ModalBody>
@@ -412,7 +412,7 @@ export class PlanesNacion extends Component {
     let modal_editar_plan = 
       <Modal isOpen={this.state.modal_editar_plan_operativo_abierto} toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})}>
-          Editar Plan Operativo de la CMB
+          Editar Plan Operativo de la Nación
         </ModalHeader>
       
         <ModalBody>
