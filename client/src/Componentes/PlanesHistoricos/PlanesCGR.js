@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Button,  Modal, ModalHeader, 
-  ModalBody, ModalFooter, Input, Label, Form, FormGroup, CustomInput, Table} from 'reactstrap';
+  ModalBody, ModalFooter, Input, Label, Form, FormGroup, Table} from 'reactstrap';
 import cgr from '../../assets/img/cgr.png';
 import './PlanesHistoricos.css';
 import withContext from './../../Contenedor/withContext';
@@ -38,7 +38,7 @@ export class PlanesCGR extends Component {
   async eliminarPlanOperativo(){
     const body = JSON.stringify({
       id: this.state.id,
-      fichero: this.state.fichero,
+      fichero: this.state.fichero_anterior,
     });
 
     const request_options = {
@@ -48,7 +48,7 @@ export class PlanesCGR extends Component {
       body: body
     };
 
-    const eliminar_plan_request = await fetch('/api/planes_nacion/eliminar_plan_nacion', request_options);
+    const eliminar_plan_request = await fetch('/api/planes_cgr/eliminar_plan_cgr', request_options);
     const eliminar_plan_response = await eliminar_plan_request.json();
 
     if(eliminar_plan_response !== 'err'){
@@ -86,7 +86,7 @@ export class PlanesCGR extends Component {
           body: form_body
         };
 
-        const subir_nuevo_fichero_request = await fetch('/api/planes_nacion/actualizar_archivo_plan_nacion', request_options);
+        const subir_nuevo_fichero_request = await fetch('/api/planes_cgr/actualizar_archivo_plan_cgr', request_options);
         const subir_nuevo_fichero_response = await subir_nuevo_fichero_request.json();
 
         // Si el fichero se subió correctamente, procede a actualizar la información del plan
@@ -104,16 +104,16 @@ export class PlanesCGR extends Component {
             body: form_body_2
           };
 
-          const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options_2);
+          const actualizar_plan_request = await fetch('/api/planes_cgr/actualizar_plan_cgr', request_options_2);
           const actualizar_plan_response = await actualizar_plan_request.json();
 
           if(actualizar_plan_response !== 'err'){
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la Contraloría General de la República actualizada exitosamente"}, async () => {
               this.obtenerPlanesOperativos();
             });
           }
           else{
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la Contraloría General de la República"});
           }
         }
         // De lo contrario, ocurrió un error y se le notifica al usuario
@@ -135,30 +135,30 @@ export class PlanesCGR extends Component {
           body: form_body
         };
 
-        const actualizar_plan_request = await fetch('/api/planes_nacion/actualizar_plan_nacion', request_options);
+        const actualizar_plan_request = await fetch('/api/planes_cgr/actualizar_plan_cgr', request_options);
         const actualizar_plan_response = await actualizar_plan_request.json();
 
         if(actualizar_plan_response !== 'err'){
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la nación actualizada exitosamente"}, async () => {
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del plan de la Contraloría General de la República actualizada exitosamente"}, async () => {
             this.obtenerPlanesOperativos();
           });
         }
         else{
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la nación"});
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del plan de la Contraloría General de la República"});
         }
       }
     }
   }
 
   async obtenerPlanesOperativos(){
-    const planes_request = await fetch('/api/planes_nacion/obtener_planes_nacion', {credentials: 'include'});
+    const planes_request = await fetch('/api/planes_cgr/obtener_planes_cgr', {credentials: 'include'});
     const planes_response = await planes_request.json();
 
     if(planes_response !== 'err'){
       this.setState({planes_operativos: planes_response});
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los planes operativos de la nación"});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los planes operativos de la Contraloría General de la República"});
     }
   }
 
@@ -290,14 +290,16 @@ export class PlanesCGR extends Component {
         body: form_body
       };
 
-      const crear_plan_request = await fetch(`/api/planes_nacion/crear_plan_nacion`, request_options);
+      const crear_plan_request = await fetch(`/api/planes_cgr/crear_plan_cgr`, request_options);
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
-        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Contraloría General de la República creado correctamente"});
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Contraloría General de la República creado correctamente"}, async () => {
+          this.obtenerPlanesOperativos();
+        });
       }
       else{
-        this.setState({modal_operacion_fallida: true, modal_editar_medio_abierto: false, mensaje: "Error editando el medio de verificación"});
+        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Plan Operativo de la Contraloría General de la República"});
       }
     }
   }
@@ -365,7 +367,7 @@ export class PlanesCGR extends Component {
                   })}
                 </Input>
               </Col>
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="periodo-modal-creacion" className="error-plan">Periodo inválido.</span>
                 <span id="periodo2-modal-creacion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
               </Col>
@@ -377,16 +379,16 @@ export class PlanesCGR extends Component {
                 <Label>Archivo del plan operativo*</Label>
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>
-                <CustomInput
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Input
                   id="ficher_modal_creacion"
                   type="file"
-                  label="Seleccione un archivo"
+                  label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="fichero-modal-creacion" className="error-plan">Fichero inválido.</span>
               </Col>
             </FormGroup>
@@ -461,7 +463,7 @@ export class PlanesCGR extends Component {
                   })}
                 </Input>
               </Col>
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="periodo-modal-edicion" className="error-plan">Periodo inválido.</span>
                 <span id="periodo2-modal-edicion" className="error-plan">El año de inicio no puede ser posterior al año de culminación.</span>
               </Col>
@@ -482,7 +484,7 @@ export class PlanesCGR extends Component {
 
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Subir nuevo archivo</Label>
-                <CustomInput
+                <Input
                   id="ficher_modal_edicion"
                   type="file"
                   label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
@@ -490,7 +492,7 @@ export class PlanesCGR extends Component {
                 />
               </Col>
 
-              <Col xs={12} sm={12} md={126} lg={12}>              
+              <Col xs={12} sm={12} md={12} lg={12}>              
                 <span id="fichero-modal-edicion" className="error-plan">Fichero inválido.</span>
               </Col>
             </FormGroup>

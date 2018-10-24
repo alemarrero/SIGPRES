@@ -11,7 +11,7 @@ var cloudinary = require('cloudinary').v2;
  * (true) o si no se pudo eliminar (false). Finalmente, llama a next() para ejecutar el siguiente middleware.
  */
 let eliminarArchivo =  function(req, res, next){
-  cloudinary.uploader.destroy(req.body.fichero, function(error, result){
+  cloudinary.uploader.destroy(req.body.fichero, {resource_type: "raw"}, function(error, result){
     if(error){
       console.log(error);
       req.archivo_borrado = false;

@@ -17,7 +17,13 @@ var genericasRouter = require('./routes/genericas');
 var especificasRouter = require('./routes/especificas');
 var subespecificasRouter = require('./routes/subespecificas');
 var planesNacionRouter = require('./routes/planes_nacion');
+<<<<<<< HEAD
 var cargosRouter = require('./routes/cargos');
+=======
+var planesCGRRouter = require('./routes/planes_cgr');
+var planesCMBRouter = require('./routes/planes_contraloria_municipal');
+var planesAlcaldiaRouter = require('./routes/planes_alcaldia');
+>>>>>>> d97cfe8f0be84c3f4af57e7b2d9e2b2d299550fc
 
 var cors = require('cors');
 
@@ -54,7 +60,13 @@ app.use('/api/genericas', genericasRouter);
 app.use('/api/especificas', especificasRouter);
 app.use('/api/subespecificas', subespecificasRouter);
 app.use('/api/planes_nacion', planesNacionRouter);
+<<<<<<< HEAD
 app.use('/api/cargos', cargosRouter);
+=======
+app.use('/api/planes_cgr', planesCGRRouter);
+app.use('/api/planes_cmb', planesCMBRouter);
+app.use('/api/planes_alcaldia', planesAlcaldiaRouter);
+>>>>>>> d97cfe8f0be84c3f4af57e7b2d9e2b2d299550fc
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {

@@ -1,6 +1,6 @@
 import React from 'react';
-
 import {Context} from './context';
+import {withRouter} from 'react-router-dom';
 
 class SessionContextProvider extends React.Component {
   constructor(props) {
@@ -43,4 +43,4 @@ class SessionContextProvider extends React.Component {
   }
 }
 
-export default SessionContextProvider;
+export default withRouter(SessionContextProvider);
