@@ -39,9 +39,6 @@ module.exports = {
       descripcion: {
         type: Sequelize.STRING
       }
-    }, {
-      timestamps: false,
-      freezeTableName: true
     });
   },
   down: (queryInterface, Sequelize) => {
