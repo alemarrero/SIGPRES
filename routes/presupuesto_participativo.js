@@ -23,55 +23,46 @@ var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdmi
  * @return estado 200 y {estado: 'ok', identificador: <identificador de la sugerencia_presupuesto_participativo>} si la sugerencia_presupuesto_participativo se creó correctamente.
  * @return estado 500 y {estado: 'err'} si ocurrió algún error en el servidor.
  */
-router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subirArchivo("planes_cgr"), function(req, res, next){
-  // console.log(req.body);
-  if(req.file){
-
-    console.log(req.public_id);
-    res.status(200).json('ok');
-  }
-
-  console.log("holis");
-  
+router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subirArchivo("presupuesto_participativo"), function(req, res, next){
   const identificador = uuidv4().slice(0,8);
 
-  // models.solicitudes_comunidad.create({
-  //   parroquia: req.body.parroquia ,
-  //   sector: req.body.sector ,
-  //   organizacion: req.body.organizacion ,
-  //   nombre: req.body.nombre ,
-  //   telefono: req.body.telefono ,
-  //   email: req.body.email ,
-  //   vision_comunidad: req.body.vision_comunidad ,
-  //   nombre_propuesta: req.body.nombre_propuesta ,
-  //   ubicacion_propuesta: req.body.ubicacion_propuesta ,
-  //   descripcion_propuesta: req.body.descripcion_propuesta ,
-  //   beneficiarios_directos: req.body.beneficiarios_directos ,
-  //   beneficiarios_indirectos: req.body.beneficiarios_indirectos ,
-  //   presentada_anteriormente: req.body.presentada_anteriormente ,
-  //   año_presentacion: req.body.año_presentacion ,
-  //   solicito_recursos_anteriormente: req.body.solicito_recursos_anteriormente ,
-  //   solicito_recursos_a: req.body.solicito_recursos_a ,
-  //   nombre_responsable: req.body.nombre_responsable ,
-  //   telefono_responsable: req.body.telefono_responsable ,
-  //   email_responsable: req.body.email_responsable ,
-  //   fichero: req.body.fichero ,
-  //   enlace: req.body.enlace ,
-  //   identificador: identificador ,
-  //   comentarios: req.body.comentarios
-  // })
-  // .then(x => {
-  //   if(x){
-  //     res.status(200).json({estado: 'ok', identificador: identificador});
-  //   }
-  //   else{
-  //     res.status(500).json({estado: 'err'});
-  //   }
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json({estado: 'err'});
-  // });
+  models.solicitudes_comunidad.create({
+    parroquia: req.body.parroquia ,
+    sector: req.body.sector ,
+    organizacion: req.body.organizacion ,
+    nombre: req.body.nombre ,
+    telefono: req.body.telefono ,
+    email: req.body.email ,
+    vision_comunidad: req.body.vision_comunidad ,
+    nombre_propuesta: req.body.nombre_propuesta ,
+    ubicacion_propuesta: req.body.ubicacion_propuesta ,
+    descripcion_propuesta: req.body.descripcion_propuesta ,
+    beneficiarios_directos: req.body.beneficiarios_directos ,
+    beneficiarios_indirectos: req.body.beneficiarios_indirectos ,
+    presentada_anteriormente: req.body.presentada_anteriormente ,
+    año_presentacion: req.body.año_presentacion ,
+    solicito_recursos_anteriormente: req.body.solicito_recursos_anteriormente ,
+    solicito_recursos_a: req.body.solicito_recursos_a ,
+    nombre_responsable: req.body.nombre_responsable ,
+    telefono_responsable: req.body.telefono_responsable ,
+    email_responsable: req.body.email_responsable ,
+    fichero: req.public_id ,
+    enlace: req.file_url ,
+    identificador: identificador ,
+    comentarios: req.body.comentarios
+  })
+  .then(x => {
+    if(x){
+      res.status(200).json({estado: 'ok', identificador: identificador});
+    }
+    else{
+      res.status(500).json({estado: 'err'});
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({estado: 'err'});
+  });
 });
 
 
@@ -86,8 +77,8 @@ router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subir
  */
 router.get('/obtener_sugerencias_presupuesto_participativo', autorizarAdministrador, function(req, res){
   models.solicitudes_comunidad.findAll()
-  .then(sugerencia_presupuesto_participativo => {
-    res.status(200).json(sugerencia_presupuesto_participativo);
+  .then(sugerencias_presupuesto_participativo => {
+    res.status(200).json(sugerencias_presupuesto_participativo);
   })
   .catch(err => {
     console.log(err);
