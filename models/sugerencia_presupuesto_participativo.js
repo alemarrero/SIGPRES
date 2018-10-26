@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const solicitudes_comunidad = sequelize.define('solicitudes_comunidad', {
+  const sugerencia_presupuesto_participativo = sequelize.define('sugerencia_presupuesto_participativo', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -100,8 +100,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     freezeTableName: true
   });
-  solicitudes_comunidad.associate = function(models) {
+  sugerencia_presupuesto_participativo.associate = function(models) {
     // associations can be defined here
   };
-  return solicitudes_comunidad;
+  return sugerencia_presupuesto_participativo;
 };
