@@ -21,6 +21,9 @@ var cargosRouter = require('./routes/cargos');
 var planesCGRRouter = require('./routes/planes_cgr');
 var planesCMBRouter = require('./routes/planes_contraloria_municipal');
 var planesAlcaldiaRouter = require('./routes/planes_alcaldia');
+var presupuestoParticipativoRouter = require('./routes/presupuesto_participativo');
+var sugerenciasRouter = require('./routes/sugerencias');
+var quejasRouter = require('./routes/quejas');
 
 var cors = require('cors');
 
@@ -61,6 +64,10 @@ app.use('/api/cargos', cargosRouter);
 app.use('/api/planes_cgr', planesCGRRouter);
 app.use('/api/planes_cmb', planesCMBRouter);
 app.use('/api/planes_alcaldia', planesAlcaldiaRouter);
+app.use('/api/presupuesto_participativo', presupuestoParticipativoRouter);
+app.use('/api/sugerencias', sugerenciasRouter);
+app.use('/api/quejas', quejasRouter);
+
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
