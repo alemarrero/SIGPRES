@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var models = require('../models');
 const uuidv4 = require('uuid/v4');
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 
 /**
  * Endpoint que se encarga de crear una queja de los ciudadanos
@@ -123,4 +123,4 @@ router.post('/eliminar_queja', autorizarAdministrador, function(req, res){
   });
 });
 
-module.export = router;
+module.exports = router;

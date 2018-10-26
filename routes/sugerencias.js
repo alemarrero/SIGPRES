@@ -123,4 +123,4 @@ router.post('/eliminar_sugerencia', autorizarAdministrador, function(req, res){
   });
 });
 
-module.export = router;
+module.exports = router;
