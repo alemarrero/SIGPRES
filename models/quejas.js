@@ -44,7 +44,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     }
-  }, {});
+  }, {
+    timestamps: false
+  });
   quejas.associate = function(models) {
     // associations can be defined here
   };
