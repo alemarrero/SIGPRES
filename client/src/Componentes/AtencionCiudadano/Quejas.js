@@ -51,6 +51,8 @@ export default class Quejas extends Component {
         this.setState({
           modal_operacion_exitosa: true,
           identificador: queja_response.identificador
+        }, () => {
+          document.getElementById("formulario-quejas").reset();
         });
       }
       else{
@@ -217,7 +219,7 @@ export default class Quejas extends Component {
         </Row>
         <Row className="justify-content-center">
           <Col  xs={12} sm={12} md={7} lg={7}>
-            <Form onSubmit={this.enviarQueja}>
+            <Form id="formulario-quejas" onSubmit={this.enviarQueja}>
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label htmlFor="nombre">Nombre*</Label>

@@ -51,6 +51,8 @@ export default class Sugerencias extends Component {
         this.setState({
           modal_operacion_exitosa: true,
           identificador: sugerencia_response.identificador
+        }, () => {
+          document.getElementById("formulario-sugerencias").reset();
         });
       }
       else{
@@ -217,7 +219,7 @@ export default class Sugerencias extends Component {
         </Row>
         <Row className="justify-content-center">
           <Col  xs={12} sm={12} md={7} lg={7}>
-            <Form onSubmit={this.enviarSugerencia}>
+            <Form id="formulario-sugerencias" onSubmit={this.enviarSugerencia}>
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label htmlFor="nombre">Nombre*</Label>
