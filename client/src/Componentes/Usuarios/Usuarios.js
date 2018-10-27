@@ -262,7 +262,7 @@ import { arch } from 'os';
     let formulario_valido = true;
 
     // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
+    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("nombre-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
@@ -271,7 +271,7 @@ import { arch } from 'os';
     }
 
     // Validación del apellido
-    if(this.state.apellido === undefined || !this.state.apellido.match(/^[A-Za-z\s]+$/)){
+    if(this.state.apellido === undefined || !this.state.apellido.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("apellido-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
@@ -329,7 +329,7 @@ import { arch } from 'os';
     }
 
     // Validación del cargo del usuario
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("cargo-modal-registro").style.display = 'block';
       formulario_valido = false;
     }
@@ -380,7 +380,7 @@ import { arch } from 'os';
     let formulario_valido = true;
 
     // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
+    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("nombre-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -389,7 +389,7 @@ import { arch } from 'os';
     }
 
     // Validación del apellido
-    if(this.state.apellido === undefined || !this.state.apellido.match(/^[A-Za-z\s]+$/)){
+    if(this.state.apellido === undefined || !this.state.apellido.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("apellido-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -447,7 +447,7 @@ import { arch } from 'os';
     }
 
     // Validación del cargo del usuario
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("cargo-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }

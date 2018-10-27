@@ -175,7 +175,7 @@ export default class MediosDeVerificacion extends Component {
     let formulario_valido = true;
 
     // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
+    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("nombre-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -189,7 +189,7 @@ export default class MediosDeVerificacion extends Component {
     let formulario_valido = true;
 
     // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\s]+$/)){
+    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("nombre-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
