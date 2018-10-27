@@ -15,7 +15,7 @@ export default class MenuAtencionCiudadano extends Component {
 
         {/* Gestión de Presupuesto Participativo */}
         <OpcionMenu ruta={'presupuesto-participativo'} nombre="Presupuesto Participativo" icono={cgr}/>
-      </Row>
+      </Row>    
     )
   }
 }

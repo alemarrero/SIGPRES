@@ -5,7 +5,9 @@ import { Row } from 'reactstrap';
 export default class Sugerencias extends Component {
   render() {
     return (
-      <div></div>
+      <React.Fragment>
+
+      </React.Fragment>
     )
   }
 }

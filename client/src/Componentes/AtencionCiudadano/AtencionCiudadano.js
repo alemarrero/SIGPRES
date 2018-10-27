@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import OpcionMenu from '../Menu/OpcionMenu';
-import usuarios from '../../assets/img/usuarios.png';
-import { Row } from 'reactstrap';
+import { Container } from 'reactstrap';
 import Quejas from './Quejas';
 import PresupuestoParticipativo from './PresupuestoParticipativo';
 import Sugerencias from './Sugerencias';
@@ -16,14 +14,14 @@ export default class Planeacion extends Component {
 
   render() {
     return (
-      <Row className="fila-opciones-menu-principal">
+      <Container fluid={true}>
         <Switch>
           <Route exact path={this.props.match.path + '/'} component={MenuAtencionCiudadano}/>
           <Route path={this.props.match.path + '/quejas'} component={Quejas}/>
           <Route path={this.props.match.path + '/sugerencias'} component={Sugerencias}/>
           <Route path={this.props.match.path + '/presupuesto-participativo'} component={PresupuestoParticipativo}/>
         </Switch>
-      </Row>
+      </Container>
     )
   }
 }
