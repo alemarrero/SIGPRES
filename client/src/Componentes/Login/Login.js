@@ -16,6 +16,12 @@ export default class Login extends Component {
     document.title = "SICMB - Ingresar";
   }
 
+  _handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.autenticar(e);
+    }
+  }
+
   async autenticar(e) {
     e.preventDefault();
 
@@ -55,14 +61,14 @@ export default class Login extends Component {
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
                   <h3 className="titulo">SICMB</h3>
-                  <Input type="text" placeholder="Nombre de usuario" name='usuario' onChange={(e) => this.setState({usuario: e.target.value})}/>
+                  <Input type="text" placeholder="Nombre de usuario" name='usuario' onKeyPress={(e) => this._handleKeyPress(e)} onChange={(e) => this.setState({usuario: e.target.value})}/>
                 </Col>
               </FormGroup>
 
               {/* Contraseña */}
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Input type="password" placeholder="Contraseña" name='contraseña' onChange={(e) => this.setState({password: e.target.value})}/>
+                  <Input type="password" placeholder="Contraseña" name='contraseña' onKeyPress={(e) => this._handleKeyPress(e)} onChange={(e) => this.setState({password: e.target.value})}/>
                 </Col>
               </FormGroup>
 
