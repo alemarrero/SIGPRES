@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Cargos.css';
+import './SolicitudPersonal.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import cargo from '../../assets/img/cargo.png';
 import { request } from 'http';
@@ -7,17 +7,18 @@ import { request } from 'http';
 // https://www.flaticon.com/free-icon/compass_1156951
 
 
-export default class Cargos extends Component {
+export default class RequerimientosPersonal extends Component {
   constructor(props){
     super(props);
     this.state = {
-      cargos: [],
-      modal_crear_cargo_abierto: false,
-      modal_editar_cargo_abierto: false,
-      codigo: undefined,
-      cargo: undefined,
+      requerimientos_personal: [],
+      requerimientos_personal_sin_enviar: [],
+      justificacion: undefined,
+      enviada: false,
       id: undefined,
-      habilitado: false,
+      cargos: [],
+      numero_personas: undefined,
+      indice_cargo: undefined,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
     };
@@ -191,7 +192,7 @@ export default class Cargos extends Component {
       }
 
     // Validación del cargo
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
       document.getElementById("cargo-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -213,7 +214,7 @@ export default class Cargos extends Component {
         document.getElementById("codigo-modal-edicion").style.display = 'none';
       }    
     // Validación del cargo
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
       document.getElementById("cargo-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }

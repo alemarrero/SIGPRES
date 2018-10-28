@@ -21,6 +21,9 @@ var cargosRouter = require('./routes/cargos');
 var planesCGRRouter = require('./routes/planes_cgr');
 var planesCMBRouter = require('./routes/planes_contraloria_municipal');
 var planesAlcaldiaRouter = require('./routes/planes_alcaldia');
+var solicitudPersonalRouter = require('./routes/solicitud_personal');
+var requerimientosPersonalRouter = require('./routes/requerimientos_personal');
+
 var presupuestoParticipativoRouter = require('./routes/presupuesto_participativo');
 var sugerenciasRouter = require('./routes/sugerencias');
 var quejasRouter = require('./routes/quejas');
@@ -64,6 +67,8 @@ app.use('/api/cargos', cargosRouter);
 app.use('/api/planes_cgr', planesCGRRouter);
 app.use('/api/planes_cmb', planesCMBRouter);
 app.use('/api/planes_alcaldia', planesAlcaldiaRouter);
+app.use('/api/requerimientos_personal', requerimientosPersonalRouter);
+app.use('/api/solicitud_personal', solicitudPersonalRouter);
 app.use('/api/presupuesto_participativo', presupuestoParticipativoRouter);
 app.use('/api/sugerencias', sugerenciasRouter);
 app.use('/api/quejas', quejasRouter);
