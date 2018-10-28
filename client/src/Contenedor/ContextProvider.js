@@ -13,14 +13,14 @@ class ContextProvider extends React.Component {
         nombre_completo: undefined,
         rol: undefined
       },
-      areas: []
+      areas: [],
+      actualizar_areas: this.obtenerAreas
     };
 
     this.verificarSesion = this.verificarSesion.bind(this);
-    this.obtenerAreas = this.obtenerAreas.bind(this);
   }
   
-  async obtenerAreas(){
+  obtenerAreas = async () => {
     const areas_request = await fetch('/api/areas/obtener_areas', {credentials: 'include'});
     const areas_response = await areas_request.json();
 

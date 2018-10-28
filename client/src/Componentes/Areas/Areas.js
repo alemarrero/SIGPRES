@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './Areas.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
-import { request } from 'http';
+import withContext from './../../Contenedor/withContext';
 
-export default class Areas extends Component {
+export class Areas extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -49,6 +49,7 @@ export default class Areas extends Component {
       if(editar_area_response !== 'err'){
         this.setState({modal_editar_area_abierto: false, modal_operacion_exitosa: true, mensaje: "Área editada correctamente"}, async () => {
           this.obtenerAreas();
+          this.props.actualizar_areas();
         });
       }
       else{
@@ -73,6 +74,7 @@ export default class Areas extends Component {
     if(deshabilitar_area_response !== 'err'){
       this.setState({modal_editar_area_abierto: false, modal_operacion_exitosa: true, mensaje: "Área deshabilitada correctamente"}, async () => {
         this.obtenerAreas();
+        this.props.actualizar_areas();
       });
     }
     else{
@@ -97,6 +99,7 @@ export default class Areas extends Component {
     if(habilitar_area_response !== 'err'){
       this.setState({modal_editar_area_abierto: false, modal_operacion_exitosa: true, mensaje: "Área habilitada correctamente"}, async () => {
         this.obtenerAreas();
+        this.props.actualizar_areas();
       });
     }
     else{
@@ -122,6 +125,7 @@ export default class Areas extends Component {
       if(crear_area_response !== 'err'){
         this.setState({modal_crear_area_abierto: false, modal_operacion_exitosa: true, mensaje: "Área creada correctamente"}, async () => {
           this.obtenerAreas();
+          this.props.actualizar_areas();
         });
       }
       else{
@@ -439,3 +443,5 @@ export default class Areas extends Component {
     )
   }
 }
+
+export default withContext(Areas);
