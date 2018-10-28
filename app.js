@@ -23,6 +23,7 @@ var cargosRouter = require('./routes/cargos');
 var planesCGRRouter = require('./routes/planes_cgr');
 var planesCMBRouter = require('./routes/planes_contraloria_municipal');
 var planesAlcaldiaRouter = require('./routes/planes_alcaldia');
+var solicitudPersonalRouter = require('./routes/solicitud_personal');
 >>>>>>> d97cfe8f0be84c3f4af57e7b2d9e2b2d299550fc
 
 var cors = require('cors');
@@ -66,7 +67,7 @@ app.use('/api/cargos', cargosRouter);
 app.use('/api/planes_cgr', planesCGRRouter);
 app.use('/api/planes_cmb', planesCMBRouter);
 app.use('/api/planes_alcaldia', planesAlcaldiaRouter);
->>>>>>> d97cfe8f0be84c3f4af57e7b2d9e2b2d299550fc
+app.use('/api/solicitud_personal', solicitudPersonalRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
