@@ -191,7 +191,7 @@ export default class Cargos extends Component {
       }
 
     // Validación del cargo
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("cargo-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -213,7 +213,7 @@ export default class Cargos extends Component {
         document.getElementById("codigo-modal-edicion").style.display = 'none';
       }    
     // Validación del cargo
-    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
+    if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("cargo-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }

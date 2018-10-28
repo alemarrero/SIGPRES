@@ -13,25 +13,36 @@ const obtenerNombreCarpeta = require('./obtenerCarpeta');
  */
 let subirArchivo =  function(preset){
   return function(req, res, next){
-    cloudinary.uploader.upload(
-      req.file.path, 
-      {
-        resource_type: "raw",
-        use_filename: true,
-        folder: obtenerNombreCarpeta(preset)
-      },
-      function(error, result) {
-        if(error){
-          console.log(error);
-          res.status(500).json('err');
+    // Si no hay archivo, puede ser que el usuario no haya adjuntado ninguno, y se llama a next()
+    // ya que no siempre se puede desear adjuntar un archivo (como es el caso de las propuestas de 
+    // presupuesto participativo, en donde las personas pueden escoger, o no, adjuntar un soporte 
+    // para su propuesta)
+    // La verificación de que el usuario haya adjuntado un archivo se debe hacer en el frontend
+    if(req.file){
+      cloudinary.uploader.upload(
+        req.file.path, 
+        {
+          resource_type: "raw",
+          use_filename: true,
+          folder: obtenerNombreCarpeta(preset)
+        },
+        function(error, result) {
+          if(error){
+            console.log(error);
+            res.status(500).json('err');
+          }
+          else{
+            console.log(result);
+            req.file_url = result.url;
+            req.public_id = result.public_id;
+            next();
+          }
         }
-        else{
-          console.log(result);
-          req.file_url = result.url;
-          req.public_id = result.public_id;
-          next();
-        }
-      });
+      );
+    }
+    else{
+      next();
+    }
   }
 };
 

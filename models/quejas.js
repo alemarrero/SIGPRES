@@ -1,25 +1,37 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const programas = sequelize.define('programas', {
+  const quejas = sequelize.define('quejas', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    fecha: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    fecha_inicio: {
+    apellido: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    fecha_finalizacion: {
+    cedula: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    duracion: {
+    telefono: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    direccion: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -27,16 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    identificador: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    }
   }, {
-    timestamps: false,
-    freezeTableName: true
+    timestamps: false
   });
-  programas.associate = function(models) {
-    programas.belongsTo(models.areas, {
-      foreignKey: 'area_id',
-      as: 'area',
-      onDelete: 'CASCADE',
-    });
+  quejas.associate = function(models) {
+    // associations can be defined here
   };
-  return programas;
+  return quejas;
 };

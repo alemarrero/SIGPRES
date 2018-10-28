@@ -212,7 +212,7 @@ export default class Genericas extends Component {
     }    
 
     // Validación de la denominacion
-    if(this.state.denominacion === undefined || !this.state.denominacion.match(/^[A-Za-z\s]+$/)){
+    if(this.state.denominacion === undefined || !this.state.denominacion.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       document.getElementById("denominacion-modal-creacion").style.display = 'block';
       formulario_valido = false;    
     }
@@ -235,7 +235,7 @@ export default class Genericas extends Component {
     }
     
     // Validación de la denominacion    
-    if(this.state.denominacion === undefined || !this.state.denominacion.match(/^[A-Za-z\s]+$/)){
+    if(this.state.denominacion === undefined || !this.state.denominacion.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
     document.getElementById("denominacion-modal-edicion").style.display = 'block';
     formulario_valido = false;
     }

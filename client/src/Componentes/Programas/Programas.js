@@ -76,7 +76,7 @@ export default class Programas extends Component {
   async validarCamposModalCreacion() {
     let formulario_valido = true;
 
-    if(this.state.nombre === undefined || this.state.nombre === ""){
+    if(this.state.nombre === undefined || this.state.nombre === "" || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
       formulario_valido = false;
       document.getElementById("nombre-modal-creacion").style.display = "block";
     }

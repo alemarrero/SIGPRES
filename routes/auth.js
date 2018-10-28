@@ -155,7 +155,9 @@ router.post('/login', function(req, res) {
       bcrypt.compare(req.body.password, usuario.dataValues.password, (err, clave_valida) => {
         if(clave_valida){
           req.session.id_usuario = usuario.id;
+
           req.session.autenticado = true;
+          req.session.area_id = usuario.area_id;
           req.session.rol = usuario.rol;
           req.session.nombre_completo = `${usuario.nombre} ${usuario.apellido}`;
           req.session.save();

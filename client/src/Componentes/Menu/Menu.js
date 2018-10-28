@@ -9,7 +9,7 @@ import OpcionMenu from './OpcionMenu';
 export default class Menu extends Component {
   render() {
     return (
-      <Row className="fila-opciones-menu-principal">
+      <Row fluid={true} className="fila-opciones-menu-principal">
         {/* Administración */}   
         <OpcionMenu ruta={'administracion/'} nombre="Administración" icono={administracion}/>
         
