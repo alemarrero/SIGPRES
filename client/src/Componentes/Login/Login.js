@@ -45,6 +45,9 @@ export default class Login extends Component {
   render() {
     return (
       <Container fluid className="container-login">
+        {/* Botón de atención al ciudadano */}
+        <div className="boton-atencion-al-ciudadano" onClick={() => this.props.history.push('/oac')}> <i className="fas fa-comment"></i> Atención al ciudadano</div>
+        
         <Row className="row-login">
           <Col xs={12} sm={12} md={12} lg={12} className="col-login"> 
             <Form className="form-login">

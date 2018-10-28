@@ -49,3 +49,15 @@
     font-size: 10px;
     color: red;
 }
+
+div.boton-atencion-al-ciudadano{
+    padding: 10px;
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    background-color: #679f51;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
