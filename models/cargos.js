@@ -7,9 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    codigo: {
+      allowNull: false,
+      unique: true,
+      type: DataTypes.STRING
+    },    
     cargo: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     habilitado: {

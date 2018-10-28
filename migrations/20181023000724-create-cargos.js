@@ -8,9 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      cargo: {
+      codigo: {
         allowNull: false,
         unique: true,
+        type: Sequelize.STRING
+      },
+      cargo: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       habilitado: {

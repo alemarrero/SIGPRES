@@ -14,6 +14,7 @@ export default class Cargos extends Component {
       cargos: [],
       modal_crear_cargo_abierto: false,
       modal_editar_cargo_abierto: false,
+      codigo: undefined,
       cargo: undefined,
       id: undefined,
       habilitado: false,
@@ -39,6 +40,7 @@ export default class Cargos extends Component {
         credentials: 'include',
         body: JSON.stringify({
           id: this.state.id,
+          codigo: this.state.codigo,
           cargo: this.state.cargo,
           habilitado: this.state.habilitado
         })
@@ -112,6 +114,7 @@ export default class Cargos extends Component {
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         body: JSON.stringify({
+          codigo: this.state.codigo,
           cargo: this.state.cargo
         })
       };
@@ -167,6 +170,7 @@ export default class Cargos extends Component {
     const cargo = this.state.cargos[ind];
 
     this.setState({
+      codigo: cargo.codigo,
       cargo: cargo.cargo,
       modal_editar_cargo_abierto: true,
       id: cargo.id,
@@ -176,6 +180,15 @@ export default class Cargos extends Component {
 
   validarModalCreacion(){
     let formulario_valido = true;
+
+    // Validación del codigo del cargo
+    if(this.state.codigo === undefined || !this.state.codigo.match(/^[0-9]{2}-[0-9]{2}-[0-9]{3}$/)){
+        document.getElementById("codigo-modal-creacion").style.display = 'block';
+        formulario_valido = false;
+      }
+      else{
+        document.getElementById("codigo-modal-creacion").style.display = 'none';
+      }
 
     // Validación del cargo
     if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
@@ -190,7 +203,15 @@ export default class Cargos extends Component {
   
   validarModalEdicion(){
     let formulario_valido = true;
-
+    
+    // Validación del codigo del cargo
+    if(this.state.codigo === undefined || !this.state.codigo.match(/^[0-9]{2}-[0-9]{2}-[0-9]{3}$/)){
+        document.getElementById("codigo-modal-edicion").style.display = 'block';
+        formulario_valido = false;
+      }
+      else{
+        document.getElementById("codigo-modal-edicion").style.display = 'none';
+      }    
     // Validación del cargo
     if(this.state.cargo === undefined || !this.state.cargo.match(/^[A-Za-z\s]+$/)){
       document.getElementById("cargo-modal-edicion").style.display = 'block';
@@ -213,6 +234,16 @@ export default class Cargos extends Component {
       
       <ModalBody>
         <Form> 
+          <FormGroup row>
+            {/* Nombre del cargo */}
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>Código del cargo*</Label>
+              <Input 
+                onChange={(e) => this.setState({codigo: e.target.value})}
+              />
+              <span id="codigo-modal-creacion" className="error-cargos">Código inválido, debe ser de la forma ##-##-###</span>
+            </Col>
+          </FormGroup>
           <FormGroup row>
             {/* Nombre del cargo */}
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -249,6 +280,17 @@ export default class Cargos extends Component {
         
         <ModalBody>
           <Form> 
+          <FormGroup row>
+              {/* Nombre del cargo  */}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Código del cargo *</Label>
+                <Input 
+                  defaultValue={this.state.codigo}
+                  onChange={(e) => this.setState({codigo: e.target.value})}
+                />
+                <span id="codigo-modal-edicion" className="error-cargos">Código inválido, debe ser de la forma ##-##-### y no puede estar repetido</span>
+              </Col>
+            </FormGroup>              
             <FormGroup row>
               {/* Nombre del cargo  */}
               <Col xs={12} sm={12} md={12} lg={12}>
@@ -362,6 +404,7 @@ export default class Cargos extends Component {
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Código</th>
                     <th>Cargo </th>
                     <th>Habilitado</th>
                     <th>Opciones</th>
@@ -372,6 +415,7 @@ export default class Cargos extends Component {
                       return(
                       <tr key={`${cargo.id}_${cargo.cargo}`}>
                           <th scope="row">{cargo.id}</th>
+                          <td>{cargo.codigo}</td>
                           <td>{cargo.cargo}</td>
                           <td>{cargo.habilitado ? <span>Si</span> : <span>No</span>}</td>
                           <td>

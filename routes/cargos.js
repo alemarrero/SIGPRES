@@ -6,6 +6,7 @@ var models = require('../models');
 
 router.post('/crear_cargo', autorizarAdministrador, function(req, res, next) {
   models.cargos.create({
+    codigo: req.body.codigo,
     cargo: req.body.cargo 
   })  
   .then(response => {
@@ -22,6 +23,7 @@ router.post('/crear_cargo', autorizarAdministrador, function(req, res, next) {
 
 router.post('/actualizar_cargo', autorizarAdministrador, function(req, res){
   models.cargos.update({
+    codigo: req.body.codigo,  
     cargo: req.body.cargo,
     habilitado: req.body.habilitado
   },
