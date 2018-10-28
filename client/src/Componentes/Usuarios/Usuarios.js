@@ -3,9 +3,9 @@ import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
   FormGroup, Input, Label, Table } from 'reactstrap';
 import './Usuarios.css'
 import usuarios from '../../assets/img/usuarios.png';
-import { arch } from 'os';
+import withContext from './../../Contenedor/withContext';
 
- export default class Usuarios extends Component {
+ export class Usuarios extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -33,7 +33,6 @@ import { arch } from 'os';
       areas: []
     };
     this.obtenerUsuarios = this.obtenerUsuarios.bind(this);
-    this.obtenerAreas = this.obtenerAreas.bind(this);
     this.registrarUsuario = this.registrarUsuario.bind(this);
     this.editarUsuario = this.editarUsuario.bind(this);
     this.validarCamposModalNuevoUsuario = this.validarCamposModalNuevoUsuario.bind(this);
@@ -42,18 +41,6 @@ import { arch } from 'os';
     this.habilitarUsuario = this.habilitarUsuario.bind(this);
     this.deshabilitarUsuario = this.deshabilitarUsuario.bind(this);
     this.correo_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  }
-
-  async obtenerAreas(){
-    const areas_request = await fetch('/api/areas/obtener_areas', {credentials: 'include'});
-    const areas_response = await areas_request.json();
-
-    if(areas_response !== 'err'){
-      this.setState({areas: areas_response});
-    }
-    else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las áreas"});
-    }
   }
 
   async habilitarUsuario() {
@@ -590,7 +577,7 @@ import { arch } from 'os';
                 type="select"
                   onChange={(e) => this.setState({area_id: e.target.value})}
                 >
-                  {this.state.areas.map((area, index) => {
+                  {this.props.areas.map((area, index) => {
                     return(
                       <option value={area.id} key={`area_${area.index}`}>{area.nombre}</option>
                     )
@@ -766,7 +753,7 @@ import { arch } from 'os';
                   defaultValue={this.state.area_id}
                   onChange={(e) => this.setState({area_id: e.target.value})}
                 >
-                  {this.state.areas.map((area, index) => {
+                  {this.props.areas.map((area, index) => {
                     return(
                       <option value={area.id} key={`area_${area.index}`}>{area.nombre}</option>
                     )
@@ -970,3 +957,5 @@ import { arch } from 'os';
     )
   }
 }
+
+export default withContext(Usuarios);

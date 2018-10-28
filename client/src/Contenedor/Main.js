@@ -20,7 +20,7 @@ import PlanesAlcaldia from '../Componentes/PlanesHistoricos/PlanesAlcaldia';
 import PlanesCMB from '../Componentes/PlanesHistoricos/PlanesCMB';
 import PlanesCGR from '../Componentes/PlanesHistoricos/PlanesCGR';
 import PlanesHistoricos from '../Componentes/PlanesHistoricos/PlanesHistoricos';
-import SessionContextProvider from './SessionContextProvider';
+import ContextProvider from './ContextProvider';
 import Requerimientos from '../Componentes/Requerimientos/Requerimientos'
 import RequerimientosYNecesidades from '../Componentes/Requerimientos/RequerimientosYNecesidades'
 import SolicitudPersonal from '../Componentes/Requerimientos/SolicitudPersonal'
@@ -38,7 +38,7 @@ export default class Main extends PureComponent {
 
   render() {
     return (
-      <SessionContextProvider>
+      <ContextProvider>
         <Container fluid={true} style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
           <BarraNavegacion/>
           
@@ -71,7 +71,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
           </Switch>
         </Container>
-      </SessionContextProvider>
+      </ContextProvider>
       )
   }
 }

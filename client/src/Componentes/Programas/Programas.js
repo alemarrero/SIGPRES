@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Container, Table, Row, Col, Button, Input, Form, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './Programas.css';
 import medida from '../../assets/img/unidad-medida.png';
+import withContext from './../../Contenedor/withContext';
 
-export default class Programas extends Component {
+export class Programas extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -23,7 +24,6 @@ export default class Programas extends Component {
       programas: [],
       areas: []
     };
-    this.obtenerAreas = this.obtenerAreas.bind(this);
     this.validarCamposModalCreacion = this.validarCamposModalCreacion.bind(this);
     this.validarCamposModalEdicion = this.validarCamposModalEdicion.bind(this);
     this.crearPrograma = this.crearPrograma.bind(this);
@@ -33,18 +33,6 @@ export default class Programas extends Component {
     this.editarPrograma = this.editarPrograma.bind(this);
     this.formatearFecha = this.formatearFecha.bind(this);
     this.cargarModalEditarPrograma = this.cargarModalEditarPrograma.bind(this);
-  }
-
-  async obtenerAreas(){
-    const areas_request = await fetch('/api/areas/obtener_areas', {credentials: 'include'});
-    const areas_response = await areas_request.json();
-
-    if(areas_response !== 'err'){
-      this.setState({areas: areas_response});
-    }
-    else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las áreas"});
-    }
   }
 
   cargarModalEditarPrograma(index){
@@ -405,7 +393,7 @@ export default class Programas extends Component {
                   defaultValue={this.state.area_id}
                   onChange={(e) => this.setState({area_id: e.target.value})}
                 >
-                  {this.state.areas.map((area, index) => {
+                  {this.props.areas.map((area, index) => {
                     return(
                       <option value={area.id} key={`area_${area.id}`}>{area.nombre}</option>
                     )
@@ -521,7 +509,7 @@ export default class Programas extends Component {
                   defaultValue={this.state.area_id}
                   onChange={(e) => this.setState({area_id: e.target.value})}
                 >
-                  {this.state.areas.map((area, index) => {
+                  {this.props.areas.map((area, index) => {
                     return(
                       <option value={area.id} key={`area_editar_programa_${index}`}>{area.nombre}</option>
                     )
@@ -674,3 +662,5 @@ export default class Programas extends Component {
     )
   }
 }
+
+export default withContext(Programas);
