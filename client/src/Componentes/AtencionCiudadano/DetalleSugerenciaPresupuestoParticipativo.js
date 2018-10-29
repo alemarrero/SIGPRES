@@ -182,7 +182,7 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
               
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label htmlFor="nombre">Nombre y apellido*</Label>
+                  <Label htmlFor="nombre">Nombre y apellido</Label>
                   <p>{this.state.nombre}</p>
                 </Col>
 
@@ -195,7 +195,7 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
               <FormGroup row>              
                 {/* Correo electrónico del usuario */}
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Correo electrónico*</Label>
+                  <Label>Correo electrónico</Label>
                   <p>{this.state.email}</p>
                 </Col>
               </FormGroup>
@@ -208,26 +208,26 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Parroquia*</Label>
+                  <Label>Parroquia</Label>
                   <p>{this.state.parroquia}</p>
                 </Col>
 
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Sector*</Label>
+                  <Label>Sector</Label>
                   <p>{this.state.sector}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Label>Organización*</Label>
+                  <Label>Organización</Label>
                   <p>{this.state.organizacion}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Label>Visión de la comunidad*</Label>
+                  <Label>Visión de la comunidad</Label>
                   <p>{this.state.vision_comunidad}</p>
                 </Col>
               </FormGroup>
@@ -252,33 +252,33 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
               
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Label>Nombre de la propuesta*</Label>
+                  <Label>Nombre de la propuesta</Label>
                   <p>{this.state.nombre_propuesta}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Label>Ubicación de la propuesta*</Label>
+                  <Label>Ubicación de la propuesta</Label>
                   <p>{this.state.ubicacion_propuesta}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <Label>Descripción de la propuesta*</Label>
+                  <Label>Descripción de la propuesta</Label>
                   <p>{this.state.descripcion_propuesta}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Número de beneficiarios directos de la propuesta*</Label>
+                  <Label>Número de beneficiarios directos de la propuesta</Label>
                   <p>{this.state.beneficiarios_directos}</p>
                 </Col>
                 
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Número de beneficiarios indirectos de la propuesta*</Label>
+                  <Label>Número de beneficiarios indirectos de la propuesta</Label>
                   <p>{this.state.beneficiarios_indirectos}</p>
                 </Col>
               </FormGroup>
@@ -293,7 +293,7 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
 
                 {this.state.presentada_anteriormente && 
                   <Col xs={12} sm={12} md={6} lg={6}>
-                    <Label>Año de presentación de la propuesta*</Label>
+                    <Label>Año de presentación de la propuesta</Label>
                     <p>{this.state.año_presentacion}</p>
                   </Col>
                 }
@@ -322,24 +322,24 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Nombre y apellido del responsable*</Label>
+                  <Label>Nombre y apellido del responsable</Label>
                   <p>{this.state.nombre_responsable}</p>
                 </Col>
                 
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Correo electrónico del responsable*</Label>
+                  <Label>Correo electrónico del responsable</Label>
                   <p>{this.state.email_responsable}</p>
                 </Col>
               </FormGroup>
 
               <FormGroup row>
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Número de teléfono del responsable*</Label>
+                  <Label>Número de teléfono del responsable</Label>
                   <p>{this.state.telefono_responsable}</p>
                 </Col>
 
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label>Documento que respalda la propuesta*</Label>
+                  <Label>Documento que respalda la propuesta</Label>
                   <p><a href={this.state.enlace} target="_blank">Haga click para abrir el documento</a></p>
                 </Col>
               </FormGroup>

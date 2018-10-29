@@ -464,9 +464,9 @@ export default class Sugerencias extends Component {
                 </Col>
 
                 <Col xs={12} sm={12} md={6} lg={6}>
-                  <Label htmlFor="telefono">Teléfono</Label>
+                  <Label htmlFor="telefono">Teléfono*</Label>
                   <Input name="telefono" onChange={(e) => this.setState({telefono: e.target.value})}/>
-                  <span id="campo-telefono" className="error-usuarios">Teléfono inválido</span>                              
+                  <span id="campo-telefono" className="error-usuarios">Teléfono inválido, ingrese únicamente números, sin espacios ni símbolos</span>                              
                 </Col>
               </FormGroup>
 
@@ -477,7 +477,7 @@ export default class Sugerencias extends Component {
                   <Input
                     onChange={(e) => this.setState({email: e.target.value})}
                   />
-                  <span id="campo-email" className="error-usuarios">Correo electrónico inválido, ingrese un email de la forma nombre@dominio.com</span>
+                  <span id="campo-email" className="error-usuarios">Correo electrónico inválido, ingrese un correo electrónico de la forma nombre@dominio.com</span>
                 </Col>
               </FormGroup>
 
@@ -501,7 +501,7 @@ export default class Sugerencias extends Component {
                   <Input
                     onChange={(e) => this.setState({sector: e.target.value})}
                   />
-                  <span id="campo-sector" className="error-usuarios">Sector inválido, ingrese entre 7 y 11 caracteres, utilice únicamente números sin espacios ni símbolos</span>
+                  <span id="campo-sector" className="error-usuarios">Sector inválido, este campo no puede estar vacío</span>
                 </Col>
               </FormGroup>
 
@@ -555,13 +555,13 @@ export default class Sugerencias extends Component {
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Número de beneficiarios directos de la propuesta*</Label>
                   <Input type="text" onChange={(e) => this.setState({beneficiarios_directos: e.target.value})} />
-                  <span id="campo-beneficiarios-directos-propuesta" className="error-usuarios">Número de beneficiarios directos de la propuesta inválida, este campo no puede estar vacío</span>
+                  <span id="campo-beneficiarios-directos-propuesta" className="error-usuarios">Número de beneficiarios directos de la propuesta inválida, este campo no puede estar vacío. Utilice únicamente números.</span>
                 </Col>
                 
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Número de beneficiarios indirectos de la propuesta*</Label>
                   <Input type="text" onChange={(e) => this.setState({beneficiarios_indirectos: e.target.value})} />
-                  <span id="campo-beneficiarios-indirectos-propuesta" className="error-usuarios">Número de beneficiarios indirectos de la propuesta inválida, este campo no puede estar vacío</span>
+                  <span id="campo-beneficiarios-indirectos-propuesta" className="error-usuarios">Número de beneficiarios indirectos de la propuesta inválida, este campo no puede estar vacío. Utilice únicamente números.</span>
                 </Col>
               </FormGroup>
 
@@ -577,7 +577,7 @@ export default class Sugerencias extends Component {
                   <Col xs={12} sm={12} md={6} lg={6}>
                     <Label>Año de presentación de la propuesta*</Label>
                     <Input type="text" onChange={(e) => this.setState({año_presentacion: e.target.value})} />
-                    <span id="campo-año-presentacion-propuesta" className="error-usuarios">Año de presentación de la propuesta inválida, este campo no puede estar vacío si ha marcado la opción de que la propuesta fue presentada anteriormente</span>
+                    <span id="campo-año-presentacion-propuesta" className="error-usuarios">Año de presentación de la propuesta inválido, este campo no puede estar vacío si ha marcado la opción de que la propuesta fue presentada anteriormente. Utilice únicamente números sin símbolos.</span>
                   </Col>
                 }
               </FormGroup>
@@ -588,7 +588,7 @@ export default class Sugerencias extends Component {
                     <Input type="checkbox" onChange={(e) => this.setState({solicito_recursos_anteriormente: e.target.checked})}/> 
                     ¿Ha solicitado recursos anteriormente para esta solicitud?
                   </Label>
-                  <span id="campo-solicito-recursos-anteriormente-propuesta" className="error-usuarios">Año de presentación de la propuesta inválida, este campo no puede estar vacío si ha marcado la opción de que la propuesta fue presentada anteriormente</span>
+                  <span id="campo-solicito-recursos-anteriormente-propuesta" className="error-usuarios">Si ha recibido recursos anteriormente, debe indicar de quién ha recibido los recursos. Si marcó la opción "Otros", debe llenar el campo de texto indicando los otros entes a quién ha solicitado recursos.</span>
                 </Col>
                 
                 {this.state.solicito_recursos_anteriormente && 
@@ -650,13 +650,13 @@ export default class Sugerencias extends Component {
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Nombre y apellido del responsable*</Label>
                   <Input type="text" onChange={(e) => this.setState({nombre_responsable: e.target.value})} />
-                  <span id="campo-nombre-responsable-propuesta" className="error-usuarios">Nombre del responsable de la propuesta inválida, este campo no puede estar vacío</span>
+                  <span id="campo-nombre-responsable-propuesta" className="error-usuarios">Nombre del responsable de la propuesta inválido, este campo no puede estar vacío. Utilice únicamente letras, sin números ni símbolos.</span>
                 </Col>
                 
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Correo electrónico del responsable*</Label>
                   <Input type="text" onChange={(e) => this.setState({email_responsable: e.target.value})} />
-                  <span id="campo-email-responsable-propuesta" className="error-usuarios">Correo electrónico del responsable de la propuesta inválido</span>
+                  <span id="campo-email-responsable-propuesta" className="error-usuarios">Correo electrónico inválido, ingrese un correo electrónico de la forma nombre@dominio.com</span>
                 </Col>
               </FormGroup>
 
@@ -664,13 +664,13 @@ export default class Sugerencias extends Component {
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Número de teléfono del responsable*</Label>
                   <Input type="text" onChange={(e) => this.setState({telefono_responsable: e.target.value})} />
-                  <span id="campo-telefono-responsable-propuesta" className="error-usuarios">Número de teléfono del responsable de la propuesta inválida, este campo no puede estar vacío</span>
+                  <span id="campo-telefono-responsable-propuesta" className="error-usuarios">Número de teléfono del responsable inválido, ingrese únicamente números, sin espacios ni símbolos</span>
                 </Col>
 
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Label>Documento que respalda la propuesta*</Label>
                   <Input type="file" onChange={(e) => this.setState({fichero: e.target.files[0]})} />
-                  <span id="campo-fichero-propuesta" className="error-usuarios">Número de teléfono del responsable de la propuesta inválida, este campo no puede estar vacío</span>
+                  <span id="campo-fichero-propuesta" className="error-usuarios">Debe adjuntar un documento que respalde su solicitud.</span>
                 </Col>
               </FormGroup>
 
