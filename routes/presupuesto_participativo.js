@@ -96,7 +96,7 @@ router.get('/obtener_sugerencias_presupuesto_participativo', autorizarAdministra
  * @return estado 500 y 'err' si ocurrió algún error en el servidor.
  */
 router.post('/obtener_sugerencia_presupuesto_participativo', function(req, res){
-  models.sugerencia_presupuesto_participativo.findOne({where: {identificador: req.body.identificador}})
+  models.sugerencia_presupuesto_participativo.findOne({where: {id: req.body.id}})
   .then(sugerencia_presupuesto_participativo => {
     if(sugerencia_presupuesto_participativo){
       res.status(200).json(sugerencia_presupuesto_participativo);
