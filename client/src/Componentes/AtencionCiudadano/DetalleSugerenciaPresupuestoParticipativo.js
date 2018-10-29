@@ -239,6 +239,18 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
               </FormGroup>
 
               <FormGroup row>
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <Label>Fecha de envío de la propuesta</Label>
+                  <p>{this.state.fecha}</p>
+                </Col>
+
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <Label>Identificador de la propuesta</Label>
+                  <p>{this.state.identificador}</p>
+                </Col>
+              </FormGroup>
+              
+              <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
                   <Label>Nombre de la propuesta*</Label>
                   <p>{this.state.nombre_propuesta}</p>
