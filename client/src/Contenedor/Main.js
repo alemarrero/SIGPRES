@@ -57,6 +57,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
             <Route path={this.props.match.path + '/oac/quejas'} component={GestionQuejas}/>                        
             <Route path={this.props.match.path + '/oac/sugerencias'} component={GestionSugerencias}/>                        
+            <Route path={this.props.match.path + '/oac/presupuesto-participativo/:id'} component={DetalleSugerenciaPresupuestoParticipativo}/>                        
             <Route path={this.props.match.path + '/oac'} component={MenuGestionAtencionCiudadano}/>            
             <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
             <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
