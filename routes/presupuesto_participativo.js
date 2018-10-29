@@ -49,7 +49,8 @@ router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subir
     fichero: req.public_id ,
     enlace: req.file_url ,
     identificador: identificador ,
-    comentarios: req.body.comentarios
+    comentarios: req.body.comentarios,
+    fecha: req.body.fecha
   })
   .then(x => {
     if(x){
