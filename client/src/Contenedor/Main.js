@@ -28,7 +28,8 @@ import Cargos from '../Componentes/Requerimientos/Cargos'
 import MenuGestionAtencionCiudadano from '../Componentes/AtencionCiudadano/MenuGestionAtencionCiudadano'
 import GestionQuejas from '../Componentes/AtencionCiudadano/GestionQuejas'
 import GestionSugerencias from '../Componentes/AtencionCiudadano/GestionSugerencias'
-
+import GestionPresupuestoParticipativo from '../Componentes/AtencionCiudadano/GestionPresupuestoParticipativo'
+import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCiudadano/DetalleSugerenciaPresupuestoParticipativo';
 
 /**
  * TO DO
@@ -56,8 +57,9 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/administracion/planes-historicos'} component={PlanesHistoricos}/>
             <Route path={this.props.match.path + '/administracion'} component={Administracion}/>
             <Route path={this.props.match.path + '/oac/quejas'} component={GestionQuejas}/>                        
-            <Route path={this.props.match.path + '/oac/sugerencias'} component={GestionSugerencias}/>                        
+            <Route path={this.props.match.path + '/oac/sugerencias'} component={GestionSugerencias}/>     
             <Route path={this.props.match.path + '/oac/presupuesto-participativo/:id'} component={DetalleSugerenciaPresupuestoParticipativo}/>                        
+            <Route path={this.props.match.path + '/oac/presupuesto-participativo'} component={GestionPresupuestoParticipativo}/>                        
             <Route path={this.props.match.path + '/oac'} component={MenuGestionAtencionCiudadano}/>            
             <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
             <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
