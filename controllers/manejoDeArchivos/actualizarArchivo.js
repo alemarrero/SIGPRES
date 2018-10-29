@@ -25,6 +25,7 @@ let actualizarArchivo =  function(preset){
           {
             resource_type: "raw",
             use_filename: true,
+            unique_filename: true,
             folder: obtenerNombreCarpeta(preset)
           },
           function(error, result) {
