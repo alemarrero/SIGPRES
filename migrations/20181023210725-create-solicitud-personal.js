@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('solicitud_personals', {
+    return queryInterface.createTable('solicitud_personal', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       justificacion: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       periodo: {
