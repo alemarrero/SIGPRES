@@ -40,10 +40,16 @@ export class RequerimientosPersonal extends Component {
     this.obtenerArea = this.obtenerArea.bind(this);
     this.verificarRequerimientoPersonal = this.verificarRequerimientoPersonal.bind(this);
   }
-  async obtenerArea(id){
+
+  obtenerArea(id){
     const area = this.props.areas.filter(area => area.id === id);
-    console.log(area);
-    return `${area[0].nombre} - ${area[0].descripcion}`    
+    
+    if(area[0] !== undefined){
+      return `${area[0].nombre} - ${area[0].descripcion}`    
+    }
+    else{
+      return `N/A`
+    }
   }
   async crearSolicitudPersonal() {
     if(this.validarSolicitudPersonal()){
@@ -387,8 +393,6 @@ export class RequerimientosPersonal extends Component {
       </Modal>
     ;
 
-    let area = this.obtenerArea(this.props.usuario.area_id);
-
     return (
         <Container fluid className="container-unidades-de-medida">
           {/* Modales del componente */}
@@ -412,7 +416,11 @@ export class RequerimientosPersonal extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr><th></th></tr>
+              <tr>
+                <th>
+                  {this.obtenerArea(this.props.usuario.area_id)}
+                </th>
+              </tr>
             </tbody>
           </Table>
           </Row>
