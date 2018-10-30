@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     justificacion: {
-      type: DataTypes.STRING,
-          allowNull: false
+      type: DataTypes.STRING
     },
     periodo: {
       type: DataTypes.STRING,

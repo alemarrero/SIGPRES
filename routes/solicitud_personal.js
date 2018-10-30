@@ -15,7 +15,7 @@ router.post('/crear_solicitud_personal', autorizarDirector, function(req, res, n
   })
   .then(solicitud => {
     if(solicitud){
-      res.status(200).json('ok');
+      res.status(200).json(solicitud.dataValues.id);
     }
   })
   .catch(err =>{
@@ -26,7 +26,7 @@ router.post('/crear_solicitud_personal', autorizarDirector, function(req, res, n
 
 router.post('/actualizar_solicitud_personal', autorizarDirector, function(req, res, next){
   models.solicitud_personal.update({
-    justificacion: req.body.numero,
+    justificacion: req.body.justificacion,
   },
   {where: {id: req.body.id}}
   )
@@ -71,9 +71,9 @@ router.get('/obtener_solicitudes_personal', autorizarDirector, function(req, res
   })
 });
 
-router.post('/obtener_solicitud_personal', autorizarDirector, function(req, res){
+router.get('/obtener_solicitud_personal', autorizarDirector, function(req, res){
   models.solicitud_personal.findOne({
-    where: {id: req.body.id}
+    where: {area_id: req.session.area_id}
   })
   .then( resultado => {
     res.json(resultado).status(200);
