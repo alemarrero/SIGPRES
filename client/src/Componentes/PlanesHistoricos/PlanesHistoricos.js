@@ -11,16 +11,16 @@ export default class PlanesHistoricos extends Component {
     return (
       <Row className="fila-opciones-menu-planes-historicos">
         {/* Gestión de Planes de la Nación */}
-        <OpcionMenu ruta={'/planes-nacion'} nombre="Planes Operativos de la Nación" icono={nacion}/>
+        <OpcionMenu ruta={'/planes-nacion'} nombre="Ordenanzas de la Nación" icono={nacion}/>
 
         {/* Gestión de Planes de la CGR */}
-        <OpcionMenu ruta={'/planes-cgr'} nombre="Planes Operativos de la CGR" icono={cgr}/>
+        <OpcionMenu ruta={'/planes-cgr'} nombre="Ordenanzas de la CGR" icono={cgr}/>
 
         {/* Gestión de Planes de la Alcaldía */}
-        <OpcionMenu ruta={'/planes-alcaldia'} nombre="Planes Operativos de la Alcaldía" icono={alcaldia}/>
+        <OpcionMenu ruta={'/planes-alcaldia'} nombre="Ordenanzas de la Alcaldía" icono={alcaldia}/>
 
         {/* Gestión de Planes de la CMB */}
-        <OpcionMenu ruta={'/planes-cmb'} nombre="Planes Operativos de la CMB" icono={contraloria}/>
+        <OpcionMenu ruta={'/planes-cmb'} nombre="Ordenanzas de la CMB" icono={contraloria}/>
       </Row>
     )
   }

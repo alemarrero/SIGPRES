@@ -109,7 +109,7 @@ export default class BarraNavegacion extends Component {
                     </DropdownItem>
 
                     <DropdownItem className="dropdown-navbar">
-                      Gestión de diagnóstico de la CMB
+                      Gestión de antecedentes de la CMB
                     </DropdownItem>
 
                     <DropdownItem className="dropdown-navbar">
