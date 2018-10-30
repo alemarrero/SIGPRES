@@ -28,7 +28,7 @@ import Cargos from '../Componentes/Requerimientos/Cargos'
 import MenuGestionAtencionCiudadano from '../Componentes/AtencionCiudadano/MenuGestionAtencionCiudadano'
 import GestionQuejas from '../Componentes/AtencionCiudadano/GestionQuejas'
 import GestionSugerencias from '../Componentes/AtencionCiudadano/GestionSugerencias'
-
+import RequerimientosPersonal from '../Componentes/Requerimientos/RequerimientosPersonal'
 
 /**
  * TO DO
@@ -64,6 +64,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
             <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/requerimientos-personal'} component={RequerimientosPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/cargos'} component={Cargos}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
