@@ -28,12 +28,9 @@ import Cargos from '../Componentes/Requerimientos/Cargos'
 import MenuGestionAtencionCiudadano from '../Componentes/AtencionCiudadano/MenuGestionAtencionCiudadano'
 import GestionQuejas from '../Componentes/AtencionCiudadano/GestionQuejas'
 import GestionSugerencias from '../Componentes/AtencionCiudadano/GestionSugerencias'
-<<<<<<< HEAD
 import RequerimientosPersonal from '../Componentes/Requerimientos/RequerimientosPersonal'
-=======
 import GestionPresupuestoParticipativo from '../Componentes/AtencionCiudadano/GestionPresupuestoParticipativo'
 import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCiudadano/DetalleSugerenciaPresupuestoParticipativo';
->>>>>>> d2da4bb9eb48936c033d63f29f00808d2a2d53d9
 
 /**
  * TO DO
