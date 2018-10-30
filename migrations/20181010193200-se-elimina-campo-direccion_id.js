@@ -6,6 +6,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('programas', 'direccion_id', {
       allowNull: false,
+      defaultValue: 1,
       type: Sequelize.INTEGER
     });
   }

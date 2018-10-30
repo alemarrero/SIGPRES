@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('solicitud_personals');
+    return queryInterface.dropTable('solicitud_personal');
   }
 };
