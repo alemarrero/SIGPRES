@@ -16,6 +16,9 @@ let obtenerNombreCarpeta = function(preset){
     case 'planes_cmb':
       return "Planes operativos de la CMB";
 
+    case 'presupuesto_participativo':
+      return "Presupuesto Participativo";
+
     default:
       return "Planes operativos de la alcaldia"
   }

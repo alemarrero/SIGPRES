@@ -200,7 +200,7 @@ export default class Quejas extends Component {
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6} className="text-center">
-            <Button color="danger" onClick={() => this.setState({id: queja.jd, modal_detalle_queja_abierto: false, modal_confirmacion_abierto: true})}>
+            <Button color="danger" onClick={() => this.setState({id: queja.id, modal_detalle_queja_abierto: false, modal_confirmacion_abierto: true})}>
               Eliminar
             </Button>
           </Col>

@@ -26,7 +26,7 @@ var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdmi
 router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subirArchivo("presupuesto_participativo"), function(req, res, next){
   const identificador = uuidv4().slice(0,8);
 
-  models.solicitudes_comunidad.create({
+  models.sugerencia_presupuesto_participativo.create({
     parroquia: req.body.parroquia ,
     sector: req.body.sector ,
     organizacion: req.body.organizacion ,
@@ -49,7 +49,8 @@ router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subir
     fichero: req.public_id ,
     enlace: req.file_url ,
     identificador: identificador ,
-    comentarios: req.body.comentarios
+    comentarios: req.body.comentarios,
+    fecha: req.body.fecha
   })
   .then(x => {
     if(x){
@@ -76,7 +77,7 @@ router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subir
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
 router.get('/obtener_sugerencias_presupuesto_participativo', autorizarAdministrador, function(req, res){
-  models.solicitudes_comunidad.findAll()
+  models.sugerencia_presupuesto_participativo.findAll()
   .then(sugerencias_presupuesto_participativo => {
     res.status(200).json(sugerencias_presupuesto_participativo);
   })
@@ -95,7 +96,7 @@ router.get('/obtener_sugerencias_presupuesto_participativo', autorizarAdministra
  * @return estado 500 y 'err' si ocurrió algún error en el servidor.
  */
 router.post('/obtener_sugerencia_presupuesto_participativo', function(req, res){
-  models.solicitudes_comunidad.findOne({where: {identificador: req.body.identificador}})
+  models.sugerencia_presupuesto_participativo.findOne({where: {id: req.body.id}})
   .then(sugerencia_presupuesto_participativo => {
     if(sugerencia_presupuesto_participativo){
       res.status(200).json(sugerencia_presupuesto_participativo);
@@ -124,7 +125,7 @@ router.post('/obtener_sugerencia_presupuesto_participativo', function(req, res){
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
 router.post('/eliminar_sugerencia_presupuesto_participativo', autorizarAdministrador, function(req, res){
-  models.solicitudes_comunidad.destroy({where: {id: req.body.id}})
+  models.sugerencia_presupuesto_participativo.destroy({where: {id: req.body.id}})
   .then(sugerencia_presupuesto_participativo => {
     if(sugerencia_presupuesto_participativo){
       res.status(200).json('ok');
