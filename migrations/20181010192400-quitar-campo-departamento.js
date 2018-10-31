@@ -5,8 +5,7 @@ module.exports = {
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('usuarios', 'departamento', {
-      type: Sequelize.STRING,
-      allowNull: false
+      type: Sequelize.STRING
     });
   }
 };

@@ -11,17 +11,23 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },   
-  }, {});
+  }, {
+
+  });
+
   requerimientos_personal.associate = function(models) {
+
     requerimientos_personal.belongsTo(models.solicitud_personal, {
       foreignKey: 'solicitud_personal_id',
-      as: 'solicitud_personal',
-      onDelete: 'CASCADE',
+      sourceKey: 'id',
+      as: 'solicitud_personal'
     });   
+
     requerimientos_personal.belongsTo(models.cargos, {
       foreignKey: 'cargo_id',
-      as: 'cargo',
-      onDelete: 'CASCADE',
-    })  };    
+      sourceKey: 'id',
+      as: 'cargo'
+    })  
+  };    
   return requerimientos_personal;
 };

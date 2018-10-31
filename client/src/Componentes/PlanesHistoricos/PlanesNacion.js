@@ -55,7 +55,7 @@ export class PlanesNacion extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_exitosa: true, 
-        mensaje: "Plan Operativo de la Nación eliminado exitosamente"}, async () => {
+        mensaje: "Ordenanza de la Nación eliminado exitosamente"}, async () => {
         this.obtenerPlanesOperativos();
       });
     }
@@ -63,14 +63,14 @@ export class PlanesNacion extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_fallida: true, 
-        mensaje: "Ha ocurrido un error al eliminar el Plan Operativo de la Nación"
+        mensaje: "Ha ocurrido un error al eliminar el Ordenanza de la Nación"
       });
     }
   }
 
   async editarPlanOperativo(){
     if(this.verificarCamposModalEdicion()){
-      // Verifica si se actualizó el archivo del plan operativo
+      // Verifica si se actualizó el archivo de la ordenanza
       // Si se actualizó, primero se sube el archivo y luego se 
       // actualiza la información del plan
       if(this.state.nuevo_fichero){
@@ -108,12 +108,12 @@ export class PlanesNacion extends Component {
           const actualizar_plan_response = await actualizar_plan_request.json();
 
           if(actualizar_plan_response !== 'err'){
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Plan Operativo de la Nación actualizada exitosamente"}, async () => {
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Ordenanza de la Nación actualizada exitosamente"}, async () => {
               this.obtenerPlanesOperativos();
             });
           }
           else{
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Plan Operativo de la Nación"});
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Ordenanza de la Nación"});
           }
         }
         // De lo contrario, ocurrió un error y se le notifica al usuario
@@ -139,12 +139,12 @@ export class PlanesNacion extends Component {
         const actualizar_plan_response = await actualizar_plan_request.json();
 
         if(actualizar_plan_response !== 'err'){
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Plan Operativo de la Nación actualizada exitosamente"}, async () => {
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Ordenanza de la Nación actualizada exitosamente"}, async () => {
             this.obtenerPlanesOperativos();
           });
         }
         else{
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Plan Operativo de la Nación"});
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Ordenanza de la Nación"});
         }
       }
     }
@@ -294,18 +294,18 @@ export class PlanesNacion extends Component {
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
-        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Plan Operativo de la Nación creado correctamente"}, async () => {
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Ordenanza de la Nación creado correctamente"}, async () => {
           this.obtenerPlanesOperativos();
         });
       }
       else{
-        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Plan Operativo de la Nación"});
+        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Ordenanza de la Nación"});
       }
     }
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Planes Operativos de la Nación';
+    document.title = 'SICMB - Ordenanzas de la Nación';
     this.obtenerPlanesOperativos();
   }
 
@@ -319,15 +319,15 @@ export class PlanesNacion extends Component {
     let modal_crear_plan = 
       <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
-          Crear nuevo Plan Operativo de la Nación
+          Crear nuevo Ordenanza de la Nación
         </ModalHeader>
       
         <ModalBody>
           <Form> 
             <FormGroup row>
-              {/* Nombre del plan operativo*/}
+              {/* Nombre de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre del plan operativo*</Label>
+                <Label>Nombre de la ordenanza*</Label>
                 <Input 
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
@@ -336,9 +336,9 @@ export class PlanesNacion extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Periodo del plan operativo*/}
+              {/* Periodo de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia del plan operativo*</Label>
+                <Label>Periodo de vigencia de la ordenanza*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -374,9 +374,9 @@ export class PlanesNacion extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Fichero del plan operativo*/}
+              {/* Fichero de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo del plan operativo*</Label>
+                <Label>Archivo de la ordenanza*</Label>
               </Col>
 
               <Col xs={12} sm={12} md={12} lg={12}>
@@ -412,15 +412,15 @@ export class PlanesNacion extends Component {
     let modal_editar_plan = 
       <Modal isOpen={this.state.modal_editar_plan_operativo_abierto} toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})}>
-          Editar Plan Operativo de la Nación
+          Editar Ordenanza de la Nación
         </ModalHeader>
       
         <ModalBody>
           <Form> 
             <FormGroup row>
-              {/* Nombre del plan operativo*/}
+              {/* Nombre de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre del plan operativo*</Label>
+                <Label>Nombre de la ordenanza*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -430,9 +430,9 @@ export class PlanesNacion extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Periodo del plan operativo*/}
+              {/* Periodo de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia del plan operativo*</Label>
+                <Label>Periodo de vigencia de la ordenanza*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -470,9 +470,9 @@ export class PlanesNacion extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Fichero del plan operativo*/}
+              {/* Fichero de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo del plan operativo</Label>
+                <Label>Archivo de la ordenanza</Label>
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6} className="align-self-end">
@@ -573,14 +573,14 @@ export class PlanesNacion extends Component {
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={nacion} className="icono-titulo"/>    
-            <h1 className="titulo-unidades-de-medida">Gestión de Planes Operativos <br/> de la Nación</h1>
+            <h1 className="titulo-unidades-de-medida">Gestión de Ordenanzas <br/> de la Nación</h1>
           </Col>
 
           {/* Botón para agregar planes operativos */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_plan_operativo_abierto: true})}>
               <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar plan operativo
+              Agregar ordenanza
             </Button>
           </Col>
         </Row>
@@ -634,9 +634,9 @@ export class PlanesNacion extends Component {
           <Row className="justify-content-center">
             <Col xs={12} sm={12} md={6} lg={6} className="text-center"> 
               <h3>
-                Aún no existen Planes Operativos de la Nación 
+                Aún no existen Ordenanzas de la Nación 
                 <br/> 
-                Haga click en el botón "Agregar plan operativo" o contacte a un administrador para agregar un nuevo plan.
+                Haga click en el botón "Agregar ordenanza" o contacte a un administrador para agregar un nuevo plan.
               </h3>
             </Col>
           </Row>

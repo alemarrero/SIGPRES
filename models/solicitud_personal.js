@@ -22,15 +22,19 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     freezeTableName: true
   });
+
   solicitud_personal.associate = function(models) {
     solicitud_personal.belongsTo(models.areas, {
       foreignKey: 'area_id',
-      as: 'area',
-      onDelete: 'CASCADE',
+      sourceKey: 'id'
     }); 
+
     solicitud_personal.hasMany(models.requerimientos_personal, {
       foreignKey: 'solicitud_personal_id',
+      sourceKey: 'id',
       as: 'requerimientos_personal',
-    })  };    
+    });  
+  };    
+  
   return solicitud_personal;
 };
