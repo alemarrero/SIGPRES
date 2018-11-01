@@ -1,22 +1,9 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('especificas', 'generica_id', {
-      type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'genericas',
-          key: 'id'
-        },
-    }, {
-      timestamps: false
-    });
+    return true;
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('especificas', 'generica_id', {
-      allowNull: false,
-      unique: true,           
-      type: Sequelize.INTEGER      
-    });
+    return true;
   }
 };
