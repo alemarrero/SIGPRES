@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "nodemon bin\\www --ignore client",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "heroku-postbuild": "sequelize db:migrate && cd client && npm install --only=dev && npm install && npm run build",
     "seed-db": "sequelize db:seed:all "
   },
   "dependencies": {
