@@ -92,8 +92,13 @@ router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
     aprobada: true
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -107,8 +112,13 @@ router.post("/desaprobar_propuesta", autorizarAdministrador, function(req, res){
     enviada: false
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -121,8 +131,10 @@ router.post("/enviar_propuesta", autorizarAdministrador, function(req, res){
     enviada: true
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -135,8 +147,13 @@ router.post("/retirar_propuesta", autorizarAdministrador, function(req, res){
     enviada: false
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -146,8 +163,13 @@ router.post("/retirar_propuesta", autorizarAdministrador, function(req, res){
 
 router.post("/eliminar_propuesta", autorizarAdministrador, function(req, res){
   models.propuestas_plan_operativo_anual.destroy({where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
