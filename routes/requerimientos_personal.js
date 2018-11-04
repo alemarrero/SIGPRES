@@ -6,21 +6,34 @@ var models = require('../models');
 
 /* */
 router.post('/crear_requerimiento_personal', autorizarDirector, function(req, res, next) {
-  const fecha = new Date();
-  models.requerimientos_personal.create({
-    numero_personas: req.body.numero_personas,
-    cargo_id: req.body.cargo_id,
-    solicitud_personal_id: req.body.solicitud_personal_id
-  })
+  models.requerimientos_personal.findOne(
+    {where: {solicitud_personal_id: req.body.solicitud_personal_id, cargo_id: req.body.cargo_id}}
+  )
   .then(requerimiento => {
-    if(requerimiento){
-      res.status(200).json('ok');
+    if(!requerimiento){
+      models.requerimientos_personal.create({
+        numero_personas: req.body.numero_personas,
+        cargo_id: req.body.cargo_id,
+        solicitud_personal_id: req.body.solicitud_personal_id
+      })
+      .then(requerimiento => {
+        if(requerimiento){
+          res.status(200).json('ok');
+        }
+      })
+      .catch(err =>{
+        console.log(err);
+        res.status(500).json('err');
+      })
+    }
+    else {
+      res.status(409).json('err');
     }
   })
   .catch(err =>{
     console.log(err);
-    res.status(500).json('err');
-  })
+    res.status(500).json('err');    
+  })  
 });
 
 router.post('/actualizar_requerimientos_personal', autorizarDirector, function(req, res, next){
@@ -60,7 +73,7 @@ router.post('/eliminar_requerimiento_personal', autorizarAdministrador, function
   });
 });
 
-router.get('/obtener_requerimientos_personal', autorizarDirector, function(req, res){
+router.post('/obtener_requerimientos_personal', autorizarDirector, function(req, res){
   models.requerimientos_personal.findAll(  {where: {solicitud_personal_id: req.body.solicitud_personal_id}})
   
   .then( resultado => {
