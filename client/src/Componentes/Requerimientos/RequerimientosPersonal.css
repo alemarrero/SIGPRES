@@ -1,0 +1,37 @@
+h1.titulo-solicitud-personal{
+    font-family: roboto !important;
+    font-weight: bold !important;
+    margin-bottom: 20px;
+}
+
+.boton-enviar.btn.btn-info{
+    background-color: #406e2d;
+    border: #406e2d;
+    margin: auto 30px;
+}
+
+.boton-guardar.btn.btn-info{
+    background-color: #406e2d;
+    border: #406e2d;
+}
+
+.boton-actualizar.btn.btn-info{
+    background-color: #406e2d;
+    border: #406e2d;
+    margin: auto 20px;
+}
+
+.error-solicitud-personal{
+    display: none;
+    color: red;
+    font-size: 15px;
+}
+
+.boton-enviar-modal.btn.btn-success {
+    margin-right: 10px;
+    width: 80px;
+}
+
+.boton-eliminar-solicitud.btn.btn-danger {
+    margin-right: 10px;
+}
