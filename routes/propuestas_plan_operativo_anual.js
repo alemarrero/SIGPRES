@@ -21,7 +21,7 @@ router.post('/crear_propuesta', autorizarAdministrador, function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
-  const año = parseInt(fecha.split(" ")[3], 10) + 1;
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
   models.propuestas_plan_operativo_anual.create({
     area_id: req.session.area_id,
@@ -31,11 +31,11 @@ router.post('/crear_propuesta', autorizarAdministrador, function(req, res){
     observaciones: null,
   })
   .then(propuesta => {
-    res.status(200).json({estado: "ok", id: propuesta.id});
+    res.status(200).json({estado: "ok", data: propuesta});
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({estado: "undefined", id: propuesta.id});
+    res.status(500).json({estado: "err", data: propuesta});
   })
 });
 
@@ -54,7 +54,7 @@ router.get("/obtener_propuestas", autorizarAdministrador, function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
-  const año = parseInt(fecha.split(" ")[3], 10) + 1;
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
   models.propuestas_plan_operativo_anual.findAll({where: {periodo: `${año}`}})
   .then(propuestas => {
@@ -70,7 +70,7 @@ router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está buscando una propuesta para el periodo que corresponde al año siguiente
-  const año = parseInt(fecha.split(" ")[3], 10) + 1;
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
   models.propuestas_plan_operativo_anual.findOne({where: {area_id: req.session.area_id, periodo: `${año}`}})
   .then(propuesta => {
