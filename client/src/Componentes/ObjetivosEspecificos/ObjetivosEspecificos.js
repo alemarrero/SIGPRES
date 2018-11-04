@@ -43,9 +43,9 @@ export class ObjetivosEspecificos extends Component {
 
     const propuesta_request = await fetch('/api/propuestas_plan_operativo_anual/obtener_propuesta', request_options);
     const propuesta_response = await propuesta_request.json();
-
-    if(propuesta_response !== "err"){
-      this.setState({...propuesta_response});
+    console.log(propuesta_response);
+    if(propuesta_response.estado !== "err"){
+      this.setState({...propuesta_response.data});
     }
     else{
       await this.crearPropuesta();
@@ -262,13 +262,13 @@ export class ObjetivosEspecificos extends Component {
                 <tbody>
                   <tr>
                     <th>
-                      adas
+                      {this.state.enviada ? <span style={{color: "green", fontWeight: "bold"}}>Si</span> : <span style={{color: "red", fontWeight: "bold"}}>No</span>}
                     </th>
                     <th>
-                      adas
+                      {this.state.aprobada ? <span style={{color: "green", fontWeight: "bold"}}>Si</span> : <span style={{color: "red", fontWeight: "bold"}}>No</span>}
                     </th>
                     <th>
-                      adas
+                      {this.state.observaciones ? <span style={{color: "red", fontWeight: "bold"}}>{this.state.observaciones}</span> : "N/A"}
                     </th>
                   </tr>
                 </tbody>
