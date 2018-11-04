@@ -103,7 +103,8 @@ router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
 
 router.post("/desaprobar_propuesta", autorizarAdministrador, function(req, res){
   models.propuestas_plan_operativo_anual.update({
-    aprobada: false
+    aprobada: false,
+    enviada: false
   },
   {where: {id: req.body.id}})
   .then( () => {
