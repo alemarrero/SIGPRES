@@ -43,7 +43,7 @@ export class ObjetivosEspecificos extends Component {
 
     const propuesta_request = await fetch('/api/propuestas_plan_operativo_anual/obtener_propuesta', request_options);
     const propuesta_response = await propuesta_request.json();
-    console.log(propuesta_response);
+
     if(propuesta_response.estado !== "err"){
       this.setState({...propuesta_response.data});
     }
@@ -70,12 +70,49 @@ export class ObjetivosEspecificos extends Component {
   }
 
   async enviarPropuesta() {
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
 
+    const enviar_propuesta_request = await fetch('/api/propuestas_plan_operativo_anual/enviar_propuesta', request_options);
+    const enviar_propuesta_response = await enviar_propuesta_request.json();
+
+    if(enviar_propuesta_response !== "err"){
+      this.setState({mensaje: "Propuesta de Plan Operativo Anual enviada correctamente", modal_operacion_exitosa: true}, async () => {
+        this.obtenerPropuesta();
+      });
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al enviar la Propuesta de Plan Operativo Anual"});
+    }
   }
 
-
   async retirarPropuesta() {
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
 
+    const retirar_propuesta_request = await fetch('/api/propuestas_plan_operativo_anual/retirar_propuesta', request_options);
+    const retirar_propuesta_response = await retirar_propuesta_request.json();
+
+    if(retirar_propuesta_response !== "err"){
+      this.setState({mensaje: "Propuesta de Plan Operativo Anual retirada correctamente", modal_operacion_exitosa: true}, async () => {
+        this.obtenerPropuesta();
+      });
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al retirar la Propuesta de Plan Operativo Anual"});
+    }
   }
 
   validarCreacionObjetivoEspecifico(){
@@ -251,12 +288,13 @@ export class ObjetivosEspecificos extends Component {
               <Table striped>
                 <thead>
                   <tr>
-                    <th colspan="3">Estado de la Propuesta de Plan Operativo Anual</th>
+                    <th colSpan="4">Estado de la Propuesta de Plan Operativo Anual</th>
                   </tr>
                   <tr>
                     <th>Enviado</th>
                     <th>Aprobado</th>
                     <th>Observaciones</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -269,6 +307,13 @@ export class ObjetivosEspecificos extends Component {
                     </th>
                     <th>
                       {this.state.observaciones ? <span style={{color: "red", fontWeight: "bold"}}>{this.state.observaciones}</span> : "N/A"}
+                    </th>
+                    <th>
+                      {!this.state.enviada ? 
+                        <Button color="success" onClick={this.enviarPropuesta}>Enviar propuesta</Button>
+                        :
+                        <Button color="danger" onClick={this.retirarPropuesta}>Retirar propuesta</Button>
+                      }
                     </th>
                   </tr>
                 </tbody>
