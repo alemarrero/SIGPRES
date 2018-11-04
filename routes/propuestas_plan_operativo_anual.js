@@ -35,7 +35,7 @@ router.post('/crear_propuesta', autorizarAdministrador, function(req, res){
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({estado: "err", data: propuesta});
+    res.status(500).json({estado: "err", data: undefined});
   })
 });
 
@@ -75,7 +75,7 @@ router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
   models.propuestas_plan_operativo_anual.findOne({where: {area_id: req.session.area_id, periodo: `${año}`}})
   .then(propuesta => {
     if(propuesta){
-      res.status(200).json(propuesta.id);
+      res.status(200).json({estado: "ok", data: propuesta});
     }
     else{
       res.status(404).json("err");
