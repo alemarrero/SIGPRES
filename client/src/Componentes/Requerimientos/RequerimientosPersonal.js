@@ -71,7 +71,7 @@ export class RequerimientosPersonal extends Component {
       else{
         this.setState({modal_crear_cargo_abierto: false, mensaje: "Error guardando la solicitud de personal"});
       }
-    }
+  }
 
   async editarSolicitudPersonal(){
       const request_options = {
@@ -92,7 +92,7 @@ export class RequerimientosPersonal extends Component {
           this.obtenerSolicitudPersonal();
         });
       }
-      }
+  }
 
   async eliminarSolicitudPersonal(){
     const request_options = {
@@ -121,27 +121,27 @@ export class RequerimientosPersonal extends Component {
 
   async enviarSolicitudPersonal(){
     if (this.state.requerimientos_personal.length > 0 && (this.state.justificacion !== undefined || this.state.justificacion === null)){
-    const request_options = {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({
-        id: this.state.id
-      })
-    };
+      const request_options = {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({
+          id: this.state.id
+        })
+      };
 
-    const enviar_solicitud_personal_request = await fetch(`/api/solicitud_personal/enviar_solicitud_personal`, request_options);
-    const enviar_solicitud_personal_response = await enviar_solicitud_personal_request.json();
+      const enviar_solicitud_personal_request = await fetch(`/api/solicitud_personal/enviar_solicitud_personal`, request_options);
+      const enviar_solicitud_personal_response = await enviar_solicitud_personal_request.json();
 
-    if(enviar_solicitud_personal_response !== 'err'){
-      this.setState({modal_operacion_exitosa: true, mensaje: "Solicitud de personal enviada correctamente"}, async () => {
-      this.obtenerSolicitudPersonal();  
-      });
+      if(enviar_solicitud_personal_response !== 'err'){
+        this.setState({modal_operacion_exitosa: true, mensaje: "Solicitud de personal enviada correctamente"}, async () => {
+        this.obtenerSolicitudPersonal();  
+        });
+      }
+      else{
+        this.setState({modal_operacion_fallida: true, mensaje: "Error enviando solicitud de personal"});
+      }
     }
-    else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error enviando solicitud de personal"});
-    }
-  }
     else {
       this.setState({modal_operacion_fallida: true, mensaje: "Error enviando solicitud de personal, debe tener al menos un requerimiento de personal y la justificación no puede estar vacía."});      
     }
@@ -295,7 +295,7 @@ export class RequerimientosPersonal extends Component {
     }
     else {
       this.crearSolicitudPersonal();
-  }
+    }
   }
 
 
@@ -304,7 +304,7 @@ export class RequerimientosPersonal extends Component {
     let numero_personas = document.getElementById(`numero_personas_requerimiento_${id}`).value;
     let cargo_id = document.getElementById(`cargo_id_requerimiento_${id}`).value;
     let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id == cargo_id);
-
+   
     // Validación del numero de personas por cargo 
     if(numero_personas === undefined || !numero_personas.match(/^[0-9]+$/)){
         document.getElementById("numero-persona-edicion").style.display = 'block';
@@ -328,7 +328,7 @@ export class RequerimientosPersonal extends Component {
   validarCreacionRequerimientoPersonal(){
     let formulario_valido = true;
     let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id == this.state.cargo_id);
-    
+
     // Validación del cargo
     if(this.state.cargo_id === undefined || requerimiento_existente.length > 0){
         document.getElementById("cargo-id-creacion").style.display = 'block';
@@ -350,7 +350,7 @@ export class RequerimientosPersonal extends Component {
   }
 
   render() {
-       
+
     // Si al realizar cualquier operación ocurre algún error, se muestra este modal
     let modal_confirmacion_operacion = 
       <Modal isOpen={this.state.modal_confirmacion_operacion_abierto} toggle={() => this.setState({modal_confirmacion_operacion_abierto: !this.state.modal_confirmacion_operacion_abierto})}>
@@ -402,7 +402,7 @@ export class RequerimientosPersonal extends Component {
 
       </Modal>
     ;
-
+        
     // Si al realizar cualquier operación ocurre algún error, se muestra este modal
     let modal_operacion_fallida = 
       <Modal isOpen={this.state.modal_operacion_fallida} toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
@@ -413,14 +413,14 @@ export class RequerimientosPersonal extends Component {
         <ModalBody>
           <p>Ha ocurrido un error al procesar la operación.</p>
           <p>Mensaje: {this.state.mensaje}</p>
-          <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>
+          <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>          
         </ModalBody>
 
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <Button color="danger" onClick={() => this.setState({modal_operacion_fallida: false})}>
               Cerrar
-            </Button>
+            </Button>           
           </Col>
         </ModalFooter>
 
@@ -447,17 +447,112 @@ export class RequerimientosPersonal extends Component {
       </Modal>
     ;
 
-    return (
+    if(this.state.enviada){
+      return (
+          <Container fluid className="container-unidades-de-medida">
+            {/* Modales del componente */}
+            {modal_operacion_fallida}
+            {modal_operacion_exitosa}
+            {modal_confirmacion_eliminar}
+
+            <Row>
+              {/* Título de la sección */}
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                <img src={personal} className="icono-titulo"/>    
+                <h1 className="titulo-solicitud-personal">Solicitud de Personal</h1>
+              </Col>
+            </Row>
+
+            {/* Si existen cargos, muestra  tabla con su información */}
+            <Row className="row-unidades-de-medida">
+            <Table striped className="tabla-unidades-de-medida">
+              <thead>
+                <tr>
+                  <th>Unidad Solicitante</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>
+                    {this.obtenerArea(this.props.usuario.area_id)}
+                  </th>
+                </tr>
+              </tbody>
+            </Table>
+            </Row>
+            <Row className="row-unidades-de-medida">
+            <Table striped className="tabla-unidades-de-medida">                              
+              <thead>
+                <tr>
+                  <th>ID</th>    
+                  <th>Número de personas</th>
+                  <th>Cargo</th>
+                </tr>
+              </thead>
+                <tbody>
+                {this.state.requerimientos_personal.map((requerimiento_personal, index) => {
+                    return(
+                    <tr key={`requerimiento_personal_${requerimiento_personal.id}`}>
+                        <th scope="row">{requerimiento_personal.id}</th>
+                        <td>{requerimiento_personal.numero_personas}</td>
+                        <td>
+                          <Input
+                            id={`cargo_id_requerimiento_${requerimiento_personal.id}`}                         
+                            type="select"
+                            defaultValue={requerimiento_personal.cargo_id}
+                            disabled={true}
+                          >
+                            {this.state.cargos.map((cargo, index) => {
+                              return(
+                                <option value={cargo.id} key={`cargo_${cargo.index}`}>{cargo.codigo}-{cargo.cargo}</option>
+                              )
+                            })}
+                          </Input>
+                          </td>                          
+                    </tr>
+                    )
+                })}
+                </tbody>
+            </Table>
+            </Row>                
+            <Row className="row-unidades-de-medida">
+            <Table striped className="tabla-unidades-de-medida">
+              <thead>
+                <tr>
+                  <th>Justificación</th>
+                </tr>
+              </thead>
+              <tbody>
+              <td>{this.state.justificacion}</td>              
+              </tbody>
+            </Table>
+            </Row>          
+
+              {/* Botón para agregar cargos */}
+            <Row>            
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                <Button color="danger" className="boton-enviar" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: true})}>
+                  <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>              
+                  Eliminar solicitud de personal
+                </Button>
+              </Col>                      
+            </Row>          
+        </Container>
+      )
+    }            
+    else{
+      return (
         <Container fluid className="container-unidades-de-medida">
           {/* Modales del componente */}
           {modal_operacion_fallida}
           {modal_operacion_exitosa}
+          {modal_confirmacion_operacion}
 
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <img src={personal} className="icono-titulo"/>    
-              <h1 className="titulo-unidades-de-medida">Solicitud de Personal</h1>
+              <h1 className="titulo-solicitud-personal">Solicitud de Personal</h1>
             </Col>
           </Row>
 
@@ -478,117 +573,126 @@ export class RequerimientosPersonal extends Component {
             </tbody>
           </Table>
           </Row>
-          <Row className="row-unidades-de-medida">
-          <Table striped className="tabla-unidades-de-medida">                              
-            <thead>
-              <tr>
-                <th>ID</th>    
-                <th>Número de personas</th>
-                <th>Cargo</th>
-                <th>Opciones</th>
-              </tr>
-            </thead>
-              <tbody>
-              {this.state.requerimientos_personal.map((requerimiento_personal, index) => {
-                  return(
-                  <tr key={`requerimiento_personal_${requerimiento_personal.id}`}>
-                      <th scope="row">{requerimiento_personal.id}</th>
-                      <td>                
-                        <Input 
-                          defaultValue={requerimiento_personal.numero_personas}
-                        /></td>
-                      <td>
-                        <Input 
-                          type="select"
-                          defaultValue={requerimiento_personal.cargo_id}
+            <Row className="row-unidades-de-medida">
+            <Table striped className="tabla-unidades-de-medida">                              
+              <thead>
+                <tr>
+                  <th>ID</th>    
+                  <th>Número de personas</th>
+                  <th>Cargo</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+                <tbody>
+                {this.state.requerimientos_personal.map((requerimiento_personal, index) => {
+                    return(
+                    <tr key={`requerimiento_personal_${requerimiento_personal.id}`}>
+                        <th scope="row">{requerimiento_personal.id}</th>
+                        <td>                
+                          <Input 
+                            id={`numero_personas_requerimiento_${requerimiento_personal.id}`}
+                            defaultValue={requerimiento_personal.numero_personas}
+                          />
+                          <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                          </td>
+                        <td>
+                          <Input
+                            id={`cargo_id_requerimiento_${requerimiento_personal.id}`}                         
+                            type="select"
+                            defaultValue={requerimiento_personal.cargo_id}
+                          >
+                            {this.state.cargos.map((cargo, index) => {
+                              return(
+                                <option value={cargo.id} key={`cargo_${cargo.index}`}>{cargo.codigo}-{cargo.cargo}</option>
+                              )
+                            })}
+                          <span id="cargo-edicion" className="error-solicitud-personal">No se pueden tener dos requerimientos de personal con el mismo cargo</span>                
+                          </Input>
+                          </td>                          
+                        <td>
+                        <Button 
+                            color="info" className="boton-actualizar"
+                            onClick={() => this.editarRequerimientoPersonal(requerimiento_personal.id)}
                         >
-                          {this.state.cargos.map((cargo, index) => {
-                            return(
-                              <option value={cargo.id} key={`cargo_${cargo.index}`}>{cargo.codigo}-{cargo.cargo}</option>
-                            )
-                          })}                            
-                        </Input>
-                        </td>                          
-                      <td>
-                      <Button 
-                          color="info" className="boton-actualizar"
-                          onClick={() => this.editarRequerimientoPersonal(requerimiento_personal.id)}
-                      >
-                          <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                          Actualizar
-                      </Button>
-                      <Button 
-                          color="info" className="boton-eliminar"
-                          onClick={() => this.eliminarRequerimientoPersonal(requerimiento_personal.id)}
-                      >
-                          <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                          Eliminar
-                      </Button>                          
-                      </td>
-                  </tr>
-                  )
-              })}
-              <th scope="row"></th>
+                            <i class="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
+                            Actualizar
+                        </Button>
+                        <Button 
+                            color="danger" className="boton-eliminar"
+                            onClick={() => this.eliminarRequerimientoPersonal(requerimiento_personal.id)}
+                        >
+                            <i class="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
+                            Eliminar
+                        </Button>                          
+                        </td>
+                    </tr>
+                    )
+                })}
+                <th scope="row"></th>
+                <td>                
+                  <Input 
+                    onChange={(e) => this.setState({numero_personas: e.target.value})}
+                />
+                  <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                </td>
+                <td>
+                  <Input 
+                    type="select"
+                    onChange={(e) => this.setState({cargo_id: e.target.value})}
+                    >
+                    {this.state.cargos.map((cargo, index) => {
+                      return(
+                        <option value={cargo.id} key={`cargo_${cargo.index}`}>{cargo.codigo}-{cargo.cargo}</option>
+                      )
+                    })}                            
+                  </Input>
+                  <span id="cargo-id-creacion" className="error-solicitud-personal">No se pueden tener dos requerimientos de personal con el mismo cargo ni se puede dejar vacío este campo</span>                                
+                  </td>                          
+                <td>
+                <Button 
+                    color="info" className="boton-actualizar"
+                    onClick={() => this.verificarRequerimientoPersonal()}
+                >
+                    <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                    Agregar requerimiento
+                </Button>                         
+                </td>
+                </tbody>
+            </Table>
+            </Row>
+            <Row className="row-unidades-de-medida">
+            <Table striped className="tabla-unidades-de-medida">
+              <thead>
+                <tr>
+                  <th>Justificación</th>
+                </tr>
+              </thead>
+              <tbody>
               <td>                
                 <Input 
-                  onChange={(e) => this.setState({numero_personas: e.target.value})}
-              /></td>
-              <td>
-                <Input 
-                  type="select"
-                  onChange={(e) => this.setState({cargo_id: e.target.value})}
-                  >
-                  {this.state.cargos.map((cargo, index) => {
-                    return(
-                      <option value={cargo.id} key={`cargo_${cargo.index}`}>{cargo.codigo}-{cargo.cargo}</option>
-                    )
-                  })}                            
-                </Input>
-                </td>                          
-              <td>
-              <Button 
-                  color="info" className="boton-agregar"
-                  onClick={() => this.verificarRequerimientoPersonal()}
-              >
-                  <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-                  Agregar requerimiento
-              </Button>                         
-              </td>
+                  onChange={(e) => this.setState({justificacion: e.target.value})}
+                  defaultValue={this.state.justificacion}
+                /></td>              
               </tbody>
-          </Table>
-          </Row>
-          <Row className="row-unidades-de-medida">
-          <Table striped className="tabla-unidades-de-medida">
-            <thead>
-              <tr>
-                <th>Justificación</th>
-              </tr>
-            </thead>
-            <tbody>
-            <td>                
-              <Input 
-                defaultValue={this.state.justificación}
-              /></td>              
-            </tbody>
-          </Table>
-          </Row>          
-          }
+            </Table>
+            </Row>          
 
-            {/* Botón para agregar cargos */}
-          <Row>            
-            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <Button color="info" className="boton-agregar" onClick={() => this.enviarSolicitudPersonal()}>
-                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-                Enviar solicitud de personal
-              </Button>
-              <Button color="info" className="boton-agregar" onClick={() => this.editarSolicitudPersonal()}>
-                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-                Guardar solicitud de personal
-              </Button>
-            </Col>                      
-          </Row>
+              {/* Botón para agregar cargos */}
+            <Row>            
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                <Button color="info" className="boton-enviar" onClick={() => this.setState({modal_confirmacion_operacion_abierto: true}, this.editarSolicitudPersonal)}>
+                  <i className="iconos fa fa-envelope" aria-hidden="true"></i>              
+                  Enviar solicitud de personal
+                </Button>
+                <Button color="info" className="boton-guardar" onClick={() => this.editarSolicitudPersonal()}>
+                  <i className="iconos fa fa-save" aria-hidden="true"></i>              
+                  Guardar solicitud de personal
+                </Button>                
+              </Col>                      
+            </Row>
         </Container>
     )
+  }      
   }
 }
 export default withContext(RequerimientosPersonal);
