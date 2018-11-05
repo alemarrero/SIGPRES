@@ -93,7 +93,7 @@ export default class RevisionPOA extends Component {
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={objetivos_especificos} className="icono-titulo"/>    
-            <h1 className="titulo-unidades-de-medida">Gestión de Propuestas de POA</h1>
+            <h1 className="titulo-unidades-de-medida">Revisión de Propuestas de POA</h1>
             <h2>Año {año}</h2>
           </Col>
         </Row>
