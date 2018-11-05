@@ -75,7 +75,17 @@ router.post("/obtener_propuesta_full", function(req, res){
           as: "objetivos_especificos",
           include: [{
             model: models.acciones_recurrentes,
-            as: "acciones_recurrentes"
+            as: "acciones_recurrentes",
+            include: [
+              {
+                model: models.unidades_de_medida,
+                as: "unidad_de_medida"
+              },
+              {
+                model: models.medios_de_verificacion,
+                as: "medio_de_verificacion"
+              },
+            ]
           }]
         },
       ]
