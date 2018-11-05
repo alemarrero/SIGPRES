@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Button} from 'reactstrap';
+import {Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container} from 'reactstrap';
 import './DetallePOA.css';
 
 export default class RevisionPOA extends Component {
@@ -7,6 +7,7 @@ export default class RevisionPOA extends Component {
     super(props);
     this.state = {
       propuestas: [],
+      modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
       mensaje: undefined,
     };
@@ -31,10 +32,60 @@ export default class RevisionPOA extends Component {
   }
 
   render() {
-    return (
-      <Row>
+    // Si al realizar cualquier operación ocurre algún error, se muestra este modal
+    let modal_operacion_fallida = 
+      <Modal isOpen={this.state.modal_operacion_fallida} toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
+        <ModalHeader toggle={() => this.setState({modal_operacion_fallida: !this.state.modal_operacion_fallida})}>
+          Error en la operación
+        </ModalHeader>
 
-      </Row>
+        <ModalBody>
+          <p>Ha ocurrido un error al procesar la operación.</p>
+          <p>Mensaje: {this.state.mensaje}</p>
+          <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={() => this.setState({modal_operacion_fallida: false})}>
+              Cerrar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+
+    // Si al realizar cualquier operación, esta se realiza exitosamente, se muestra este modal
+    let modal_operacion_exitosa = 
+      <Modal isOpen={this.state.modal_operacion_exitosa} toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+        <ModalHeader toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+          Operación exitosa
+        </ModalHeader>
+        <ModalBody>
+          <p>La operación se ha realizado exitosamente.</p>
+          <p>Mensaje: {this.state.mensaje}</p>
+        </ModalBody>
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={() => this.setState({modal_operacion_exitosa: false})}>
+              Cerrar
+            </Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
+    return (
+      <Container fluid className="container-unidades-de-medida">
+        {/* Modales del componente */}
+        {modal_operacion_fallida}
+        {modal_operacion_exitosa}
+        
+        <Row>
+
+        </Row>
+      </Container>
     )
   }
 }
