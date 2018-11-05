@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container} from 'reactstrap';
+import {Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './DetallePOA.css';
 
@@ -98,9 +98,48 @@ export default class RevisionPOA extends Component {
           </Col>
         </Row>
 
-        <hr/>
+        {this.state.propuestas.length > 0 ?
+          <Row>
+            <Col xs={12}>
+              <Table striped>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Dirección</th>
+                    <th className="text-right">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {this.state.propuestas.map((propuesta, ) => {
+                    return(
+                    <tr key={`propuesta_area_${propuesta.area.id}`}>
+                        <th scope="row">{propuesta.id}</th>
+                        <td>{propuesta.area.nombre} - {propuesta.area.descripcion}</td>
+                        <td className="text-right">
+                          <Button 
+                              color="info" className="boton-ver"
+                              onClick={() => this.props.history.push(`/inicio/planeacion/revision-poa/${propuesta.id}`)}
+                          >
+                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              Ver POA
+                          </Button>
+                        </td>
+                    </tr>
+                    )
+                })}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+        :
+        <Row>
+          <Col xs={12} className="text-center">
+            <h2>Ninguna dirección ha enviado su propuesta de POA aún.</h2>
+          </Col>
+        </Row>
+        }
 
-        
+
       </Container>
     )
   }
