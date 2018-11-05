@@ -29,12 +29,12 @@ router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, re
     programacion_cuarto_trimestre: req.body.programacion_cuarto_trimestre,
     medio_verificacion_id: req.body.medio_verificacion_id,
   })
-  .then(propuesta => {
-    if(propuesta[0]){
+  .then(accion => {
+    if(accion){
       res.status(200).json("ok");
     }
     else{
-      res.statys(409).json("err");
+      res.status(409).json("err");
     }
   })
   .catch(err => {
