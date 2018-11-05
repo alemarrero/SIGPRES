@@ -21,7 +21,7 @@ router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, re
   models.acciones_recurrentes.create({
     numero_actividad: 51,
     accion_recurrente: req.body.accion_recurrente,
-    propuesta_id: req.body.propuesta_id,
+    objetivo_especifico_id: req.body.objetivo_especifico_id,
   })
   .then(propuesta => {
     res.status(200).json("ok");
@@ -32,8 +32,8 @@ router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, re
   })
 });
 
-router.get("/obtener_acciones_recurrente", autorizarAdministrador, function(req, res){
-  models.acciones_recurrentes.findAll({where: {propuesta_id: req.body.propuesta_id}})
+router.post("/obtener_acciones_recurrentes", autorizarAdministrador, function(req, res){
+  models.acciones_recurrentes.findAll({where: {objetivo_especifico_id: req.body.objetivo_especifico_id}})
   .then(acciones => {
     res.status(200).json(acciones);
   })
