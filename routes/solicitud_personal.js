@@ -85,9 +85,35 @@ router.get('/obtener_solicitudes_personal', autorizarDirector, function(req, res
   })
 });
 
+router.get('/obtener_solicitudes_personal_enviadas', autorizarDirector, function(req, res){
+  models.solicitud_personal.findAll({
+    where: {enviada: true}
+  })
+  .then( resultado => {
+    res.json(resultado).status(resultado);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
 router.get('/obtener_solicitud_personal', autorizarDirector, function(req, res){
   models.solicitud_personal.findOne({
     where: {area_id: req.session.area_id}
+  })
+  .then( resultado => {
+    res.json(resultado).status(200);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
+router.post('/obtener_solicitud_personal_enviada', autorizarDirector, function(req, res){
+  models.solicitud_personal.findOne({
+    where: {id: req.body.id}
   })
   .then( resultado => {
     res.json(resultado).status(200);
