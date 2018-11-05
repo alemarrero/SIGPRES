@@ -57,14 +57,9 @@ router.get("/obtener_historico_propuestas", autorizarAdministrador, function(req
  *  - Acciones recurrentes
  */
 router.post("/obtener_propuesta_full", function(req, res){
-  const fecha = new Date();
-  
-  // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
-  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
-
-  models.propuestas_plan_operativo_anual.findAll(
+  models.propuestas_plan_operativo_anual.findOne(
     {
-      where: {periodo: `${año}`, area_id: req.body.area_id},
+      where: {id: req.body.id},
       include: [
         {
           model: models.areas, 
@@ -73,13 +68,14 @@ router.post("/obtener_propuesta_full", function(req, res){
         {
           model: models.objetivos_especificos, 
           as: "objetivos_especificos",
+          separate: true,
           include: [{
             model: models.acciones_recurrentes,
             as: "acciones_recurrentes",
             include: [
               {
                 model: models.unidades_de_medida,
-                as: "unidad_de_medida"
+                as: "unidad_de_medida",
               },
               {
                 model: models.medios_de_verificacion,
@@ -149,7 +145,8 @@ router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
 
 router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
   models.propuestas_plan_operativo_anual.update({
-    aprobada: true
+    aprobada: true,
+    observaciones: null
   },
   {where: {id: req.body.id}})
   .then( (resultado) => {
@@ -169,7 +166,8 @@ router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
 router.post("/desaprobar_propuesta", autorizarAdministrador, function(req, res){
   models.propuestas_plan_operativo_anual.update({
     aprobada: false,
-    enviada: false
+    enviada: false,
+    observaciones:  req.body.observaciones
   },
   {where: {id: req.body.id}})
   .then( (resultado) => {
