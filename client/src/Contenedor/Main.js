@@ -31,6 +31,7 @@ import GestionSugerencias from '../Componentes/AtencionCiudadano/GestionSugerenc
 import RequerimientosPersonal from '../Componentes/Requerimientos/RequerimientosPersonal'
 import GestionPresupuestoParticipativo from '../Componentes/AtencionCiudadano/GestionPresupuestoParticipativo'
 import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCiudadano/DetalleSugerenciaPresupuestoParticipativo';
+import ConsultarSolicitudesPersonal from '../Componentes/Requerimientos/ConsultarSolicitudesPersonal'
 
 /**
  * TO DO
@@ -68,6 +69,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
             <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/consultar-solicitudes-personal/:id_solicitud'} component={ConsultarSolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/requerimientos-personal'} component={RequerimientosPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/cargos'} component={Cargos}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
