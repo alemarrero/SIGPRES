@@ -1,0 +1,13 @@
+hr.separador-objetivos-especificos{
+  border: 0; 
+  height: 1px; 
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(62, 110, 41, 0.75), rgba(0, 0, 0, 0));
+  margin: 50px 0px;
+}
+
+div.footer-detalle-poa{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  margin: 30px 0px;
+}
