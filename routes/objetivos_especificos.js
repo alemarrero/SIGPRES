@@ -49,7 +49,7 @@ router.post("/obtener_objetivos", autorizarAdministrador, function(req, res){
 });
 
 router.post("/obtener_objetivo", autorizarAdministrador, function(req, res){
-  models.objetivos_especificos.findAll({where: {id: req.body.id}})
+  models.objetivos_especificos.findOne({where: {id: req.body.id}})
   .then(objetivo => {
     res.status(200).json(objetivo);
   })
