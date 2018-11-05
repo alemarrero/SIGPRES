@@ -22,7 +22,7 @@ export class ObjetivosEspecificos extends Component {
       enviada: false,
       observaciones: null
     };
-    this.string_regex = /^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/;
+    this.string_regex = /^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F0-9]+)*$/;
     this.validarCreacionObjetivoEspecifico = this.validarCreacionObjetivoEspecifico.bind(this);
     this.validarEdicionObjetivoEspecifico = this.validarEdicionObjetivoEspecifico.bind(this);
     this.eliminarObjetivoEspecifico = this.eliminarObjetivoEspecifico.bind(this);
