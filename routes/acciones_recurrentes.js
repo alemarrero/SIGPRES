@@ -19,12 +19,23 @@ var models = require('../models');
  */
 router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, res){
   models.acciones_recurrentes.create({
-    numero_actividad: 51,
     accion_recurrente: req.body.accion_recurrente,
     objetivo_especifico_id: req.body.objetivo_especifico_id,
+    unidad_medida_id: req.body.unidad_medida_id,
+    meta_fisica_anual: req.body.meta_fisica_anual,
+    programacion_primer_trimestre: req.body.programacion_primer_trimestre,
+    programacion_segundo_trimestre: req.body.programacion_segundo_trimestre,
+    programacion_tercer_trimestre: req.body.programacion_tercer_trimestre,
+    programacion_cuarto_trimestre: req.body.programacion_cuarto_trimestre,
+    medio_verificacion_id: req.body.medio_verificacion_id,
   })
   .then(propuesta => {
-    res.status(200).json("ok");
+    if(propuesta[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.statys(409).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -56,11 +67,23 @@ router.post("/obtener_accion_recurrente", autorizarAdministrador, function(req, 
 
 router.post("/modificar_accion_recurrente", autorizarAdministrador, function(req, res){
   models.acciones_recurrentes.update({
-    accion_recurrente: req.body.accion_recurrente
+    accion_recurrente: req.body.accion_recurrente,
+    unidad_medida_id: req.body.unidad_medida_id,
+    meta_fisica_anual: req.body.meta_fisica_anual,
+    programacion_primer_trimestre: req.body.programacion_primer_trimestre,
+    programacion_segundo_trimestre: req.body.programacion_segundo_trimestre,
+    programacion_tercer_trimestre: req.body.programacion_tercer_trimestre,
+    programacion_cuarto_trimestre: req.body.programacion_cuarto_trimestre,
+    medio_verificacion_id: req.body.medio_verificacion_id,
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -70,8 +93,13 @@ router.post("/modificar_accion_recurrente", autorizarAdministrador, function(req
 
 router.post("/eliminar_accion_recurrente", autorizarAdministrador, function(req, res){
   models.acciones_recurrentes.destroy({where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then( (resultado) => {
+    if(resultado){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
