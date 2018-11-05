@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container} from 'reactstrap';
+import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './DetallePOA.css';
 
 export default class RevisionPOA extends Component {
@@ -76,6 +77,12 @@ export default class RevisionPOA extends Component {
       </Modal>
     ;
 
+
+    const fecha = new Date();
+  
+    // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
+    const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
+
     return (
       <Container fluid className="container-unidades-de-medida">
         {/* Modales del componente */}
@@ -83,8 +90,17 @@ export default class RevisionPOA extends Component {
         {modal_operacion_exitosa}
         
         <Row>
-
+          {/* Título de la sección */}
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <img src={objetivos_especificos} className="icono-titulo"/>    
+            <h1 className="titulo-unidades-de-medida">Gestión de Propuestas de POA</h1>
+            <h2>Año {año}</h2>
+          </Col>
         </Row>
+
+        <hr/>
+
+        
       </Container>
     )
   }
