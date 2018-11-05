@@ -23,8 +23,13 @@ router.post('/crear_objetivo_especifico', autorizarAdministrador, function(req, 
     objetivo: req.body.objetivo,
     propuesta_id: req.body.propuesta_id,
   })
-  .then(propuesta => {
-    res.status(200).json("ok");
+  .then(resultado => {
+    if(resultado){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -32,7 +37,7 @@ router.post('/crear_objetivo_especifico', autorizarAdministrador, function(req, 
   })
 });
 
-router.get("/obtener_objetivos", autorizarAdministrador, function(req, res){
+router.post("/obtener_objetivos", autorizarAdministrador, function(req, res){
   models.objetivos_especificos.findAll({where: {propuesta_id: req.body.propuesta_id}})
   .then(objetivos => {
     res.status(200).json(objetivos);
@@ -59,8 +64,13 @@ router.post("/modificar_objetivo", autorizarAdministrador, function(req, res){
     objetivo: req.body.objetivo
   },
   {where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then(resultado => {
+    if(resultado[0]){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
@@ -70,8 +80,13 @@ router.post("/modificar_objetivo", autorizarAdministrador, function(req, res){
 
 router.post("/eliminar_objetivo", autorizarAdministrador, function(req, res){
   models.objetivos_especificos.destroy({where: {id: req.body.id}})
-  .then( () => {
-    res.status(200).json("ok");
+  .then(resultado => {
+    if(resultado){
+      res.status(200).json("ok");
+    }
+    else{
+      res.status(404).json("err");
+    }
   })
   .catch(err => {
     console.log(err);
