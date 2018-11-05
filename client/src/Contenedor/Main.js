@@ -34,6 +34,10 @@ import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCi
 import ConsultarSolicitudesPersonal from '../Componentes/Requerimientos/ConsultarSolicitudesPersonal'
 import ConsultarSolicitudPersonal from '../Componentes/Requerimientos/ConsultarSolicitudPersonal'
 
+import ObjetivosEspecificos from '../Componentes/ObjetivosEspecificos/ObjetivosEspecificos';
+import AccionesRecurrentes from '../Componentes/ObjetivosEspecificos/AccionesRecurrentes';
+import RevisionPOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
+import DetallePOA from '../Componentes/ObjetivosEspecificos/DetallePOA';
 
 /**
  * TO DO
@@ -44,7 +48,7 @@ export default class Main extends PureComponent {
   render() {
     return (
       <ContextProvider>
-        <Container fluid={true} style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
+        <Container fluid={"true"} style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
           <BarraNavegacion/>
           
           {/* Rutas */}
@@ -66,6 +70,10 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/oac/presupuesto-participativo'} component={GestionPresupuestoParticipativo}/>                        
             <Route path={this.props.match.path + '/oac'} component={MenuGestionAtencionCiudadano}/>            
             <Route path={this.props.match.path + '/planeacion/programas'} component={Programas}/>
+            <Route path={this.props.match.path + '/planeacion/objetivos-especificos/:id'} component={AccionesRecurrentes}/>
+            <Route path={this.props.match.path + '/planeacion/objetivos-especificos'} component={ObjetivosEspecificos}/>
+            <Route path={this.props.match.path + '/planeacion/revision-poa/:id'} component={DetallePOA}/>
+            <Route path={this.props.match.path + '/planeacion/revision-poa'} component={RevisionPOA}/>
             <Route path={this.props.match.path + '/planeacion'} component={Planeacion}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica/especifica/:numero_especifica'} component={Subespecificas}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>

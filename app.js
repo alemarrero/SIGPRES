@@ -27,6 +27,10 @@ var requerimientosPersonalRouter = require('./routes/requerimientos_personal');
 var presupuestoParticipativoRouter = require('./routes/presupuesto_participativo');
 var sugerenciasRouter = require('./routes/sugerencias');
 var quejasRouter = require('./routes/quejas');
+var propuestasPOARouter = require('./routes/propuestas_plan_operativo_anual');
+var objetivosEspecificosRouter = require('./routes/objetivos_especificos');
+var accionesRecurrentesRouter = require('./routes/acciones_recurrentes');
+
 
 var cors = require('cors');
 
@@ -72,6 +76,9 @@ app.use('/api/solicitud_personal', solicitudPersonalRouter);
 app.use('/api/presupuesto_participativo', presupuestoParticipativoRouter);
 app.use('/api/sugerencias', sugerenciasRouter);
 app.use('/api/quejas', quejasRouter);
+app.use('/api/propuestas_plan_operativo_anual', propuestasPOARouter);
+app.use('/api/objetivos_especificos', objetivosEspecificosRouter);
+app.use('/api/acciones_recurrentes', accionesRecurrentesRouter);
 
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/

@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   propuestas_plan_operativo_anual.associate = function(models) {
     propuestas_plan_operativo_anual.hasMany(models.objetivos_especificos, {
       foreignKey: 'propuesta_id',
-      as: 'propuesta' 
+      as: 'objetivos_especificos' 
     });
 
     propuestas_plan_operativo_anual.belongsTo(models.areas, {

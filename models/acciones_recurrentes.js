@@ -64,6 +64,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'objetivo_especifico_id',
       as: 'objetivo_especifico',
     });
+
+    acciones_recurrentes.hasOne(models.unidades_de_medida, {
+      foreignKey: 'id',
+      as: 'unidad_de_medida',
+    });
+
+    acciones_recurrentes.hasOne(models.medios_de_verificacion, {
+      foreignKey: 'id',
+      as: 'medio_de_verificacion',
+    });
   };
   return acciones_recurrentes;
 };

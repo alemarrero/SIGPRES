@@ -1,0 +1,34 @@
+.error-objetivos-especificos{
+  display: none;
+  color: red;
+  font-size: 15px;
+}
+
+.boton-crear.btn.btn-success {
+  color: white !important;
+  font-weight: normal !important;
+}
+
+.boton-eliminar.btn.btn-danger{
+  color: white !important;
+  font-weight: normal !important;
+}
+
+.boton-cancelar.btn.btn-warning{
+  color: white !important;
+  font-weight: normal !important;
+}
+
+div.footer-modal-edicion-objetivos-especificos, div.footer-modal-creacion-objetivos-especificos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px){
+  div.footer-modal-edicion-objetivos-especificos{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
