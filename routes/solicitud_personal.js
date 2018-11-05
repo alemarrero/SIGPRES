@@ -7,20 +7,34 @@ var models = require('../models');
 /* */
 router.post('/crear_solicitud_personal', autorizarDirector, function(req, res, next) {
   const fecha = new Date();
-  models.solicitud_personal.create({
-    justificacion: req.body.numero,
-    enviada: false,
-    periodo: fecha.getFullYear(),
-    area_id: 1
-  })
+  models.solicitud_personal.findOne(
+    {where: {area_id: req.body.area_id, periodo: `${fecha.getFullYear()}`}}
+  )
   .then(solicitud => {
-    if(solicitud){
-      res.status(200).json(solicitud.dataValues.id);
+    if(!solicitud){
+      models.solicitud_personal.create({
+        justificacion: req.body.numero,
+        enviada: false,
+        periodo: `${fecha.getFullYear()}`,
+        area_id: req.body.area_id
+      })
+      .then(solicitud => {
+        if(solicitud){
+          res.status(200).json(solicitud.dataValues.id);
+        }
+      })
+      .catch(err =>{
+        console.log(err);
+        res.status(500).json('err');
+      })
+    }
+    else {
+      res.status(409).json('err');
     }
   })
   .catch(err =>{
     console.log(err);
-    res.status(500).json('err');
+    res.status(500).json('err');    
   })
 });
 
