@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   objetivos_especificos.associate = function(models) {
     objetivos_especificos.hasMany(models.acciones_recurrentes, {
       foreignKey: 'objetivo_especifico_id',
-      as: 'objetivo_especifico',
+      as: 'acciones_recurrentes',
     });
 
     objetivos_especificos.belongsTo(models.propuestas_plan_operativo_anual, {
