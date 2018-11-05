@@ -34,7 +34,7 @@ import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCi
 import ObjetivosEspecificos from '../Componentes/ObjetivosEspecificos/ObjetivosEspecificos';
 import AccionesRecurrentes from '../Componentes/ObjetivosEspecificos/AccionesRecurrentes';
 import RevisionPOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
-import DetallePOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
+import DetallePOA from '../Componentes/ObjetivosEspecificos/DetallePOA';
 
 /**
  * TO DO
