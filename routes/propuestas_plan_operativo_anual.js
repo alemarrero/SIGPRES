@@ -50,13 +50,36 @@ router.get("/obtener_historico_propuestas", autorizarAdministrador, function(req
   })
 });
 
-router.get("/obtener_propuestas", autorizarAdministrador, function(req, res){
+/**
+ * Obtiene toda la información de la propuesta de una cierta área. Esta información incluye:
+ *  - Información de la propuesta
+ *  - Objetivos específicos
+ *  - Acciones recurrentes
+ */
+router.post("/obtener_propuesta_full", function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
   const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
-  models.propuestas_plan_operativo_anual.findAll({where: {periodo: `${año}`}})
+  models.propuestas_plan_operativo_anual.findAll(
+    {
+      where: {periodo: `${año}`, area_id: req.body.area_id},
+      include: [
+        {
+          model: models.areas, 
+          as: "area"
+        },
+        {
+          model: models.objetivos_especificos, 
+          as: "objetivos_especificos",
+          include: [{
+            model: models.acciones_recurrentes,
+            as: "acciones_recurrentes"
+          }]
+        },
+      ]
+    })
   .then(propuestas => {
     res.status(200).json(propuestas);
   })
@@ -66,6 +89,33 @@ router.get("/obtener_propuestas", autorizarAdministrador, function(req, res){
   })
 });
 
+/**
+ * Obtiene todas las propuestas que han sido enviadas que corresponden al próximo periodo
+ * con la información de la área a la que pertenecen.
+ */
+router.get("/obtener_propuestas", function(req, res){
+  const fecha = new Date();
+  
+  // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
+
+  models.propuestas_plan_operativo_anual.findAll(
+    {
+      where: {periodo: `${año}`, enviada: true},
+      include: [{model: models.areas, as: "area"}]
+    })
+  .then(propuestas => {
+    res.status(200).json(propuestas);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  })
+});
+
+/**
+ * Obtiene la información de una propuesta para el periodo actual de una dirección en particular
+ */
 router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
   const fecha = new Date();
   
