@@ -359,7 +359,7 @@ export default class EjesEstrategicos extends Component {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nombre</th>
+                  <th>Eje estratégico</th>
                   <th className="text-right">Opciones</th>
                 </tr>
               </thead>
