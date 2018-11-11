@@ -20,13 +20,15 @@ export default class Antecedentes extends Component {
       modal_operacion_fallida: false,
       modal_operacion_exitosa: false,
       modal_confirmacion_abierto: false,
-      modal_crear_antecedente_abierto: true,
+      modal_crear_antecedente_abierto: false,
+      modal_editar_antecedente_abierto: false,
       mensaje: undefined,
     };
     this.obtenerAntecedentes = this.obtenerAntecedentes.bind(this);
     this.crearAntecedente = this.crearAntecedente.bind(this);
+    this.editarAntecedente = this.editarAntecedente.bind(this);
     this.validarCreacionAntecedentes = this.validarCreacionAntecedentes.bind(this);
-    this.string_regex = /^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F0-9]+)*$/;
+    this.string_regex = /^[A-Za-z\u00C0-\u017F]+([\.,;\(\)]*(\s)[A-Za-z\u00C0-\u017F0-9]+)*$/;
   }
 
   async componentDidMount(){
@@ -64,7 +66,7 @@ export default class Antecedentes extends Component {
       document.getElementById("error-periodo").style.display = "none";
     }
 
-    if(this.state.mision === undefined || this.state.mision === "" || !this.state.mision.match(this.string_regex)){
+    if(this.state.mision === undefined || this.state.mision === ""){
       formulario_valido = false;
       document.getElementById("error-mision").style.display = "block";
     }
@@ -72,7 +74,7 @@ export default class Antecedentes extends Component {
       document.getElementById("error-mision").style.display = "none";
     }
 
-    if(this.state.vision === undefined || this.state.vision === "" || !this.state.vision.match(this.string_regex)){
+    if(this.state.vision === undefined || this.state.vision === ""){
       formulario_valido = false;
       document.getElementById("error-vision").style.display = "block";
     }
@@ -109,6 +111,38 @@ export default class Antecedentes extends Component {
       }
       else{
         this.setState({modal_crear_antecedente_abierto: false, modal_operacion_fallida: true, mensaje: "Error al crear antecedente"});
+      }
+      
+    }
+  }
+
+  async editarAntecedente(){
+    if(this.validarCreacionAntecedentes()){
+      const request_options = {
+        method: "POST",
+        crendentials: "include",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+          mision: this.state.mision,
+          vision: this.state.vision,
+          debilidades: this.state.debilidades,
+          fortalezas: this.state.fortalezas,
+          amenazas: this.state.amenazas,
+          oportunidades: this.state.oportunidades,
+          periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`,
+          id: this.state.id
+        })
+      }
+      const request = await fetch("/api/antecedentes/actualizar_antecedente", request_options);
+      const response = await request.json();
+
+      if(response !== "err"){
+        this.setState({modal_editar_antecedente_abierto: false, modal_operacion_exitosa: true, mensaje: "Antecedente editado correctamente"}, async () => {
+          this.obtenerAntecedentes();
+        });
+      }
+      else{
+        this.setState({modal_editar_antecedente_abierto: false, modal_operacion_fallida: true, mensaje: "Error al editar antecedente"});
       }
       
     }
@@ -333,6 +367,116 @@ export default class Antecedentes extends Component {
       </Modal>
     ;
 
+    let modal_editar_antecedente = 
+      <Modal isOpen={this.state.modal_editar_antecedente_abierto} toggle={() => this.setState({modal_editar_antecedente_abierto: !this.state.modal_editar_antecedente_abierto})} size="lg">
+        <ModalHeader toggle={() => this.setState({modal_editar_antecedente_abierto: !this.state.modal_editar_antecedente_abierto})}>
+          Editar antecedente
+        </ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup row>
+              <Col xs={12}>
+                <Label>Periodo*</Label>
+              </Col>
+
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Inicio*</Label>
+                <Input defaultValue={this.state.inicio_periodo} type="select" onChange={(e) => this.setState({inicio_periodo: e.target.value})}>
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`año_inicio_periodo_${index}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+                <span className="error-antecedentes" id="error-inicio-periodo">Opción inválida. Seleccione una opción de la lista.</span>
+              </Col>
+              
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Fin</Label>
+                <Input defaultValue={this.state.fin_periodo} type="select" onChange={(e) => this.setState({fin_periodo: e.target.value})}>
+                  {años.map((año, index) => {
+                    return(
+                      <option value={año} key={`año_fin_periodo_${index}`}>{año}</option>
+                    )
+                  })}
+                </Input>
+                <span className="error-antecedentes" id="error-fin-periodo">Opción inválida. Seleccione una opción de la lista.</span>
+              </Col>
+
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <span className="error-antecedentes" id="error-periodo">El año de inicio no puede ser mayor al año de finalización</span>
+              </Col>
+            </FormGroup>
+            
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Misión*</Label>
+                <Input defaultValue={this.state.mision} onChange={(e) => this.setState({mision: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-mision">Misión inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Visión*</Label>
+                <Input defaultValue={this.state.vision} onChange={(e) => this.setState({vision: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-vision">Visión inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
+            
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Fortalezas</Label>
+                <Input defaultValue={this.state.fortalezas} onChange={(e) => this.setState({fortalezas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-fortalezas">Fortalezas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Debilidades</Label>
+                <Input defaultValue={this.state.debilidades} onChange={(e) => this.setState({debilidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-debilidades">Debilidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+            </FormGroup>
+            
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Oportunidades</Label>
+                <Input defaultValue={this.state.oportunidades} onChange={(e) => this.setState({oportunidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-oportunidades">Oportunidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Amenazas</Label>
+                <Input defaultValue={this.state.amenazas} onChange={(e) => this.setState({amenazas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-amenazas">Amenazas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Col xs={12} sm={12} md={4} lg={4} className="text-center">
+            <Button color="success" onClick={this.editarAntecedente}>
+              Editar
+            </Button>
+          </Col>
+
+          <Col xs={12} sm={12} md={4} lg={4} className="text-center">
+            <Button style={{width: "100%"}} color="success" onClick={() => this.props.history.push(`/inicio/administracion/antecedente/${this.state.id}/ejes-estrategicos`)}>
+              Ejes estratégicos
+            </Button>
+          </Col>
+
+          <Col xs={12} sm={12} md={4} lg={4} className="text-center">
+            <Button color="danger" onClick={() => this.setState({modal_editar_antecedente_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
     return (
       <Container fluid className="container-unidades-de-medida">
         {/* Modales del componente */}
@@ -340,6 +484,7 @@ export default class Antecedentes extends Component {
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
         {modal_crear_antecedente}
+        {modal_editar_antecedente}
 
         <Row>
           {/* Título de la sección */}
@@ -384,12 +529,16 @@ export default class Antecedentes extends Component {
                           </Button>
 
                           <Button 
-                              color="info" className="boton-gestionar"
-                              style={{margin: "auto 10px"}}
-                              onClick={() => this.props.history.push(`/inicio/administracion/antecedentes/${antecedente.id}`)}
+                            color="info" className="boton-gestionar"
+                            style={{margin: "auto 10px"}}
+                            onClick={() => {
+                              let periodo = antecedente.periodo.split("-");
+
+                              this.setState({modal_editar_antecedente_abierto: true, ...antecedente, inicio_periodo: periodo[0], fin_periodo: periodo[1]})
+                            }}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                              Gestionar
+                            <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                            Gestionar
                           </Button>
 
                           <Button 
