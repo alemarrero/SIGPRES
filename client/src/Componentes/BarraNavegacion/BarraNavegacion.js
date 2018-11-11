@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import './BarraNavegacion.css';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,  
-         UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col } from 'reactstrap';
+         UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col,
+         Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import logo from '../../assets/img/logo-cmb.png';
+import {withRouter} from "react-router-dom";
 
-export default class BarraNavegacion extends Component {
+export class BarraNavegacion extends Component {
   constructor(props) {
     super(props);
     this.state = {
       barra_navegacion_colapsada: false,
-      nombre_completo: undefined
+      nombre_completo: undefined,
+      modal_cierre_de_sesion_exitoso: false
     };
     this.obtenerNombreDelUsuario = this.obtenerNombreDelUsuario.bind(this);
     this.cerrarSesion = this.cerrarSesion.bind(this);
@@ -20,7 +23,7 @@ export default class BarraNavegacion extends Component {
     const logout_response = await logout_request.json();
 
     if(logout_response === 'ok'){
-      window.location.reload();
+      this.setState({modal_cierre_de_sesion_exitoso: true})
     }
   }
 
@@ -36,8 +39,25 @@ export default class BarraNavegacion extends Component {
   }
      
   render() {
+    let cierre_de_sesion_exitoso = 
+      <Modal isOpen={this.state.modal_cierre_de_sesion_exitoso} toggle={() => this.setState({modal_cierre_de_sesion_exitoso: !this.state.modal_cierre_de_sesion_exitoso})}>
+        <ModalHeader toggle={() => this.setState({modal_cierre_de_sesion_exitoso: !this.state.modal_cierre_de_sesion_exitoso})}>
+          Cierre de sesión exitoso
+        </ModalHeader>
+        <ModalBody>
+          <p>Su sesión se ha cerrado exitosamente. Será redirigido a la pantalla de inicio.</p>
+        </ModalBody>
+        <ModalFooter>
+          <Col xs={12} className="text-center">
+            <Button color="danger" onClick={() => this.props.history.push('/')}>Cerrar</Button>
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
     return (
       <Row>
+        {cierre_de_sesion_exitoso}
         <Col xs={12} className="col-navbar"> 
         <Row>
           <Navbar light expand="sm" className="navbar">
@@ -125,7 +145,7 @@ export default class BarraNavegacion extends Component {
                 
                 {/* Botón de cerrar sesión */}
                 <NavItem onClick={this.cerrarSesion} style={{cursor: "pointer", margin: "auto 0px auto 30px"}}>
-                  Cerrar sesión
+                  <i className="fas fa-sign-out-alt"></i> Cerrar sesión
                 </NavItem>
               </Nav>
             </Collapse>
@@ -136,3 +156,5 @@ export default class BarraNavegacion extends Component {
     );
   }
 }
+
+export default withRouter(BarraNavegacion);
