@@ -38,6 +38,7 @@ import ObjetivosEspecificos from '../Componentes/ObjetivosEspecificos/ObjetivosE
 import AccionesRecurrentes from '../Componentes/ObjetivosEspecificos/AccionesRecurrentes';
 import RevisionPOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
 import DetallePOA from '../Componentes/ObjetivosEspecificos/DetallePOA';
+import Antecedentes from '../Componentes/Antecedentes/Antecedentes';
 
 /**
  * TO DO
@@ -54,6 +55,10 @@ export default class Main extends PureComponent {
           {/* Rutas */}
           <Switch>
             <Route exact path={this.props.match.path + '/'} component={Menu}/>
+            <Route path={this.props.match.path + '/administracion/antecedentes/:id/ejes-estrategicos/:id_eje'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedentes/:id/ejes-estrategicos'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedentes/:id'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedentes'} component={Antecedentes}/>
             <Route path={this.props.match.path + '/administracion/unidades-de-medida'} component={UnidadesDeMedida}/>
             <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
             <Route path={this.props.match.path + '/administracion/areas'} component={Areas}/>
