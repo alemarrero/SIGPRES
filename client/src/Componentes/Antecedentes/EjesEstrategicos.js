@@ -34,7 +34,7 @@ export default class EjesEstrategicos extends Component {
   validarCreacionEjesEstrategicos(){
     let formulario_valido = true;
 
-    if(this.state.minombresion === undefined || this.state.nombre === ""){
+    if(this.state.nombre === undefined || this.state.nombre === ""){
       formulario_valido = false;
       document.getElementById("error-nombre").style.display = "block";
     }
@@ -65,6 +65,7 @@ export default class EjesEstrategicos extends Component {
           antecedente_id: this.state.antecedente.id
         })
       }
+
       const request = await fetch("/api/ejes_estrategicos/crear_eje_estrategico", request_options);
       const response = await request.json();
 
@@ -178,18 +179,18 @@ export default class EjesEstrategicos extends Component {
     let modal_confirmacion = 
       <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
         <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
-          Eliminar eje-estrategico
+          Eliminar eje estratégico
         </ModalHeader>
         <ModalBody className="text-center">
-          <h5>¿Está seguro de que desea eliminar el eje-estrategico?</h5>
+          <h5>¿Está seguro de que desea eliminar el eje estratégico?</h5>
         </ModalBody>
         <ModalFooter>
           <Col xs={12} sm={12} md={6} lg={6} className="text-center">
-            <Button color="warning" onClick={() => this.setState({modal_confirmacion_abierto: false})}>Cerrar</Button>
+            <Button color="danger" onClick={() => this.eliminarEjeEstrategico()}>Eliminar</Button>
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6} className="text-center">
-            <Button color="danger" onClick={() => this.eliminarEjeEstrategico()}>Eliminar</Button>
+            <Button color="success" onClick={() => this.setState({modal_confirmacion_abierto: false})}>Cerrar</Button>
           </Col>
         </ModalFooter>
       </Modal>
@@ -271,7 +272,7 @@ export default class EjesEstrategicos extends Component {
           </Col>
 
           <Col xs={12} sm={12} md={6} lg={6} className="text-center">
-            <Button color="danger" onClick={() => this.setState({modal_crearr_eje_estrategico_abierto: false})}>
+            <Button color="danger" onClick={() => this.setState({modal_crear_eje_estrategico_abierto: false})}>
               Cancelar
             </Button>
           </Col>
@@ -289,7 +290,7 @@ export default class EjesEstrategicos extends Component {
             <FormGroup row>
               <Col xs={12} sm={12} md={12} lg={12}>
                 <Label>Nombre*</Label>
-                <Input defaultValue={this.state.nombre} type="select" onChange={(e) => this.setState({nombre: e.target.value})} />
+                <Input defaultValue={this.state.nombre} onChange={(e) => this.setState({nombre: e.target.value})} />
                 <span className="error-ejes-estrategicos" id="error-nombre">Nombre inválido. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
@@ -311,13 +312,13 @@ export default class EjesEstrategicos extends Component {
           </Col>
 
           <Col xs={12} sm={12} md={4} lg={4} className="text-center">
-            <Button style={{width: "100%"}} color="success" onClick={() => this.props.history.push(`/inicio/administracion/antecedente/${this.state.id}/ejes-estrategicos`)}>
-              Objetivos estratégicos
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: true})}>
+              Eliminar
             </Button>
           </Col>
 
           <Col xs={12} sm={12} md={4} lg={4} className="text-center">
-            <Button color="danger" onClick={() => this.setState({modal_editar_eje_estrategico_abierto: false})}>
+            <Button color="warning" onClick={() => this.setState({modal_editar_eje_estrategico_abierto: false})}>
               Cancelar
             </Button>
           </Col>
@@ -354,12 +355,11 @@ export default class EjesEstrategicos extends Component {
         {/* Si existen áreas, muestra una tabla con su información */}
         {this.state.ejes_estrategicos.length > 0 ? 
           <Row className="row-unidades-de-medida">
-            <Table striped className="tabla-unidades-de-medida">
+            <Table striped className="">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Nombre</th>
-                  <th>Descripción</th>
                   <th className="text-right">Opciones</th>
                 </tr>
               </thead>
@@ -369,11 +369,10 @@ export default class EjesEstrategicos extends Component {
                       <tr key={`eje_estrategico_${eje.id}`}>
                         <th scope="row">{eje.id}</th>
                         <td>{eje.nombre}</td>
-                        <td>{eje.descripcion}</td>
                         <td className="text-right">
                           <Button 
                             color="info" className="boton-gestionar"
-                            onClick={() => this.props.history.push(`/ejes-estrategicos/${eje.id}`)}
+                            onClick={() => this.props.history.push(`/inicio/administracion/antecedente/${this.state.antecedente.id}/ejes-estrategicos/${eje.id}`)}
                           >
                             <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
                             Objetivos Estratégicos
@@ -381,19 +380,11 @@ export default class EjesEstrategicos extends Component {
 
                           <Button 
                             color="info" className="boton-gestionar"
-                            style={{margin: "auto 10px"}}
-                            onClick={() => this.setState({modal_editar_eje_estrategico_abierto: true})}
+                            style={{marginLeft: "5px"}}
+                            onClick={() => this.setState({modal_editar_eje_estrategico_abierto: true, ...eje})}
                           >
                             <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
                             Gestionar
-                          </Button>
-
-                          <Button 
-                            color="danger" className="boton-gestionar"
-                            onClick={() => this.setState({id: eje.id, modal_confirmacion_abierto: true})}
-                          >
-                            <i class="iconos fa fa-trash" aria-hidden="true"></i>                          
-                            Eliminar
                           </Button>
                         </td>
                       </tr>
