@@ -55,9 +55,10 @@ export default class Main extends PureComponent {
           {/* Rutas */}
           <Switch>
             <Route exact path={this.props.match.path + '/'} component={Menu}/>
-            <Route path={this.props.match.path + '/administracion/antecedentes/:id/ejes-estrategicos/:id_eje'} component={Antecedentes}/>
-            <Route path={this.props.match.path + '/administracion/antecedentes/:id/ejes-estrategicos'} component={Antecedentes}/>
-            <Route path={this.props.match.path + '/administracion/antecedentes/:id'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedente/detalle/:id'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedente/:id/ejes-estrategicos/:id_eje'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedente/:id/ejes-estrategicos'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedente/:id'} component={Antecedentes}/>
             <Route path={this.props.match.path + '/administracion/antecedentes'} component={Antecedentes}/>
             <Route path={this.props.match.path + '/administracion/unidades-de-medida'} component={UnidadesDeMedida}/>
             <Route path={this.props.match.path + '/administracion/usuarios'} component={Usuarios}/>
