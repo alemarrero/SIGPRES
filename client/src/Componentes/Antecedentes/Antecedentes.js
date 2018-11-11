@@ -24,11 +24,94 @@ export default class Antecedentes extends Component {
       mensaje: undefined,
     };
     this.obtenerAntecedentes = this.obtenerAntecedentes.bind(this);
+    this.crearAntecedente = this.crearAntecedente.bind(this);
+    this.validarCreacionAntecedentes = this.validarCreacionAntecedentes.bind(this);
+    this.string_regex = /^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F0-9]+)*$/;
   }
 
   async componentDidMount(){
     document.title = "SICMB - Antecedentes";
     this.obtenerAntecedentes();
+  }
+
+  validarCreacionAntecedentes(){
+    let formulario_valido = true;
+
+    let inicio_periodo = parseInt(this.state.inicio_periodo, 10);
+    let fin_periodo = parseInt(this.state.fin_periodo, 10);
+
+    if(inicio_periodo === undefined || isNaN(inicio_periodo)){
+      formulario_valido = false;
+      document.getElementById("error-inicio-periodo").style.display = "block";
+    }
+    else{
+      document.getElementById("error-inicio-periodo").style.display = "none";
+    }
+
+    if(fin_periodo === undefined || isNaN(fin_periodo)){
+      formulario_valido = false;
+      document.getElementById("error-fin-periodo").style.display = "block";
+    }
+    else{
+      document.getElementById("error-fin-periodo").style.display = "none";
+    }
+
+    if(inicio_periodo > fin_periodo){
+      formulario_valido = false;
+      document.getElementById("error-periodo").style.display = "block";
+    }
+    else{
+      document.getElementById("error-periodo").style.display = "none";
+    }
+
+    if(this.state.mision === undefined || this.state.mision === "" || !this.state.mision.match(this.string_regex)){
+      formulario_valido = false;
+      document.getElementById("error-mision").style.display = "block";
+    }
+    else{
+      document.getElementById("error-mision").style.display = "none";
+    }
+
+    if(this.state.vision === undefined || this.state.vision === "" || !this.state.vision.match(this.string_regex)){
+      formulario_valido = false;
+      document.getElementById("error-vision").style.display = "block";
+    }
+    else{
+      document.getElementById("error-vision").style.display = "none";
+    }
+
+    return formulario_valido;
+  }
+
+  async crearAntecedente(){
+    if(this.validarCreacionAntecedentes()){
+      const request_options = {
+        method: "POST",
+        crendentials: "include",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+          mision: this.state.mision,
+          vision: this.state.vision,
+          debilidades: this.state.debilidades,
+          fortalezas: this.state.fortalezas,
+          amenazas: this.state.amenazas,
+          oportunidades: this.state.oportunidades,
+          periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`
+        })
+      }
+      const request = await fetch("/api/antecedentes/crear_antecedente", request_options);
+      const response = await request.json();
+
+      if(response !== "err"){
+        this.setState({modal_crear_antecedente_abierto: false, modal_operacion_exitosa: true, mensaje: "Antecedente creado correctamente"}, async () => {
+          this.obtenerAntecedentes();
+        });
+      }
+      else{
+        this.setState({modal_crear_antecedente_abierto: false, modal_operacion_fallida: true, mensaje: "Error al crear antecedente"});
+      }
+      
+    }
   }
 
   async obtenerAntecedentes(){
@@ -58,6 +141,7 @@ export default class Antecedentes extends Component {
 
     if(eliminar_antecedente_response !== "err"){
       this.setState({
+        modal_confirmacion_abierto: false,
         modal_operacion_exitosa: true,
         mensaje: "Antecedente eliminado exitosamente"
       }, async () => {
@@ -66,6 +150,7 @@ export default class Antecedentes extends Component {
     }
     else{
       this.setState({
+        modal_confirmacion_abierto: false,
         modal_operacion_fallida: true,
         mensaje: "Error al eliminar el antecedente"
       });
@@ -196,7 +281,7 @@ export default class Antecedentes extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Visión*</Label>
                 <Input onChange={(e) => this.setState({vision: e.target.value})} type="textarea"></Input>
-                <span className="error-antecedentes" id="error-mision">Visión inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+                <span className="error-antecedentes" id="error-vision">Visión inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
               </Col>
             </FormGroup>
             
@@ -204,14 +289,14 @@ export default class Antecedentes extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Fortalezas</Label>
                 <Input onChange={(e) => this.setState({fortalezas: e.target.value})} type="textarea"></Input>
-                <span className="error-antecedentes" id="error-fortalezas">Fortalezas inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+                <span className="error-antecedentes" id="error-fortalezas">Fortalezas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Debilidades</Label>
                 <Input onChange={(e) => this.setState({debilidades: e.target.value})} type="textarea"></Input>
-                <span className="error-antecedentes" id="error-debilidades">Debilidades inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+                <span className="error-antecedentes" id="error-debilidades">Debilidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
               </Col>
             </FormGroup>
@@ -220,7 +305,7 @@ export default class Antecedentes extends Component {
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Oportunidades</Label>
                 <Input onChange={(e) => this.setState({oportunidades: e.target.value})} type="textarea"></Input>
-                <span className="error-antecedentes" id="error-oportunidades">Oportunidades inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+                <span className="error-antecedentes" id="error-oportunidades">Oportunidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
               </Col>
 
