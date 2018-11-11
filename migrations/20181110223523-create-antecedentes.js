@@ -13,27 +13,27 @@ module.exports = {
         allowNull: false,
       },
       mision: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: false,
       },
       vision: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: false,
       },
       debilidades: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: true
       },
       fortalezas: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: true
       },
       amenazas: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: true
       },
       oportunidades: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: true
       }
     }, {

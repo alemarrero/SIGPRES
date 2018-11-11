@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     objetivo: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: false
     },
     eje_estrategico_id: {

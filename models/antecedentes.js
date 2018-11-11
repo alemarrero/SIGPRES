@@ -13,27 +13,27 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     mision: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: false
     },
     vision: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: false
     },
     debilidades: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: true
     },
     fortalezas: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: true
     },
     amenazas: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: true
     },
     oportunidades: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: true
     }
   }, {

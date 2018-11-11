@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       objetivo: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: false,
       },
       eje_estrategico_id: {

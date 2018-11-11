@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: false,
       },
       descripcion: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2000),
         allowNull: false,
       },
       antecedente_id: {
