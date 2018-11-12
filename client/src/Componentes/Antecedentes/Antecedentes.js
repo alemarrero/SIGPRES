@@ -522,7 +522,7 @@ export default class Antecedentes extends Component {
                         <td className="text-right">
                           <Button 
                             color="info" className="boton-gestionar"
-                            onClick={() => this.props.history.push(`detalle/${antecedente.id}`)}
+                            onClick={() => this.props.history.push(`/inicio/administracion/antecedente/detalle/${antecedente.id}`)}
                           >
                             <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
                             Ver
