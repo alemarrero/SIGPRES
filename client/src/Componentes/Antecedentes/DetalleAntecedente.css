@@ -1,0 +1,21 @@
+.parrafo-antecedentes {
+    text-align: justify !important;
+    display: block;
+    width: 100%;
+}
+
+li.descripcion-eje-estrategico{
+  list-style-type: none;
+}
+
+p.descripcion-eje-estrategico{
+  margin-left: 15px !important;
+}
+
+ol.lista-objetivos-estrategicos, .titulo-lista-objetivos-estrategicos{
+  margin-left: 15px;
+}
+
+div.fila-detalle-antecedente{
+  margin: 30px auto;
+}

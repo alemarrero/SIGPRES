@@ -41,6 +41,7 @@ import DetallePOA from '../Componentes/ObjetivosEspecificos/DetallePOA';
 import Antecedentes from '../Componentes/Antecedentes/Antecedentes';
 import EjesEstrategicos from '../Componentes/Antecedentes/EjesEstrategicos';
 import ObjetivosEstrategicos from '../Componentes/Antecedentes/ObjetivosEstrategicos';
+import DetalleAntecedente from '../Componentes/Antecedentes/DetalleAntecedente';
 
 /**
  * TO DO
@@ -57,7 +58,7 @@ export default class Main extends PureComponent {
           {/* Rutas */}
           <Switch>
             <Route exact path={this.props.match.path + '/'} component={Menu}/>
-            <Route path={this.props.match.path + '/administracion/antecedente/detalle/:id'} component={Antecedentes}/>
+            <Route path={this.props.match.path + '/administracion/antecedente/detalle/:id'} component={DetalleAntecedente}/>
             <Route path={this.props.match.path + '/administracion/antecedente/:id/ejes-estrategicos/:id_eje'} component={ObjetivosEstrategicos}/>
             <Route path={this.props.match.path + '/administracion/antecedente/:id/ejes-estrategicos'} component={EjesEstrategicos}/>
             <Route path={this.props.match.path + '/administracion/antecedentes'} component={Antecedentes}/>
