@@ -38,6 +38,8 @@ import ObjetivosEspecificos from '../Componentes/ObjetivosEspecificos/ObjetivosE
 import AccionesRecurrentes from '../Componentes/ObjetivosEspecificos/AccionesRecurrentes';
 import RevisionPOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
 import DetallePOA from '../Componentes/ObjetivosEspecificos/DetallePOA';
+import Productos from '../Componentes/Productos/Productos';
+
 
 /**
  * TO DO
@@ -87,6 +89,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
+            <Route path={this.props.match.path + '/presupuesto/productos'} component={Productos}/>
             <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
           </Switch>
         </Container>
