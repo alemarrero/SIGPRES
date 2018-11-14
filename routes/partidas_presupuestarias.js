@@ -22,6 +22,7 @@ router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(re
 });
 
 
+
 router.post('/actualizar_partida_presupuestaria', autorizarAdministrador, function(req, res){
   models.partidas_presupuestarias.update({
     numero_partida: req.body.numero_partida,
@@ -107,7 +108,6 @@ router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function
   })
 });
 
-
 router.post('/obtener_partida_presupuestaria', autorizarAdministrador, function(req, res){
   models.partidas_presupuestarias.findOne({
     where: {numero_partida: req.body.numero_partida}
@@ -121,4 +121,107 @@ router.post('/obtener_partida_presupuestaria', autorizarAdministrador, function(
   })
 });
 
+router.get('/obtener_partidas_completas', function(req,res){
+  models.partidas_presupuestarias.findAll({
+    attributes: ["id", "numero_partida", "denominacion"], 
+    include: [
+      {
+        model: models.genericas,
+        as: "genericas",
+        attributes: ["id", "numero_generica", "denominacion"],
+        include: [
+          {
+            model: models.especificas,
+            as: "especificas",
+            attributes: ["id", "numero_especifica", "denominacion"],
+            include: [
+              {
+                model: models.subespecificas,
+                as: "subespecificas",
+                attributes: ["id", "numero_subespecifica", "denominacion"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  })
+  .then(resultado => {
+    res.status(200).json(resultado)
+  })
+  .catch(err => {
+    console.log(err);
+
+    res.status(500).json("err");
+  })
+
+});
+
+router.post('/obtener_partida_desde_especifica', function(req,res){
+  models.partidas_presupuestarias.findOne({
+    attributes: ["id", "numero_partida", "denominacion"], 
+    include: [
+      {
+        model: models.genericas,
+        as: "genericas",
+        attributes: ["id", "numero_generica", "denominacion"],
+        include: [
+          {
+            model: models.especificas,
+            where: {id: req.body.id},
+            as: "especificas",
+            attributes: ["id", "numero_especifica", "denominacion"],
+          }
+        ]
+      }
+    ]
+  })
+  .then(resultado => {
+    res.status(200).json(resultado)
+  })
+  .catch(err => {
+    console.log(err);
+
+    res.status(500).json("err");
+  })
+
+});
+
+router.post('/obtener_partida_desde_subespecifica', function(req,res){
+  models.partidas_presupuestarias.findOne({
+    attributes: ["id", "numero_partida", "denominacion"], 
+    include: [
+      {
+        model: models.genericas,
+        as: "genericas",
+        attributes: ["id", "numero_generica", "denominacion"],
+        include: [
+          {
+            model: models.especificas,
+          
+            as: "especificas",
+            attributes: ["id", "numero_especifica", "denominacion"],
+            include: [
+              {
+                model: models.subespecificas,
+                where: {id: req.body.id},
+                as: "subespecificas",
+                attributes: ["id", "numero_subespecifica", "denominacion"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  })
+  .then(resultado => {
+    res.status(200).json(resultado)
+  })
+  .catch(err => {
+    console.log(err);
+
+    res.status(500).json("err");
+  })
+
+});
 module.exports = router;
