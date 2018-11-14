@@ -6,6 +6,7 @@ import cargo from '../../assets/img/cargo.png';
 import requerimientosViejos from '../../assets/img/requerimientos-viejos.png';
 import OpcionMenu from '../Menu/OpcionMenu';
 import consultar from '../../assets/img/consultar.png';
+import consolidado from '../../assets/img/consolidado.png';
 
 export default class Menu extends Component {
   render() {
@@ -22,6 +23,9 @@ export default class Menu extends Component {
 
         {/* Consulta de solicitudes de personal */}   
         <OpcionMenu ruta={'/consultar-solicitudes-personal/'} nombre="Consultar Solicitudes de Personal" icono={consultar}/> 
+
+        {/* Consulta consolidado de solicitudes de personal */}   
+        <OpcionMenu ruta={'/consolidado-solicitudes-personal/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>         
       </Row>
     )
   }

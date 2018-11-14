@@ -33,7 +33,7 @@ import GestionPresupuestoParticipativo from '../Componentes/AtencionCiudadano/Ge
 import DetalleSugerenciaPresupuestoParticipativo from '../Componentes/AtencionCiudadano/DetalleSugerenciaPresupuestoParticipativo';
 import ConsultarSolicitudesPersonal from '../Componentes/Requerimientos/ConsultarSolicitudesPersonal'
 import ConsultarSolicitudPersonal from '../Componentes/Requerimientos/ConsultarSolicitudPersonal'
-
+import ConsolidadoSolicitudPersonal from '../Componentes/Requerimientos/ConsolidadoSolicitudPersonal'
 import ObjetivosEspecificos from '../Componentes/ObjetivosEspecificos/ObjetivosEspecificos';
 import AccionesRecurrentes from '../Componentes/ObjetivosEspecificos/AccionesRecurrentes';
 import RevisionPOA from '../Componentes/ObjetivosEspecificos/RevisionPOA';
@@ -79,6 +79,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida/generica/:numero_generica'} component={Especificas}/>
             <Route path={this.props.match.path + '/presupuesto/partida-presupuestaria/:numero_partida'} component={Genericas}/>
             <Route path={this.props.match.path + '/presupuesto/partidas-presupuestarias'} component={PartidasPresupuestarias}/>
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/consolidado-solicitudes-personal'} component={ConsolidadoSolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/consultar-solicitudes-personal/:id_solicitud'} component={ConsultarSolicitudPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/consultar-solicitudes-personal'} component={ConsultarSolicitudesPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/requerimientos-personal'} component={RequerimientosPersonal}/>
