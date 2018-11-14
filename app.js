@@ -31,6 +31,9 @@ var objetivosEspecificosRouter = require('./routes/objetivos_especificos');
 var accionesRecurrentesRouter = require('./routes/acciones_recurrentes');
 var productosRouter = require('./routes/productos');
 
+var antecedentesRouter = require('./routes/antecedentes');
+var ejesEstrategicosRouter = require('./routes/ejes_estrategicos');
+var objetivosEstrategicosRouter = require('./routes/objetivos_estrategicos');
 
 var cors = require('cors');
 
@@ -80,6 +83,9 @@ app.use('/api/propuestas_plan_operativo_anual', propuestasPOARouter);
 app.use('/api/objetivos_especificos', objetivosEspecificosRouter);
 app.use('/api/acciones_recurrentes', accionesRecurrentesRouter);
 app.use('/api/productos', productosRouter);
+app.use('/api/antecedentes', antecedentesRouter);
+app.use('/api/ejes_estrategicos', ejesEstrategicosRouter);
+app.use('/api/objetivos_estrategicos', objetivosEstrategicosRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {

@@ -33,7 +33,7 @@ export default class Menu extends Component {
         <OpcionMenu ruta={'/planes-historicos/'} nombre="Gestión de planes históricos" icono={planes}/>
 
         {/* Gestión de diagnostico de la CMB */}
-        <OpcionMenu ruta={'/diagnostico/'} nombre="Gestión de antecedentes de la CMB" icono={diagnostico}/>
+        <OpcionMenu ruta={'/antecedentes/'} nombre="Gestión de antecedentes de la CMB" icono={diagnostico}/>
       </Row>
     )
   }
