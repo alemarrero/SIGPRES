@@ -14,11 +14,11 @@ export default class Menu extends Component {
         {/* Administración */}   
         <OpcionMenu ruta={'administracion/'} nombre="Administración" icono={administracion}/>
         
+        {/* Gestión de planeación */}
+        <OpcionMenu ruta={'planeacion/'} nombre="Planeación" icono={planeacion}/>        
+        
         {/* Gestión presupuestal  */}
         <OpcionMenu ruta={'presupuesto/'} nombre="Presupuesto" icono={presupuesto}/>
-
-        {/* Gestión de planeación */}
-        <OpcionMenu ruta={'planeacion/'} nombre="Planeación" icono={planeacion}/>
 
         {/* Gestión de atención al ciudadano */}
         <OpcionMenu ruta={'oac/'} nombre="Atención al Ciudadano" icono={atencion_ciudadano}/>

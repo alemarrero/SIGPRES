@@ -4,7 +4,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
          UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col,
          Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import logo from '../../assets/img/logo-cmb.png';
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 
 export class BarraNavegacion extends Component {
   constructor(props) {
@@ -77,12 +77,20 @@ export class BarraNavegacion extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem className="dropdown-navbar">
-                      Gestión de partidas presupuestarias
+                      <Link to={this.props.match.path + '/presupuesto/partidas-presupuestarias'} tag='a'>Gestión de partidas presupuestarias</Link>
                     </DropdownItem>
                     
                     <DropdownItem className="dropdown-navbar">
-                      Solicitud de requerimientos
+                      Gestión de requerimientos
                     </DropdownItem>
+
+                    <DropdownItem className="dropdown-navbar">
+                      Vinculación POA - Presupuesto
+                    </DropdownItem>
+                    
+                    <DropdownItem className="dropdown-navbar">
+                      Catálogo de productos
+                    </DropdownItem>                  
                   </DropdownMenu>
                 </UncontrolledDropdown>
 
@@ -93,12 +101,16 @@ export class BarraNavegacion extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem className="dropdown-navbar">
-                      Gestión de objetivos específicos
+                      Gestión de programas
                     </DropdownItem>
                     
                     <DropdownItem className="dropdown-navbar">
-                      Necesidades de la comunidad
+                      Gestión de POA
                     </DropdownItem>
+
+                    <DropdownItem className="dropdown-navbar">
+                      Revisión de POA
+                    </DropdownItem>                    
                   </DropdownMenu>
                 </UncontrolledDropdown>
 
@@ -111,7 +123,11 @@ export class BarraNavegacion extends Component {
                     <DropdownItem className="dropdown-navbar">
                       Gestión de usuarios
                     </DropdownItem>
-                    
+
+                    <DropdownItem className="dropdown-navbar">
+                      Gestión de áreas
+                    </DropdownItem>
+
                     <DropdownItem className="dropdown-navbar">
                       Gestión de indicadores
                     </DropdownItem>
@@ -132,9 +148,6 @@ export class BarraNavegacion extends Component {
                       Gestión de antecedentes de la CMB
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
-                      Gestión de áreas
-                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown> 
               
