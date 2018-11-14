@@ -192,7 +192,7 @@ export class Areas extends Component {
     }    
 
     // Validación de la descripcion
-    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
+    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+[,\.]{0,1}((\s)[A-Za-z\u00C0-\u017F]+[,\.]{0,1})*$/)){
       document.getElementById("descripcion-modal-creacion").style.display = 'block';
       formulario_valido = false;    
     }
@@ -215,9 +215,9 @@ export class Areas extends Component {
     }
     
     // Validación de la descripcion    
-    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
-    document.getElementById("descripcion-modal-edicion").style.display = 'block';
-    formulario_valido = false;
+    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+[,\.]{0,1}((\s)[A-Za-z\u00C0-\u017F]+[,\.]{0,1})*$/)){
+      document.getElementById("descripcion-modal-edicion").style.display = 'block';
+      formulario_valido = false;
     }
     else{
       document.getElementById("descripcion-modal-edicion").style.display = 'none';
