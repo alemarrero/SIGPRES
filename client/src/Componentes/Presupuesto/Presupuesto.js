@@ -35,7 +35,7 @@ export default class Menu extends Component {
             <Card onClick={() => this.props.history.push(this.props.match.path + '/contabilidad-presupuestaria')} body outline color="success">
                 <CardBody>
                 <img src={contabilidad} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de contabilidad presupuestaria</h2>
+                <h2 className="modulo-menu">Vinculación POA - Presupuesto</h2>
                 </CardBody>
             </Card>
             </Col>             
