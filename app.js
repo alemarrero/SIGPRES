@@ -23,13 +23,13 @@ var planesCMBRouter = require('./routes/planes_contraloria_municipal');
 var planesAlcaldiaRouter = require('./routes/planes_alcaldia');
 var solicitudPersonalRouter = require('./routes/solicitud_personal');
 var requerimientosPersonalRouter = require('./routes/requerimientos_personal');
-
 var presupuestoParticipativoRouter = require('./routes/presupuesto_participativo');
 var sugerenciasRouter = require('./routes/sugerencias');
 var quejasRouter = require('./routes/quejas');
 var propuestasPOARouter = require('./routes/propuestas_plan_operativo_anual');
 var objetivosEspecificosRouter = require('./routes/objetivos_especificos');
 var accionesRecurrentesRouter = require('./routes/acciones_recurrentes');
+var productosRouter = require('./routes/productos');
 
 
 var cors = require('cors');
@@ -79,7 +79,7 @@ app.use('/api/quejas', quejasRouter);
 app.use('/api/propuestas_plan_operativo_anual', propuestasPOARouter);
 app.use('/api/objetivos_especificos', objetivosEspecificosRouter);
 app.use('/api/acciones_recurrentes', accionesRecurrentesRouter);
-
+app.use('/api/productos', productosRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {
