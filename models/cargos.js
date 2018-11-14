@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
   cargos.associate = function(models) {
+    cargos.hasMany(models.requerimientos_personal, {
+      foreignKey: 'cargo_id',
+      sourceKey: 'id',
+      as: 'requerimientos_personal',
+    });  
  };
   return cargos;
 };
