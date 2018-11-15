@@ -38,7 +38,11 @@ export class ObjetivosEspecificos extends Component {
 
   async componentDidMount(){
     document.title = "SICMB - Gestión de POA";
-    this.obtenerPropuesta();
+    await this.obtenerPropuesta();
+    
+    if(this.state.propuesta_id === undefined){
+      await this.crearPropuesta();
+    }
   }
 
   async obtenerObjetivosEspecificos(){
@@ -71,7 +75,7 @@ export class ObjetivosEspecificos extends Component {
     const propuesta_request = await fetch('/api/propuestas_plan_operativo_anual/obtener_propuesta', request_options);
     const propuesta_response = await propuesta_request.json();
 
-    if(propuesta_response.estado !== "err"){
+    if(propuesta_response.estado === "ok"){
       this.setState({
         propuesta_id: propuesta_response.data.id,
         aprobada: propuesta_response.data.aprobada,
@@ -80,9 +84,6 @@ export class ObjetivosEspecificos extends Component {
       }, async () => {
         this.obtenerObjetivosEspecificos();
       });
-    }
-    else{
-      this.crearPropuesta();
     }
   }
 
