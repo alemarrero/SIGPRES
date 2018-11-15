@@ -818,7 +818,7 @@ export default class AccionesRecurrentes extends Component {
               <h2>Listado de Acciones Recurrentes</h2>
             </Col>
 
-            {/* Botón para agregar objetivos específicos */}
+            {/* Botón para agregar acciones recurrente */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_accion_recurrente_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
@@ -880,6 +880,13 @@ export default class AccionesRecurrentes extends Component {
           <Row>
             <Col xs={12} className="text-center">
               <h2>Aún no ha creado ninguna Acción Recurrente. <br/> Haga click en el botón "Agregar acción recurrente" para agregar una nueva.</h2>
+            </Col>
+            {/* Botón para agregar acciones recurrente */}
+            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_accion_recurrente_abierto: true})}>
+                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                Agregar acción recurrente
+              </Button>
             </Col>
           </Row>
         }
