@@ -82,7 +82,7 @@ export class ObjetivosEspecificos extends Component {
       });
     }
     else{
-      await this.crearPropuesta();
+      this.crearPropuesta();
     }
   }
 
