@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var models = require('../models');
+var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 
 
 router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(req, res, next) {
@@ -223,5 +224,9 @@ router.post('/obtener_partida_desde_subespecifica', function(req,res){
     res.status(500).json("err");
   })
 
+});
+
+router.post('/cargar_cuentas', recibirArchivo, function(req, res){
+  res.status(200).json("ok");
 });
 module.exports = router;
