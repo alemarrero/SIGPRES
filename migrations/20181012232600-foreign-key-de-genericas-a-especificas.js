@@ -13,10 +13,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('especificas', 'generica_id', {
-      allowNull: false,
-      unique: true,           
-      type: Sequelize.INTEGER      
-    });
+    return true;
   }
 };

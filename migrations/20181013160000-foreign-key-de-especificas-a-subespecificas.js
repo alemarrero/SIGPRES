@@ -5,7 +5,7 @@ module.exports = {
       type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'genericas',
+          model: 'especificas',
           key: 'id'
         },
     }, {
@@ -13,10 +13,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('subespecificas', 'especifica_id', {
-      allowNull: false,
-      unique: true,           
-      type: Sequelize.INTEGER      
-    });
+    return true;
   }
 };
