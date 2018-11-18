@@ -34,6 +34,9 @@ export default class Menu extends Component {
 
         {/* Gestión de diagnostico de la CMB */}
         <OpcionMenu ruta={'/antecedentes/'} nombre="Gestión de antecedentes de la CMB" icono={diagnostico}/>
+
+        {/* Carga de datos */}
+        <OpcionMenu ruta={'/carga-de-datos/'} nombre="Carga de Datos" icono={diagnostico}/>
       </Row>
     )
   }

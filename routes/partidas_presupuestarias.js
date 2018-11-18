@@ -226,58 +226,55 @@ router.post('/obtener_partida_desde_subespecifica', function(req,res){
 
 });
 
-router.post('/cargar_partidas', recibirArchivo, async function(req, res){
+router.post('/cargar_partidas', recibirArchivo, async function(req, res, next){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const cuentas = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[2]]);
   let partidas = cuentas.filter(cuenta => cuenta.tipo === "partida presupuestaria");
 
   // Se introducen las partidas en la base de datos
-  cargarPartidasPresupuestarias(partidas, res);
+  cargarPartidasPresupuestarias(partidas, res, next);
+  }
+);
 
-  res.status(200).json("ok");
-});
-
-router.post('/cargar_genericas', recibirArchivo, async function(req, res){
+router.post('/cargar_genericas', recibirArchivo, async function(req, res, next){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const cuentas = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[2]]);
   let genericas = cuentas.filter(cuenta => cuenta.tipo === "generica");
 
   // // Se introducen las genéricas
-  cargarPartidasGenericas(genericas, res);
+  cargarPartidasGenericas(genericas, res, next);
+  }
+);
 
-  res.status(200).json("ok");
-});
-
-router.post('/cargar_especificas', recibirArchivo, async function(req, res){
+router.post('/cargar_especificas', recibirArchivo, async function(req, res, next){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const cuentas = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[2]]);
   let especificas = cuentas.filter(cuenta => cuenta.tipo === "especifica");
 
   // // Se introducen las específicas
-  cargarPartidasEspecificas(especificas);
+  cargarPartidasEspecificas(especificas, res, next);
+  }
+);
 
-  res.status(200).json("ok");
-});
-
-router.post('/cargar_subespecificas', recibirArchivo, async function(req, res){
+router.post('/cargar_subespecificas', recibirArchivo, async function(req, res, next){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const cuentas = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[2]]);
   let subespecificas = cuentas.filter(cuenta => cuenta.tipo === "subespecifica");
 
   // Se introducen las subespecíficas
-  cargarPartidasSubespecificas(subespecificas);
+  cargarPartidasSubespecificas(subespecificas, res, next);
 
-  res.status(200).json("ok");
-});
+  }
+);
 
 
 module.exports = router;
 
-function cargarPartidasSubespecificas(subespecificas) {
+function cargarPartidasSubespecificas(subespecificas, res, next) {
   Promise.all(subespecificas.map(subespecifica => {
     let numero_partida = subespecifica.numero.split(".");
     let numero_especifica = `${numero_partida[3]}`;
@@ -318,21 +315,28 @@ function cargarPartidasSubespecificas(subespecificas) {
                 })
                 .catch(err => {
                   console.log(err);
-                  // res.status(500).json("err");
+                  res.status(500).json("err");
                 });
             }
           })
           .catch(err => {
             console.log(err);
+            res.status(500).json("err");
+
           });
       })
       .catch(err => {
         console.log(err);
+        res.status(500).json("err");
+
       });
-  }));
+  }))
+  .then(() => {
+    res.status(200).json("ok"); 
+  });
 }
 
-function cargarPartidasEspecificas(especificas) {
+function cargarPartidasEspecificas(especificas, res, next) {
   Promise.all(especificas.map(especifica => {
     let numero_partida = especifica.numero.split(".");
     let numero_generica = `${numero_partida[2]}`;
@@ -356,7 +360,7 @@ function cargarPartidasEspecificas(especificas) {
                 })
                 .catch(err => {
                   console.log(err);
-                  // res.status(500).json("err");
+                  res.status(500).json("err");
                 });
             }
             else {
@@ -373,21 +377,26 @@ function cargarPartidasEspecificas(especificas) {
                 })
                 .catch(err => {
                   console.log(err);
-                  // res.status(500).json("err");
+                  res.status(500).json("err");
                 });
             }
           })
           .catch(err => {
             console.log(err);
+            res.status(500).json("err");
           });
       })
       .catch(err => {
         console.log(err);
+        res.status(500).json("err");
       });
-  }));
+  }))
+  .then(() => {
+    res.status(200).json("ok"); 
+  });
 }
 
-function cargarPartidasGenericas(genericas, res) {
+function cargarPartidasGenericas(genericas, res, next) {
   Promise.all(genericas.map(generica => {
     let numero_partida = generica.numero.split(".");
     let numero_partida_presupuestaria = `${numero_partida[0]}${numero_partida[1]}`;
@@ -411,7 +420,7 @@ function cargarPartidasGenericas(genericas, res) {
                 })
                 .catch(err => {
                   console.log(err);
-                  // res.status(500).json("err");
+                  res.status(500).json("err");
                 });
             }
             else {
@@ -428,18 +437,22 @@ function cargarPartidasGenericas(genericas, res) {
                 })
                 .catch(err => {
                   console.log(err);
-                  // res.status(500).json("err");
+                  res.status(500).json("err");
                 });
             }
           });
       })
       .catch(err => {
         console.log(err);
+        res.status(500).json("err");
       });
-  }));
+  }))
+  .then(() => {
+    res.status(200).json("ok"); 
+  });
 }
 
-function cargarPartidasPresupuestarias(partidas, res) {
+function cargarPartidasPresupuestarias(partidas, res, next) {
   Promise.all(partidas.map(partida => {
     let numero_partida = partida.numero.split(".");
     // Se busca si la partida existe previamente en la base de datos
@@ -475,6 +488,9 @@ function cargarPartidasPresupuestarias(partidas, res) {
         console.log(err);
         res.status(500).json("err");
       });
-  }));
+  }))
+  .then(() => {
+    res.status(200).json("ok"); 
+  });
 }
 

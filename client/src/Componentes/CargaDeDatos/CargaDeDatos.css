@@ -1,0 +1,5 @@
+span.error-carga-de-datos{
+  display: none;
+  color: red;
+  font-size: 15px;    
+}
