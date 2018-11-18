@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     numero_generica: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },    
     partida_presupuestaria_id: {

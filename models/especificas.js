@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     numero_especifica: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },    
     generica_id: {

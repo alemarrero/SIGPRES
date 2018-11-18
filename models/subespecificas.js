@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     numero_subespecifica: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },    
     especifica_id: {
