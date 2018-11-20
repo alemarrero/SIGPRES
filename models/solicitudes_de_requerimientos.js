@@ -29,10 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
   solicitudes_de_requerimientos.associate = function(models) {
-    // solicitudes_de_requerimientos.hasMany(models.entradas_solicitud_de_requerimientos, {
-    //   foreignKey: 'solicitud_id',
-    //   as: 'requerimientos',
-    // });
+    solicitudes_de_requerimientos.hasMany(models.entradas_solicitud_de_requerimientos, {
+      foreignKey: 'solicitud_id',
+      as: 'requerimientos',
+    });
 
     solicitudes_de_requerimientos.belongsTo(models.areas, {
       foreignKey: 'area_id',
