@@ -29,7 +29,12 @@ module.exports = (sequelize, DataTypes) => {
     areas.hasMany(models.solicitud_personal, {
       foreignKey: 'area_id',
       as: 'solicitud_personal',
-    })
-    };
+    });
+
+    areas.hasMany(models.solicitudes_de_requerimientos, {
+      foreignKey: 'area_id',
+      as: 'solicitud_de_requerimientos',
+    });
+  };
   return areas;
 };
