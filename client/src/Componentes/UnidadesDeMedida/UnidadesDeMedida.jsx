@@ -17,6 +17,7 @@ export default class UnidadesDeMedida extends Component {
       nombre: undefined,
       id: undefined,
       habilitado: false,
+      tipo: "acciones recurrentes",
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
     };
@@ -40,7 +41,8 @@ export default class UnidadesDeMedida extends Component {
         body: JSON.stringify({
           id: this.state.id,
           nombre: this.state.nombre,
-          habilitado: this.state.habilitado
+          habilitado: this.state.habilitado,
+          tipo: this.state.tipo
         })
       };
 
@@ -112,7 +114,8 @@ export default class UnidadesDeMedida extends Component {
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         body: JSON.stringify({
-          nombre: this.state.nombre
+          nombre: this.state.nombre,
+          tipo: this.state.tipo
         })
       };
 
@@ -170,7 +173,8 @@ export default class UnidadesDeMedida extends Component {
       nombre: unidad.nombre,
       modal_editar_unidad_abierto: true,
       id: unidad.id,
-      habilitado: unidad.habilitado
+      habilitado: unidad.habilitado,
+      tipo: unidad.tipo
     });
   }
 
@@ -223,6 +227,21 @@ export default class UnidadesDeMedida extends Component {
               <span id="nombre-modal-creacion" className="error-unidades-de-medida">Nombre inválido</span>
             </Col>
           </FormGroup>
+
+
+          <FormGroup row>
+            {/* Tipo de la unidad de medida*/}
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>Tipo de la unidad*</Label>
+              <Input 
+                type="select"
+                onChange={(e) => this.setState({tipo: e.target.value})}
+              >
+                <option value="acciones recurrentes">Acciones recurrentes</option>
+                <option value="productos">Productos</option>
+              </Input>
+            </Col>
+          </FormGroup>
         </Form>
       </ModalBody>
       
@@ -258,6 +277,21 @@ export default class UnidadesDeMedida extends Component {
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
                 <span id="nombre-modal-edicion" className="error-unidades-de-medida">Nombre inválido</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              {/* Tipo de la unidad de medida*/}
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Tipo de la unidad*</Label>
+                <Input 
+                  defaultValue={this.state.tipo}
+                  type="select"
+                  onChange={(e) => this.setState({tipo: e.target.value})}
+                >
+                  <option value="acciones recurrentes">Acciones recurrentes</option>
+                  <option value="productos">Productos</option>
+                </Input>
               </Col>
             </FormGroup>
           </Form>
