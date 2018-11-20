@@ -105,7 +105,7 @@ export default class Productos extends Component {
   }
 
   async obtenerUnidadesDeMedida(){
-    const unidades_de_medida_request = await fetch('/api/unidades_de_medida/obtener_unidades_de_medida', {credentials: 'include'});
+    const unidades_de_medida_request = await fetch('/api/unidades_de_medida/obtener_unidades_de_medida_productos', {credentials: 'include'});
     const unidades_de_medida_response = await unidades_de_medida_request.json();
 
     if(unidades_de_medida_response !== 'err'){

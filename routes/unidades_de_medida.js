@@ -6,7 +6,8 @@ var models = require('../models');
 
 router.post('/crear_unidad_de_medida', autorizarAdministrador, function(req, res, next) {
   models.unidades_de_medida.create({
-    nombre: req.body.nombre 
+    nombre: req.body.nombre,
+    tipo: req.body.tipo 
   })  
   .then(response => {
     if(response){
@@ -23,7 +24,8 @@ router.post('/crear_unidad_de_medida', autorizarAdministrador, function(req, res
 router.post('/actualizar_unidad_de_medida', autorizarAdministrador, function(req, res){
   models.unidades_de_medida.update({
     nombre: req.body.nombre,
-    habilitado: req.body.habilitado
+    habilitado: req.body.habilitado,
+    tipo: req.body.tipo 
   },
   {where: {id: req.body.id}})
   .then(resultado => {
@@ -93,8 +95,19 @@ router.post('/deshabilitar_unidad_de_medida', autorizarAdministrador, function(r
   })
 });
 
-router.get('/obtener_unidades_de_medida', autorizarAdministrador, function(req, res){
-  models.unidades_de_medida.findAll()
+router.get('/obtener_unidades_de_medida_productos', autorizarAdministrador, function(req, res){
+  models.unidades_de_medida.findAll({where: {tipo: "productos"}})
+  .then( resultado => {
+    res.json(resultado).status(200);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
+router.get('/obtener_unidades_de_medida_acciones_recurrentes', autorizarAdministrador, function(req, res){
+  models.unidades_de_medida.findAll({where: {tipo: "acciones recurrentes"}})
   .then( resultado => {
     res.json(resultado).status(200);
   })

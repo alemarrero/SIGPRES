@@ -399,7 +399,7 @@ export default class AccionesRecurrentes extends Component {
       credentials: "include"
     };
 
-    const unidades_de_medida_request = await fetch('/api/unidades_de_medida/obtener_unidades_de_medida', request_options);
+    const unidades_de_medida_request = await fetch('/api/unidades_de_medida/obtener_unidades_de_medida_acciones_recurrentes', request_options);
     const unidades_de_medida_response = await unidades_de_medida_request.json();
 
     if(unidades_de_medida_response.estado !== "err"){
