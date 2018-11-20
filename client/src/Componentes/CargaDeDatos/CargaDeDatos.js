@@ -544,10 +544,16 @@ export default class CargaDeDatos extends Component {
 
         <Row>
           <Col xs="12">
-            <p>Para cargar o actualizar información acerca de partidas presupuestarias, haga click en el botón "Cargar datos", seleccione su archivo y seleccione el tipo de carga de datos que desea realizar.</p>
             <h3>Instrucciones</h3>
             <ol>
-              <li>Descargue el formato de carga de datos a través del siguiente <a href="#">link</a>.</li>
+              <li>Descargue el formato de carga de datos que desea utilizar:</li>
+
+              <ul>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745552/Formatos%20carga%20de%20datos/partidas_presupuestarias.xlsx" target="_BLANK">Partidas presupuestarias</a></li>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745550/Formatos%20carga%20de%20datos/unidades_de_medida.xlsx" target="_BLANK">Unidades de medida</a></li>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745551/Formatos%20carga%20de%20datos/medios_de_verificacion.xlsx" target="_BLANK">Medios de verificación</a></li>
+              </ul>
+
               <li>Coloque la información que desea actualizar en la primera hora del archivo .xls, siguiendo el formato de ejemplo. </li>
               <li>Guarde el archivo y utilice la opción "Cargar datos", seleccione el tipo de datos que desea cargar o actualizar, y haga click en el botón "Cargar datos".</li>
               <li>Espere a que la operación se realice. Una vez finalizada, debe aparecer un mensaje con el resultado de la operación.</li>
