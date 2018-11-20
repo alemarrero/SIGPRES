@@ -155,8 +155,17 @@ export default class Subespecificas extends Component {
   }
 
   async obtenerSubespecificas(){
-    const subespecificas_request = await fetch('/api/subespecificas/obtener_subespecificas', {credentials: 'include'});
+    const request_options = {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        especifica_id: this.state.especifica_id,
+      })
+    };    
+    const subespecificas_request = await fetch('/api/subespecificas/obtener_subespecificas', request_options);
     const subespecificas_response = await subespecificas_request.json();
+    console.log(subespecificas_response);
 
     if(subespecificas_response !== 'err'){
       this.setState({subespecificas: subespecificas_response});
@@ -183,8 +192,8 @@ export default class Subespecificas extends Component {
     document.title = "SICMB - Subespecíficas";
 
     if(this.verificarSesion()){
+      await this.obtenerInfoEspecifica();
       this.obtenerSubespecificas();
-      this.obtenerInfoEspecifica();
     }
   }
 

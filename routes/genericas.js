@@ -80,7 +80,8 @@ router.post('/habilitar_generica', autorizarAdministrador, function(req, res){
 });
 
 router.post('/deshabilitar_generica', autorizarAdministrador, function(req, res){
-  models.genericas.update({
+  models.genericas.
+  update({
     habilitada: false 
   }, {where: {id: req.body.id}})
   .then(x => {
@@ -97,8 +98,10 @@ router.post('/deshabilitar_generica', autorizarAdministrador, function(req, res)
   })
 });
 
-router.get('/obtener_genericas', autorizarAdministrador, function(req, res){
-  models.genericas.findAll()
+router.post('/obtener_genericas', autorizarAdministrador, function(req, res){
+  models.genericas.findAll({
+    where: {partida_presupuestaria_id: req.body.partida_presupuestaria_id}
+  })
   .then( resultado => {
     res.json(resultado).status(200);
   })

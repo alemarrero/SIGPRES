@@ -155,7 +155,15 @@ export default class Especificas extends Component {
   }
 
   async obtenerEspecificas(){
-    const especificas_request = await fetch('/api/especificas/obtener_especificas', {credentials: 'include'});
+    const request_options = {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        generica_id: this.state.generica_id,
+      })
+    };    
+    const especificas_request = await fetch('/api/especificas/obtener_especificas', request_options);
     const especificas_response = await especificas_request.json();
 
     if(especificas_response !== 'err'){
@@ -183,8 +191,8 @@ export default class Especificas extends Component {
     document.title = "SICMB - Específicas";
 
     if(this.verificarSesion()){
+      await this.obtenerInfoGenerica();
       this.obtenerEspecificas();
-      this.obtenerInfoGenerica();
     }
   }
 

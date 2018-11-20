@@ -97,8 +97,10 @@ router.post('/deshabilitar_especifica', autorizarAdministrador, function(req, re
   })
 });
 
-router.get('/obtener_especificas', autorizarAdministrador, function(req, res){
-  models.especificas.findAll()
+router.post('/obtener_especificas', autorizarAdministrador, function(req, res){
+  models.especificas.findAll({
+    where: {generica_id: req.body.generica_id}
+  })
   .then( resultado => {
     res.json(resultado).status(200);
   })
