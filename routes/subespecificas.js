@@ -97,8 +97,11 @@ router.post('/deshabilitar_subespecifica', autorizarAdministrador, function(req,
   })
 });
 
-router.get('/obtener_subespecificas', autorizarAdministrador, function(req, res){
-  models.subespecificas.findAll()
+router.post('/obtener_subespecificas', autorizarAdministrador, function(req, res){
+  models.subespecificas.findAll({
+    where: {especifica_id: req.body.especifica_id}
+  }
+  )
   .then( resultado => {
     res.json(resultado).status(200);
   })
