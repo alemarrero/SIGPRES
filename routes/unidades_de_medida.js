@@ -96,6 +96,17 @@ router.post('/deshabilitar_unidad_de_medida', autorizarAdministrador, function(r
   })
 });
 
+router.get('/obtener_unidades_de_medida', autorizarAdministrador, function(req, res){
+  models.unidades_de_medida.findAll()
+  .then( resultado => {
+    res.json(resultado).status(200);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
 router.get('/obtener_unidades_de_medida_productos', autorizarAdministrador, function(req, res){
   models.unidades_de_medida.findAll({where: {tipo: "productos"}})
   .then( resultado => {
