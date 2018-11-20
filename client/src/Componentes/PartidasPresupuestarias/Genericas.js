@@ -154,7 +154,15 @@ export default class Genericas extends Component {
   }
 
   async obtenerGenericas(){
-    const genericas_request = await fetch('/api/genericas/obtener_genericas', {credentials: 'include'});
+    const request_options = {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        partida_presupuestaria_id: this.state.partida_presupuestaria_id,
+      })
+    };    
+    const genericas_request = await fetch('/api/genericas/obtener_genericas', request_options);
     const genericas_response = await genericas_request.json();
 
     if(genericas_response !== 'err'){
@@ -182,8 +190,8 @@ export default class Genericas extends Component {
     document.title = "SICMB - Genéricas";
 
     if(this.verificarSesion()){
+      await this.obtenerInfoPartidaPresupuestaria();
       this.obtenerGenericas();
-      this.obtenerInfoPartidaPresupuestaria();
     }
   }
 
