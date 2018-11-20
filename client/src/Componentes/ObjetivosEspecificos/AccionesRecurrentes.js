@@ -95,6 +95,8 @@ export default class AccionesRecurrentes extends Component {
 
   async crearAccionRecurrente(){
     if(this.validarCreacionAccionRecurrente()){
+      let meta_fisica_anual = this.state.programacion_primer_trimestre + this.state.programacion_segundo_trimestre + this.state.programacion_tercer_trimestre + this.state.programacion_cuarto_trimestre;
+
       const request_options = {
         method: "POST",
         credentials: "include",
@@ -103,7 +105,7 @@ export default class AccionesRecurrentes extends Component {
           objetivo_especifico_id: this.props.match.params.id,
           accion_recurrente: this.state.accion_recurrente,
           unidad_medida_id: this.state.unidad_medida_id,
-          meta_fisica_anual: this.state.meta_fisica_anual,
+          meta_fisica_anual: meta_fisica_anual,
           programacion_primer_trimestre: this.state.programacion_primer_trimestre,
           programacion_segundo_trimestre: this.state.programacion_segundo_trimestre,
           programacion_tercer_trimestre: this.state.programacion_tercer_trimestre,
@@ -145,7 +147,6 @@ export default class AccionesRecurrentes extends Component {
       document.getElementById("unidad_medida_id-modal-creacion").style.display = "none";
     }
 
-    const meta_fisica_anual = this.state.meta_fisica_anual !== undefined ? parseInt(this.state.meta_fisica_anual, 10) : 0;
     const programacion_primer_trimestre = this.state.programacion_primer_trimestre !== undefined ? parseInt(this.state.programacion_primer_trimestre, 10) : 0;
     const programacion_segundo_trimestre = this.state.programacion_segundo_trimestre !== undefined ? parseInt(this.state.programacion_segundo_trimestre, 10) : 0;
     const programacion_tercer_trimestre = this.state.programacion_tercer_trimestre !== undefined ? parseInt(this.state.programacion_tercer_trimestre, 10) : 0;
@@ -153,13 +154,6 @@ export default class AccionesRecurrentes extends Component {
 
     const suma_programacion_trimestral = programacion_primer_trimestre + programacion_segundo_trimestre + programacion_tercer_trimestre + programacion_cuarto_trimestre;
 
-    if(this.state.meta_fisica_anual === undefined || parseInt(this.state.meta_fisica_anual, 10) === 0 || !this.state.meta_fisica_anual.match(/^[1-9]+[0-9]*$/)){
-      formulario_valido = false;
-      document.getElementById("meta_fisica_anual-modal-creacion").style.display = "block";
-    }
-    else{
-      document.getElementById("meta_fisica_anual-modal-creacion").style.display = "none";
-    }
 
     if(this.state.programacion_primer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_primer_trimestre)){
       formulario_valido = false;
@@ -193,14 +187,6 @@ export default class AccionesRecurrentes extends Component {
       document.getElementById("programacion_cuarto_trimestre-modal-creacion").style.display = "none";
     }
 
-    if(meta_fisica_anual !== suma_programacion_trimestral){
-      formulario_valido = false;
-      document.getElementById("programacion_fisica_trimestral-modal-creacion").style.display = "block";
-    }
-    else{
-      document.getElementById("programacion_fisica_trimestral-modal-creacion").style.display = "none";
-    }
-
     if(this.state.medio_verificacion_id === undefined){
       formulario_valido = false;
       document.getElementById("medio_verificacion_id-modal-creacion").style.display = "block";
@@ -214,6 +200,8 @@ export default class AccionesRecurrentes extends Component {
 
   async editarAccionRecurrente(){
     if(this.validarEdicionAccionRecurrente()){
+      let meta_fisica_anual = this.state.programacion_primer_trimestre + this.state.programacion_segundo_trimestre + this.state.programacion_tercer_trimestre + this.state.programacion_cuarto_trimestre;
+
       const request_options = {
         method: "POST",
         credentials: "include",
@@ -222,7 +210,7 @@ export default class AccionesRecurrentes extends Component {
           objetivo_especifico_id: this.props.match.params.id,
           accion_recurrente: this.state.accion_recurrente,
           unidad_medida_id: this.state.unidad_medida_id,
-          meta_fisica_anual: this.state.meta_fisica_anual,
+          meta_fisica_anual: meta_fisica_anual,
           programacion_primer_trimestre: this.state.programacion_primer_trimestre,
           programacion_segundo_trimestre: this.state.programacion_segundo_trimestre,
           programacion_tercer_trimestre: this.state.programacion_tercer_trimestre,
@@ -265,7 +253,6 @@ export default class AccionesRecurrentes extends Component {
       document.getElementById("unidad_medida_id-modal-edicion").style.display = "none";
     }
 
-    const meta_fisica_anual = this.state.meta_fisica_anual !== undefined ? parseInt(this.state.meta_fisica_anual, 10) : 0;
     const programacion_primer_trimestre = this.state.programacion_primer_trimestre !== undefined ? parseInt(this.state.programacion_primer_trimestre, 10) : 0;
     const programacion_segundo_trimestre = this.state.programacion_segundo_trimestre !== undefined ? parseInt(this.state.programacion_segundo_trimestre, 10) : 0;
     const programacion_tercer_trimestre = this.state.programacion_tercer_trimestre !== undefined ? parseInt(this.state.programacion_tercer_trimestre, 10) : 0;
@@ -273,13 +260,6 @@ export default class AccionesRecurrentes extends Component {
 
     const suma_programacion_trimestral = programacion_primer_trimestre + programacion_segundo_trimestre + programacion_tercer_trimestre + programacion_cuarto_trimestre;
 
-    if(this.state.meta_fisica_anual === undefined || parseInt(this.state.meta_fisica_anual, 10) === 0 || !/^[0-9]+$/.test(this.state.meta_fisica_anual)){
-      formulario_valido = false;
-      document.getElementById("meta_fisica_anual-modal-edicion").style.display = "block";
-    }
-    else{
-      document.getElementById("meta_fisica_anual-modal-edicion").style.display = "none";
-    }
 
     if(this.state.programacion_primer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_primer_trimestre)){
       formulario_valido = false;
@@ -311,14 +291,6 @@ export default class AccionesRecurrentes extends Component {
     }
     else{
       document.getElementById("programacion_cuarto_trimestre-modal-edicion").style.display = "none";
-    }
-
-    if(meta_fisica_anual !== suma_programacion_trimestral){
-      formulario_valido = false;
-      document.getElementById("programacion_fisica_trimestral-modal-edicion").style.display = "block";
-    }
-    else{
-      document.getElementById("programacion_fisica_trimestral-modal-edicion").style.display = "none";
     }
 
     if(this.state.medio_verificacion_id === undefined){
@@ -453,34 +425,7 @@ export default class AccionesRecurrentes extends Component {
               />
               <span id="accion_recurrente-modal-creacion" className="error-acciones-recurrentes">Acción recurrente inválida. El campo no puede estar vacío.</span>
             </Col>
-          </FormGroup>  
-
-          <FormGroup row>
-            {/* Unidad de medida de la acción recurrente*/}
-            <Col xs={12} sm={12} md={6} lg={6}>
-              <Label>Unidad de medida*</Label>
-              <Input 
-                type="select"
-                onChange={(e) => this.setState({unidad_medida_id: e.target.value})}
-              >
-                {this.state.unidades_de_medida.map((unidad, index) => {
-                  return(
-                    <option key={`unidad_de_medida_${index}`} value={unidad.id}>{unidad.nombre}</option>
-                  )
-                })}
-              </Input>
-              <span id="unidad_medida_id-modal-creacion" className="error-acciones-recurrentes">Unidad de medida inválida. Seleccione una opción de la lista.</span>
-            </Col>
-
-            {/* Meta física anual de la acción recurrente*/}
-            <Col xs={12} sm={12} md={6} lg={6}>
-              <Label>Meta física anual*</Label>
-              <Input 
-                onChange={(e) => this.setState({meta_fisica_anual: e.target.value})}
-              />
-              <span id="meta_fisica_anual-modal-creacion" className="error-acciones-recurrentes">Meta física anual inválida. Utilice únicamente números enteros positivos.</span>
-            </Col>
-          </FormGroup>  
+          </FormGroup> 
 
           <FormGroup row>
             {/* Programación física trimestral*/}
@@ -532,8 +477,24 @@ export default class AccionesRecurrentes extends Component {
           </FormGroup>    
 
           <FormGroup row>
+            {/* Unidad de medida de la acción recurrente*/}
+            <Col xs={12} sm={12} md={6} lg={6}>
+              <Label>Unidad de medida*</Label>
+              <Input 
+                type="select"
+                onChange={(e) => this.setState({unidad_medida_id: e.target.value})}
+              >
+                {this.state.unidades_de_medida.map((unidad, index) => {
+                  return(
+                    <option key={`unidad_de_medida_${index}`} value={unidad.id}>{unidad.nombre}</option>
+                  )
+                })}
+              </Input>
+              <span id="unidad_medida_id-modal-creacion" className="error-acciones-recurrentes">Unidad de medida inválida. Seleccione una opción de la lista.</span>
+            </Col>
+            
             {/* Medio de verificación de la acción recurrente*/}
-            <Col xs={12} sm={12} md={12} lg={12}>
+            <Col xs={12} sm={12} md={6} lg={6}>
               <Label>Medio de verificación*</Label>
               <Input 
                 type="select"
@@ -547,6 +508,7 @@ export default class AccionesRecurrentes extends Component {
               </Input>
               <span id="medio_verificacion_id-modal-creacion" className="error-acciones-recurrentes">Medio de verificación inválido. Seleccione una opción de la lista.</span>
             </Col>
+
           </FormGroup>      
         </Form>
       </ModalBody>
@@ -583,35 +545,6 @@ export default class AccionesRecurrentes extends Component {
                   onChange={(e) => this.setState({accion_recurrente: e.target.value})}
                 />
                 <span id="accion_recurrente-modal-edicion" className="error-acciones-recurrentes">Acción recurrente inválida. El campo no puede estar vacío.</span>
-              </Col>
-            </FormGroup>  
-
-            <FormGroup row>
-              {/* Unidad de medida de la acción recurrente*/}
-              <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Unidad de medida*</Label>
-                <Input 
-                  type="select"
-                  defaultValue={this.state.unidad_medida_id}
-                  onChange={(e) => this.setState({unidad_medida_id: e.target.value})}
-                >
-                  {this.state.unidades_de_medida.map((unidad, index) => {
-                    return(
-                      <option key={`unidad_de_medida_${index}`} value={unidad.id}>{unidad.nombre}</option>
-                    )
-                  })}
-                </Input>
-                <span id="unidad_medida_id-modal-edicion" className="error-acciones-recurrentes">Unidad de medida inválida. Seleccione una opción de la lista.</span>
-              </Col>
-
-              {/* Meta física anual de la acción recurrente*/}
-              <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Meta física anual*</Label>
-                <Input 
-                defaultValue={this.state.meta_fisica_anual}
-                  onChange={(e) => this.setState({meta_fisica_anual: e.target.value})}
-                />
-                <span id="meta_fisica_anual-modal-edicion" className="error-acciones-recurrentes">Meta física anual inválida. Utilice únicamente números enteros positivos.</span>
               </Col>
             </FormGroup>  
 
@@ -665,8 +598,25 @@ export default class AccionesRecurrentes extends Component {
             </FormGroup>    
 
             <FormGroup row>
+              {/* Unidad de medida de la acción recurrente*/}
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Unidad de medida*</Label>
+                <Input 
+                  type="select"
+                  defaultValue={this.state.unidad_medida_id}
+                  onChange={(e) => this.setState({unidad_medida_id: e.target.value})}
+                >
+                  {this.state.unidades_de_medida.map((unidad, index) => {
+                    return(
+                      <option key={`unidad_de_medida_${index}`} value={unidad.id}>{unidad.nombre}</option>
+                    )
+                  })}
+                </Input>
+                <span id="unidad_medida_id-modal-edicion" className="error-acciones-recurrentes">Unidad de medida inválida. Seleccione una opción de la lista.</span>
+              </Col>
+
               {/* Medio de verificación de la acción recurrente*/}
-              <Col xs={12} sm={12} md={12} lg={12}>
+              <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Medio de verificación*</Label>
                 <Input 
                   type="select"
