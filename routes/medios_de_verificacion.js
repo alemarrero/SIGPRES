@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var models = require('../models');
-
+var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
+var XLSX = require('xlsx');
 
 router.post('/crear_medio_de_verificacion', autorizarAdministrador, function(req, res, next) {
   models.medios_de_verificacion.create({
@@ -103,5 +104,56 @@ router.get('/obtener_medios_de_verificacion', autorizarAdministrador, function(r
     res.status(500).json('err');
   })
 });
+
+router.post('/cargar_medios_de_verificacion', recibirArchivo, function(req, res){
+  // Contiene el archivo XLS subido por el usuario
+  const workbook = XLSX.readFile(req.file.path);
+  const medios_de_verificacion = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+
+  // Se introducen las unidades de medida en la base de datos
+  cargarMediosDeVerificacion(medios_de_verificacion, res);
+});
+
+function cargarMediosDeVerificacion(medios_de_verificacion, res){
+  Promise.all(medios_de_verificacion.map(medio => {
+    // Se hace una búsqueda del medio de verificación a través de su nombre
+    models.medios_de_verificacion.findOne({where: {nombre: medio.nombre}})
+    .then(resultado => {
+      // Luego se verifica si la búsqueda arrojó algún resultado.
+      // Los medios de verificación solo se insertan si la búsqueda no arroja resultado alguno ( resultado es null )
+      if(resultado === null || !resultado){
+        models.medios_de_verificacion.create({
+          nombre: medio.nombre
+        })
+        .then(resultado_creacion => {
+          if(resultado_creacion){
+            console.log(`Medio de verificación '${medio.nombre}' creado exitosamente.`);
+          }
+        })
+        .catch(err => {
+          console.log(`Error al crear el medio de verificación: `);
+          console.log(medio);
+          console.log(`Información del error:`);
+          console.log(err);
+          res.status(500).json("err");
+        });
+      }
+    })
+    .catch(err => {
+      console.log(`Error al crear el medio de verificación: `);
+      console.log(medio);
+      console.log(`Información del error:`);
+      console.log(err);
+      res.status(500).json("err");
+    });
+  }))
+  .finally(() => {
+    res.status(200).json("ok");
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  });
+}
 
 module.exports = router;
