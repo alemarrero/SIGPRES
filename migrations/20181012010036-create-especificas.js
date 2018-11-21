@@ -10,7 +10,6 @@ module.exports = {
       },
       numero_especifica: {
         allowNull: false,
-        unique: true,           
         type: Sequelize.STRING
       },
       generica_id: {
