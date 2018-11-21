@@ -9,16 +9,28 @@ module.exports = (sequelize, DataTypes) => {
     },
     codigo: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.REAL
     },    
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
     },
     precio: {
-      type: DataTypes.STRING,
+      type: DataTypes.REAL,
       allowNull: false
     },
+    iva: {
+      type: DataTypes.REAL,
+      allowNull: false
+    },
+    monto_iva: {
+      type: DataTypes.REAL,
+      allowNull: false
+    },  
+    total: {
+      type: DataTypes.REAL,
+      allowNull: false
+    },          
     unidad_de_medida_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

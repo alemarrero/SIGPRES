@@ -10,7 +10,7 @@ module.exports = {
       },
       codigo: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.REAL
       },
       nombre: {
         allowNull: false,
@@ -18,8 +18,20 @@ module.exports = {
       },
       precio: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.REAL
       },
+      iva: {
+        allowNull: false,
+        type: Sequelize.REAL
+      },
+      monto_iva: {
+        allowNull: false,
+        type: Sequelize.REAL
+      },   
+      total: {
+        allowNull: false,
+        type: Sequelize.REAL
+      },               
       unidad_de_medida_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

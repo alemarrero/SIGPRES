@@ -6,13 +6,20 @@ var models = require('../models');
 
 router.post('/crear_producto', autorizarAdministrador, function(req, res, next) {
   if (req.body.subespecifica_id !== undefined){
+    var precio = parseFloat(req.body.precio,10);
+    var iva = parseFloat(req.body.iva,10);
+    var monto_iva = (iva/100) * precio;
+    var total = precio + monto_iva;
     models.productos.create({
         codigo: req.body.codigo,
         nombre: req.body.nombre,
-        precio: req.body.precio,
+        precio: precio,
         especifica_id: req.body.especifica_id,
         subespecifica_id: req.body.subespecifica_id,
-        unidad_de_medida_id: req.body.unidad_de_medida_id 
+        unidad_de_medida_id: req.body.unidad_de_medida_id,
+        iva: iva,
+        monto_iva: monto_iva,
+        total: total
     })
     .then(response => {
         if(response){
@@ -25,12 +32,19 @@ router.post('/crear_producto', autorizarAdministrador, function(req, res, next) 
       });    
 }
   else{
+    var precio = parseFloat(req.body.precio,10);
+    var iva = parseFloat(req.body.iva,10);
+    var monto_iva = (iva/100) * precio;
+    var total = precio + monto_iva;    
     models.productos.create({
         codigo: req.body.codigo,
         nombre: req.body.nombre,
-        precio: req.body.precio,
+        precio: precio,
         especifica_id: req.body.especifica_id,
-        unidad_de_medida_id: req.body.unidad_de_medida_id 
+        unidad_de_medida_id: req.body.unidad_de_medida_id,
+        iva: iva,
+        monto_iva: monto_iva,
+        total: total         
     })
     .then(response => {
         if(response){
@@ -46,14 +60,21 @@ router.post('/crear_producto', autorizarAdministrador, function(req, res, next) 
 
 
 router.post('/actualizar_producto', autorizarAdministrador, function(req, res){
+  var precio = parseFloat(req.body.precio,10);
+  var iva = parseFloat(req.body.iva,10);
+  var monto_iva = (iva/100) * precio;
+  var total = precio + monto_iva;
   models.productos.update({
     codigo: req.body.codigo,
     nombre: req.body.nombre,
-    precio: req.body.precio,
+    precio: precio,
     unidad_de_medida_id: req.body.unidad_de_medida_id,
     especifica_id: req.body.especifica_id,
     subespecifica_id: req.body.subespecifica_id,
-    habilitado: req.body.habilitado
+    habilitado: req.body.habilitado,
+    iva: iva,
+    monto_iva: monto_iva,
+    total: total
   },
   {where: {id: req.body.id}})
   .then(resultado => {
