@@ -28,7 +28,10 @@ export default class Productos extends Component {
       subespecifica_id: undefined,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
-      rows_productos: []
+      rows_productos: [],
+      iva: undefined,
+      monto_iva: undefined,
+      total: undefined
     };
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerPartidas = this.obtenerPartidas.bind(this);
@@ -78,6 +81,10 @@ export default class Productos extends Component {
                 <td>{producto.nombre}</td>
                 <td>{nombre_unidad}</td>
                 <td>{producto.precio}</td>
+                <td>IVA</td>
+                <td>{producto.iva}%</td>
+                <td>{producto.monto_iva}</td>
+                <td>{producto.total}</td>
                 <td>{partida.numero}</td>
                 <td>{partida.denominacion}</td>
                 <td>{producto.habilitado ? <span>Si</span> : <span>No</span>}</td>
@@ -126,12 +133,13 @@ export default class Productos extends Component {
         body: JSON.stringify({
           id: this.state.id,
           codigo: this.state.codigo,
-          nombre: this.state.producto,
+          nombre: this.state.nombre,
           precio: this.state.precio,
-          unidad_de_medida: this.state.unidad_de_medida,
+          unidad_de_medida_id: this.state.unidad_de_medida,
           especifica_id: this.state.especifica_id,
           subespecifica_id: this.state.subespecifica_id,
-          habilitado: this.state.habilitado
+          habilitado: this.state.habilitado,
+          iva: this.state.iva
         })
       };
 
@@ -140,7 +148,8 @@ export default class Productos extends Component {
 
       if(editar_producto_response !== 'err'){
         this.setState({modal_editar_producto_abierto: false, modal_operacion_exitosa: true, mensaje: "Producto editado correctamente"}, async () => {
-          this.obtenerProductos();
+          await this.obtenerProductos();
+          this.formatearRowsProductos();
         });
       }
       else{
@@ -206,6 +215,7 @@ export default class Productos extends Component {
             codigo: this.state.codigo,
             nombre: this.state.nombre,
             precio: this.state.precio,
+            iva: this.state.iva,
             unidad_de_medida_id: this.state.unidad_de_medida,
             especifica_id: this.state.especifica_id,
             subespecifica_id: this.state.subespecifica_id,
@@ -286,6 +296,7 @@ export default class Productos extends Component {
     this.setState({
       codigo: producto.codigo,
       precio: producto.precio,
+      iva: producto.iva,
       modal_editar_producto_abierto: true,
       id: producto.id,
       nombre: producto.nombre,
@@ -298,9 +309,12 @@ export default class Productos extends Component {
 
   validarModalCreacion(){
     let formulario_valido = true;
+    let codigo = `${this.state.codigo}`;
+    let precio = `${this.state.precio}`; 
+    let iva = `${this.state.iva}`;     
 
     // Validación del codigo del producto
-    if(this.state.codigo === undefined || !this.state.codigo.match(/^[0-9]+$/)){
+    if(this.state.codigo === undefined || !codigo.match(/^[0-9]+$/)){
         document.getElementById("codigo-modal-creacion").style.display = 'block';
         formulario_valido = false;
       }
@@ -318,7 +332,7 @@ export default class Productos extends Component {
     }
 
     // Validación del precio del producto
-    if(this.state.precio === undefined || !this.state.precio.match(/^[1-9]{1}[0-9]*[,]{0,1}[0-9]{0,2}$/)){
+    if(this.state.precio === undefined || !precio.match(/^[0-9]*[.]{0,1}[0-9]{0,2}$/)){
         document.getElementById("precio-modal-creacion").style.display = 'block';
         formulario_valido = false;
       }
@@ -326,14 +340,26 @@ export default class Productos extends Component {
         document.getElementById("precio-modal-creacion").style.display = 'none';
     }
 
+    // Validación del iva del producto
+    if(iva === undefined || !iva.match(/^[0-9]*[.]{0,1}[0-9]{0,2}$/) || this.state.iva > 100){
+      document.getElementById("iva-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("iva-modal-creacion").style.display = 'none';
+    }     
+
     return formulario_valido;
   }
   
   validarModalEdicion(){
     let formulario_valido = true;
-    
+    let codigo = `${this.state.codigo}`;
+    let precio = `${this.state.precio}`; 
+    let iva = `${this.state.iva}`; 
+
     // Validación del codigo del producto
-    if(this.state.codigo === undefined || !this.state.codigo.match(/^[0-9]+$/)){
+    if(codigo === undefined || !codigo.match(/^[0-9]+$/)){
         document.getElementById("codigo-modal-edicion").style.display = 'block';
         formulario_valido = false;
       }
@@ -351,13 +377,23 @@ export default class Productos extends Component {
     }
 
     // Validación del precio del producto
-    if(this.state.precio === undefined || !this.state.precio.match(/^[1-9]{1}[0-9]*[,]{0,1}[0-9]{0,2}$/)){
+    if(precio === undefined || !precio.match(/^[0-9]*[.]{0,1}[0-9]{0,2}$/)){
         document.getElementById("precio-modal-edicion").style.display = 'block';
         formulario_valido = false;
       }
     else{
         document.getElementById("precio-modal-edicion").style.display = 'none';
     }
+
+    // Validación del iva del producto
+    if(iva === undefined || !iva.match(/^[0-9]*[.]{0,1}[0-9]{0,2}$/) || this.state.iva > 100){
+      document.getElementById("iva-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("iva-modal-edicion").style.display = 'none';
+    }    
+
     return formulario_valido;
   }
 
@@ -533,9 +569,19 @@ export default class Productos extends Component {
               <Input 
                 onChange={(e) => this.setState({precio: e.target.value})}
               />
-              <span id="precio-modal-creacion" className="error-cargos">Precio inválido, debe ser un número distinto a 0 y no puede tener más de dos decimales. Los decimales van separados con una coma.</span>
+              <span id="precio-modal-creacion" className="error-cargos">Precio inválido, debe ser un número distinto a 0 y no puede tener más de dos decimales. Los decimales van separados con un punto.</span>
             </Col>
           </FormGroup>
+          <FormGroup row>
+            {/* Nombre del cargo */}
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>IVA del producto*</Label>
+              <Input 
+                onChange={(e) => this.setState({iva: e.target.value})}
+              />
+              <span id="iva-modal-creacion" className="error-cargos">IVA inválido, debe ser un número y los decimales estar separados por un punto.</span>
+            </Col>
+          </FormGroup>          
           <FormGroup row>
               {/* Dirección al que pertenece el usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
@@ -561,7 +607,7 @@ export default class Productos extends Component {
             Crear producto
           </Button>
           
-          <Button color="danger" onClick={() => this.setState({modal_crear_cargo_abierto: false})} className="boton-cancelar-modal">
+          <Button color="danger" onClick={() => this.setState({modal_crear_producto_abierto: false})} className="boton-cancelar-modal">
             Cancelar
           </Button>
         </Col>
@@ -625,9 +671,20 @@ export default class Productos extends Component {
                 defaultValue={this.state.precio}
                 onChange={(e) => this.setState({precio: e.target.value})}
               />
-              <span id="precio-modal-edicion" className="error-cargos">Precio inválido, debe ser un número distinto a 0 y no puede tener más de dos decimales. Los decimales van separados con una coma</span>
+              <span id="precio-modal-edicion" className="error-cargos">Precio inválido, debe ser un número distinto a 0 y no puede tener más de dos decimales. Los decimales van separados con un punto.</span>
             </Col>
           </FormGroup>
+          <FormGroup row>
+            {/* Nombre del cargo */}
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>IVA del producto*</Label>
+              <Input 
+                defaultValue={this.state.iva}
+                onChange={(e) => this.setState({iva: e.target.value})}
+              />
+              <span id="iva-modal-edicion" className="error-cargos">IVA inválido, debe ser un número y los decimales estar separados por un punto.</span>
+            </Col>
+          </FormGroup>                    
           <FormGroup row>
               {/* Dirección al que pertenece el usuario */}
               <Col xs={12} sm={12} md={6} lg={6}>
@@ -752,8 +809,12 @@ export default class Productos extends Component {
                     <th>Nombre</th>
                     <th>Unidad de Medida</th>
                     <th>Precio</th>
-                    <th>Partida Presupuestaria</th>                    
-                    <th>Denominación Partida</th>                    
+                    <th>IVA</th>
+                    <th>%</th>
+                    <th>Monto IVA</th>
+                    <th>Precio Total</th>
+                    <th>Subespecífica</th>                    
+                    <th>Denominación</th>                    
                     <th>Habilitado</th>
                     <th>Opciones</th>
                   </tr>
