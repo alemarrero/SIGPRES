@@ -10,7 +10,6 @@ module.exports = {
       },
       numero_subespecifica: {
         allowNull: false,
-        unique: true,           
         type: Sequelize.STRING
       },
       especifica_id: {
