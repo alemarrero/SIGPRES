@@ -16,10 +16,15 @@ export default class CargaDeDatos extends Component {
       genericas: false,
       especificas: false,
       subespecificas: false,
+      unidades_de_medida_ar: false,
+      unidades_de_medida_prod: false,
+      medios_de_verificacion: false,
       mensaje_partidas: undefined,
       mensaje_genericas: undefined,
       mensaje_especificas: undefined,
-      mensaje_subespecificas:undefined
+      mensaje_subespecificas:undefined,
+      mensaje_unidades_de_medida_ar: undefined,
+      mensaje_unidades_de_medida_prod: undefined
     };
     this.cargarDatos = this.cargarDatos.bind(this);
     this.verificarCargaDeDatos = this.verificarCargaDeDatos.bind(this);
@@ -27,7 +32,9 @@ export default class CargaDeDatos extends Component {
     this.cargarGenericas = this.cargarGenericas.bind(this);
     this.cargarEspecificas = this.cargarEspecificas.bind(this);
     this.cargarSubespecificas = this.cargarSubespecificas.bind(this);
-
+    this.cargarUnidadesDeMedidaAR = this.cargarUnidadesDeMedidaAR.bind(this);
+    this.cargarUnidadesDeMedidaProd = this.cargarUnidadesDeMedidaProd.bind(this);
+    this.cargarMediosDeVerificacion = this.cargarMediosDeVerificacion.bind(this);
   }
 
   componentDidMount(){
@@ -122,6 +129,72 @@ export default class CargaDeDatos extends Component {
     }
   }
 
+  async cargarUnidadesDeMedidaAR() {
+    let form_body = new FormData();
+
+    form_body.append('fichero', this.state.fichero);
+
+    const request_options = {
+      method: 'post',
+      credentials: 'include',
+      body: form_body
+    };
+
+    const cargar_informacion_request = await fetch('/api/unidades_de_medida/cargar_unidades_de_medida_ar', request_options);
+    const cargar_informacion_response = await cargar_informacion_request.json();
+
+    if(cargar_informacion_response !== "err"){
+      this.setState({modal_operacion_exitosa: true, mensaje_unidades_de_medida_ar: "Información de unidades de medida para acciones recurrentes cargada exitosamente.", modal_cargar_datos_abierto: false});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje_unidades_de_medida_ar: "Error al cargar información de unidades de medida para acciones recurrentes", modal_cargar_datos_abierto: false});
+    }
+  }
+
+  async cargarUnidadesDeMedidaProd() {
+    let form_body = new FormData();
+
+    form_body.append('fichero', this.state.fichero);
+
+    const request_options = {
+      method: 'post',
+      credentials: 'include',
+      body: form_body
+    };
+
+    const cargar_informacion_request = await fetch('/api/unidades_de_medida/cargar_unidades_de_medida_prod', request_options);
+    const cargar_informacion_response = await cargar_informacion_request.json();
+
+    if(cargar_informacion_response !== "err"){
+      this.setState({modal_operacion_exitosa: true, mensaje_unidades_de_medida_prod: "Información de unidades de medida para productos cargada exitosamente.", modal_cargar_datos_abierto: false});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje_unidades_de_medida_prod: "Error al cargar información de unidades de medida para productos.", modal_cargar_datos_abierto: false});
+    }
+  }
+
+  async cargarMediosDeVerificacion() {
+    let form_body = new FormData();
+
+    form_body.append('fichero', this.state.fichero);
+
+    const request_options = {
+      method: 'post',
+      credentials: 'include',
+      body: form_body
+    };
+
+    const cargar_informacion_request = await fetch('/api/medios_de_verificacion/cargar_medios_de_verificacion', request_options);
+    const cargar_informacion_response = await cargar_informacion_request.json();
+
+    if(cargar_informacion_response !== "err"){
+      this.setState({modal_operacion_exitosa: true, mensaje_medios_de_verificacion: "Medios de verificación cargados exitosamente.", modal_cargar_datos_abierto: false});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje_medios_de_verificacion: "Error al cargar información de los medios de verificacion.", modal_cargar_datos_abierto: false});
+    }
+  }
+
 
   verificarCargaDeDatos(){
     let formulario_valido = true;
@@ -134,12 +207,22 @@ export default class CargaDeDatos extends Component {
       document.getElementById("fichero-error").style.display = "none";
     }
 
-    if(!this.state.partidas && !this.state.genericas && !this.state.especificas && !this.state.subespecificas ){
+    if(!this.state.partidas && !this.state.genericas && !this.state.especificas 
+      && !this.state.subespecificas && !this.state.unidades_de_medida_ar 
+      && !this.state.unidades_de_medida_prod && !this.state.medios_de_verificacion){
       formulario_valido = false;
       document.getElementById("error-tipo-carga").style.display = "block";
     }
     else{
       document.getElementById("error-tipo-carga").style.display = "none";
+    }
+
+    if((this.state.partidas || this.state.genericas || this.state.especificas || this.state.subespecificas) && (this.state.unidades_de_medida_ar || this.state.unidades_de_medida_prod)){
+      formulario_valido = false;
+      document.getElementById("error-grupo").style.display = "block";
+    }
+    else{
+      document.getElementById("error-grupo").style.display = "none";
     }
 
     return formulario_valido;
@@ -162,6 +245,18 @@ export default class CargaDeDatos extends Component {
       if(this.state.subespecificas){
         await this.cargarSubespecificas();
       }
+
+      if(this.state.unidades_de_medida_ar){
+        await this.cargarUnidadesDeMedidaAR();
+      }
+
+      if(this.state.unidades_de_medida_prod){
+        await this.cargarUnidadesDeMedidaProd();
+      }
+
+      if(this.state.medios_de_verificacion){
+        await this.cargarMediosDeVerificacion();
+      }
     }
   }
 
@@ -175,7 +270,22 @@ export default class CargaDeDatos extends Component {
 
         <ModalBody>
           <p>Ha ocurrido un error al procesar la operación.</p>
-          <p>Mensaje: {this.state.mensaje_partidas} <br/> {this.state.mensaje_subespecificas} <br/> {this.state.mensaje_genericas} <br/> {this.state.mensaje_especificas} </p>
+          <p>
+            <h4>Mensaje:</h4> <br/>
+
+            <h5>Partidas presupuestarias</h5>
+            Partidas presupuestarias: {this.state.mensaje_partidas} <br/> 
+            Específicas: {this.state.mensaje_subespecificas} <br/> 
+            Genéricas: {this.state.mensaje_genericas} <br/> 
+            Específicas: {this.state.mensaje_especificas}  <br/>
+
+            <h5>Unidades de medida</h5>
+            Unidades de medida para acciones recurrentes: {this.state.mensaje_unidades_de_medida_ar} <br/> 
+            Unidades de medida para productos: {this.state.mensaje_unidades_de_medida_prod}  <br/>
+
+            <h5>Medios de verificación</h5>
+            Medios de verificación para acciones recurrentes: {this.state.mensaje_medios_de_verificacion}  <br/>
+          </p>
           <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>
         </ModalBody>
 
@@ -198,7 +308,22 @@ export default class CargaDeDatos extends Component {
         </ModalHeader>
         <ModalBody>
           <p>La operación se ha realizado exitosamente.</p>
-          <p>Mensaje: {this.state.mensaje_partidas} <br/> {this.state.mensaje_subespecificas} <br/> {this.state.mensaje_genericas} <br/> {this.state.mensaje_especificas} </p>
+          <p>
+            <h4>Mensaje:</h4> <br/>
+
+            <h5>Partidas presupuestarias</h5>
+            Partidas presupuestarias: {this.state.mensaje_partidas} <br/> 
+            Específicas: {this.state.mensaje_subespecificas} <br/> 
+            Genéricas: {this.state.mensaje_genericas} <br/> 
+            Específicas: {this.state.mensaje_especificas}  <br/>
+
+            <h5>Unidades de medida</h5>
+            Unidades de medida para acciones recurrentes: {this.state.mensaje_unidades_de_medida_ar} <br/> 
+            Unidades de medida para productos: {this.state.mensaje_unidades_de_medida_prod}  <br/>
+
+            <h5>Medios de verificación</h5>
+            Medios de verificación para acciones recurrentes: {this.state.mensaje_medios_de_verificacion}  <br/>
+          </p>
         </ModalBody>
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
@@ -228,37 +353,155 @@ export default class CargaDeDatos extends Component {
             <FormGroup row>
               <Col xs={12}>
                 <Label>Información a cargar y/o actualizar:</Label>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <h5>Partidas presupuestarias: </h5>
+                </Col>
                 
-                <Col xs={12} sm={12} md={12} lg={6}>
+                <Col xs={12} sm={12} md={12} lg={12}>
                   <Label check>
-                    <Input type="checkbox" onChange={(e) => this.setState({partidas: e.target.checked})}/>{' '}
+                    <Input 
+                      checked={this.state.partidas}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          partidas: e.target.checked,
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
                     Partidas presupuestarias
                   </Label>
                 </Col>
 
-                <Col xs={12} sm={12} md={12} lg={6}>
+                <Col xs={12} sm={12} md={12} lg={12}>
                   <Label check>
-                    <Input type="checkbox" onChange={(e) => this.setState({genericas: e.target.checked})}/>{' '}
+                    <Input 
+                      checked={this.state.genericas}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          genericas: e.target.checked,
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
                     Genéricas
                   </Label>
                 </Col>
 
                 <Col xs={12} sm={12} md={12} lg={6}>
                   <Label check>
-                    <Input type="checkbox" onChange={(e) => this.setState({especificas: e.target.checked})}/>{' '}
+                    <Input 
+                      checked={this.state.especificas}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          especificas: e.target.checked,
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
                     Específicas
                   </Label>
                 </Col>
 
                 <Col xs={12} sm={12} md={12} lg={6}>
                   <Label check>
-                    <Input type="checkbox" onChange={(e) => this.setState({subespecificas: e.target.checked})}/>{' '}
+                    <Input 
+                      checked={this.state.subespecificas}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          subespecificas: e.target.checked,
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
                       Subespecíficas
+                  </Label>
+                </Col>
+
+                <hr/>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <h5>Unidades de medida: </h5>
+                </Col>
+                
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Label check>
+                    <Input 
+                      checked={this.state.unidades_de_medida_ar}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          unidades_de_medida_ar: e.target.checked,
+                          partidas: false,
+                          genericas: false,
+                          especificas: false,
+                          subespecificas: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
+                    Unidades de medida para acciones recurrentes
+                  </Label>
+                </Col>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Label check>
+                    <Input 
+                      checked={this.state.unidades_de_medida_prod}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          unidades_de_medida_prod: e.target.checked,
+                          partidas: false,
+                          genericas: false,
+                          especificas: false,
+                          subespecificas: false,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
+                    Unidades de medida para productos
+                  </Label>
+                </Col>
+
+                <hr/>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <h5>Medios de verificación: </h5>
+                </Col>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Label check>
+                    <Input 
+                      checked={this.state.medios_de_verificacion}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          partidas: false,
+                          genericas: false,
+                          especificas: false,
+                          subespecificas: false,
+                          medios_de_verificacion: e.target.checked,
+                        })
+                      }/>{' '}
+                    Medios de verificación de las acciones recurrentes
                   </Label>
                 </Col>
                 
                 <Col>
                   <span className="error-carga-de-datos" id="error-tipo-carga">Debe seleccionar al menos una opción de la lista.</span>
+                </Col>
+                
+                <Col>
+                  <span className="error-carga-de-datos" id="error-grupo" >No puede seleccionar opciones de grupos distintos al mismo tiempo.</span>
                 </Col>
               </Col>
             </FormGroup>
@@ -301,10 +544,16 @@ export default class CargaDeDatos extends Component {
 
         <Row>
           <Col xs="12">
-            <p>Para cargar o actualizar información acerca de partidas presupuestarias, haga click en el botón "Cargar datos", seleccione su archivo y seleccione el tipo de carga de datos que desea realizar.</p>
             <h3>Instrucciones</h3>
             <ol>
-              <li>Descargue el formato de carga de datos a través del siguiente <a href="#">link</a>.</li>
+              <li>Descargue el formato de carga de datos que desea utilizar:</li>
+
+              <ul>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745552/Formatos%20carga%20de%20datos/partidas_presupuestarias.xlsx" target="_BLANK">Partidas presupuestarias</a></li>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745550/Formatos%20carga%20de%20datos/unidades_de_medida.xlsx" target="_BLANK">Unidades de medida</a></li>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745551/Formatos%20carga%20de%20datos/medios_de_verificacion.xlsx" target="_BLANK">Medios de verificación</a></li>
+              </ul>
+
               <li>Coloque la información que desea actualizar en la primera hora del archivo .xls, siguiendo el formato de ejemplo. </li>
               <li>Guarde el archivo y utilice la opción "Cargar datos", seleccione el tipo de datos que desea cargar o actualizar, y haga click en el botón "Cargar datos".</li>
               <li>Espere a que la operación se realice. Una vez finalizada, debe aparecer un mensaje con el resultado de la operación.</li>

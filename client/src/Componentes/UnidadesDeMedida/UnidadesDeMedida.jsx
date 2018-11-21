@@ -4,8 +4,6 @@ import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup
 import medida from '../../assets/img/unidad-medida.png';
 import { request } from 'http';
 
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export default class UnidadesDeMedida extends Component {
   constructor(props){
@@ -392,11 +390,12 @@ export default class UnidadesDeMedida extends Component {
           {/* Si existen unidades-de-medida, muestra una tabla con su información */}
           {this.state.unidades_de_medida.length > 0 && 
               <Row className="row-unidades-de-medida">
-              <Table striped className="tabla-unidades-de-medida">
+              <Table striped>
                 <thead>
                   <tr>
                     <th>ID</th>
                     <th>Nombre de la unidad de medida</th>
+                    <th>Tipo</th>
                     <th>Habilitada</th>
                     <th>Opciones</th>
                   </tr>
@@ -407,6 +406,7 @@ export default class UnidadesDeMedida extends Component {
                       <tr key={`${unidad.id}_${unidad.nombre}`}>
                           <th scope="row">{unidad.id}</th>
                           <td>{unidad.nombre}</td>
+                          <td>{unidad.tipo === "acciones recurrentes" ? "Acciones recurrentes" : "Productos"}</td>
                           <td>{unidad.habilitado ? <span>Si</span> : <span>No</span>}</td>
                           <td>
                           <Button 

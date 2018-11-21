@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var models = require('../models');
-
+var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
+var XLSX = require('xlsx');
 
 router.post('/crear_unidad_de_medida', autorizarAdministrador, function(req, res, next) {
   models.unidades_de_medida.create({
@@ -95,6 +96,17 @@ router.post('/deshabilitar_unidad_de_medida', autorizarAdministrador, function(r
   })
 });
 
+router.get('/obtener_unidades_de_medida', autorizarAdministrador, function(req, res){
+  models.unidades_de_medida.findAll()
+  .then( resultado => {
+    res.json(resultado).status(200);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  })
+});
+
 router.get('/obtener_unidades_de_medida_productos', autorizarAdministrador, function(req, res){
   models.unidades_de_medida.findAll({where: {tipo: "productos"}})
   .then( resultado => {
@@ -116,5 +128,66 @@ router.get('/obtener_unidades_de_medida_acciones_recurrentes', autorizarAdminist
     res.status(500).json('err');
   })
 });
+
+router.post('/cargar_unidades_de_medida_ar', recibirArchivo, function(req, res){
+  // Contiene el archivo XLS subido por el usuario
+  const workbook = XLSX.readFile(req.file.path);
+  const unidades_de_medida = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+
+  // Se introducen las unidades de medida en la base de datos
+  cargarUnidadesDeMedida(unidades_de_medida, 'acciones recurrentes', res);
+});
+
+router.post('/cargar_unidades_de_medida_prod', recibirArchivo, function(req, res){
+  // Contiene el archivo XLS subido por el usuario
+  const workbook = XLSX.readFile(req.file.path);
+  const unidades_de_medida = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[1]]);
+
+  // Se introducen las unidades de medida en la base de datos
+  cargarUnidadesDeMedida(unidades_de_medida, 'productos', res);
+});
+
+function cargarUnidadesDeMedida(unidades_de_medida, tipo, res){
+  Promise.all(unidades_de_medida.map(unidad => {
+    // Se hace una búsqueda de la unidad de medida a través de su nombre
+    models.unidades_de_medida.findOne({where: {nombre: unidad.nombre, tipo: tipo}})
+    .then(resultado => {
+      // Luego se verifica si la búsqueda arrojó algún resultado.
+      // Las unidades de medida solo se insertan si la búsqueda no arroja resultado alguno ( resultado es null )
+      if(resultado === null){
+        models.unidades_de_medida.create({
+          nombre: unidad.nombre,
+          tipo: tipo
+        })
+        .then(resultado_creacion => {
+          if(resultado_creacion){
+            console.log(`Unidad de medida '${unidad.nombre}' creada exitosamente.`);
+          }
+        })
+        .catch(err => {
+          console.log(`Error al crear la unidad de medida: `);
+          console.log(unidad);
+          console.log(`Información del error:`);
+          console.log(err);
+          res.status(500).json("err");
+        });
+      }
+    })
+    .catch(err => {
+      console.log(`Error al crear la unidad de medida: `);
+      console.log(unidad);
+      console.log(`Información del error:`);
+      console.log(err);
+      res.status(500).json("err");
+    });
+  }))
+  .then(() => {
+    res.status(200).json("ok");
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  });
+}
 
 module.exports = router;
