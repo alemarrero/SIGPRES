@@ -147,7 +147,7 @@ function cargarMediosDeVerificacion(medios_de_verificacion, res){
       res.status(500).json("err");
     });
   }))
-  .finally(() => {
+  .then(() => {
     res.status(200).json("ok");
   })
   .catch(err => {
