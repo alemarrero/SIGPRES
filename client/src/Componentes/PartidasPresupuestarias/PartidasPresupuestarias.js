@@ -179,7 +179,7 @@ export default class PartidasPresupuestarias extends Component {
     let formulario_valido = true;
 
     // Validación del numero de la partida
-    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9]{3}$/)){
+    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9][.][0-9]{2}$/)){
       document.getElementById("numero_partida-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -202,7 +202,7 @@ export default class PartidasPresupuestarias extends Component {
     let formulario_valido = true;
 
     // Validación del numero de la partida
-    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9]{3}$/)){
+    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9][.][0-9]{2}$/)){
       document.getElementById("numero_partida-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -239,7 +239,7 @@ export default class PartidasPresupuestarias extends Component {
               <Input 
                 onChange={(e) => this.setState({numero_partida: e.target.value})}
               />
-              <span id="numero_partida-modal-creacion" className="error-partidas_presupuestarias">Número de partida inválido</span>
+              <span id="numero_partida-modal-creacion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma #.##. Donde cada # es un número.</span>
             </Col>
           </FormGroup>
 
@@ -288,7 +288,7 @@ export default class PartidasPresupuestarias extends Component {
                   defaultValue={this.state.numero_partida}
                   onChange={(e) => this.setState({numero_partida: e.target.value})}
                 />
-                <span id="numero_partida-modal-edicion" className="error-partidas_presupuestarias">Número de partida inválido</span>
+                <span id="numero_partida-modal-edicion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma #.##. Donde cada # es un número.</span>
               </Col>
             </FormGroup>
 
