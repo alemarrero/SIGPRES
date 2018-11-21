@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.removeConstraint('genericas', 'genericas_numero_generica_key');
+    return true;
   },
 
   down: (queryInterface, Sequelize) => {

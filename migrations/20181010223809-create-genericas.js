@@ -10,7 +10,6 @@ module.exports = {
       },
       numero_generica: {
         allowNull: false,
-        unique: true,           
         type: Sequelize.STRING
       },
       partida_presupuestaria_id: {
