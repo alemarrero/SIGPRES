@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     solicitud_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      onDelete: 'CASCADE',
       references: {
         model: 'solicitudes_de_requerimientos',
         key: 'id'
@@ -50,9 +51,10 @@ module.exports = (sequelize, DataTypes) => {
   entradas_solicitud_de_requerimientos.associate = function(models) {
     entradas_solicitud_de_requerimientos.belongsTo(models.solicitudes_de_requerimientos, {
       foreignKey: "solicitud_id",
-      as: "solicitud_de_requerimiento"
+      as: "solicitud_de_requerimiento",
+      onDelete: 'CASCADE',
+      hooks: true
     });
-
     entradas_solicitud_de_requerimientos.hasOne(models.productos, {
       foreignKey: 'id',
       as: 'producto',
