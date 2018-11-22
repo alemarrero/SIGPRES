@@ -144,13 +144,33 @@ router.post('/deshabilitar_producto', autorizarAdministrador, function(req, res)
   })
 });
 
-router.get('/obtener_productos', autorizarAdministrador, function(req, res){
+router.get('/obtener_productos', function(req, res){
   models.productos.findAll({
       include:[
           {
           model: models.unidades_de_medida,
           as: 'unidad_de_medida',
           attributes: ["nombre"]
+          },
+          {
+            model: models.subespecificas,
+            as: 'subespecifica'
+          },
+          {
+            model: models.especificas,
+            as: 'especifica',
+            include: [
+              {
+                model: models.genericas,
+                as: 'generica',
+                include: [
+                  {
+                    model: models.partidas_presupuestarias,
+                    as: 'partida_presupuestaria'
+                  }
+                ]
+              }
+            ]
           }
       ]
   })
