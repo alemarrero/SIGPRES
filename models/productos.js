@@ -63,8 +63,8 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
   productos.associate = function(models) {
-    productos.hasOne(models.unidades_de_medida, {
-      foreignKey: 'id',
+    productos.belongsTo(models.unidades_de_medida, {
+      foreignKey: 'unidad_de_medida_id',
       as: 'unidad_de_medida',
     });    
     productos.hasOne(models.especificas, {
