@@ -32,8 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     solicitudes_de_requerimientos.hasMany(models.entradas_solicitud_de_requerimientos, {
       foreignKey: 'solicitud_id',
       as: 'requerimientos',
-      onDelete: 'cascade',
-      hooks: true
     });
 
     solicitudes_de_requerimientos.belongsTo(models.areas, {

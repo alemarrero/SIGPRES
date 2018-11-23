@@ -8,14 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      solicitud_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "solicitudes_de_requerimientos",
-          key: "id"
-        }
-      },
       producto_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
