@@ -90,8 +90,7 @@ export class SolicitudRequerimientos extends Component {
       const crear_solicitud_de_requerimientos_request = await fetch(`/api/solicitudes_de_requerimientos/crear_solicitud_de_requerimientos`, request_options);
       const crear_solicitud_de_requerimientos_response = await crear_solicitud_de_requerimientos_request.json();
       if(crear_solicitud_de_requerimientos_response !== 'err'){
-        this.setState({id: crear_solicitud_de_requerimientos_response}, async () => {
-        });
+        this.setState({id: crear_solicitud_de_requerimientos_response});
       }
       else{
         this.setState({modal_crear_cargo_abierto: false, mensaje: "Error guardando la solicitud de personal"});
@@ -112,12 +111,11 @@ export class SolicitudRequerimientos extends Component {
     const eliminar_solicitud_response = await eliminar_solicitud_request.json();
 
     if(eliminar_solicitud_response !== 'err'){
-      console.log("holis");
-      this.setState({modal_operacion_exitosa: true, mensaje: "Solicitud de personal eliminada correctamente"}, async () => {
-      console.log("entre aqui");
+      
+      this.setState({modal_confirmacion_eliminar_abierto: false, modal_operacion_exitosa: true, mensaje: "Solicitud de personal eliminada correctamente"}, async () => {
       await this.crearSolicitudDeRequerimientos();
       await this.obtenerSolicitudDeRequerimientos();
-//      await this.obtenerEntradasSolicitudRequerimientos();
+        await this.obtenerEntradasSolicitudRequerimientos();
       });
     }
     else{
@@ -142,7 +140,7 @@ export class SolicitudRequerimientos extends Component {
 
       if(enviar_solicitud_requerimientos_response !== 'err'){
         this.setState({modal_operacion_exitosa: true, mensaje: "Solicitud de requerimientos enviada correctamente"}, async () => {
-        this.obtenerSolicitudDeRequerimientos();  
+        await this.obtenerSolicitudDeRequerimientos();  
         });
       }
       else{
@@ -226,7 +224,7 @@ export class SolicitudRequerimientos extends Component {
 
       if(editar_requerimiento_response !== 'err'){
         this.setState({modal_operacion_exitosa: true, mensaje: "Requerimiento de personal de la solicitud actualizado correctamente"}, async () => {
-          this.obtenerEntradasSolicitudRequerimientos();
+          await this.obtenerEntradasSolicitudRequerimientos();
         });
       }
       else{
@@ -250,7 +248,7 @@ export class SolicitudRequerimientos extends Component {
 
     if(eliminar_requerimiento_response !== 'err'){
       this.setState({modal_operacion_exitosa: true, mensaje: "Requerimiento de personal eliminado correctamente"}, async () => {
-        this.obtenerEntradasSolicitudRequerimientos();
+        await this.obtenerEntradasSolicitudRequerimientos();
       });
     }
     else{
@@ -359,7 +357,7 @@ export class SolicitudRequerimientos extends Component {
 
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="success" onClick={() => this.setState({modal_confirmacion_operacion_abierto: false}, this.enviarSolicitudDeRequerimientos)} className="boton-enviar-modal">
+            <Button color="success" onClick={() => this.setState({modal_confirmacion_operacion_abierto: false}, async () => await this.enviarSolicitudDeRequerimientos())} className="boton-enviawait this.enviarSolicitudDeRequerimientos()ar-modal">
               Enviar
             </Button>   
             <Button color="danger" onClick={() => this.setState({modal_confirmacion_operacion_abierto: false})}>
@@ -385,7 +383,7 @@ export class SolicitudRequerimientos extends Component {
 
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="danger" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: false}, this.eliminarSolicitudDeRequerimientos())} className="boton-eliminar-solicitud">
+            <Button color="danger" onClick={this.eliminarSolicitudDeRequerimientos} className="boton-eliminar-solicitud">
               Eliminar
             </Button>   
             <Button color="danger" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: false})}>
