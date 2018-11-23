@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   especificas.associate = function(models) {
     especificas.belongsTo(models.genericas, {
       foreignKey: 'generica_id',
+      as: 'generica'
     })
     especificas.hasMany(models.subespecificas, {
       foreignKey: 'especifica_id',

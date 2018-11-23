@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   subespecificas.associate = function(models) {
     subespecificas.belongsTo(models.especificas, {
       foreignKey: 'especifica_id',
+      as: 'especifica'
     })  };
   return subespecificas;
 };

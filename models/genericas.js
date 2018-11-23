@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   genericas.associate = function(models) {
     genericas.belongsTo(models.partidas_presupuestarias, {
       foreignKey: 'partida_presupuestaria_id',
+      as: 'partida_presupuestaria'
     }) 
     genericas.hasMany(models.especificas, {
       foreignKey: 'generica_id',
