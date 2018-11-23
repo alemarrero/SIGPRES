@@ -108,17 +108,20 @@ export class SolicitudRequerimientos extends Component {
       })
     };
 
-    const eliminar_solicitud_personal_request = await fetch(`/api/solicitudes_de_requerimientos/eliminar_solicitud_de_requerimientos`, request_options);
-    const eliminar_solicitud_personal_response = await eliminar_solicitud_personal_request.json();
+    const eliminar_solicitud_request = await fetch(`/api/solicitudes_de_requerimientos/eliminar_solicitud_de_requerimientos`, request_options);
+    const eliminar_solicitud_response = await eliminar_solicitud_request.json();
 
-    if(eliminar_solicitud_personal_response !== 'err'){
+    if(eliminar_solicitud_response !== 'err'){
+      console.log("holis");
       this.setState({modal_operacion_exitosa: true, mensaje: "Solicitud de personal eliminada correctamente"}, async () => {
-      await  this.crearSolicitudDeRequerimientos();
-      await  this.obtenerSolicitudDeRequerimientos();
-      await this.obtenerEntradasSolicitudRequerimientos();
+      console.log("entre aqui");
+      await this.crearSolicitudDeRequerimientos();
+      await this.obtenerSolicitudDeRequerimientos();
+//      await this.obtenerEntradasSolicitudRequerimientos();
       });
     }
     else{
+      console.log("errooor");
       this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de personal"});
     }
   }
@@ -276,14 +279,16 @@ export class SolicitudRequerimientos extends Component {
   } 
 
   async componentDidMount(){
-    document.title = "SICMB - Requerimientos de Personal";
+    document.title = "SICMB - Solicitud de Requerimientos";
     await this.obtenerProductos();
     await this.obtenerSolicitudDeRequerimientos();
     if (this.state.id !== undefined){      
       this.obtenerEntradasSolicitudRequerimientos();
     }
-    else {
-      this.crearEntradaSolicitudRequerimiento();
+    else{
+      await this.crearSolicitudDeRequerimientos();
+      this.obtenerSolicitudDeRequerimientos();
+
     }
   }
 
