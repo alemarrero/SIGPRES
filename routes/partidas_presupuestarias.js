@@ -189,25 +189,23 @@ router.post('/obtener_partida_desde_especifica', function(req,res){
 });
 
 router.post('/obtener_partida_desde_subespecifica', function(req,res){
-  models.partidas_presupuestarias.findOne({
-    attributes: ["id", "numero_partida", "denominacion"], 
+  models.subespecificas.findOne({
+    where: {id: req.body.id},
     include: [
       {
-        model: models.genericas,
-        as: "genericas",
-        attributes: ["id", "numero_generica", "denominacion"],
+        model: models.especificas,
+        as: "especifica",
+        attributes: ["id", "numero_especifica", "denominacion"],
         include: [
           {
-            model: models.especificas,
-          
-            as: "especificas",
-            attributes: ["id", "numero_especifica", "denominacion"],
+            model: models.genericas,
+            as: "generica",
+            attributes: ["id", "numero_generica", "denominacion"],
             include: [
               {
-                model: models.subespecificas,
-                where: {id: req.body.id},
-                as: "subespecificas",
-                attributes: ["id", "numero_subespecifica", "denominacion"]
+                model: models.partidas_presupuestarias,
+                as: "partida_presupuestaria",
+                attributes: ["id", "numero_partida", "denominacion"]
               }
             ]
           }

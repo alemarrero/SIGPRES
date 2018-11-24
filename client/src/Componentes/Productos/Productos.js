@@ -31,7 +31,9 @@ export default class Productos extends Component {
       rows_productos: [],
       iva: undefined,
       monto_iva: undefined,
-      total: undefined
+      total: undefined,
+      tiene_especifica: false,
+      tiene_subespecifica: false,
     };
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerPartidas = this.obtenerPartidas.bind(this);
@@ -68,9 +70,8 @@ export default class Productos extends Component {
             }
             else{
                 partida = await this.obtenerPartidaDesdeSubespecifica(producto.subespecifica_id);
-            }
 
-        //partida = await this.obtenerPartidaDesdeSubespecifica(producto.subespecifica_id);
+            }
         
         let nombre_unidad = this.obtenerNombreUnidad(producto.unidad_de_medida_id);
 
@@ -217,8 +218,8 @@ export default class Productos extends Component {
             precio: this.state.precio,
             iva: this.state.iva,
             unidad_de_medida_id: this.state.unidad_de_medida,
-            especifica_id: this.state.especifica_id,
-            subespecifica_id: this.state.subespecifica_id,
+            especifica_id: this.state.tiene_especifica ? this.state.especifica_id : undefined,
+            subespecifica_id: this.state.tiene_subespecifica ? this.state.subespecifica_id : undefined,
         })
      };
       console.log(this.state.subespecifica_id);
@@ -403,10 +404,10 @@ export default class Productos extends Component {
     let id = e.target.value.split("_")[1];
 
     if (es_especifica === "true"){
-        this.setState({especifica_id: id});
+        this.setState({especifica_id: id, tiene_especifica: true, tiene_subespecifica: false});
     }
     else{
-        this.setState({subespecifica_id: id});
+        this.setState({subespecifica_id: id, tiene_subespecifica: true, tiene_especifica: false});
     }
 
   }
@@ -445,6 +446,16 @@ export default class Productos extends Component {
      }     
   }
 
+  /**
+   * #############
+   * # ACOMODAR  #
+   * #############
+   * 
+   * Hacer misma corrección en el endpoint /api/partidas_presupuestarias/obtener_partida_desde_especifica
+   * y hacer la misma corrección en el método obtenerPartidaDesdeEspecifica() para obtener la información a 
+   * partir de la nueva estructura del resultado del query (ahora el query esta al revés, se empieza desde 
+   *  subespecíficas)
+   */
   async obtenerPartidaDesdeSubespecifica(id){
     const request_options = {
         method: 'post',
