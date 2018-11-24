@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     },    
     especifica_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: "especificas",
+        key: "id"
+      }
     },
     denominacion: {
         type: DataTypes.STRING,

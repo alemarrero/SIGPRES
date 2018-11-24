@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     },    
     partida_presupuestaria_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: "partidas_presupuestarias",
+        key: "id"
+      }
     },
     denominacion: {
         type: DataTypes.STRING,

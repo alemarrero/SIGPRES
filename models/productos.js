@@ -67,12 +67,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'unidad_de_medida_id',
       as: 'unidad_de_medida',
     });    
-    productos.hasOne(models.especificas, {
-      foreignKey: 'id',
+    productos.belongsTo(models.especificas, {
+      foreignKey: 'especifica_id',
       as: 'especifica',
     });    
-    productos.hasOne(models.subespecificas, {
-      foreignKey: 'id',
+    productos.belongsTo(models.subespecificas, {
+      foreignKey: 'subespecifica_id',
       as: 'subespecifica',
     }); 
   };

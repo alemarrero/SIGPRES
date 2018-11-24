@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     },    
     generica_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: "genericas",
+        key: "id"
+      }
     },
     denominacion: {
         type: DataTypes.STRING,
@@ -32,10 +36,13 @@ module.exports = (sequelize, DataTypes) => {
     especificas.belongsTo(models.genericas, {
       foreignKey: 'generica_id',
       as: 'generica'
-    })
+    });
+
     especificas.hasMany(models.subespecificas, {
       foreignKey: 'especifica_id',
       as: 'subespecificas',
-    }) };
+    });
+
+  };
   return especificas;
 };
