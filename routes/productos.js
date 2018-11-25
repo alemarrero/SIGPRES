@@ -5,6 +5,8 @@ var models = require('../models');
 
 
 router.post('/crear_producto', autorizarAdministrador, function(req, res, next) {
+  console.log(req.body.subespecifica_id);
+  console.log(req.body.especifica_id);
   if (req.body.subespecifica_id !== undefined){
     var precio = parseFloat(req.body.precio,10);
     var iva = parseFloat(req.body.iva,10);
@@ -14,7 +16,6 @@ router.post('/crear_producto', autorizarAdministrador, function(req, res, next) 
         codigo: req.body.codigo,
         nombre: req.body.nombre,
         precio: precio,
-        especifica_id: req.body.especifica_id,
         subespecifica_id: req.body.subespecifica_id,
         unidad_de_medida_id: req.body.unidad_de_medida_id,
         iva: iva,
@@ -154,7 +155,25 @@ router.get('/obtener_productos', function(req, res){
           },
           {
             model: models.subespecificas,
-            as: 'subespecifica'
+            as: 'subespecifica',
+            include: [
+              {
+                model: models.especificas,
+                as: 'especifica',
+                include: [
+                  {
+                    model: models.genericas,
+                    as: 'generica',
+                    include: [
+                      {
+                        model: models.partidas_presupuestarias,
+                        as: 'partida_presupuestaria'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]            
           },
           {
             model: models.especificas,

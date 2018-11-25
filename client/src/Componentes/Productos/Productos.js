@@ -64,17 +64,18 @@ export default class Productos extends Component {
       let productos = [];
 
     let intermedio = this.state.productos.map(async (producto, index) => {
-        let partida;
+        let partida=[];
             if (producto.especifica_id !== null){
                 partida = await this.obtenerPartidaDesdeEspecifica(producto.especifica_id);
             }
             else{
+                console.log(producto.subespecifica_id);
                 partida = await this.obtenerPartidaDesdeSubespecifica(producto.subespecifica_id);
 
             }
         
         let nombre_unidad = this.obtenerNombreUnidad(producto.unidad_de_medida_id);
-
+        //let nombre_unidad=[];
         let temp = 
             <tr key={`${producto.id}_${producto.nombre}`}>
                 <th scope="row">{producto.id}</th>
@@ -218,8 +219,8 @@ export default class Productos extends Component {
             precio: this.state.precio,
             iva: this.state.iva,
             unidad_de_medida_id: this.state.unidad_de_medida,
-            especifica_id: this.state.tiene_especifica ? this.state.especifica_id : undefined,
-            subespecifica_id: this.state.tiene_subespecifica ? this.state.subespecifica_id : undefined,
+            especifica_id: this.state.especifica_id,
+            subespecifica_id: this.state.subespecifica_id,
         })
      };
       console.log(this.state.subespecifica_id);
@@ -230,7 +231,7 @@ export default class Productos extends Component {
 
       if(crear_producto_response !== 'err'){
         this.setState({modal_crear_producto_abierto: false, modal_operacion_exitosa: true, mensaje: "Producto creado correctamente"}, async () => {
-          this.obtenerProductos();
+          await this.obtenerProductos();
           this.formatearRowsProductos();
         });
       }
@@ -399,15 +400,14 @@ export default class Productos extends Component {
   }
 
   procesarOpcion(e){
-    let es_especifica = e.target.dataset.especifica;
-    let es_subespecifica = e.target.dataset.subespecifica;
     let id = e.target.value.split("_")[1];
+    let opcion = e.target.value.split("_")[0];
 
-    if (es_especifica === "true"){
-        this.setState({especifica_id: id, tiene_especifica: true, tiene_subespecifica: false});
+    if (opcion === "especifica"){
+        this.setState({especifica_id: id, subespecifica_id: undefined});
     }
     else{
-        this.setState({subespecifica_id: id, tiene_subespecifica: true, tiene_especifica: false});
+        this.setState({subespecifica_id: id, especifica_id: undefined});
     }
 
   }
@@ -425,20 +425,10 @@ export default class Productos extends Component {
      const partidas_response = await partidas_request.json();
  
      if(partidas_response !== 'err'){
-        let partida_completa = {};
-
-        if(partidas_response.genericas.length > 0){
-            partidas_response.genericas.map(generica => {
-               if(generica.especificas.length > 0){
-                   generica.especificas.map(especifica => {
-                        partida_completa = {
-                            numero: `${partidas_response.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.00`, 
-                            denominacion:`${especifica.denominacion}`
-                        };
-                   })
-                }
-            })
-        }                   
+        let partida_completa = {
+          numero: `${partidas_response.generica.partida_presupuestaria.numero_partida}.${partidas_response.generica.numero_generica}.${partidas_response.numero_especifica}.00`, 
+          denominacion:`${partidas_response.denominacion}`
+                              };                  
         return partida_completa;         
     }
      else{
@@ -465,33 +455,19 @@ export default class Productos extends Component {
             id: id
         })
      };
+
      const partidas_request = await fetch('/api/partidas_presupuestarias/obtener_partida_desde_subespecifica', request_options);
      const partidas_response = await partidas_request.json();
+     console.log(partidas_response);
  
      if(partidas_response !== 'err'){
-       let partida_completa = {};
-
-       if(partidas_response.genericas.length > 0){
-           partidas_response.genericas.map(generica => {
-              if(generica.especificas.length > 0){
-                  generica.especificas.map(especifica => {
-                      if(especifica.subespecificas.length > 0){
-                          especifica.subespecificas.map(subespecifica => {
-                           partida_completa = {
-                               numero: `${partidas_response.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.${subespecifica.numero_subespecifica}`, 
-                               denominacion:`${subespecifica.denominacion}`
+       let partida_completa = {
+                               numero: `${partidas_response.especifica.generica.partida_presupuestaria.numero_partida}.${partidas_response.especifica.generica.numero_generica}.${partidas_response.especifica.numero_especifica}.${partidas_response.numero_subespecifica}`, 
+                               denominacion:`${partidas_response.denominacion}`
                            };
-                          })
-                      }
-                  })
-              } 
-           })
-       }
-       
-          
-       return partida_completa; 
-       
-    }
+       console.log(partida_completa);   
+       return partida_completa;  
+     }
      else{
        this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los partidas "});
      }     
@@ -510,15 +486,16 @@ export default class Productos extends Component {
                             if (especifica.subespecificas.length > 0) {
                                 especifica.subespecificas.map(subespecifica => {  
                                     opciones.push(
-                                        <option data-subespecifica="true" value={`subespecifica_${subespecifica.id}`}>
+                                        <option value={`subespecifica_${subespecifica.id}`}>
                                             {partida.numero_partida}.{generica.numero_generica}.{especifica.numero_especifica}.{subespecifica.numero_subespecifica} - {subespecifica.denominacion} 
                                         </option>)    
                             })}
                             else{
                                 opciones.push(
-                                    <option data-especifica="true" value={`especifica_${especifica.id}`}>
+                                    <option value={`especifica_${especifica.id}`}>
                                         {partida.numero_partida}.{generica.numero_generica}.{especifica.numero_especifica}.00 - {especifica.denominacion} 
                                     </option>)   
+                                console.log(opciones);
                             }
 
                 })
