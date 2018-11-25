@@ -29,6 +29,7 @@ export class SolicitudRequerimientos extends Component {
     };
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerUnidadDeMedida = this.obtenerUnidadDeMedida.bind(this);
+    this.obtenerSubespecifica = this.obtenerSubespecifica.bind(this);
     this.obtenerEntradasSolicitudRequerimientos = this.obtenerEntradasSolicitudRequerimientos.bind(this);
     this.crearSolicitudDeRequerimientos = this.crearSolicitudDeRequerimientos.bind(this);
     this.eliminarSolicitudDeRequerimientos = this.eliminarSolicitudDeRequerimientos.bind(this);
@@ -65,6 +66,22 @@ export class SolicitudRequerimientos extends Component {
     }
   }  
 
+  obtenerSubespecifica(id){
+    const producto = this.state.productos.filter(producto => producto.id === id);
+    
+    if(producto[0] !== undefined){
+      if(producto[0].especifica !== null){
+        return `${producto[0].especifica.generica.partida_presupuestaria.numero_partida}.${producto[0].especifica.generica.numero_generica}.${producto[0].especifica.numero_especifica}.00`
+      }
+      else{
+        return `${producto[0].subespecifica.especifica.generica.partida_presupuestaria.numero}.${producto[0].subespecifica.especifica.generica.numero_generica}.${producto[0].subespecifica.especifica.numero_especifica}.${producto[0].subespecifica.numero_subespecifica}`
+      }
+    }
+    else{
+      return `N/A`
+    }    
+  }
+
   async obtenerProductos(){
     const productos_request = await fetch('/api/productos/obtener_productos', {credentials: 'include'});
     const productos_response = await productos_request.json();
@@ -74,8 +91,8 @@ export class SolicitudRequerimientos extends Component {
         this.setState({producto_id: productos_response[0].id,productos: productos_response});
         }
         else{
-      this.setState({productos: productos_response});
-    }
+          this.setState({productos: productos_response});
+        }        
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los productos "});
@@ -499,10 +516,10 @@ export class SolicitudRequerimientos extends Component {
                 </thead>
                   <tbody>
                   {this.state.entradas_solicitud_de_requerimientos.map((entrada_solicitud_de_requerimientos, index) => {
-                      return(
+                      return(                       
                       <tr key={`entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}>
                           <th scope="row">{entrada_solicitud_de_requerimientos.id}</th>
-                          <td></td>
+                          <td>{this.obtenerSubespecifica(entrada_solicitud_de_requerimientos.producto_id)}</td>
                           <td>
                             <Input
                               id={`producto_id_entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}                         
@@ -601,7 +618,7 @@ export class SolicitudRequerimientos extends Component {
                         return(
                         <tr key={`entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}>
                             <th scope="row">{entrada_solicitud_de_requerimientos.id}</th>
-                            <td></td>
+                            <td>{this.obtenerSubespecifica(entrada_solicitud_de_requerimientos.producto_id)}</td>
                             <td>
                             <Input
                                 id={`producto_id_entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}                         
@@ -666,7 +683,7 @@ export class SolicitudRequerimientos extends Component {
                         )
                     })}
                     <th scope="row"></th>
-                    <td></td>
+                    <td>{this.obtenerSubespecifica(parseInt(this.state.producto_id, 10))}</td>
                     <td>
                     <Input 
                         type="select"
