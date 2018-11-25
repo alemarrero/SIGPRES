@@ -202,4 +202,48 @@ router.get('/obtener_productos', function(req, res){
   })
 });
 
+router.get('/obtener_consolidado_presupuesto', function(req, res){
+  models.partidas_presupuestarias.findAll({
+    attributes: ["denominacion", "numero_partida", "id"],
+    include: [
+      {
+        model: models.genericas,
+        as: "genericas",
+        attributes: ["numero_generica", "denominacion", "id"],
+        include: [
+          {
+            model: models.especificas,
+            as: "especificas",
+            attributes: ["numero_especifica", "denominacion", "id"],
+            include: [
+              {
+                model: models.subespecificas,
+                as: "subespecificas",
+                attributes: ["numero_subespecifica", "denominacion", "id"],
+                include: [
+                  {
+                    model: models.productos,
+                    as: "productos"
+                  }
+                ]
+              },
+              {
+                model: models.productos,
+                as: "productos"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  })
+  .then(resultado => {
+    res.status(200).json(resultado);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  })
+});
+
 module.exports = router;
