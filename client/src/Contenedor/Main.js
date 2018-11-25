@@ -45,6 +45,8 @@ import ObjetivosEstrategicos from '../Componentes/Antecedentes/ObjetivosEstrateg
 import DetalleAntecedente from '../Componentes/Antecedentes/DetalleAntecedente';
 import CargaDeDatos from '../Componentes/CargaDeDatos/CargaDeDatos';
 import SolicitudRequerimientos from '../Componentes/Requerimientos/SolicitudRequerimientos';
+import ConsultarSolicitudesRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudesRequerimientos'
+import ConsultarSolicitudRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudRequerimientos'
 
 /**
  * TO DO
@@ -97,6 +99,8 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/requerimientos-personal'} component={RequerimientosPersonal}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal/cargos'} component={Cargos}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/solicitud-personal'} component={SolicitudPersonal}/>
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades/consultar-solicitudes-de-requerimientos/:id_solicitud'} component={ConsultarSolicitudRequerimientos}/>            
+            <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades/consultar-solicitudes-de-requerimientos'} component={ConsultarSolicitudesRequerimientos}/>            
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades/solicitud-de-requerimientos'} component={SolicitudRequerimientos}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
