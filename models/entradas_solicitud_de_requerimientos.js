@@ -34,7 +34,15 @@ module.exports = (sequelize, DataTypes) => {
     cantidad_cuarto_trimestre: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    solicitud_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'solicitudes_de_requerimientos',
+        key: 'id'
+      }
+    },
   }, {
     timestamps: false,
     freezeTableName: true

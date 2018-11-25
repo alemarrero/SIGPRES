@@ -203,8 +203,29 @@ router.get('/obtener_productos', function(req, res){
 });
 
 router.get('/obtener_consolidado_presupuesto', function(req, res){
+  // let query = 
+  // "SELECT * " 
+  // + "FROM partidas_presupuestarias pp " 
+  // + "JOIN genericas g on pp.id = g.partida_presupuestaria_id "
+  // + "JOIN especificas e on e.generica_id = g.id "
+  // + "JOIN subespecificas sub on sub.especifica_id = e.id " 
+  // + "JOIN productos p on p.subespecifica_id = sub.id "
+  // + "JOIN entradas_solicitud_de_requerimientos esr on esr.producto_id = p.id " 
+  // + "JOIN solicitudes_de_requerimientos sol on sol.id = esr.solicitud_id "
+  // + "WHERE sol.periodo = :periodo AND sol.enviada = true "
+  // ;
+  // models.sequelize.query(query, {replacements: { periodo: '2018'}, type: models.sequelize.QueryTypes.SELECT})
+  // .then(resultado => {
+  //   res.status(200).json(resultado)
+  // })
+  // .catch(err => {
+  //   console.log(err);
+  //   res.status(500).json("err");
+  // });
+
   models.partidas_presupuestarias.findAll({
     attributes: ["denominacion", "numero_partida", "id"],
+    separate: true,
     include: [
       {
         model: models.genericas,
@@ -223,13 +244,47 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                 include: [
                   {
                     model: models.productos,
-                    as: "productos"
+                    as: "productos",
+                    separate: true,
+                    include: [
+                      {
+                        model: models.entradas_solicitud_de_requerimientos,
+                        as: "entradas_solicitud_de_requerimientos",
+                        include: [
+                          {
+                            model: models.solicitudes_de_requerimientos,
+                            as: "solicitud_de_requerimiento",
+                            attributes: ["periodo", "area_id"],
+                            where: {periodo: "2018", enviada: true},
+                            required: false,
+                          }
+                        ]
+                      },
+
+                    ]
                   }
                 ]
               },
               {
                 model: models.productos,
-                as: "productos"
+                as: "productos",
+                separate: true,
+                include: [
+                  {
+                    model: models.entradas_solicitud_de_requerimientos,
+                    as: "entradas_solicitud_de_requerimientos",
+                    include: [
+                      {
+                        model: models.solicitudes_de_requerimientos,
+                        as: "solicitud_de_requerimiento",
+                        attributes: ["periodo", "area_id"],
+                        required: false,
+                        where: {periodo: "2018", enviada: true},
+                      }
+                    ]
+                  },
+
+                ]
               }
             ]
           }

@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   solicitudes_de_requerimientos.associate = function(models) {
     solicitudes_de_requerimientos.hasMany(models.entradas_solicitud_de_requerimientos, {
       foreignKey: 'solicitud_id',
-      as: 'requerimientos',
+      as: 'entradas_solicitud_de_requerimientos',
     });
 
     solicitudes_de_requerimientos.belongsTo(models.areas, {
