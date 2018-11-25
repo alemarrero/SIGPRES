@@ -159,24 +159,24 @@ router.get('/obtener_partidas_completas', function(req,res){
 });
 
 router.post('/obtener_partida_desde_especifica', function(req,res){
-  models.partidas_presupuestarias.findOne({
-    attributes: ["id", "numero_partida", "denominacion"], 
+  models.especificas.findOne({
+    where: {id: req.body.id},
     include: [
       {
         model: models.genericas,
-        as: "genericas",
+        as: "generica",
         attributes: ["id", "numero_generica", "denominacion"],
         include: [
           {
-            model: models.especificas,
-            where: {id: req.body.id},
-            as: "especificas",
-            attributes: ["id", "numero_especifica", "denominacion"],
+            model: models.partidas_presupuestarias,
+            as: "partida_presupuestaria",
+            attributes: ["id", "numero_partida", "denominacion"]
           }
         ]
       }
     ]
-  })
+  }
+  )
   .then(resultado => {
     res.status(200).json(resultado)
   })
@@ -185,7 +185,6 @@ router.post('/obtener_partida_desde_especifica', function(req,res){
 
     res.status(500).json("err");
   })
-
 });
 
 router.post('/obtener_partida_desde_subespecifica', function(req,res){
