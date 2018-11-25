@@ -70,7 +70,12 @@ export class SolicitudRequerimientos extends Component {
     const productos_response = await productos_request.json();
 
     if(productos_response !== 'err'){
+      if(productos_response.length > 0) {
+        this.setState({producto_id: productos_response[0].id,productos: productos_response});
+        }
+        else{
       this.setState({productos: productos_response});
+    }
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los productos "});
