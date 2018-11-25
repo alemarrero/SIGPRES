@@ -481,6 +481,11 @@ export class SolicitudRequerimientos extends Component {
               <Table striped className="tabla-unidades-de-medida">                              
                 <thead>
                   <tr>
+                    <th colspan="4" scope="colgroup"></th>                  
+                    <th colspan="4" scope="colgroup" className="text-center">Distribución Trimestral</th>
+                    <th colspan="1" scope="colgroup" align="center"></th>
+                  </tr>                   
+                  <tr>
                     <th>ID</th>  
                     <th>Subespecífica</th>
                     <th>Producto o Servicio</th>
@@ -573,6 +578,11 @@ export class SolicitudRequerimientos extends Component {
                 <Row className="row-unidades-de-medida">
                 <Table striped className="tabla-unidades-de-medida">                              
                 <thead>
+                    <tr>
+                      <th colspan="4" scope="colgroup"></th>                  
+                      <th colspan="4" scope="colgroup" className="text-center">Distribución Trimestral</th>
+                      <th colspan="1" scope="colgroup" align="center"></th>
+                    </tr>                       
                     <tr>
                     <th>ID</th>  
                     <th>Subespecífica</th>
