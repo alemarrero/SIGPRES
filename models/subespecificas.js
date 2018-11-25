@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
     subespecificas.belongsTo(models.especificas, {
       foreignKey: 'especifica_id',
       as: 'especifica'
-    })  };
+    });
+    
+    subespecificas.hasMany(models.productos, {
+      foreignKey: 'subespecifica_id',
+      as: 'productos',
+    });
+  };
   return subespecificas;
 };

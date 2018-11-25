@@ -43,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'subespecificas',
     });
 
+    especificas.hasMany(models.productos, {
+      foreignKey: 'especifica_id',
+      as: 'productos',
+    });
+
   };
   return especificas;
 };
