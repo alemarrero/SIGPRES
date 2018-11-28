@@ -113,7 +113,7 @@ router.get("/obtener_propuestas_full", function(req, res){
       include: [
         {
           model: models.areas, 
-          as: "area",
+          as: "area"
         },
         {
           model: models.objetivos_especificos, 
