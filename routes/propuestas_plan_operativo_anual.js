@@ -107,6 +107,56 @@ router.get("/obtener_propuesta_full", function(req, res){
   })
 });
 
+router.get("/obtener_poa_propuesta/:id", function(req, res){
+  models.propuestas_plan_operativo_anual.findAll(
+    {
+      where: {id: req.params.id},
+      include: [
+        {
+          model: models.areas, 
+          as: "area",
+        },
+        {
+          model: models.objetivos_especificos, 
+          as: "objetivos_especificos",
+          separate: true,
+          include: [{
+            model: models.acciones_recurrentes,
+            as: "acciones_recurrentes",
+            include: [
+              {
+                model: models.unidades_de_medida,
+                as: "unidad_de_medida",
+              },
+              {
+                model: models.medios_de_verificacion,
+                as: "medio_de_verificacion"
+              },
+            ]
+          }]
+        },
+      ]
+    })
+  .then(propuestas => {
+    let poa_data = parsearPropuestaPOA(propuestas);
+    
+    var workbook = XLSX.utils.book_new();
+
+    var worksheet = XLSX.utils.aoa_to_sheet(poa_data);
+    
+    XLSX.utils.book_append_sheet(workbook, worksheet, "POA");
+
+    // res.status(200).json(propuestas);
+    res.setHeader('Content-Disposition', 'attachment; filename="POA.' + "xls" + '";'); 
+    res.end(XLSX.write(workbook, {type:"buffer", bookType:"xls"}));
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  })
+});
+
+
 router.get("/obtener_propuestas_full", function(req, res){
   models.propuestas_plan_operativo_anual.findAll(
     {
