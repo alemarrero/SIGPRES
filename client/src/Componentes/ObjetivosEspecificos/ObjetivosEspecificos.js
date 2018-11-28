@@ -457,7 +457,7 @@ export class ObjetivosEspecificos extends Component {
                     <th className="text-right">
                       {!this.state.enviada ? 
                         <React.Fragment>
-                            <a target="_blank" href="http://localhost:5000/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
+                            <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
                               <Button color="info" style={{fontWeight: "normal", marginRight: "5px"}}>    
                                 <i className="iconos fa fa-eye" aria-hidden="true"></i>  Visualizar propuesta
                               </Button>                        
@@ -466,7 +466,7 @@ export class ObjetivosEspecificos extends Component {
                         </React.Fragment>
                         :
                         <React.Fragment>
-                          <a target="_blank" href="http://localhost:5000/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
+                          <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
                             <Button color="info" style={{fontWeight: "normal", marginRight: "5px"}}>    
                               <i className="iconos fa fa-eye" aria-hidden="true"></i>  Visualizar propuesta
                             </Button>                        
