@@ -182,6 +182,11 @@ export default class DetallePOA extends Component {
             <h1 className="titulo-unidades-de-medida">Detalle de Propuesta de POA</h1>
             <h2>{this.state.area.nombre} - {this.state.area.descripcion}</h2>
             <h3>{this.state.periodo}</h3>
+            <a target="_blank" href={`http://localhost:5000/api/propuestas_plan_operativo_anual/obtener_poa_propuesta/${this.props.match.params.id}`}>
+              <Button color="info" style={{fontWeight: "normal", marginBottom: "5px"}}>    
+                <i className="iconos fa fa-eye" aria-hidden="true"></i>  Ver consolidado
+              </Button>                        
+            </a>
           </Col>
         </Row>
 
