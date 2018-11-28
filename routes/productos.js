@@ -223,6 +223,7 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
   //   console.log(err);
   //   res.status(500).json("err");
   // });
+  let consolidado = [];
 
   models.partidas_presupuestarias.findAll({
     attributes: ["denominacion", "numero_partida", "id"],
@@ -261,6 +262,11 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                           }
                         ]
                       },
+                      {
+                        model: models.unidades_de_medida,
+                        as: "unidad_de_medida",
+                        attributes: ["nombre"]                    
+                      },                      
 
                     ]
                   }
@@ -284,6 +290,11 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                       }
                     ]
                   },
+                  {
+                    model: models.unidades_de_medida,
+                    as: "unidad_de_medida",
+                    attributes: ["nombre"]                    
+                  },
 
                 ]
               }
@@ -294,7 +305,79 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
     ]
   })
   .then(resultado => {
-    res.status(200).json(resultado);
+    if(resultado.length > 0){
+      resultado.map(partida => {
+          if(partida.genericas.length > 0){
+              partida.genericas.map(generica => {
+                  if(generica.especificas.length > 0){
+                      generica.especificas.map(especifica => { 
+                        if (especifica.productos.length > 0) {
+                            especifica.productos.map(producto => { 
+                              var cantidad_primer_trimestre = 0;
+                              var cantidad_segundo_trimestre = 0;
+                              var cantidad_tercer_trimestre = 0;
+                              var cantidad_cuarto_trimestre = 0;
+                              var cantidad_total = 0;
+                              let consolidado_producto = {};
+                              if (producto.entradas_solicitud_de_requerimientos.length > 0) {
+                                producto.entradas_solicitud_de_requerimientos.map(entrada => {  
+                                  cantidad_primer_trimestre = cantidad_primer_trimestre + entrada.cantidad_primer_trimestre;
+                                  cantidad_segundo_trimestre = cantidad_segundo_trimestre + entrada.cantidad_segundo_trimestre;
+                                  cantidad_tercer_trimestre = cantidad_tercer_trimestre + entrada.cantidad_tercer_trimestre;
+                                  cantidad_cuarto_trimestre = cantidad_cuarto_trimestre + entrada.cantidad_cuarto_trimestre;
+                                  cantidad_total = cantidad_total + entrada.cantidad;
+                                })
+                                consolidado_producto['id'] = producto.id;
+                                consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.00`
+                                consolidado_producto['producto'] = producto.nombre;
+                                consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
+                                consolidado_producto['cantidad_primer_trimestre'] = cantidad_primer_trimestre;
+                                consolidado_producto['cantidad_segundo_trimestre'] = cantidad_segundo_trimestre;
+                                consolidado_producto['cantidad_tercer_trimestre'] = cantidad_tercer_trimestre;
+                                consolidado_producto['cantidad_cuarto_trimestre'] = cantidad_cuarto_trimestre;
+                                consolidado_producto['cantidad_total'] = cantidad_total;
+                                console.log(consolidado_producto);
+                                consolidado.push(consolidado_producto);
+                              }  
+                      })}
+                        if (especifica.subespecificas.length > 0) {
+                          especifica.subespecificas.map(subespecifica => { 2
+                            if (subespecifica.productos.length > 0) {
+                              subespecifica.productos.map(producto => {                             
+                              var cantidad_primer_trimestre = 0;
+                              var cantidad_segundo_trimestre = 0;
+                              var cantidad_tercer_trimestre = 0;
+                              var cantidad_cuarto_trimestre = 0;
+                              var cantidad_total = 0;
+                              let consolidado_producto = {};
+                              if (producto.entradas_solicitud_de_requerimientos.length > 0) {
+                                producto.entradas_solicitud_de_requerimientos.map(entrada => {  
+                                  cantidad_primer_trimestre = cantidad_primer_trimestre + parseInt(entrada.cantidad_primer_trimestre,10);
+                                  cantidad_segundo_trimestre = cantidad_segundo_trimestre + parseInt(entrada.cantidad_segundo_trimestre,10);
+                                  cantidad_tercer_trimestre = cantidad_tercer_trimestre + parseInt(entrada.cantidad_tercer_trimestre,10);
+                                  cantidad_cuarto_trimestre = cantidad_cuarto_trimestre + parseInt(entrada.cantidad_cuarto_trimestre,10);
+                                  cantidad_total = cantidad_total + parseInt(entrada.cantidad,10);
+                                })
+
+                                consolidado_producto['id'] = producto.id;
+                                consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.${subespecifica.numero_subespecifica}`
+                                consolidado_producto['producto'] = producto.nombre;
+                                consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
+                                consolidado_producto['cantidad_primer_trimestre'] = cantidad_primer_trimestre;
+                                consolidado_producto['cantidad_segundo_trimestre'] = cantidad_segundo_trimestre;
+                                consolidado_producto['cantidad_tercer_trimestre'] = cantidad_tercer_trimestre;
+                                consolidado_producto['cantidad_cuarto_trimestre'] = cantidad_cuarto_trimestre;
+                                consolidado_producto['cantidad_total'] = cantidad_total;
+                                console.log(consolidado_producto);
+                                consolidado.push(consolidado_producto);
+                              }                            
+                          })}})}                        
+
+              })
+        }})
+      }})
+    }    
+    res.status(200).json(consolidado);
   })
   .catch(err => {
     console.log(err);

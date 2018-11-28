@@ -198,7 +198,7 @@ export class ConsultarSolicitudRequerimientos extends Component {
         <Table striped className="tabla-unidades-de-medida">                              
           <thead>
             <tr>
-              <th colspan="3" scope="colgroup"></th>                  
+              <th colspan="4" scope="colgroup"></th>                  
               <th colspan="4" scope="colgroup" className="text-center">Distribución Trimestral</th>
               <th colspan="1" scope="colgroup" align="center"></th>
             </tr>              

@@ -21,7 +21,7 @@ export default class Menu extends Component {
         <OpcionMenu ruta={'/consultar-solicitudes-de-requerimientos/'} nombre="Consultar Solicitudes de Requerimientos y Necesidades" icono={consultar}/> 
 
         {/* Consulta consolidado de solicitudes de personal */}   
-        <OpcionMenu ruta={'/consolidado-solicitudes-personal/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>                 
+        <OpcionMenu ruta={'/consolidado-solicitudes-requerimientos/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>                 
       
       </Row>
     )
