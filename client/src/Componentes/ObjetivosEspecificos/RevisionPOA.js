@@ -95,6 +95,11 @@ export default class RevisionPOA extends Component {
             <img src={objetivos_especificos} className="icono-titulo"/>    
             <h1 className="titulo-unidades-de-medida">Revisión de Propuestas de POA</h1>
             <h2>Año {año}</h2>
+            <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuestas_full">
+              <Button color="info" style={{fontWeight: "normal", marginBottom: "5px"}}>    
+                <i className="iconos fa fa-eye" aria-hidden="true"></i>  Ver consolidado
+              </Button>                        
+            </a>
           </Col>
         </Row>
 

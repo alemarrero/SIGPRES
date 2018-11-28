@@ -456,9 +456,23 @@ export class ObjetivosEspecificos extends Component {
                     </th>
                     <th className="text-right">
                       {!this.state.enviada ? 
-                        <Button color="success" style={{fontWeight: "normal"}} onClick={this.enviarPropuesta}>Enviar propuesta</Button>
+                        <React.Fragment>
+                            <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
+                              <Button color="info" style={{fontWeight: "normal", marginRight: "5px"}}>    
+                                <i className="iconos fa fa-eye" aria-hidden="true"></i>  Visualizar propuesta
+                              </Button>                        
+                            </a>
+                          <Button color="success" style={{fontWeight: "normal"}} onClick={this.enviarPropuesta}>Enviar propuesta</Button>
+                        </React.Fragment>
                         :
-                        <Button color="danger" style={{fontWeight: "normal"}} onClick={this.retirarPropuesta}>Retirar propuesta</Button>
+                        <React.Fragment>
+                          <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuesta_full">
+                            <Button color="info" style={{fontWeight: "normal", marginRight: "5px"}}>    
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>  Visualizar propuesta
+                            </Button>                        
+                          </a>
+                          <Button color="danger" style={{fontWeight: "normal"}} onClick={this.retirarPropuesta}>Retirar propuesta</Button>
+                        </React.Fragment>
                       }
                     </th>
                   </tr>

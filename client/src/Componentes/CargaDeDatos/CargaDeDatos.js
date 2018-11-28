@@ -19,6 +19,7 @@ export default class CargaDeDatos extends Component {
       unidades_de_medida_ar: false,
       unidades_de_medida_prod: false,
       medios_de_verificacion: false,
+      productos: false,
       mensaje_partidas: undefined,
       mensaje_genericas: undefined,
       mensaje_especificas: undefined,
@@ -35,10 +36,33 @@ export default class CargaDeDatos extends Component {
     this.cargarUnidadesDeMedidaAR = this.cargarUnidadesDeMedidaAR.bind(this);
     this.cargarUnidadesDeMedidaProd = this.cargarUnidadesDeMedidaProd.bind(this);
     this.cargarMediosDeVerificacion = this.cargarMediosDeVerificacion.bind(this);
+    this.cargarProductos = this.cargarProductos.bind(this);
   }
 
   componentDidMount(){
     document.title = "SICMB - Carga de Datos";
+  }
+
+  async cargarProductos() {
+    let form_body = new FormData();
+
+    form_body.append('fichero', this.state.fichero);
+
+    const request_options = {
+      method: 'post',
+      credentials: 'include',
+      body: form_body
+    };
+
+    const cargar_informacion_request = await fetch('/api/productos/cargar_productos', request_options);
+    const cargar_informacion_response = await cargar_informacion_request.json();
+
+    if(cargar_informacion_response !== "err"){
+      this.setState({modal_operacion_exitosa: true, mensaje_productos: "Productos cargados exitosamente.", modal_cargar_datos_abierto: false});
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje_partidas: "Error al cargar información de los productos.", modal_cargar_datos_abierto: false});
+    }
   }
 
   async cargarPartidas() {
@@ -209,7 +233,8 @@ export default class CargaDeDatos extends Component {
 
     if(!this.state.partidas && !this.state.genericas && !this.state.especificas 
       && !this.state.subespecificas && !this.state.unidades_de_medida_ar 
-      && !this.state.unidades_de_medida_prod && !this.state.medios_de_verificacion){
+      && !this.state.unidades_de_medida_prod && !this.state.medios_de_verificacion 
+      && !this.state.productos){
       formulario_valido = false;
       document.getElementById("error-tipo-carga").style.display = "block";
     }
@@ -230,6 +255,10 @@ export default class CargaDeDatos extends Component {
 
   async cargarDatos(){
     if(this.verificarCargaDeDatos()){
+      if(this.state.productos){
+        await this.cargarProductos();
+      }
+      
       if(this.state.partidas){
         await this.cargarPartidas();
       }
@@ -274,17 +303,20 @@ export default class CargaDeDatos extends Component {
             <h4>Mensaje:</h4> <br/>
 
             <h5>Partidas presupuestarias</h5>
-            Partidas presupuestarias: {this.state.mensaje_partidas} <br/> 
-            Específicas: {this.state.mensaje_subespecificas} <br/> 
-            Genéricas: {this.state.mensaje_genericas} <br/> 
-            Específicas: {this.state.mensaje_especificas}  <br/>
+            <b>Partidas presupuestarias</b>: {this.state.mensaje_partidas} <br/> 
+            <b>Específicas</b>: {this.state.mensaje_subespecificas} <br/> 
+            <b>Genéricas</b>: {this.state.mensaje_genericas} <br/> 
+            <b>Específicas</b>: {this.state.mensaje_especificas}  <br/>
 
             <h5>Unidades de medida</h5>
-            Unidades de medida para acciones recurrentes: {this.state.mensaje_unidades_de_medida_ar} <br/> 
-            Unidades de medida para productos: {this.state.mensaje_unidades_de_medida_prod}  <br/>
+            <b>Unidades de medida para acciones recurrentes</b>: {this.state.mensaje_unidades_de_medida_ar} <br/> 
+            <b>Unidades de medida para productos</b>: {this.state.mensaje_unidades_de_medida_prod}  <br/>
 
             <h5>Medios de verificación</h5>
-            Medios de verificación para acciones recurrentes: {this.state.mensaje_medios_de_verificacion}  <br/>
+            <b>Medios de verificación para acciones recurrentes</b>: {this.state.mensaje_medios_de_verificacion}  <br/>
+
+            <h5>Productos</h5>
+            <b>Productos</b>: {this.state.mensaje_productos}  <br/>
           </p>
           <p>Revise la consola del navegador o del servidor para obtener más información acerca del error.</p>
         </ModalBody>
@@ -312,17 +344,20 @@ export default class CargaDeDatos extends Component {
             <h4>Mensaje:</h4> <br/>
 
             <h5>Partidas presupuestarias</h5>
-            Partidas presupuestarias: {this.state.mensaje_partidas} <br/> 
-            Específicas: {this.state.mensaje_subespecificas} <br/> 
-            Genéricas: {this.state.mensaje_genericas} <br/> 
-            Específicas: {this.state.mensaje_especificas}  <br/>
+            <b>Partidas presupuestarias</b>: {this.state.mensaje_partidas} <br/> 
+            <b>Específicas</b>: {this.state.mensaje_subespecificas} <br/> 
+            <b>Genéricas</b>: {this.state.mensaje_genericas} <br/> 
+            <b>Específicas</b>: {this.state.mensaje_especificas}  <br/>
 
             <h5>Unidades de medida</h5>
-            Unidades de medida para acciones recurrentes: {this.state.mensaje_unidades_de_medida_ar} <br/> 
-            Unidades de medida para productos: {this.state.mensaje_unidades_de_medida_prod}  <br/>
+            <b>Unidades de medida para acciones recurrentes</b>: {this.state.mensaje_unidades_de_medida_ar} <br/> 
+            <b>Unidades de medida para productos</b>: {this.state.mensaje_unidades_de_medida_prod}  <br/>
 
             <h5>Medios de verificación</h5>
-            Medios de verificación para acciones recurrentes: {this.state.mensaje_medios_de_verificacion}  <br/>
+            <b>Medios de verificación para acciones recurrentes</b>: {this.state.mensaje_medios_de_verificacion}  <br/>
+
+            <h5>Productos</h5>
+            <b>Productos</b>: {this.state.mensaje_productos}  <br/>
           </p>
         </ModalBody>
         <ModalFooter>
@@ -369,6 +404,7 @@ export default class CargaDeDatos extends Component {
                           unidades_de_medida_ar: false,
                           unidades_de_medida_prod: false,
                           medios_de_verificacion: false,
+                          productos: false,
                         })
                       }/>{' '}
                     Partidas presupuestarias
@@ -386,6 +422,7 @@ export default class CargaDeDatos extends Component {
                           unidades_de_medida_ar: false,
                           unidades_de_medida_prod: false,
                           medios_de_verificacion: false,
+                          productos: false,
                         })
                       }/>{' '}
                     Genéricas
@@ -403,6 +440,7 @@ export default class CargaDeDatos extends Component {
                           unidades_de_medida_ar: false,
                           unidades_de_medida_prod: false,
                           medios_de_verificacion: false,
+                          productos: false,
                         })
                       }/>{' '}
                     Específicas
@@ -420,6 +458,7 @@ export default class CargaDeDatos extends Component {
                           unidades_de_medida_ar: false,
                           unidades_de_medida_prod: false,
                           medios_de_verificacion: false,
+                          productos: false,
                         })
                       }/>{' '}
                       Subespecíficas
@@ -444,6 +483,7 @@ export default class CargaDeDatos extends Component {
                           genericas: false,
                           especificas: false,
                           subespecificas: false,
+                          productos: false,
                           medios_de_verificacion: false,
                         })
                       }/>{' '}
@@ -463,6 +503,7 @@ export default class CargaDeDatos extends Component {
                           genericas: false,
                           especificas: false,
                           subespecificas: false,
+                          productos: false,
                           medios_de_verificacion: false,
                         })
                       }/>{' '}
@@ -489,12 +530,41 @@ export default class CargaDeDatos extends Component {
                           genericas: false,
                           especificas: false,
                           subespecificas: false,
+                          productos: false,
                           medios_de_verificacion: e.target.checked,
                         })
                       }/>{' '}
                     Medios de verificación de las acciones recurrentes
                   </Label>
                 </Col>
+
+                <hr/>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <h5>Productos: </h5>
+                </Col>
+
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <Label check>
+                    <Input 
+                      checked={this.state.productos}
+                      type="checkbox" 
+                      onChange={(e) => 
+                        this.setState({
+                          unidades_de_medida_ar: false,
+                          unidades_de_medida_prod: false,
+                          partidas: false,
+                          genericas: false,
+                          especificas: false,
+                          subespecificas: false,
+                          productos: e.target.checked,
+                          medios_de_verificacion: false,
+                        })
+                      }/>{' '}
+                    Productos
+                  </Label>
+                </Col>
+                
                 
                 <Col>
                   <span className="error-carga-de-datos" id="error-tipo-carga">Debe seleccionar al menos una opción de la lista.</span>
@@ -552,6 +622,7 @@ export default class CargaDeDatos extends Component {
                 <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745552/Formatos%20carga%20de%20datos/partidas_presupuestarias.xlsx" target="_BLANK">Partidas presupuestarias</a></li>
                 <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745550/Formatos%20carga%20de%20datos/unidades_de_medida.xlsx" target="_BLANK">Unidades de medida</a></li>
                 <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1542745551/Formatos%20carga%20de%20datos/medios_de_verificacion.xlsx" target="_BLANK">Medios de verificación</a></li>
+                <li><a href="https://res.cloudinary.com/sicmbdev/raw/upload/v1543439708/Formatos%20carga%20de%20datos/productos.xlsx" target="_BLANK">Productos</a></li>
               </ul>
 
               <li>Coloque la información que desea actualizar en la primera hora del archivo .xls, siguiendo el formato de ejemplo. </li>
