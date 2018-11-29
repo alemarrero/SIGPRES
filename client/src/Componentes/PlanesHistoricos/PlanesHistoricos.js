@@ -17,10 +17,10 @@ export default class PlanesHistoricos extends Component {
         <OpcionMenu ruta={'/planes-cgr'} nombre="Gacetas Oficiales de la CGR" icono={cgr}/>
 
         {/* Gestión de Planes de la Alcaldía */}
-        <OpcionMenu ruta={'/planes-alcaldia'} nombre="Ordenanzas de la Alcaldía" icono={alcaldia}/>
+        <OpcionMenu ruta={'/planes-alcaldia'} nombre="Gacetas Municipales de la Alcaldía" icono={alcaldia}/>
 
         {/* Gestión de Planes de la CMB */}
-        <OpcionMenu ruta={'/planes-cmb'} nombre="Ordenanzas de la CMB" icono={contraloria}/>
+        <OpcionMenu ruta={'/planes-cmb'} nombre="Gacetas Municipales de la CMB" icono={contraloria}/>
       </Row>
     )
   }

@@ -55,7 +55,7 @@ export class PlanesCMB extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_exitosa: true, 
-        mensaje: "Ordenanza de la Contraloría Municipal de Baruta eliminado exitosamente"}, async () => {
+        mensaje: "Gaceta Municipal de la Contraloría Municipal de Baruta eliminado exitosamente"}, async () => {
         this.obtenerPlanesOperativos();
       });
     }
@@ -63,14 +63,14 @@ export class PlanesCMB extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_fallida: true, 
-        mensaje: "Ha ocurrido un error al eliminar el Ordenanza de la Contraloría Municipal de Baruta"
+        mensaje: "Ha ocurrido un error al eliminar el Gaceta Municipal de la Contraloría Municipal de Baruta"
       });
     }
   }
 
   async editarPlanOperativo(){
     if(this.verificarCamposModalEdicion()){
-      // Verifica si se actualizó el archivo de la ordenanza
+      // Verifica si se actualizó el archivo de la gaceta municipal
       // Si se actualizó, primero se sube el archivo y luego se 
       // actualiza la información del plan
       if(this.state.nuevo_fichero){
@@ -108,12 +108,12 @@ export class PlanesCMB extends Component {
           const actualizar_plan_response = await actualizar_plan_request.json();
 
           if(actualizar_plan_response !== 'err'){
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Ordenanza de la Contraloría Municipal de Baruta actualizada exitosamente"}, async () => {
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Gaceta Municipal de la Contraloría Municipal de Baruta actualizada exitosamente"}, async () => {
               this.obtenerPlanesOperativos();
             });
           }
           else{
-            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Ordenanza de la Contraloría Municipal de Baruta"});
+            this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Gaceta Municipal de la Contraloría Municipal de Baruta"});
           }
         }
         // De lo contrario, ocurrió un error y se le notifica al usuario
@@ -139,12 +139,12 @@ export class PlanesCMB extends Component {
         const actualizar_plan_response = await actualizar_plan_request.json();
 
         if(actualizar_plan_response !== 'err'){
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Ordenanza de la Contraloría Municipal de Baruta actualizada exitosamente"}, async () => {
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Información del Gaceta Municipal de la Contraloría Municipal de Baruta actualizada exitosamente"}, async () => {
             this.obtenerPlanesOperativos();
           });
         }
         else{
-          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Ordenanza de la Contraloría Municipal de Baruta"});
+          this.setState({modal_editar_plan_operativo_abierto: false, modal_operacion_fallida: true, mensaje: "Error al actualizar la información del Gaceta Municipal de la Contraloría Municipal de Baruta"});
         }
       }
     }
@@ -294,18 +294,18 @@ export class PlanesCMB extends Component {
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
-        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Ordenanza de la Contraloría Municipal de Baruta creado correctamente"}, async () => {
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Gaceta Municipal de la Contraloría Municipal de Baruta creado correctamente"}, async () => {
           this.obtenerPlanesOperativos();
         });
       }
       else{
-        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Ordenanza de la Contraloría Municipal de Baruta"});
+        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Gaceta Municipal de la Contraloría Municipal de Baruta"});
       }
     }
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Ordenanzas de la CMB';
+    document.title = 'SICMB - Gacetas Municipales de la CMB';
     this.obtenerPlanesOperativos();
   }
 
@@ -319,15 +319,15 @@ export class PlanesCMB extends Component {
     let modal_crear_plan = 
       <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
-          Crear nuevo Ordenanza de la CMB
+          Crear nuevo Gaceta Municipal de la CMB
         </ModalHeader>
       
         <ModalBody>
           <Form> 
             <FormGroup row>
-              {/* Nombre de la ordenanza*/}
+              {/* Nombre de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre de la ordenanza*</Label>
+                <Label>Nombre de la gaceta municipal*</Label>
                 <Input 
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
@@ -336,9 +336,9 @@ export class PlanesCMB extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Periodo de la ordenanza*/}
+              {/* Periodo de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia de la ordenanza*</Label>
+                <Label>Periodo de vigencia de la gaceta municipal*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -374,9 +374,9 @@ export class PlanesCMB extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Fichero de la ordenanza*/}
+              {/* Fichero de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo de la ordenanza*</Label>
+                <Label>Archivo de la gaceta municipal*</Label>
               </Col>
 
               <Col xs={12} sm={12} md={12} lg={12}>
@@ -412,15 +412,15 @@ export class PlanesCMB extends Component {
     let modal_editar_plan = 
       <Modal isOpen={this.state.modal_editar_plan_operativo_abierto} toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})}>
-          Editar Ordenanza de la CMB
+          Editar Gaceta Municipal de la CMB
         </ModalHeader>
       
         <ModalBody>
           <Form> 
             <FormGroup row>
-              {/* Nombre de la ordenanza*/}
+              {/* Nombre de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre de la ordenanza*</Label>
+                <Label>Nombre de la gaceta municipal*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -430,9 +430,9 @@ export class PlanesCMB extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Periodo de la ordenanza*/}
+              {/* Periodo de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia de la ordenanza*</Label>
+                <Label>Periodo de vigencia de la gaceta municipal*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -470,9 +470,9 @@ export class PlanesCMB extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Fichero de la ordenanza*/}
+              {/* Fichero de la gaceta municipal*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo de la ordenanza</Label>
+                <Label>Archivo de la gaceta municipal</Label>
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6} className="align-self-end">
@@ -573,14 +573,14 @@ export class PlanesCMB extends Component {
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={contraloria} className="icono-titulo"/>    
-            <h1 className="titulo-unidades-de-medida">Gestión de Ordenanzas <br/> de la Contraloría Municipal de Baruta</h1>
+            <h1 className="titulo-unidades-de-medida">Gestión de Gacetas Municipales <br/> de la Contraloría Municipal de Baruta</h1>
           </Col>
 
           {/* Botón para agregar planes operativos */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_plan_operativo_abierto: true})}>
               <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar ordenanza
+              Agregar gaceta municipal
             </Button>
           </Col>
         </Row>
@@ -634,9 +634,9 @@ export class PlanesCMB extends Component {
           <Row className="justify-content-center">
             <Col xs={12} sm={12} md={6} lg={6} className="text-center"> 
               <h3>
-                Aún no existen Ordenanzas de la Contraloría Municipal de Baruta 
+                Aún no existen Gacetas Municipales de la Contraloría Municipal de Baruta 
                 <br/> 
-                Haga click en el botón "Agregar ordenanza" o contacte a un administrador para agregar un nuevo plan.
+                Haga click en el botón "Agregar gaceta municipal" o contacte a un administrador para agregar un nuevo plan.
               </h3>
             </Col>
           </Row>
