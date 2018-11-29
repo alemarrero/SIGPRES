@@ -55,7 +55,7 @@ export class PlanesCGR extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_exitosa: true, 
-        mensaje: "Ordenanza de la Contraloría General de la República eliminado exitosamente"}, async () => {
+        mensaje: "Gaceta Oficial de la Contraloría General de la República eliminada exitosamente"}, async () => {
         this.obtenerPlanesOperativos();
       });
     }
@@ -63,7 +63,7 @@ export class PlanesCGR extends Component {
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
         modal_operacion_fallida: true, 
-        mensaje: "Ha ocurrido un error al eliminar el Ordenanza de la Contraloría General de la República"
+        mensaje: "Ha ocurrido un error al eliminar la Gaceta Oficial de la Contraloría General de la República"
       });
     }
   }
@@ -294,18 +294,18 @@ export class PlanesCGR extends Component {
       const crear_plan_response = await crear_plan_request.json();
 
       if(crear_plan_response !== 'err'){
-        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Ordenanza de la Contraloría General de la República creado correctamente"}, async () => {
+        this.setState({modal_crear_plan_operativo_abierto: false, modal_operacion_exitosa: true, mensaje: "Gaceta Oficial de la Contraloría General de la República creada correctamente"}, async () => {
           this.obtenerPlanesOperativos();
         });
       }
       else{
-        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando el Ordenanza de la Contraloría General de la República"});
+        this.setState({modal_operacion_fallida: true, modal_crear_plan_operativo_abierto: false, mensaje: "Error agregando la Gaceta Oficial de la Contraloría General de la República"});
       }
     }
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Ordenanzas de la CGR';
+    document.title = 'SICMB - Gacetas Oficiales de la CGR';
     this.obtenerPlanesOperativos();
   }
 
@@ -319,7 +319,7 @@ export class PlanesCGR extends Component {
     let modal_crear_plan = 
       <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
-          Crear nuevo Ordenanza de la CGR
+          Crear nueva Gaceta Oficial de la CGR
         </ModalHeader>
       
         <ModalBody>
@@ -327,7 +327,7 @@ export class PlanesCGR extends Component {
             <FormGroup row>
               {/* Nombre de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre de la ordenanza*</Label>
+                <Label>Nombre de la gaceta*</Label>
                 <Input 
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
@@ -338,7 +338,7 @@ export class PlanesCGR extends Component {
             <FormGroup row>
               {/* Periodo de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia de la ordenanza*</Label>
+                <Label>Periodo de vigencia de la gaceta*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -376,7 +376,7 @@ export class PlanesCGR extends Component {
             <FormGroup row>
               {/* Fichero de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo de la ordenanza*</Label>
+                <Label>Archivo de la gaceta*</Label>
               </Col>
 
               <Col xs={12} sm={12} md={12} lg={12}>
@@ -412,7 +412,7 @@ export class PlanesCGR extends Component {
     let modal_editar_plan = 
       <Modal isOpen={this.state.modal_editar_plan_operativo_abierto} toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_editar_plan_operativo_abierto: !this.state.modal_editar_plan_operativo_abierto})}>
-          Editar Ordenanza de la CGR
+          Editar Gaceta de la CGR
         </ModalHeader>
       
         <ModalBody>
@@ -420,7 +420,7 @@ export class PlanesCGR extends Component {
             <FormGroup row>
               {/* Nombre de la ordenanza*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Nombre de la ordenanza*</Label>
+                <Label>Nombre de la gaceta*</Label>
                 <Input 
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
@@ -430,9 +430,9 @@ export class PlanesCGR extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Periodo de la ordenanza*/}
+              {/* Periodo de la gaceta*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Periodo de vigencia de la ordenanza*</Label>
+                <Label>Periodo de vigencia de la gaceta*</Label>
               </Col>
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Año de inicio*</Label>
@@ -470,9 +470,9 @@ export class PlanesCGR extends Component {
             </FormGroup>
 
             <FormGroup row>
-              {/* Fichero de la ordenanza*/}
+              {/* Fichero de la gaceta*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Archivo de la ordenanza</Label>
+                <Label>Archivo de la gaceta</Label>
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6} className="align-self-end">
@@ -573,14 +573,14 @@ export class PlanesCGR extends Component {
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={cgr} className="icono-titulo"/>    
-            <h1 className="titulo-unidades-de-medida">Gestión de Ordenanzas <br/> de la Contraloría General de la República</h1>
+            <h1 className="titulo-unidades-de-medida">Gestión de Gacetas Oficiales <br/> de la Contraloría General de la República</h1>
           </Col>
 
           {/* Botón para agregar planes operativos */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_plan_operativo_abierto: true})}>
               <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar ordenanza
+              Agregar gaceta
             </Button>
           </Col>
         </Row>
@@ -634,9 +634,9 @@ export class PlanesCGR extends Component {
           <Row className="justify-content-center">
             <Col xs={12} sm={12} md={6} lg={6} className="text-center"> 
               <h3>
-                Aún no existen Ordenanzas de la Contraloría General de la República 
+                Aún no existen Gacetas Oficiales de la Contraloría General de la República 
                 <br/> 
-                Haga click en el botón "Agregar ordenanza" o contacte a un administrador para agregar un nuevo plan.
+                Haga click en el botón "Agregar gaceta" o contacte a un administrador para agregar un nuevo plan.
               </h3>
             </Col>
           </Row>

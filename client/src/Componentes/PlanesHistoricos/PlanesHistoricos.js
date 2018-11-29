@@ -14,7 +14,7 @@ export default class PlanesHistoricos extends Component {
         <OpcionMenu ruta={'/planes-nacion'} nombre="Ordenanzas de la Nación" icono={nacion}/>
 
         {/* Gestión de Planes de la CGR */}
-        <OpcionMenu ruta={'/planes-cgr'} nombre="Ordenanzas de la CGR" icono={cgr}/>
+        <OpcionMenu ruta={'/planes-cgr'} nombre="Gacetas Oficiales de la CGR" icono={cgr}/>
 
         {/* Gestión de Planes de la Alcaldía */}
         <OpcionMenu ruta={'/planes-alcaldia'} nombre="Ordenanzas de la Alcaldía" icono={alcaldia}/>
