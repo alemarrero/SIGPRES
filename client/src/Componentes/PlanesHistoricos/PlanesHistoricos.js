@@ -11,7 +11,7 @@ export default class PlanesHistoricos extends Component {
     return (
       <Row className="fila-opciones-menu-planes-historicos">
         {/* Gestión de Planes de la Nación */}
-        <OpcionMenu ruta={'/planes-nacion'} nombre="Ordenanzas de la Nación" icono={nacion}/>
+        <OpcionMenu ruta={'/planes-nacion'} nombre="Gacetas Oficiales de la Nación" icono={nacion}/>
 
         {/* Gestión de Planes de la CGR */}
         <OpcionMenu ruta={'/planes-cgr'} nombre="Gacetas Oficiales de la CGR" icono={cgr}/>
