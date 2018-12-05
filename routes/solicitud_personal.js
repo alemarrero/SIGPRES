@@ -143,57 +143,6 @@ router.post('/enviar_solicitud_personal', autorizarDirector, function(req, res){
 });
 
 router.get('/obtener_consolidado', function(req,res){
-  // models.solicitud_personal.findAll({
-  //   where: {enviada: true},
-    
-  //   include: [
-  //     {
-  //       model: models.requerimientos_personal, 
-  //       as: "requerimientos_personal",
-  //       separate: true,
-  //       include: [{
-  //         model: models.cargos,
-  //         as: "cargo",    
-  //         attributes:{
-  //           include:[
-  //               [models.sequelize.fn('SUM',models.sequelize.col('cargo.id')),'numero_cargos']
-  //           ]
-  //         },
-  //       }],
-  //       group: ["requerimientos_personal.id", "requerimientos_personal.cargo_id", "cargo.id"]
-        
-  //     }
-  //   ],
-  // })
-  // .then( resultado => {
-  //   res.json(resultado).status(200);
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json("err");
-  // })
-
-
-  // models.cargos.findAll({
-  //   include: [{
-  //     model: models.requerimientos_personal,
-  //     as: "requerimientos_personal",
-  //     include: [{
-  //       model: models.solicitud_personal,
-  //       as: "solicitud_personal",
-  //       where: {enviada: true}
-  //     }]
-  //   }],
-
-  // })
-  // .then(resultado => {
-  //   res.status(200).json(resultado);
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json("err");
-  // })
-
   models.requerimientos_personal.findAll({
     group:["cargo.id", "cargo_id"], 
     attributes: ["cargo_id", [models.sequelize.fn('SUM', models.sequelize.col('numero_personas')), 'total']], 
