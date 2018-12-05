@@ -45,7 +45,7 @@ export default class Menu extends Component {
             <Card onClick={() => this.props.history.push(this.props.match.path + '/productos')} body outline color="success">
                 <CardBody>
                 <img src={productos} className="iconos-menu"/>    
-                <h2 className="modulo-menu">Gestión de productos</h2>
+                <h2 className="modulo-menu">Catálogo de productos</h2>
                 </CardBody>
             </Card>
             </Col>           
