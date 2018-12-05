@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
 
-router.post('/crear_medio_de_verificacion', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_medio_de_verificacion', autorizarDirectorPP, function(req, res, next) {
   models.medios_de_verificacion.create({
     nombre: req.body.nombre 
   })  
@@ -21,7 +21,7 @@ router.post('/crear_medio_de_verificacion', autorizarAdministrador, function(req
 });
 
 
-router.post('/actualizar_medio_de_verificacion', autorizarAdministrador, function(req, res){
+router.post('/actualizar_medio_de_verificacion', autorizarDirectorPP, function(req, res){
   models.medios_de_verificacion.update({
     nombre: req.body.nombre,
     habilitado: req.body.habilitado
@@ -41,7 +41,7 @@ router.post('/actualizar_medio_de_verificacion', autorizarAdministrador, functio
   });
 });
 
-router.post('/eliminar_medio_de_verificacion', autorizarAdministrador, function(req, res){
+router.post('/eliminar_medio_de_verificacion', autorizarDirectorPP, function(req, res){
   models.medios_de_verificacion.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -58,7 +58,7 @@ router.post('/eliminar_medio_de_verificacion', autorizarAdministrador, function(
 });
 
 
-router.post('/habilitar_medio_de_verificacion', autorizarAdministrador, function(req, res){
+router.post('/habilitar_medio_de_verificacion', autorizarDirectorPP, function(req, res){
   models.medios_de_verificacion.update({
     habilitado: true 
   }, {where: {id: req.body.id}})
@@ -76,7 +76,7 @@ router.post('/habilitar_medio_de_verificacion', autorizarAdministrador, function
   })
 });
 
-router.post('/deshabilitar_medio_de_verificacion', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_medio_de_verificacion', autorizarDirectorPP, function(req, res){
   models.medios_de_verificacion.update({
     habilitado: false 
   }, {where: {id: req.body.id}})
@@ -105,7 +105,7 @@ router.get('/obtener_medios_de_verificacion', function(req, res){
   })
 });
 
-router.post('/cargar_medios_de_verificacion', autorizarAdministrador, recibirArchivo, function(req, res){
+router.post('/cargar_medios_de_verificacion', autorizarDirectorPP, recibirArchivo, function(req, res){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const medios_de_verificacion = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
