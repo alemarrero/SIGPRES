@@ -59,7 +59,7 @@ router.post('/crear_sugerencia', function(req, res){
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.get('/obtener_sugerencias', autorizarAdministrador, function(req, res){
+router.get('/obtener_sugerencias', function(req, res){
   models.sugerencias.findAll()
   .then(sugerencias => {
     res.status(200).json(sugerencias);

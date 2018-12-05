@@ -76,7 +76,7 @@ router.post('/crear_sugerencia_presupuesto_participativo', recibirArchivo, subir
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.get('/obtener_sugerencias_presupuesto_participativo', autorizarAdministrador, function(req, res){
+router.get('/obtener_sugerencias_presupuesto_participativo', function(req, res){
   models.sugerencia_presupuesto_participativo.findAll()
   .then(sugerencias_presupuesto_participativo => {
     res.status(200).json(sugerencias_presupuesto_participativo);

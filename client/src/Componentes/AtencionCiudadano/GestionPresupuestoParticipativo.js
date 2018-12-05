@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import presupuesto_participativo from '../../assets/img/presupuesto_participativo.png';
 import { Button, Col, Row, Table, Label, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import withContext from '../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-export default class PresupuestoParticipativo extends Component {
+export class PresupuestoParticipativo extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -300,13 +302,15 @@ export default class PresupuestoParticipativo extends Component {
                           <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                           Ver detalle
                       </Button>
-                      <Button 
-                          color="danger"
-                          onClick={() => this.setState({id: sugerencia.id, modal_confirmacion_abierto: true})}
-                      >
-                          <i className="iconos fas fa-trash" aria-hidden="true"></i>                          
-                          Eliminar
-                      </Button>
+                      {autorizarAdministrador(this.props.usuario.rol) && 
+                        <Button 
+                            color="danger"
+                            onClick={() => this.setState({id: sugerencia.id, modal_confirmacion_abierto: true})}
+                        >
+                            <i className="iconos fas fa-trash" aria-hidden="true"></i>                          
+                            Eliminar
+                        </Button>
+                      }
                       </td>
                   </tr>
                   )
@@ -324,3 +328,5 @@ export default class PresupuestoParticipativo extends Component {
     )
   }
 }
+
+export default withContext(PresupuestoParticipativo)

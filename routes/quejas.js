@@ -59,7 +59,7 @@ router.post('/crear_queja', function(req, res){
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.get('/obtener_quejas', autorizarAdministrador, function(req, res){
+router.get('/obtener_quejas', function(req, res){
   models.quejas.findAll()
   .then(quejas => {
     res.status(200).json(quejas);
