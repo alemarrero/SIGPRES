@@ -11,17 +11,33 @@ router.post('/crear_entrada_solicitud_de_requerimientos', autorizarDirector, fun
   )
   .then(requerimiento => {
     if(!requerimiento){
-      var cantidad_primer_trimestre = parseInt(req.body.cantidad_primer_trimestre, 10);
-      var cantidad_segundo_trimestre = parseInt(req.body.cantidad_segundo_trimestre, 10);
-      var cantidad_tercer_trimestre = parseInt(req.body.cantidad_tercer_trimestre, 10);
-      var cantidad_cuarto_trimestre = parseInt(req.body.cantidad_cuarto_trimestre, 10);
-      var cantidad = cantidad_primer_trimestre + cantidad_segundo_trimestre + cantidad_tercer_trimestre + cantidad_cuarto_trimestre;        
+      var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
+      var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
+      var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
+      var cantidad_abril = parseInt(req.body.cantidad_abril, 10);
+      var cantidad_mayo = parseInt(req.body.cantidad_mayo, 10);
+      var cantidad_junio = parseInt(req.body.cantidad_junio, 10);
+      var cantidad_julio = parseInt(req.body.cantidad_julio, 10);
+      var cantidad_agosto = parseInt(req.body.cantidad_agosto, 10);
+      var cantidad_septiembre = parseInt(req.body.cantidad_septiembre, 10);
+      var cantidad_octubre = parseInt(req.body.cantidad_octubre, 10);
+      var cantidad_noviembre = parseInt(req.body.cantidad_noviembre, 10);
+      var cantidad_diciembre = parseInt(req.body.cantidad_diciembre, 10);            
+      var cantidad = cantidad_enero + cantidad_febrero + cantidad_marzo + cantidad_abril + cantidad_mayo + cantidad_junio + cantidad_julio + cantidad_agosto + cantidad_septiembre + cantidad_octubre + cantidad_noviembre + cantidad_diciembre;        
       models.entradas_solicitud_de_requerimientos.create({
-        cantidad_primer_trimestre: cantidad_primer_trimestre,
-        cantidad_segundo_trimestre: cantidad_segundo_trimestre,
-        cantidad_tercer_trimestre: cantidad_tercer_trimestre,
-        cantidad_cuarto_trimestre: cantidad_cuarto_trimestre,
-        cantidad:cantidad,
+        cantidad_enero: cantidad_enero,
+        cantidad_febrero: cantidad_febrero,
+        cantidad_marzo: cantidad_marzo,
+        cantidad_abril: cantidad_abril,
+        cantidad_mayo: cantidad_mayo,
+        cantidad_junio: cantidad_junio,
+        cantidad_julio: cantidad_julio,
+        cantidad_agosto: cantidad_agosto,
+        cantidad_septiembre: cantidad_septiembre,
+        cantidad_octubre: cantidad_octubre,
+        cantidad_noviembre: cantidad_noviembre,
+        cantidad_diciembre: cantidad_diciembre,
+        cantidad: cantidad,
         producto_id: req.body.producto_id,
         solicitud_id: req.body.solicitud_id
       })
@@ -46,16 +62,32 @@ router.post('/crear_entrada_solicitud_de_requerimientos', autorizarDirector, fun
 });
 
 router.post('/actualizar_entrada_solicitud_de_requerimientos', autorizarDirector, function(req, res, next){
-  var cantidad_primer_trimestre = parseInt(req.body.cantidad_primer_trimestre, 10);
-  var cantidad_segundo_trimestre = parseInt(req.body.cantidad_segundo_trimestre, 10);
-  var cantidad_tercer_trimestre = parseInt(req.body.cantidad_tercer_trimestre, 10);
-  var cantidad_cuarto_trimestre = parseInt(req.body.cantidad_cuarto_trimestre, 10);
-  var cantidad = cantidad_primer_trimestre + cantidad_segundo_trimestre + cantidad_tercer_trimestre + cantidad_cuarto_trimestre;      
+  var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
+  var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
+  var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
+  var cantidad_abril = parseInt(req.body.cantidad_abril, 10);
+  var cantidad_mayo = parseInt(req.body.cantidad_mayo, 10);
+  var cantidad_junio = parseInt(req.body.cantidad_junio, 10);
+  var cantidad_julio = parseInt(req.body.cantidad_julio, 10);
+  var cantidad_agosto = parseInt(req.body.cantidad_agosto, 10);
+  var cantidad_septiembre = parseInt(req.body.cantidad_septiembre, 10);
+  var cantidad_octubre = parseInt(req.body.cantidad_octubre, 10);
+  var cantidad_noviembre = parseInt(req.body.cantidad_noviembre, 10);
+  var cantidad_diciembre = parseInt(req.body.cantidad_diciembre, 10);            
+  var cantidad = cantidad_enero + cantidad_febrero + cantidad_marzo + cantidad_abril + cantidad_mayo + cantidad_junio + cantidad_julio + cantidad_agosto + cantidad_septiembre + cantidad_octubre + cantidad_noviembre + cantidad_diciembre;        
   models.entradas_solicitud_de_requerimientos.update({
-    cantidad_primer_trimestre: cantidad_primer_trimestre,
-    cantidad_segundo_trimestre: cantidad_segundo_trimestre,
-    cantidad_tercer_trimestre: cantidad_tercer_trimestre,
-    cantidad_cuarto_trimestre: cantidad_cuarto_trimestre,
+    cantidad_enero: cantidad_enero,
+    cantidad_febrero: cantidad_febrero,
+    cantidad_marzo: cantidad_marzo,
+    cantidad_abril: cantidad_abril,
+    cantidad_mayo: cantidad_mayo,
+    cantidad_junio: cantidad_junio,
+    cantidad_julio: cantidad_julio,
+    cantidad_agosto: cantidad_agosto,
+    cantidad_septiembre: cantidad_septiembre,
+    cantidad_octubre: cantidad_octubre,
+    cantidad_noviembre: cantidad_noviembre,
+    cantidad_diciembre: cantidad_diciembre,
     cantidad:cantidad,
     producto_id: req.body.producto_id,
   },
