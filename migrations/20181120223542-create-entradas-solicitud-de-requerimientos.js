@@ -17,10 +17,11 @@ module.exports = {
         }
       },
       cantidad: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       cantidad_primer_trimestre: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER        
       },
       cantidad_segundo_trimestre: {
         type: Sequelize.INTEGER

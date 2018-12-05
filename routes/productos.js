@@ -259,9 +259,9 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                             attributes: ["periodo", "area_id"],
                             where: {periodo: "2018", enviada: true},
                             required: false,
-                          }
+                          }                   
                         ]
-                      },
+                      },                      
                       {
                         model: models.unidades_de_medida,
                         as: "unidad_de_medida",
@@ -313,28 +313,52 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                       generica.especificas.map(especifica => { 
                         if (especifica.productos.length > 0) {
                             especifica.productos.map(producto => { 
-                              var cantidad_primer_trimestre = 0;
-                              var cantidad_segundo_trimestre = 0;
-                              var cantidad_tercer_trimestre = 0;
-                              var cantidad_cuarto_trimestre = 0;
+                              var cantidad_enero = 0;
+                              var cantidad_febrero = 0;
+                              var cantidad_marzo = 0;
+                              var cantidad_abril = 0;
+                              var cantidad_mayo = 0;
+                              var cantidad_junio = 0;
+                              var cantidad_julio = 0;
+                              var cantidad_agosto = 0;
+                              var cantidad_septiembre = 0;
+                              var cantidad_octubre = 0;
+                              var cantidad_noviembre = 0;
+                              var cantidad_diciembre = 0;                                                            
                               var cantidad_total = 0;
                               let consolidado_producto = {};
                               if (producto.entradas_solicitud_de_requerimientos.length > 0) {
                                 producto.entradas_solicitud_de_requerimientos.map(entrada => {  
-                                  cantidad_primer_trimestre = cantidad_primer_trimestre + entrada.cantidad_primer_trimestre;
-                                  cantidad_segundo_trimestre = cantidad_segundo_trimestre + entrada.cantidad_segundo_trimestre;
-                                  cantidad_tercer_trimestre = cantidad_tercer_trimestre + entrada.cantidad_tercer_trimestre;
-                                  cantidad_cuarto_trimestre = cantidad_cuarto_trimestre + entrada.cantidad_cuarto_trimestre;
+                                  cantidad_enero = cantidad_enero + entrada.cantidad_enero;
+                                  cantidad_febrero = cantidad_febrero + entrada.cantidad_febrero;
+                                  cantidad_marzo = cantidad_marzo + entrada.cantidad_marzo;
+                                  cantidad_abril = cantidad_abril + entrada.cantidad_abril;
+                                  cantidad_mayo = cantidad_mayo + entrada.cantidad_mayo;
+                                  cantidad_junio = cantidad_junio + entrada.cantidad_junio;
+                                  cantidad_julio = cantidad_julio + entrada.cantidad_julio;
+                                  cantidad_agosto = cantidad_agosto + entrada.cantidad_agosto;
+                                  cantidad_septiembre = cantidad_septiembre + entrada.cantidad_septiembre;
+                                  cantidad_octubre = cantidad_octubre + entrada.cantidad_octubre;
+                                  cantidad_noviembre = cantidad_noviembre + entrada.cantidad_noviembre;
+                                  cantidad_diciembre = cantidad_diciembre + entrada.cantidad_diciembre;                                  
                                   cantidad_total = cantidad_total + entrada.cantidad;
                                 })
                                 consolidado_producto['id'] = producto.id;
                                 consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.00`
                                 consolidado_producto['producto'] = producto.nombre;
                                 consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
-                                consolidado_producto['cantidad_primer_trimestre'] = cantidad_primer_trimestre;
-                                consolidado_producto['cantidad_segundo_trimestre'] = cantidad_segundo_trimestre;
-                                consolidado_producto['cantidad_tercer_trimestre'] = cantidad_tercer_trimestre;
-                                consolidado_producto['cantidad_cuarto_trimestre'] = cantidad_cuarto_trimestre;
+                                consolidado_producto['cantidad_enero'] = cantidad_enero;
+                                consolidado_producto['cantidad_febrero'] = cantidad_febrero;
+                                consolidado_producto['cantidad_marzo'] = cantidad_marzo;
+                                consolidado_producto['cantidad_abril'] = cantidad_abril;
+                                consolidado_producto['cantidad_mayo'] = cantidad_mayo;
+                                consolidado_producto['cantidad_junio'] = cantidad_junio;
+                                consolidado_producto['cantidad_julio'] = cantidad_julio;
+                                consolidado_producto['cantidad_agosto'] = cantidad_agosto;
+                                consolidado_producto['cantidad_septiembre'] = cantidad_septiembre;
+                                consolidado_producto['cantidad_octubre'] = cantidad_octubre;
+                                consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
+                                consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;                                                                
                                 consolidado_producto['cantidad_total'] = cantidad_total;
                                 console.log(consolidado_producto);
                                 consolidado.push(consolidado_producto);
@@ -344,18 +368,34 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                           especifica.subespecificas.map(subespecifica => { 2
                             if (subespecifica.productos.length > 0) {
                               subespecifica.productos.map(producto => {                             
-                              var cantidad_primer_trimestre = 0;
-                              var cantidad_segundo_trimestre = 0;
-                              var cantidad_tercer_trimestre = 0;
-                              var cantidad_cuarto_trimestre = 0;
+                              var cantidad_enero = 0;
+                              var cantidad_febrero = 0;
+                              var cantidad_marzo = 0;
+                              var cantidad_abril = 0;
+                              var cantidad_mayo = 0;
+                              var cantidad_junio = 0;
+                              var cantidad_julio = 0;
+                              var cantidad_agosto = 0;
+                              var cantidad_septiembre = 0;
+                              var cantidad_octubre = 0;
+                              var cantidad_noviembre = 0;
+                              var cantidad_diciembre = 0;    
                               var cantidad_total = 0;
                               let consolidado_producto = {};
                               if (producto.entradas_solicitud_de_requerimientos.length > 0) {
                                 producto.entradas_solicitud_de_requerimientos.map(entrada => {  
-                                  cantidad_primer_trimestre = cantidad_primer_trimestre + parseInt(entrada.cantidad_primer_trimestre,10);
-                                  cantidad_segundo_trimestre = cantidad_segundo_trimestre + parseInt(entrada.cantidad_segundo_trimestre,10);
-                                  cantidad_tercer_trimestre = cantidad_tercer_trimestre + parseInt(entrada.cantidad_tercer_trimestre,10);
-                                  cantidad_cuarto_trimestre = cantidad_cuarto_trimestre + parseInt(entrada.cantidad_cuarto_trimestre,10);
+                                  cantidad_enero = cantidad_enero + entrada.cantidad_enero;
+                                  cantidad_febrero = cantidad_febrero + entrada.cantidad_febrero;
+                                  cantidad_marzo = cantidad_marzo + entrada.cantidad_marzo;
+                                  cantidad_abril = cantidad_abril + entrada.cantidad_abril;
+                                  cantidad_mayo = cantidad_mayo + entrada.cantidad_mayo;
+                                  cantidad_junio = cantidad_junio + entrada.cantidad_junio;
+                                  cantidad_julio = cantidad_julio + entrada.cantidad_julio;
+                                  cantidad_agosto = cantidad_agosto + entrada.cantidad_agosto;
+                                  cantidad_septiembre = cantidad_septiembre + entrada.cantidad_septiembre;
+                                  cantidad_octubre = cantidad_octubre + entrada.cantidad_octubre;
+                                  cantidad_noviembre = cantidad_noviembre + entrada.cantidad_noviembre;
+                                  cantidad_diciembre = cantidad_diciembre + entrada.cantidad_diciembre;   
                                   cantidad_total = cantidad_total + parseInt(entrada.cantidad,10);
                                 })
 
@@ -363,10 +403,18 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                                 consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.${subespecifica.numero_subespecifica}`
                                 consolidado_producto['producto'] = producto.nombre;
                                 consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
-                                consolidado_producto['cantidad_primer_trimestre'] = cantidad_primer_trimestre;
-                                consolidado_producto['cantidad_segundo_trimestre'] = cantidad_segundo_trimestre;
-                                consolidado_producto['cantidad_tercer_trimestre'] = cantidad_tercer_trimestre;
-                                consolidado_producto['cantidad_cuarto_trimestre'] = cantidad_cuarto_trimestre;
+                                consolidado_producto['cantidad_enero'] = cantidad_enero;
+                                consolidado_producto['cantidad_febrero'] = cantidad_febrero;
+                                consolidado_producto['cantidad_marzo'] = cantidad_marzo;
+                                consolidado_producto['cantidad_abril'] = cantidad_abril;
+                                consolidado_producto['cantidad_mayo'] = cantidad_mayo;
+                                consolidado_producto['cantidad_junio'] = cantidad_junio;
+                                consolidado_producto['cantidad_julio'] = cantidad_julio;
+                                consolidado_producto['cantidad_agosto'] = cantidad_agosto;
+                                consolidado_producto['cantidad_septiembre'] = cantidad_septiembre;
+                                consolidado_producto['cantidad_octubre'] = cantidad_octubre;
+                                consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
+                                consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;  
                                 consolidado_producto['cantidad_total'] = cantidad_total;
                                 console.log(consolidado_producto);
                                 consolidado.push(consolidado_producto);

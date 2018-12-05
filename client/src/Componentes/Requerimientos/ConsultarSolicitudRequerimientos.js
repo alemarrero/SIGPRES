@@ -19,10 +19,18 @@ export class ConsultarSolicitudRequerimientos extends Component {
       nombre_area: undefined,
       producto_id: undefined,
       cantidad: 0,
-      cantidad_primer_trimestre: 0,
-      cantidad_segundo_trimestre: 0,
-      cantidad_tercer_trimestre: 0,
-      cantidad_cuarto_trimestre: 0,
+      cantidad_enero: 0,
+      cantidad_febrero: 0,
+      cantidad_marzo: 0,
+      cantidad_abril: 0,
+      cantidad_mayo: 0,
+      cantidad_junio: 0,
+      cantidad_julio: 0,
+      cantidad_agosto: 0,
+      cantidad_septiembre: 0,
+      cantidad_octubre: 0,
+      cantidad_noviembre: 0,
+      cantidad_diciembre: 0, 
       indice_producto: undefined,
       modal_operacion_fallida: false,
     };
@@ -32,6 +40,31 @@ export class ConsultarSolicitudRequerimientos extends Component {
     this.obtenerSolicitudRequerimientos = this.obtenerSolicitudRequerimientos.bind(this);
     this.obtenerArea = this.obtenerArea.bind(this);
     this.obtenerUnidadDeMedida = this.obtenerUnidadDeMedida.bind(this);
+    this.eliminarSolicitudDeRequerimientos = this.eliminarSolicitudDeRequerimientos.bind(this);
+  }
+
+  async eliminarSolicitudDeRequerimientos(){
+    const request_options = {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
+
+    const eliminar_solicitud_request = await fetch(`/api/solicitudes_de_requerimientos/eliminar_solicitud_de_requerimientos`, request_options);
+    const eliminar_solicitud_response = await eliminar_solicitud_request.json();
+
+    if(eliminar_solicitud_response !== 'err'){    
+      this.setState({modal_confirmacion_eliminar_abierto: false, modal_operacion_exitosa: true, mensaje: "Solicitud de personal eliminada, vuelva a la pantalla anterior"}, async () => {  
+        this.obtenerSolicitudRequerimientos();
+      });
+    }
+    else{
+      console.log("errooor");
+      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de personal"});
+    }
   }
 
   obtenerSubespecifica(id){
@@ -164,100 +197,163 @@ export class ConsultarSolicitudRequerimientos extends Component {
       </Modal>
     ;
 
-    return (
-      <Container fluid className="container-unidades-de-medida">
-        {/* Modales del componente */}
-        {modal_operacion_fallida}
-
-        <Row>
-          {/* Título de la sección */}
+    // Si al realizar cualquier operación, esta se realiza exitosamente, se muestra este modal
+    let modal_operacion_exitosa = 
+      <Modal isOpen={this.state.modal_operacion_exitosa} toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+        <ModalHeader toggle={() => this.setState({modal_operacion_exitosa: !this.state.modal_operacion_exitosa})}>
+          Operación exitosa
+        </ModalHeader>
+        <ModalBody>
+          <p>La operación se ha realizado exitosamente.</p>
+          <p>Mensaje: {this.state.mensaje}</p>
+        </ModalBody>
+        <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={personal} className="icono-titulo"/>    
-            <h1 className="titulo-solicitud-personal">Solicitud de Requerimientos y Necesidades</h1>
-          </Col>
-        </Row>
-
-        {/* Si existen cargos, muestra  tabla con su información */}
-        <Row className="row-unidades-de-medida">
-        <Table striped className="tabla-unidades-de-medida">
-          <thead>
-            <tr>
-              <th>Unidad Solicitante</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>
-                {this.obtenerArea(this.props.usuario.area_id)}
-              </th>
-            </tr>
-          </tbody>
-        </Table>
-        </Row>
-        <Row className="row-unidades-de-medida">
-        <Table striped className="tabla-unidades-de-medida">                              
-          <thead>
-            <tr>
-              <th colspan="4" scope="colgroup"></th>                  
-              <th colspan="4" scope="colgroup" className="text-center">Distribución Trimestral</th>
-              <th colspan="1" scope="colgroup" align="center"></th>
-            </tr>              
-            <tr>
-              <th>ID</th>  
-              <th>Subespecífica</th>
-              <th>Producto o Servicio</th>
-              <th>Unidad de Medida</th>
-              <th>I</th>
-              <th>II</th>
-              <th>III</th>
-              <th>IV</th>
-              <th>Cantidad Total</th>
-            </tr>
-          </thead>
-            <tbody>
-            {this.state.entradas_solicitud_de_requerimientos.map((entrada_solicitud_de_requerimientos, index) => {
-                return(
-                <tr key={`entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}>
-                    <th scope="row">{entrada_solicitud_de_requerimientos.id}</th>
-                    <td>{this.obtenerSubespecifica(entrada_solicitud_de_requerimientos.producto_id)}</td>
-                    <td>
-                      <Input
-                        id={`producto_id_entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}                         
-                        type="select"
-                        defaultValue={entrada_solicitud_de_requerimientos.producto_id}
-                        disabled={true}
-                      >
-                        {this.state.productos.map((producto, index) => {
-                          return(
-                            <option value={producto.id} key={`producto_${producto.index}`}>{producto.nombre}</option>
-                          )
-                        })}
-                      </Input>
-                      </td>
-                      <td>{this.obtenerUnidadDeMedida(entrada_solicitud_de_requerimientos.producto_id)}</td> 
-                      <td>{entrada_solicitud_de_requerimientos.cantidad_primer_trimestre}</td>
-                      <td>{entrada_solicitud_de_requerimientos.cantidad_segundo_trimestre}</td>
-                      <td>{entrada_solicitud_de_requerimientos.cantidad_tercer_trimestre}</td>
-                      <td>{entrada_solicitud_de_requerimientos.cantidad_cuarto_trimestre}</td>
-                      <td>{entrada_solicitud_de_requerimientos.cantidad}</td>
-                </tr>
-                )
-            })}
-            </tbody>
-        </Table>
-        </Row>                         
-
-          {/* Botón para agregar cargos */}
-        <Row>            
-          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="danger" className="boton-enviar" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: true})}>
-              <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>              
-              Eliminar solicitud de requerimientos y necesidades
+            <Button color="danger" onClick={() => this.setState({modal_operacion_exitosa: false})}>
+              Cerrar
             </Button>
-          </Col>                      
-        </Row>          
-    </Container>
-  )
+          </Col>
+        </ModalFooter>
+      </Modal>
+    ;
+
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_eliminar_abierto} toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
+          Eliminar solicitud de personal
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar su solicitud de personal?</p>          
+          <p>Si la elimina no podrá recuperarla luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarSolicitudDeRequerimientos} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;    
+
+    return (
+      <Container fluid className="container-solicitud-de-requerimientos">
+      {/* Modales del componente */}
+      {modal_operacion_fallida}
+      {modal_confirmacion_eliminar}
+      {modal_operacion_exitosa}
+
+      <Row>
+        {/* Título de la sección */}
+        <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+          <img src={personal} className="icono-titulo"/>    
+          <h1 className="titulo-solicitud-personal">Solicitud de Requerimientos y Necesidades</h1>
+        </Col>
+      </Row>
+
+      {/* Si existen cargos, muestra  tabla con su información */}
+      <Row className="row-unidades-de-medida">
+      <Table striped className="tabla-unidad-solicitante">
+        <thead>
+          <tr>
+            <th>Unidad Solicitante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              {this.obtenerArea(this.props.usuario.area_id)}
+            </th>
+          </tr>
+        </tbody>
+      </Table>
+      </Row>
+      <Row className="row-unidades-de-medida">
+      <Table striped className="tabla-unidad-solicitante">                              
+        <thead>
+          <tr>
+            <th colspan="4" scope="colgroup"></th>                  
+            <th colspan="12" scope="colgroup" className="text-center">Planificación Mensual</th>
+            <th colspan="2" scope="colgroup" align="center"></th>
+          </tr>                   
+          <tr>
+            <th>ID</th>  
+            <th>Subespecífica</th>
+            <th>Producto o Servicio</th>
+            <th>Unidad de Medida</th>
+            <th>Ene</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Abr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Ago</th>
+            <th>Sep</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Dic</th>  
+            <th>Total</th>
+          </tr>
+        </thead>
+          <tbody>
+          {this.state.entradas_solicitud_de_requerimientos.map((entrada_solicitud_de_requerimientos, index) => {
+              return(                       
+              <tr key={`entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}>
+                  <th scope="row">{entrada_solicitud_de_requerimientos.id}</th>
+                  <td>{this.obtenerSubespecifica(entrada_solicitud_de_requerimientos.producto_id)}</td>
+                  <td>
+                    <Input
+                      id={`producto_id_entrada_solicitud_de_requerimientos_${entrada_solicitud_de_requerimientos.id}`}                         
+                      type="select"
+                      defaultValue={entrada_solicitud_de_requerimientos.producto_id}
+                      disabled={true}
+                    >
+                      {this.state.productos.map((producto, index) => {
+                        return(
+                          <option value={producto.id} key={`producto_${producto.index}`}>{producto.nombre}</option>
+                        )
+                      })}
+                    </Input>
+                    </td>
+                    <td>{this.obtenerUnidadDeMedida(entrada_solicitud_de_requerimientos.producto_id)}</td> 
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_enero}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_febrero}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_marzo}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_abril}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_mayo}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_junio}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_julio}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_agosto}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_septiembre}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_octubre}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_noviembre}</td>
+                    <td>{entrada_solicitud_de_requerimientos.cantidad_diciembre}</td>                                                        
+                    <td>{entrada_solicitud_de_requerimientos.cantidad}</td>
+              </tr>
+              )
+          })}
+          </tbody>
+      </Table>
+      </Row>                         
+
+        {/* Botón para agregar cargos */}
+      <Row>            
+        <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+          <Button color="danger" className="boton-enviar" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: true})}>
+            <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>              
+            Eliminar solicitud de requerimientos y necesidades
+          </Button>
+        </Col>                      
+      </Row>          
+  </Container>
+)
   }      
   }
 export default withContext(ConsultarSolicitudRequerimientos);
