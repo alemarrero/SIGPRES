@@ -121,32 +121,36 @@ export class BarraNavegacion extends Component {
                     Administración
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/usuarios`)}>
                       Gestión de usuarios
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/areas`)}>
                       Gestión de áreas
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/indicadores`)}>
                       Gestión de indicadores
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/medios-de-verificacion`)}>
                       Gestión de medios de verificación
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/unidades-de-medida`)}>
                       Gestión de unidades de medida
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/planes-historicos`)}>
                       Gestión de planes históricos
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/antecedentes`)}>
                       Gestión de antecedentes de la CMB
+                    </DropdownItem>
+
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/carga-de-datos`)}>
+                      Carga de datos
                     </DropdownItem>
 
                   </DropdownMenu>
