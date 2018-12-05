@@ -32,7 +32,7 @@ export default class Antecedentes extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Antecedentes";
+    document.title = "SICMB - Información Institucional";
     this.obtenerAntecedentes();
   }
 
@@ -490,7 +490,7 @@ export default class Antecedentes extends Component {
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={areas} className="icono-titulo"/>    
-            <h1 className="titulo-unidades-de-medida">Gestión de Antecedentes de la CMB</h1>
+            <h1 className="titulo-unidades-de-medida">Gestión de Información Institucional de la CMB</h1>
           </Col>
 
           {/* Botón para agregar áreas */}
