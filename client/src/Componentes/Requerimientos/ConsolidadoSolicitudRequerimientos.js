@@ -76,22 +76,30 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
           </Row>
 
           <Row className="row-unidades-de-medida">
-          <Table striped className="tabla-unidades-de-medida">                              
+          <Table striped className="tabla-unidad-solicitante">                              
             <thead>
                 <tr>
                 <th colspan="3" scope="colgroup"></th>                  
-                <th colspan="4" scope="colgroup" className="text-center">Distribución Trimestral</th>
+                <th colspan="12" scope="colgroup" className="text-center">Planificación Mensual</th>
                 <th colspan="1" scope="colgroup" align="center"></th>
                 </tr>                   
                 <tr>
                 <th>Subespecífica</th>
                 <th>Producto o Servicio</th>
                 <th>Unidad de Medida</th>
-                <th>I</th>
-                <th>II</th>
-                <th>III</th>
-                <th>IV</th>
-                <th>Cantidad Total</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>  
+                <th>Total</th>
                 </tr>
             </thead>
                 <tbody>
@@ -101,10 +109,18 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
                         <td>{producto.subespecifica}</td>
                         <td>{producto.producto}</td>
                         <td>{producto.unidad_de_medida}</td> 
-                        <td>{producto.cantidad_primer_trimestre}</td>
-                        <td>{producto.cantidad_segundo_trimestre}</td>
-                        <td>{producto.cantidad_tercer_trimestre}</td>
-                        <td>{producto.cantidad_cuarto_trimestre}</td>
+                        <td>{producto.cantidad_enero}</td>
+                        <td>{producto.cantidad_febrero}</td>
+                        <td>{producto.cantidad_marzo}</td>
+                        <td>{producto.cantidad_abril}</td>
+                        <td>{producto.cantidad_mayo}</td>
+                        <td>{producto.cantidad_junio}</td>
+                        <td>{producto.cantidad_julio}</td>
+                        <td>{producto.cantidad_agosto}</td>
+                        <td>{producto.cantidad_septiembre}</td>
+                        <td>{producto.cantidad_octubre}</td>
+                        <td>{producto.cantidad_noviembre}</td>
+                        <td>{producto.cantidad_diciembre}</td>
                         <td>{producto.cantidad_total}</td>
                     </tr>
                     )
