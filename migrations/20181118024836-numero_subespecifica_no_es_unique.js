@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return true;    
+    return Promise.resolve(true);
   },
 
   down: (queryInterface, Sequelize) => {
