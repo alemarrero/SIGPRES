@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './MediosDeVerificacion.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import verificacion from '../../assets/img/verificacion.png';
+import withContext from '../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-
-export default class MediosDeVerificacion extends Component {
+export class MediosDeVerificacion extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -344,12 +345,14 @@ export default class MediosDeVerificacion extends Component {
             </Col>
 
             {/* Botón para agregar medios-de-verificacion */}
-            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_medio_abierto: true})}>
-                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-                Agregar medio de verificación
-              </Button>
-            </Col>
+            {autorizarAdministrador(this.props.usuario.rol) && 
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_medio_abierto: true})}>
+                  <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                  Agregar medio de verificación
+                </Button>
+              </Col>
+            }
           </Row>
 
           {/* Si existen medios-de-verificacion, muestra una tabla con su información */}
@@ -361,7 +364,9 @@ export default class MediosDeVerificacion extends Component {
                     <th>ID</th>
                     <th>Nombre del medio de verificación</th>
                     <th>Habilitada</th>
-                    <th>Opciones</th>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <th>Opciones</th>
+                    }
                   </tr>
                 </thead>
                   <tbody>
@@ -371,15 +376,17 @@ export default class MediosDeVerificacion extends Component {
                           <th scope="row">{medio.id}</th>
                           <td>{medio.nombre}</td>
                           <td>{medio.habilitado ? <span>Si</span> : <span>No</span>}</td>
-                          <td>
-                          <Button 
-                              color="info" className="boton-gestionar"
-                              onClick={() => this.cargarModalEditarMedio(index)}
-                          >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                              Gestionar
-                          </Button>
-                          </td>
+                          {autorizarAdministrador(this.props.usuario.rol) && 
+                            <td>
+                              <Button 
+                                  color="info" className="boton-gestionar"
+                                  onClick={() => this.cargarModalEditarMedio(index)}
+                              >
+                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  Gestionar
+                              </Button>
+                            </td>
+                          }
                       </tr>
                       )
                   })}
@@ -391,3 +398,6 @@ export default class MediosDeVerificacion extends Component {
     )
   }
 }
+
+
+export default withContext(MediosDeVerificacion);
