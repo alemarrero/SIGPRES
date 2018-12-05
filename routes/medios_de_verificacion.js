@@ -94,7 +94,7 @@ router.post('/deshabilitar_medio_de_verificacion', autorizarAdministrador, funct
   })
 });
 
-router.get('/obtener_medios_de_verificacion', autorizarAdministrador, function(req, res){
+router.get('/obtener_medios_de_verificacion', function(req, res){
   models.medios_de_verificacion.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -105,7 +105,7 @@ router.get('/obtener_medios_de_verificacion', autorizarAdministrador, function(r
   })
 });
 
-router.post('/cargar_medios_de_verificacion', recibirArchivo, function(req, res){
+router.post('/cargar_medios_de_verificacion', autorizarAdministrador, recibirArchivo, function(req, res){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const medios_de_verificacion = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
