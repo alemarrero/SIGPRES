@@ -6,9 +6,11 @@ import presupuesto from '../../assets/img/budget.png';
 import planeacion from '../../assets/img/solution.png';
 import atencion_ciudadano from '../../assets/img/atencion_ciudadano.png';
 import OpcionMenu from './OpcionMenu';
+import withContext from '../../Contenedor/withContext';
 
-export default class Menu extends Component {
+export class Menu extends Component {
   render() {
+    console.log(this.props);
     return (
       <Row fluid={true} className="fila-opciones-menu-principal">
         {/* Administración */}   
@@ -26,3 +28,5 @@ export default class Menu extends Component {
     )
   }
 }
+
+export default withContext(Menu);
