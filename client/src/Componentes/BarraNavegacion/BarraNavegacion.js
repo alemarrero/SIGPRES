@@ -69,7 +69,27 @@ export class BarraNavegacion extends Component {
             <NavbarToggler onClick={() => this.setState({barra_navegacion_colapsada: !this.state.barra_navegacion_colapsada})} />
             
             <Collapse isOpen={this.state.barra_navegacion_colapsada} navbar>
-              <Nav className="ml-auto" navbar>
+              <Nav className="ml-auto" navbar>                
+                {/* Dropdown de planeación */}
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret className="menu-navbar">
+                    Planeación 
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/planeacion/programas/`)}>
+                      Gestión de programas
+                    </DropdownItem>
+                    
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/planeacion/objetivos-especificos/`)}>
+                      Gestión de POA
+                    </DropdownItem>
+
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/planeacion/revision-poa/`)}>
+                      Revisión de POA
+                    </DropdownItem>                    
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+
                 {/* Dropdown de presupuesto */}
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret className="menu-navbar">
@@ -94,25 +114,6 @@ export class BarraNavegacion extends Component {
                   </DropdownMenu>
                 </UncontrolledDropdown>
 
-                {/* Dropdown de planeación */}
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret className="menu-navbar">
-                    Planeación 
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem className="dropdown-navbar">
-                      Gestión de programas
-                    </DropdownItem>
-                    
-                    <DropdownItem className="dropdown-navbar">
-                      Gestión de POA
-                    </DropdownItem>
-
-                    <DropdownItem className="dropdown-navbar">
-                      Revisión de POA
-                    </DropdownItem>                    
-                  </DropdownMenu>
-                </UncontrolledDropdown>
 
                 {/* Dropdown de administración */}
                 <UncontrolledDropdown nav inNavbar>
