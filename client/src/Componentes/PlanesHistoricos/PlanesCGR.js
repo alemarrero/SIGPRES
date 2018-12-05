@@ -387,6 +387,7 @@ export class PlanesCGR extends Component {
                   label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({fichero: e.target.files[0]})}
                 />
+                <span>El fichero no debe exceder los 10MB.</span>
               </Col>
 
               <Col xs={12} sm={12} md={12} lg={12}>              
@@ -491,6 +492,7 @@ export class PlanesCGR extends Component {
                   label={this.state.fichero !== undefined ? this.state.fichero.name : "Seleccione un archivo"}
                   onChange={(e) => this.setState({nuevo_fichero: true, fichero: e.target.files[0]})}
                 />
+                <span>El fichero no debe exceder los 10MB.</span>
               </Col>
 
               <Col xs={12} sm={12} md={12} lg={12}>              
