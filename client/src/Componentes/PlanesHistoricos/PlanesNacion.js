@@ -4,6 +4,7 @@ import {Container, Row, Col, Button,  Modal, ModalHeader,
 import nacion from '../../assets/img/venezuela.png';
 import './PlanesHistoricos.css';
 import withContext from './../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
 export class PlanesNacion extends Component {
   constructor(props){
@@ -577,12 +578,14 @@ export class PlanesNacion extends Component {
           </Col>
 
           {/* Botón para agregar planes operativos */}
-          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_plan_operativo_abierto: true})}>
-              <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar gaceta
-            </Button>
-          </Col>
+          {autorizarAdministrador(this.props.usuario.rol) && 
+            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_plan_operativo_abierto: true})}>
+                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                Agregar gaceta
+              </Button>
+            </Col>
+          }
         </Row>
 
         {/* Si existen planes operativos, muestra una tabla con el contenido de los mismos. De lo contrario, invita al usuario a crear un nuevo plan */}
@@ -595,7 +598,9 @@ export class PlanesNacion extends Component {
                     <th>Nombre</th>
                     <th>Periodo</th>                    
                     <th>Enlace</th>
-                    <th>Opciones</th>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <th>Opciones</th>
+                    }
                   </tr>
                 </thead>
                   <tbody>
@@ -613,15 +618,17 @@ export class PlanesNacion extends Component {
                               <i className="far fa-eye"></i> Ver plan
                             </Button>
                           </td>
-                          <td>
-                            <Button 
-                                color="info" className="boton-gestionar"
-                                onClick={() => this.cargarModalEdicion(index)}
-                            >
-                                <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                                Gestionar
-                            </Button>
-                          </td>
+                          {autorizarAdministrador(this.props.usuario.rol) &&
+                            <td>
+                              <Button 
+                                  color="info" className="boton-gestionar"
+                                  onClick={() => this.cargarModalEdicion(index)}
+                              >
+                                  <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  Gestionar
+                              </Button>
+                            </td>
+                          }
                       </tr>
                       )
                   })}
