@@ -12,7 +12,7 @@ export default class Menu extends Component {
     return (
       <Row className="fila-opciones-menu-principal">
         {/* Requerimientos y Necesidades */}   
-        <OpcionMenu ruta={'/solicitud-de-requerimientos/'} nombre="Requerimientos y Necesidades" icono={requerimientos}/>
+        <OpcionMenu ruta={'/solicitud-de-requerimientos/'} nombre="Solicitud de Requerimientos y Necesidades" icono={requerimientos}/>
         
         {/* Solicitud de requerimientosViejos */}
         <OpcionMenu ruta={'requerimientos-anteriores/'} nombre="Históricos" icono={requerimientosViejos}/>
