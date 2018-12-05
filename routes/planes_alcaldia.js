@@ -216,7 +216,7 @@ router.post('/deshabilitar_plan_alcaldia', autorizarAdministrador, function(req,
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.get('/obtener_planes_alcaldia', autorizarAdministrador, function(req, res){
+router.get('/obtener_planes_alcaldia', function(req, res){
   models.planes_alcaldia.findAll()
   .then( resultado => {
     res.json(resultado).status(200);

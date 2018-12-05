@@ -216,7 +216,7 @@ router.post('/deshabilitar_plan_cgr', autorizarAdministrador, function(req, res)
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.get('/obtener_planes_cgr', autorizarAdministrador, function(req, res){
+router.get('/obtener_planes_cgr', function(req, res){
   models.planes_contraloria_general.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
