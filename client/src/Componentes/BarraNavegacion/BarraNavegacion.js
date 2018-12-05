@@ -96,20 +96,20 @@ export class BarraNavegacion extends Component {
                     Presupuesto
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem className="dropdown-navbar">
-                      <Link to={this.props.match.path + '/presupuesto/partidas-presupuestarias'} tag='a'>Gestión de partidas presupuestarias</Link>
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/partidas-presupuestarias`)}>
+                      Gestión de partidas presupuestarias
                     </DropdownItem>
                     
-                    <DropdownItem className="dropdown-navbar">
-                      Gestión de requerimientos
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos`)}>
+                      Gestión de requerimientos de cada área
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar">
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/contabilidad-presupuestaria`)}>
                       Vinculación POA - Presupuesto
                     </DropdownItem>
                     
-                    <DropdownItem className="dropdown-navbar">
-                      Catálogo de productos
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/productos`)}>
+                      Gestión de productos
                     </DropdownItem>                  
                   </DropdownMenu>
                 </UncontrolledDropdown>
