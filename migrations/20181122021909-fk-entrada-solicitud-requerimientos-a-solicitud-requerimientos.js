@@ -11,7 +11,9 @@ module.exports = {
       },
      }, {
         timestamps: false
-      });        
+      });    
+    
+    // return true;
   }, 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn('entradas_solicitud_de_requerimientos', 'solicitud_id', {

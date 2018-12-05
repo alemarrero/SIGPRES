@@ -39,7 +39,7 @@ export class Menu extends Component {
         <OpcionMenu ruta={'/planes-historicos/'} nombre="Gestión de planes históricos" icono={planes}/>
 
         {/* Gestión de diagnostico de la CMB */}
-        <OpcionMenu ruta={'/antecedentes/'} nombre="Gestión de antecedentes de la CMB" icono={diagnostico}/>
+        <OpcionMenu ruta={'/antecedentes/'} nombre="Gestión de información institucional de la CMB" icono={diagnostico}/>
 
         {/* Carga de datos */}
         {autorizarAdministrador(this.props.usuario.rol) && 
