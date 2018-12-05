@@ -631,6 +631,7 @@ import withContext from './../../Contenedor/withContext';
                   onChange={(e) => this.setState({rol: e.target.value})}
                 >
                   <option value="administrador">Administrador</option>
+                  <option value="director pp">Director de Planificación y Presupuesto</option>
                   <option value="director">Director</option>
                   <option value="regular">Regular</option>
                 </Input>        
@@ -809,6 +810,7 @@ import withContext from './../../Contenedor/withContext';
                   onChange={(e) => this.setState({rol: e.target.value})}
                 >
                   <option value="administrador">Administrador</option>
+                  <option value="director pp">Director de Planificación y Presupuesto</option>
                   <option value="director">Director</option>
                   <option value="regular">Regular</option>
                 </Input>        
