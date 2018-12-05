@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './EjesEstrategicos.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
+import withContext from './../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-export default class EjesEstrategicos extends Component {
+export class EjesEstrategicos extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -344,12 +346,14 @@ export default class EjesEstrategicos extends Component {
           </Col>
 
           {/* Botón para agregar áreas */}
-          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_eje_estrategico_abierto: true})}>
-              <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar eje estratégico
-            </Button>
-          </Col>
+          {autorizarAdministrador(this.props.usuario.rol) && 
+            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_eje_estrategico_abierto: true})}>
+                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                Agregar eje estratégico
+              </Button>
+            </Col>
+          }
         </Row>
 
         {/* Si existen áreas, muestra una tabla con su información */}
@@ -378,14 +382,17 @@ export default class EjesEstrategicos extends Component {
                             Objetivos Estratégicos
                           </Button>
 
-                          <Button 
-                            color="info" className="boton-gestionar"
-                            style={{marginLeft: "5px"}}
-                            onClick={() => this.setState({modal_editar_eje_estrategico_abierto: true, ...eje})}
-                          >
-                            <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                            Gestionar
-                          </Button>
+                          {autorizarAdministrador(this.props.usuario.rol) && 
+                            <Button 
+                              color="info" className="boton-gestionar"
+                              style={{marginLeft: "5px"}}
+                              onClick={() => this.setState({modal_editar_eje_estrategico_abierto: true, ...eje})}
+                            >
+                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              Gestionar
+                            </Button>
+                          }
+
                         </td>
                       </tr>
                     )
@@ -404,3 +411,5 @@ export default class EjesEstrategicos extends Component {
   )
   }
 }
+
+export default withContext(EjesEstrategicos);

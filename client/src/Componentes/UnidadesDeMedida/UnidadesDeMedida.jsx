@@ -3,7 +3,7 @@ import './UnidadesDeMedida.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import medida from '../../assets/img/unidad-medida.png';
 import withContext from '../../Contenedor/withContext';
-import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export class UnidadesDeMedida extends Component {
   constructor(props){
@@ -379,7 +379,7 @@ export class UnidadesDeMedida extends Component {
             </Col>
 
             {/* Botón para agregar unidades-de-medida */}
-            {autorizarAdministrador(this.props.usuario.rol) && 
+            {autorizarDirectorPP(this.props.usuario.rol) && 
               <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
                 <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_unidad_abierto: true})}>
                   <i className="iconos fa fa-plus" aria-hidden="true"></i>              
@@ -399,7 +399,7 @@ export class UnidadesDeMedida extends Component {
                     <th>Nombre de la unidad de medida</th>
                     <th>Tipo</th>
                     <th>Habilitada</th>
-                    {autorizarAdministrador(this.props.usuario.rol) && 
+                    {autorizarDirectorPP(this.props.usuario.rol) && 
                       <th>Opciones</th>
                     }
                   </tr>
@@ -412,7 +412,7 @@ export class UnidadesDeMedida extends Component {
                           <td>{unidad.nombre}</td>
                           <td>{unidad.tipo === "acciones recurrentes" ? "Acciones recurrentes" : "Productos"}</td>
                           <td>{unidad.habilitado ? <span>Si</span> : <span>No</span>}</td>
-                          {autorizarAdministrador(this.props.usuario.rol) && 
+                          {autorizarDirectorPP(this.props.usuario.rol) && 
                             <td>
                               <Button 
                                   color="info" className="boton-gestionar"

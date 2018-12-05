@@ -3,7 +3,7 @@ import './MediosDeVerificacion.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import verificacion from '../../assets/img/verificacion.png';
 import withContext from '../../Contenedor/withContext';
-import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export class MediosDeVerificacion extends Component {
   constructor(props){
@@ -345,7 +345,7 @@ export class MediosDeVerificacion extends Component {
             </Col>
 
             {/* Botón para agregar medios-de-verificacion */}
-            {autorizarAdministrador(this.props.usuario.rol) && 
+            {autorizarDirectorPP(this.props.usuario.rol) && 
               <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
                 <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_medio_abierto: true})}>
                   <i className="iconos fa fa-plus" aria-hidden="true"></i>              
@@ -364,7 +364,7 @@ export class MediosDeVerificacion extends Component {
                     <th>ID</th>
                     <th>Nombre del medio de verificación</th>
                     <th>Habilitada</th>
-                    {autorizarAdministrador(this.props.usuario.rol) && 
+                    {autorizarDirectorPP(this.props.usuario.rol) && 
                       <th>Opciones</th>
                     }
                   </tr>
@@ -376,7 +376,7 @@ export class MediosDeVerificacion extends Component {
                           <th scope="row">{medio.id}</th>
                           <td>{medio.nombre}</td>
                           <td>{medio.habilitado ? <span>Si</span> : <span>No</span>}</td>
-                          {autorizarAdministrador(this.props.usuario.rol) && 
+                          {autorizarDirectorPP(this.props.usuario.rol) && 
                             <td>
                               <Button 
                                   color="info" className="boton-gestionar"

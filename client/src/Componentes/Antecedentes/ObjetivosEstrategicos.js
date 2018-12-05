@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './ObjetivosEstrategicos.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
+import withContext from './../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-export default class ObjetivosEstrategicos extends Component {
+export class ObjetivosEstrategicos extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -317,12 +319,14 @@ export default class ObjetivosEstrategicos extends Component {
           </Col>
 
           {/* Botón para agregar áreas */}
-          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_objetivo_estrategico_abierto: true})}>
-              <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-              Agregar objetivo estratégico
-            </Button>
-          </Col>
+          {autorizarAdministrador(this.props.usuario.rol) && 
+            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_objetivo_estrategico_abierto: true})}>
+                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                Agregar objetivo estratégico
+              </Button>
+            </Col>
+          }
         </Row>
 
         {/* Si existen áreas, muestra una tabla con su información */}
@@ -337,7 +341,9 @@ export default class ObjetivosEstrategicos extends Component {
                 <tr>
                   <th>ID</th>
                   <th>Objetivo</th>
-                  <th className="text-right">Opciones</th>
+                  {autorizarAdministrador(this.props.usuario.rol) && 
+                    <th className="text-right">Opciones</th>
+                  }
                 </tr>
               </thead>
                 <tbody>
@@ -346,16 +352,18 @@ export default class ObjetivosEstrategicos extends Component {
                       <tr key={`objetivo_estrategico_${objetivo.id}`}>
                         <th scope="row">{objetivo.id}</th>
                         <td>{objetivo.objetivo}</td>
-                        <td className="text-right">
-                          <Button 
-                            color="info" className="boton-gestionar"
-                            style={{marginLeft: "5px"}}
-                            onClick={() => this.setState({modal_editar_objetivo_estrategico_abierto: true, ...objetivo})}
-                          >
-                            <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                            Gestionar
-                          </Button>
-                        </td>
+                        {autorizarAdministrador(this.props.usuario.rol) && 
+                          <td className="text-right">
+                            <Button 
+                              color="info" className="boton-gestionar"
+                              style={{marginLeft: "5px"}}
+                              onClick={() => this.setState({modal_editar_objetivo_estrategico_abierto: true, ...objetivo})}
+                            >
+                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              Gestionar
+                            </Button>
+                          </td>
+                        }
                       </tr>
                     )
                   })}
@@ -373,3 +381,5 @@ export default class ObjetivosEstrategicos extends Component {
   )
   }
 }
+
+export default withContext(ObjetivosEstrategicos);

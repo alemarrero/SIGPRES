@@ -104,7 +104,7 @@ router.post('/deshabilitar_antecedente', autorizarAdministrador, function(req, r
   })
 });
 
-router.get('/obtener_antecedentes', autorizarAdministrador, function(req, res){
+router.get('/obtener_antecedentes', function(req, res){
   models.antecedentes.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -116,7 +116,7 @@ router.get('/obtener_antecedentes', autorizarAdministrador, function(req, res){
 });
 
 
-router.post('/obtener_antecedente', autorizarAdministrador, function(req, res){
+router.post('/obtener_antecedente', function(req, res){
   models.antecedentes.findOne({where: {id: req.body.id}})
   .then( resultado => {
     res.json(resultado).status(200);
@@ -127,7 +127,7 @@ router.post('/obtener_antecedente', autorizarAdministrador, function(req, res){
   })
 });
 
-router.post('/obtener_antecedente_full', autorizarAdministrador, function(req, res){
+router.post('/obtener_antecedente_full', function(req, res){
   models.antecedentes.findOne({
     where: {id: req.body.id},
     include: [
