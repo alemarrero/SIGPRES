@@ -96,7 +96,7 @@ router.post('/deshabilitar_unidad_de_medida', autorizarAdministrador, function(r
   })
 });
 
-router.get('/obtener_unidades_de_medida', autorizarAdministrador, function(req, res){
+router.get('/obtener_unidades_de_medida', function(req, res){
   models.unidades_de_medida.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -107,7 +107,7 @@ router.get('/obtener_unidades_de_medida', autorizarAdministrador, function(req, 
   })
 });
 
-router.get('/obtener_unidades_de_medida_productos', autorizarAdministrador, function(req, res){
+router.get('/obtener_unidades_de_medida_productos', function(req, res){
   models.unidades_de_medida.findAll({where: {tipo: "productos"}})
   .then( resultado => {
     res.json(resultado).status(200);
@@ -118,7 +118,7 @@ router.get('/obtener_unidades_de_medida_productos', autorizarAdministrador, func
   })
 });
 
-router.get('/obtener_unidades_de_medida_acciones_recurrentes', autorizarAdministrador, function(req, res){
+router.get('/obtener_unidades_de_medida_acciones_recurrentes', function(req, res){
   models.unidades_de_medida.findAll({where: {tipo: "acciones recurrentes"}})
   .then( resultado => {
     res.json(resultado).status(200);
@@ -129,7 +129,7 @@ router.get('/obtener_unidades_de_medida_acciones_recurrentes', autorizarAdminist
   })
 });
 
-router.post('/cargar_unidades_de_medida_ar', recibirArchivo, function(req, res){
+router.post('/cargar_unidades_de_medida_ar', autorizarAdministrador, recibirArchivo, function(req, res){
   // Contiene el archivo XLS subido por el usuario
   const workbook = XLSX.readFile(req.file.path);
   const unidades_de_medida = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);

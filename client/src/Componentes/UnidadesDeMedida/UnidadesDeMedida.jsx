@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './UnidadesDeMedida.css';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import medida from '../../assets/img/unidad-medida.png';
-import { request } from 'http';
+import withContext from '../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-
-export default class UnidadesDeMedida extends Component {
+export class UnidadesDeMedida extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -379,12 +379,14 @@ export default class UnidadesDeMedida extends Component {
             </Col>
 
             {/* Botón para agregar unidades-de-medida */}
-            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_unidad_abierto: true})}>
-                <i className="iconos fa fa-plus" aria-hidden="true"></i>              
-                Agregar unidad de medida
-              </Button>
-            </Col>
+            {autorizarAdministrador(this.props.usuario.rol) && 
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+                <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_unidad_abierto: true})}>
+                  <i className="iconos fa fa-plus" aria-hidden="true"></i>              
+                  Agregar unidad de medida
+                </Button>
+              </Col>
+            }
           </Row>
 
           {/* Si existen unidades-de-medida, muestra una tabla con su información */}
@@ -397,7 +399,9 @@ export default class UnidadesDeMedida extends Component {
                     <th>Nombre de la unidad de medida</th>
                     <th>Tipo</th>
                     <th>Habilitada</th>
-                    <th>Opciones</th>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <th>Opciones</th>
+                    }
                   </tr>
                 </thead>
                   <tbody>
@@ -408,15 +412,17 @@ export default class UnidadesDeMedida extends Component {
                           <td>{unidad.nombre}</td>
                           <td>{unidad.tipo === "acciones recurrentes" ? "Acciones recurrentes" : "Productos"}</td>
                           <td>{unidad.habilitado ? <span>Si</span> : <span>No</span>}</td>
-                          <td>
-                          <Button 
-                              color="info" className="boton-gestionar"
-                              onClick={() => this.cargarModalEditarUnidad(index)}
-                          >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                              Gestionar
-                          </Button>
-                          </td>
+                          {autorizarAdministrador(this.props.usuario.rol) && 
+                            <td>
+                              <Button 
+                                  color="info" className="boton-gestionar"
+                                  onClick={() => this.cargarModalEditarUnidad(index)}
+                              >
+                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  Gestionar
+                              </Button>
+                            </td>
+                          }
                       </tr>
                       )
                   })}
@@ -428,3 +434,6 @@ export default class UnidadesDeMedida extends Component {
     )
   }
 }
+
+
+export default withContext(UnidadesDeMedida);
