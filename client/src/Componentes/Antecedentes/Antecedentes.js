@@ -532,26 +532,28 @@ export class Antecedentes extends Component {
                               Ver
                             </Button>
                             {autorizarAdministrador(this.props.usuario.rol) && 
-                              <Button 
-                                color="info" className="boton-gestionar"
-                                style={{margin: "auto 10px"}}
-                                onClick={() => {
-                                  let periodo = antecedente.periodo.split("-");
+                              <React.Fragment>
+                                <Button 
+                                  color="info" className="boton-gestionar"
+                                  style={{margin: "auto 10px"}}
+                                  onClick={() => {
+                                    let periodo = antecedente.periodo.split("-");
 
-                                  this.setState({modal_editar_antecedente_abierto: true, ...antecedente, inicio_periodo: periodo[0], fin_periodo: periodo[1]})
-                                }}
-                              >
-                                <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                                Gestionar
-                              </Button>
+                                    this.setState({modal_editar_antecedente_abierto: true, ...antecedente, inicio_periodo: periodo[0], fin_periodo: periodo[1]})
+                                  }}
+                                >
+                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  Gestionar
+                                </Button>
 
-                              <Button 
-                                color="danger" className="boton-gestionar"
-                                onClick={() => this.setState({id: antecedente.id, modal_confirmacion_abierto: true})}
-                              >
-                                <i class="iconos fa fa-trash" aria-hidden="true"></i>                          
-                                Eliminar
-                              </Button>
+                                <Button 
+                                  color="danger" className="boton-gestionar"
+                                  onClick={() => this.setState({id: antecedente.id, modal_confirmacion_abierto: true})}
+                                >
+                                  <i class="iconos fa fa-trash" aria-hidden="true"></i>                          
+                                  Eliminar
+                                </Button>
+                              </React.Fragment>
                             }
                           </td>
                       </tr>
