@@ -5,6 +5,8 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
          Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import logo from '../../assets/img/logo-cmb.png';
 import {withRouter, Link} from "react-router-dom";
+import withContext from '../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
 export class BarraNavegacion extends Component {
   constructor(props) {
@@ -121,13 +123,17 @@ export class BarraNavegacion extends Component {
                     Administración
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/usuarios`)}>
-                      Gestión de usuarios
-                    </DropdownItem>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/usuarios`)}>
+                        Gestión de usuarios
+                      </DropdownItem>
+                    }
 
-                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/areas`)}>
-                      Gestión de áreas
-                    </DropdownItem>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/areas`)}>
+                        Gestión de áreas
+                      </DropdownItem>
+                    }
 
                     <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/indicadores`)}>
                       Gestión de indicadores
@@ -149,9 +155,11 @@ export class BarraNavegacion extends Component {
                       Gestión de antecedentes de la CMB
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/carga-de-datos`)}>
-                      Carga de datos
-                    </DropdownItem>
+                    {autorizarAdministrador(this.props.usuario.rol) && 
+                      <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/administracion/carga-de-datos`)}>
+                        Carga de datos
+                      </DropdownItem>
+                    }
 
                   </DropdownMenu>
                 </UncontrolledDropdown> 
@@ -175,4 +183,4 @@ export class BarraNavegacion extends Component {
   }
 }
 
-export default withRouter(BarraNavegacion);
+export default withRouter(withContext(BarraNavegacion));
