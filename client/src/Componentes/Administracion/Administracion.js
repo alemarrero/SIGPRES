@@ -17,10 +17,14 @@ export class Menu extends Component {
     return (
       <Row className="fila-opciones-menu-principal">
         {/* Gestión de usuarios */}
-        <OpcionMenu ruta={'/usuarios/'} nombre="Gestión de usuarios" icono={usuarios}/>
+        {autorizarAdministrador(this.props.usuario.rol) && 
+            <OpcionMenu ruta={'/usuarios/'} nombre="Gestión de usuarios" icono={usuarios}/>
+        }
 
         {/* Gestión de áreas */}
-        <OpcionMenu ruta={'/areas/'} nombre="Gestión de áreas" icono={areas}/>             
+        {autorizarAdministrador(this.props.usuario.rol) && 
+            <OpcionMenu ruta={'/areas/'} nombre="Gestión de áreas" icono={areas}/>             
+        }
   
         {/* Gestión de indicadores */}
         <OpcionMenu ruta={'/indicadores/'} nombre="Gestión de indicadores" icono={indicadores}/>
@@ -38,7 +42,9 @@ export class Menu extends Component {
         <OpcionMenu ruta={'/antecedentes/'} nombre="Gestión de antecedentes de la CMB" icono={diagnostico}/>
 
         {/* Carga de datos */}
-        <OpcionMenu ruta={'/carga-de-datos/'} nombre="Carga de Datos" icono={diagnostico}/>
+        {autorizarAdministrador(this.props.usuario.rol) && 
+            <OpcionMenu ruta={'/carga-de-datos/'} nombre="Carga de Datos" icono={diagnostico}/>
+        }
       </Row>
     )
   }
