@@ -10,7 +10,6 @@ import withContext from '../../Contenedor/withContext';
 
 export class Menu extends Component {
   render() {
-    console.log(this.props);
     return (
       <Row fluid={true} className="fila-opciones-menu-principal">
         {/* Administración */}   

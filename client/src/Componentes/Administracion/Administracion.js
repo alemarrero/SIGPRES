@@ -9,8 +9,10 @@ import verificacion from '../../assets/img/verificacion.png';
 import diagnostico from '../../assets/img/diagnostico.png';
 import medida from '../../assets/img/unidad-medida.png';
 import OpcionMenu from '../Menu/OpcionMenu';
+import withContext from '../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
-export default class Menu extends Component {
+export class Menu extends Component {
   render() {
     return (
       <Row className="fila-opciones-menu-principal">
@@ -41,3 +43,5 @@ export default class Menu extends Component {
     )
   }
 }
+
+export default withContext(Menu);
