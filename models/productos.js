@@ -79,8 +79,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "producto_id",
       as: "entradas_solicitud_de_requerimientos"
     });
-    productos.belongsTo(models.vinculacion_acciones_productos, {
-      foreignKey: "id",
+    productos.hasMany(models.vinculacion_acciones_productos, {
+      foreignKey: "producto_id",
       as: "vinculacion_acciones_productos"
     });    
   };

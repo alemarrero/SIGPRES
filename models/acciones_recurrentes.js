@@ -74,8 +74,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'medio_verificacion_id',
       as: 'medio_de_verificacion',
     });
-    acciones_recurrentes.belongsTo(models.vinculacion_acciones_productos, {
-      foreignKey: "id",
+    acciones_recurrentes.hasMany(models.vinculacion_acciones_productos, {
+      foreignKey: "accion_id",
       as: "vinculacion_acciones_productos"
     });       
   };
