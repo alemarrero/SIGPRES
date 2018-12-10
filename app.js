@@ -35,6 +35,7 @@ var ejesEstrategicosRouter = require('./routes/ejes_estrategicos');
 var objetivosEstrategicosRouter = require('./routes/objetivos_estrategicos');
 var solicitudesRequerimientosRouter = require('./routes/solicitudes_de_requerimientos');
 var entradasSolicitudesRequerimientosRouter = require('./routes/entradas_solicitud_de_requerimientos');
+var vinculacionPOAPresupuestoRouter = require('./routes/vinculacion_acciones_productos');
 
 var cors = require('cors');
 
@@ -89,6 +90,7 @@ app.use('/api/ejes_estrategicos', ejesEstrategicosRouter);
 app.use('/api/objetivos_estrategicos', objetivosEstrategicosRouter);
 app.use('/api/solicitudes_de_requerimientos', solicitudesRequerimientosRouter);
 app.use('/api/entradas_solicitud_de_requerimientos', entradasSolicitudesRequerimientosRouter);
+app.use('/api/vinculacion_poa_presupuesto', vinculacionPOAPresupuestoRouter);
 
 /*DO NOT REMOVE THIS CATCH ALL ROUTE*/
 app.get('*', (req, res) => {

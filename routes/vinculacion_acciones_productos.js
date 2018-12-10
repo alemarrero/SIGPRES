@@ -58,13 +58,25 @@ router.post('/eliminar_vinculacion_accion_producto', autorizarAdministrador, fun
 });
 
 router.get('/obtener_vinculacion_acciones_productos', function(req, res){
-  models.vinculacion_acciones_productos.findAll({
-      include:[
+  models.acciones_recurrentes.findAll({
+    include: [
+      {
+        model: models.vinculacion_acciones_productos,
+        as: 'vinculacion_acciones_productos',
+        include: [
           {
-          model: models.productos,
-          as: 'productos',
+            model: models.productos,
+            as: 'productos',
+            include: [
+              {
+                model: models.unidades_de_medida,
+                as: 'unidad_de_medida'
+              }
+            ]
           }
-      ]
+        ]
+      }
+    ]
   })
   .then( resultado => {
     res.json(resultado).status(200);

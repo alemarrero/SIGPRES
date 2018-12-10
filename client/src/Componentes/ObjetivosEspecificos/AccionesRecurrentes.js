@@ -356,6 +356,7 @@ export default class AccionesRecurrentes extends Component {
     const acciones_recurrentes_response = await acciones_recurrentes_request.json();
     
     if(acciones_recurrentes_response.estado !== "err"){
+      console.log(acciones_recurrentes_response);
       this.setState({
         acciones_recurrentes: acciones_recurrentes_response
       });
