@@ -346,6 +346,11 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                                 consolidado_producto['id'] = producto.id;
                                 consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.00`
                                 consolidado_producto['producto'] = producto.nombre;
+                                consolidado_producto['codigo_producto'] = producto.codigo;
+                                consolidado_producto['precio_producto'] = producto.precio;
+                                consolidado_producto['iva_producto'] = producto.monto_iva;
+                                consolidado_producto['precio_total_producto'] = producto.total;
+                                consolidado_producto['monto_total_producto'] = cantidad_total * producto.total;                                
                                 consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
                                 consolidado_producto['cantidad_enero'] = cantidad_enero;
                                 consolidado_producto['cantidad_febrero'] = cantidad_febrero;
@@ -402,6 +407,11 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                                 consolidado_producto['id'] = producto.id;
                                 consolidado_producto['subespecifica'] = `${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.${subespecifica.numero_subespecifica}`
                                 consolidado_producto['producto'] = producto.nombre;
+                                consolidado_producto['codigo_producto'] = producto.codigo;
+                                consolidado_producto['precio_producto'] = producto.precio;
+                                consolidado_producto['iva_producto'] = producto.monto_iva;
+                                consolidado_producto['precio_total_producto'] = producto.total;
+                                consolidado_producto['monto_total_producto'] = cantidad_total * producto.total;
                                 consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
                                 consolidado_producto['cantidad_enero'] = cantidad_enero;
                                 consolidado_producto['cantidad_febrero'] = cantidad_febrero;
