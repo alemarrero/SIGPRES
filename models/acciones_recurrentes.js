@@ -74,6 +74,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'medio_verificacion_id',
       as: 'medio_de_verificacion',
     });
+    acciones_recurrentes.belongsTo(models.vinculacion_acciones_productos, {
+      foreignKey: "id",
+      as: "vinculacion_acciones_productos"
+    });       
   };
   return acciones_recurrentes;
 };
