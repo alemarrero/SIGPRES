@@ -22,7 +22,59 @@ module.exports = (sequelize, DataTypes) => {
         model: 'acciones_recurrentes',
         key: 'id'
       }
-    },          
+    },
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_enero: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    cantidad_febrero: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_marzo: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_abril: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_mayo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    cantidad_junio: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_julio: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_agosto: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },    
+    cantidad_septiembre: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    cantidad_octubre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_noviembre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cantidad_diciembre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },                   
    }, {
     timestamps: false,
     freezeTableName: true
