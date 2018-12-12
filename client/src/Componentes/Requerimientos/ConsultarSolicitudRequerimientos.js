@@ -268,7 +268,7 @@ export class ConsultarSolicitudRequerimientos extends Component {
         <tbody>
           <tr>
             <th>
-              {this.obtenerArea(this.props.usuario.area_id)}
+              {this.obtenerArea(this.state.area_id)}
             </th>
           </tr>
         </tbody>
