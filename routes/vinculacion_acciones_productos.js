@@ -5,7 +5,33 @@ var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdmi
 var models = require('../models');
 
 router.post('/crear_vinculacion_accion_producto', autorizarAdministrador, function(req, res, next) {
+  var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
+  var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
+  var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
+  var cantidad_abril = parseInt(req.body.cantidad_abril, 10);
+  var cantidad_mayo = parseInt(req.body.cantidad_mayo, 10);
+  var cantidad_junio = parseInt(req.body.cantidad_junio, 10);
+  var cantidad_julio = parseInt(req.body.cantidad_julio, 10);
+  var cantidad_agosto = parseInt(req.body.cantidad_agosto, 10);
+  var cantidad_septiembre = parseInt(req.body.cantidad_septiembre, 10);
+  var cantidad_octubre = parseInt(req.body.cantidad_octubre, 10);
+  var cantidad_noviembre = parseInt(req.body.cantidad_noviembre, 10);
+  var cantidad_diciembre = parseInt(req.body.cantidad_diciembre, 10);            
+  var cantidad = cantidad_enero + cantidad_febrero + cantidad_marzo + cantidad_abril + cantidad_mayo + cantidad_junio + cantidad_julio + cantidad_agosto + cantidad_septiembre + cantidad_octubre + cantidad_noviembre + cantidad_diciembre;          
   models.vinculacion_acciones_productos.create({
+    cantidad_enero: cantidad_enero,
+    cantidad_febrero: cantidad_febrero,
+    cantidad_marzo: cantidad_marzo,
+    cantidad_abril: cantidad_abril,
+    cantidad_mayo: cantidad_mayo,
+    cantidad_junio: cantidad_junio,
+    cantidad_julio: cantidad_julio,
+    cantidad_agosto: cantidad_agosto,
+    cantidad_septiembre: cantidad_septiembre,
+    cantidad_octubre: cantidad_octubre,
+    cantidad_noviembre: cantidad_noviembre,
+    cantidad_diciembre: cantidad_diciembre,
+    cantidad: cantidad,    
     accion_id: req.body.accion_id,
     producto_id: req.body.producto_id 
   })  
@@ -22,7 +48,33 @@ router.post('/crear_vinculacion_accion_producto', autorizarAdministrador, functi
 
 
 router.post('/actualizar_vinculacion_accion_producto', autorizarAdministrador, function(req, res){
+  var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
+  var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
+  var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
+  var cantidad_abril = parseInt(req.body.cantidad_abril, 10);
+  var cantidad_mayo = parseInt(req.body.cantidad_mayo, 10);
+  var cantidad_junio = parseInt(req.body.cantidad_junio, 10);
+  var cantidad_julio = parseInt(req.body.cantidad_julio, 10);
+  var cantidad_agosto = parseInt(req.body.cantidad_agosto, 10);
+  var cantidad_septiembre = parseInt(req.body.cantidad_septiembre, 10);
+  var cantidad_octubre = parseInt(req.body.cantidad_octubre, 10);
+  var cantidad_noviembre = parseInt(req.body.cantidad_noviembre, 10);
+  var cantidad_diciembre = parseInt(req.body.cantidad_diciembre, 10);            
+  var cantidad = cantidad_enero + cantidad_febrero + cantidad_marzo + cantidad_abril + cantidad_mayo + cantidad_junio + cantidad_julio + cantidad_agosto + cantidad_septiembre + cantidad_octubre + cantidad_noviembre + cantidad_diciembre;           
   models.vinculacion_acciones_productos.update({
+    cantidad_enero: cantidad_enero,
+    cantidad_febrero: cantidad_febrero,
+    cantidad_marzo: cantidad_marzo,
+    cantidad_abril: cantidad_abril,
+    cantidad_mayo: cantidad_mayo,
+    cantidad_junio: cantidad_junio,
+    cantidad_julio: cantidad_julio,
+    cantidad_agosto: cantidad_agosto,
+    cantidad_septiembre: cantidad_septiembre,
+    cantidad_octubre: cantidad_octubre,
+    cantidad_noviembre: cantidad_noviembre,
+    cantidad_diciembre: cantidad_diciembre,
+    cantidad: cantidad,    
     accion_id: req.body.accion_id,
     producto_id: req.body.producto_id  
   },
@@ -201,38 +253,11 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                   if(generica.especificas.length > 0){
                       generica.especificas.map(especifica => { 
                         if (especifica.productos.length > 0) {
-                            especifica.productos.map(producto => { 
-                              var cantidad_enero = 0;
-                              var cantidad_febrero = 0;
-                              var cantidad_marzo = 0;
-                              var cantidad_abril = 0;
-                              var cantidad_mayo = 0;
-                              var cantidad_junio = 0;
-                              var cantidad_julio = 0;
-                              var cantidad_agosto = 0;
-                              var cantidad_septiembre = 0;
-                              var cantidad_octubre = 0;
-                              var cantidad_noviembre = 0;
-                              var cantidad_diciembre = 0;                                                            
+                            especifica.productos.map(producto => {                                                          
                               var cantidad_total = 0;
                               let consolidado_producto = {};
                               if(producto.vinculacion_acciones_productos.length > 0) {
                                 if (producto.entradas_solicitud_de_requerimientos.length > 0) {
-                                  producto.entradas_solicitud_de_requerimientos.map(entrada => {  
-                                    cantidad_enero = cantidad_enero + entrada.cantidad_enero;
-                                    cantidad_febrero = cantidad_febrero + entrada.cantidad_febrero;
-                                    cantidad_marzo = cantidad_marzo + entrada.cantidad_marzo;
-                                    cantidad_abril = cantidad_abril + entrada.cantidad_abril;
-                                    cantidad_mayo = cantidad_mayo + entrada.cantidad_mayo;
-                                    cantidad_junio = cantidad_junio + entrada.cantidad_junio;
-                                    cantidad_julio = cantidad_julio + entrada.cantidad_julio;
-                                    cantidad_agosto = cantidad_agosto + entrada.cantidad_agosto;
-                                    cantidad_septiembre = cantidad_septiembre + entrada.cantidad_septiembre;
-                                    cantidad_octubre = cantidad_octubre + entrada.cantidad_octubre;
-                                    cantidad_noviembre = cantidad_noviembre + entrada.cantidad_noviembre;
-                                    cantidad_diciembre = cantidad_diciembre + entrada.cantidad_diciembre;                                  
-                                    cantidad_total = cantidad_total + entrada.cantidad;
-                                  })
                                     producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
                                       if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                         consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
@@ -247,21 +272,21 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                                         consolidado_producto['precio_producto'] = producto.precio;
                                         consolidado_producto['iva_producto'] = producto.monto_iva;
                                         consolidado_producto['precio_total_producto'] = producto.total;
-                                        consolidado_producto['monto_total_producto'] = cantidad_total * producto.total;                                
+                                        consolidado_producto['monto_total_producto'] = vinculacion_accion_producto.cantidad * producto.total;                                
                                         consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
-                                        consolidado_producto['cantidad_enero'] = cantidad_enero;
-                                        consolidado_producto['cantidad_febrero'] = cantidad_febrero;
-                                        consolidado_producto['cantidad_marzo'] = cantidad_marzo;
-                                        consolidado_producto['cantidad_abril'] = cantidad_abril;
-                                        consolidado_producto['cantidad_mayo'] = cantidad_mayo;
-                                        consolidado_producto['cantidad_junio'] = cantidad_junio;
-                                        consolidado_producto['cantidad_julio'] = cantidad_julio;
-                                        consolidado_producto['cantidad_agosto'] = cantidad_agosto;
-                                        consolidado_producto['cantidad_septiembre'] = cantidad_septiembre;
-                                        consolidado_producto['cantidad_octubre'] = cantidad_octubre;
-                                        consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
-                                        consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;                                                                
-                                        consolidado_producto['cantidad_total'] = cantidad_total;
+                                        consolidado_producto['cantidad_enero'] = vinculacion_accion_producto.cantidad_enero;
+                                        consolidado_producto['cantidad_febrero'] = vinculacion_accion_producto.cantidad_febrero;
+                                        consolidado_producto['cantidad_marzo'] = vinculacion_accion_producto.cantidad_marzo;
+                                        consolidado_producto['cantidad_abril'] = vinculacion_accion_producto.cantidad_abril;
+                                        consolidado_producto['cantidad_mayo'] = vinculacion_accion_producto.cantidad_mayo;
+                                        consolidado_producto['cantidad_junio'] = vinculacion_accion_producto.cantidad_junio;
+                                        consolidado_producto['cantidad_julio'] = vinculacion_accion_producto.cantidad_julio;
+                                        consolidado_producto['cantidad_agosto'] = vinculacion_accion_producto.cantidad_agosto;
+                                        consolidado_producto['cantidad_septiembre'] = vinculacion_accion_producto.cantidad_septiembre;
+                                        consolidado_producto['cantidad_octubre'] = vinculacion_accion_producto.cantidad_octubre;
+                                        consolidado_producto['cantidad_noviembre'] = vinculacion_accion_producto.cantidad_noviembre;
+                                        consolidado_producto['cantidad_diciembre'] = vinculacion_accion_producto.cantidad_diciembre;                                                                
+                                        consolidado_producto['cantidad_total'] = vinculacion_accion_producto.cantidad;
                                         console.log(consolidado_producto);
                                         console.log(vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id);
                                       }
@@ -275,37 +300,9 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                           especifica.subespecificas.map(subespecifica => { 2
                             if (subespecifica.productos.length > 0) {
                               subespecifica.productos.map(producto => {                             
-                              var cantidad_enero = 0;
-                              var cantidad_febrero = 0;
-                              var cantidad_marzo = 0;
-                              var cantidad_abril = 0;
-                              var cantidad_mayo = 0;
-                              var cantidad_junio = 0;
-                              var cantidad_julio = 0;
-                              var cantidad_agosto = 0;
-                              var cantidad_septiembre = 0;
-                              var cantidad_octubre = 0;
-                              var cantidad_noviembre = 0;
-                              var cantidad_diciembre = 0;    
-                              var cantidad_total = 0;
                               let consolidado_producto = {};
                               if(producto.vinculacion_acciones_productos.length > 0) {
                                 if (producto.entradas_solicitud_de_requerimientos.length > 0) {
-                                  producto.entradas_solicitud_de_requerimientos.map(entrada => {  
-                                    cantidad_enero = cantidad_enero + entrada.cantidad_enero;
-                                    cantidad_febrero = cantidad_febrero + entrada.cantidad_febrero;
-                                    cantidad_marzo = cantidad_marzo + entrada.cantidad_marzo;
-                                    cantidad_abril = cantidad_abril + entrada.cantidad_abril;
-                                    cantidad_mayo = cantidad_mayo + entrada.cantidad_mayo;
-                                    cantidad_junio = cantidad_junio + entrada.cantidad_junio;
-                                    cantidad_julio = cantidad_julio + entrada.cantidad_julio;
-                                    cantidad_agosto = cantidad_agosto + entrada.cantidad_agosto;
-                                    cantidad_septiembre = cantidad_septiembre + entrada.cantidad_septiembre;
-                                    cantidad_octubre = cantidad_octubre + entrada.cantidad_octubre;
-                                    cantidad_noviembre = cantidad_noviembre + entrada.cantidad_noviembre;
-                                    cantidad_diciembre = cantidad_diciembre + entrada.cantidad_diciembre;   
-                                    cantidad_total = cantidad_total + parseInt(entrada.cantidad,10);
-                                  })
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
                                     if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                       consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
@@ -321,21 +318,21 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                                       consolidado_producto['precio_producto'] = producto.precio;
                                       consolidado_producto['iva_producto'] = producto.monto_iva;
                                       consolidado_producto['precio_total_producto'] = producto.total;
-                                      consolidado_producto['monto_total_producto'] = cantidad_total * producto.total;
+                                      consolidado_producto['monto_total_producto'] = vinculacion_accion_producto.cantidad * producto.total;
                                       consolidado_producto['unidad_de_medida'] = producto.unidad_de_medida.nombre;
-                                      consolidado_producto['cantidad_enero'] = cantidad_enero;
-                                      consolidado_producto['cantidad_febrero'] = cantidad_febrero;
-                                      consolidado_producto['cantidad_marzo'] = cantidad_marzo;
-                                      consolidado_producto['cantidad_abril'] = cantidad_abril;
-                                      consolidado_producto['cantidad_mayo'] = cantidad_mayo;
-                                      consolidado_producto['cantidad_junio'] = cantidad_junio;
-                                      consolidado_producto['cantidad_julio'] = cantidad_julio;
-                                      consolidado_producto['cantidad_agosto'] = cantidad_agosto;
-                                      consolidado_producto['cantidad_septiembre'] = cantidad_septiembre;
-                                      consolidado_producto['cantidad_octubre'] = cantidad_octubre;
-                                      consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
-                                      consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;  
-                                      consolidado_producto['cantidad_total'] = cantidad_total;
+                                      consolidado_producto['cantidad_enero'] = vinculacion_accion_producto.cantidad_enero;
+                                      consolidado_producto['cantidad_febrero'] = vinculacion_accion_producto.cantidad_febrero;
+                                      consolidado_producto['cantidad_marzo'] = vinculacion_accion_producto.cantidad_marzo;
+                                      consolidado_producto['cantidad_abril'] = vinculacion_accion_producto.cantidad_abril;
+                                      consolidado_producto['cantidad_mayo'] = vinculacion_accion_producto.cantidad_mayo;
+                                      consolidado_producto['cantidad_junio'] = vinculacion_accion_producto.cantidad_junio;
+                                      consolidado_producto['cantidad_julio'] = vinculacion_accion_producto.cantidad_julio;
+                                      consolidado_producto['cantidad_agosto'] = vinculacion_accion_producto.cantidad_agosto;
+                                      consolidado_producto['cantidad_septiembre'] = vinculacion_accion_producto.cantidad_septiembre;
+                                      consolidado_producto['cantidad_octubre'] = vinculacion_accion_producto.cantidad_octubre;
+                                      consolidado_producto['cantidad_noviembre'] = vinculacion_accion_producto.cantidad_noviembre;
+                                      consolidado_producto['cantidad_diciembre'] = vinculacion_accion_producto.cantidad_diciembre;                                                                
+                                      consolidado_producto['cantidad_total'] = vinculacion_accion_producto.cantidad;
                                   console.log(consolidado_producto);
                                   vinculacion.push(consolidado_producto);
                               }                            
