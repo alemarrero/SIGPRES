@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import contabilidad from '../../assets/img/contabilidad.png';
 import withContext from './../../Contenedor/withContext';
+import './VinculacionPoaPresupuesto.css'
 
 export class VinculacionPoaPresupuesto extends Component {
   constructor(props){
@@ -119,6 +120,18 @@ export class VinculacionPoaPresupuesto extends Component {
           id: this.state.id,
           producto_id: this.state.producto_id,
           accion_id: this.state.accion_id,
+          cantidad_enero: this.state.cantidad_enero,
+          cantidad_febrero: this.state.cantidad_febrero,
+          cantidad_marzo: this.state.cantidad_marzo,
+          cantidad_abril: this.state.cantidad_abril,  
+          cantidad_mayo: this.state.cantidad_mayo,
+          cantidad_junio: this.state.cantidad_junio,
+          cantidad_julio: this.state.cantidad_julio,
+          cantidad_agosto: this.state.cantidad_agosto,  
+          cantidad_septiembre: this.state.cantidad_septiembre,
+          cantidad_octubre: this.state.cantidad_octubre,
+          cantidad_noviembre: this.state.cantidad_noviembre,
+          cantidad_diciembre: this.state.cantidad_diciembre          
         })
       };
       console.log(this.state.producto_id);
@@ -149,7 +162,19 @@ export class VinculacionPoaPresupuesto extends Component {
         credentials: 'include',
         body: JSON.stringify({
           accion_id: this.state.accion_id,
-          producto_id: this.state.producto_id
+          producto_id: this.state.producto_id,
+          cantidad_enero: this.state.cantidad_enero,
+          cantidad_febrero: this.state.cantidad_febrero,
+          cantidad_marzo: this.state.cantidad_marzo,
+          cantidad_abril: this.state.cantidad_abril,  
+          cantidad_mayo: this.state.cantidad_mayo,
+          cantidad_junio: this.state.cantidad_junio,
+          cantidad_julio: this.state.cantidad_julio,
+          cantidad_agosto: this.state.cantidad_agosto,  
+          cantidad_septiembre: this.state.cantidad_septiembre,
+          cantidad_octubre: this.state.cantidad_octubre,
+          cantidad_noviembre: this.state.cantidad_noviembre,
+          cantidad_diciembre: this.state.cantidad_diciembre          
         })
       };
 
@@ -195,7 +220,20 @@ export class VinculacionPoaPresupuesto extends Component {
       id: vinculacion_accion_producto.id,
       accion_id: vinculacion_accion_producto.accion_id,
       producto_id: vinculacion_accion_producto.producto_id,
-      modal_editar_vinculacion_abierto: true
+      modal_editar_vinculacion_abierto: true,
+      cantidad_enero: vinculacion_accion_producto.cantidad_enero,
+      cantidad_febrero: vinculacion_accion_producto.cantidad_febrero,
+      cantidad_marzo: vinculacion_accion_producto.cantidad_marzo,
+      cantidad_abril: vinculacion_accion_producto.cantidad_abril,
+      cantidad_mayo: vinculacion_accion_producto.cantidad_mayo,
+      cantidad_junio: vinculacion_accion_producto.cantidad_junio,
+      cantidad_julio: vinculacion_accion_producto.cantidad_julio,
+      cantidad_agosto: vinculacion_accion_producto.cantidad_agosto,
+      cantidad_septiembre: vinculacion_accion_producto.cantidad_septiembre,
+      cantidad_octubre: vinculacion_accion_producto.cantidad_octubre,
+      cantidad_noviembre: vinculacion_accion_producto.cantidad_noviembre,
+      cantidad_diciembre: vinculacion_accion_producto.cantidad_diciembre,
+
     });
   }
 
@@ -288,14 +326,93 @@ export class VinculacionPoaPresupuesto extends Component {
                 })}
               </Input>
             </Col>
+          </FormGroup> 
+          <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>Programación Mensual de las Compras:</Label>
+              </Col>
           </FormGroup>          
+          <FormGroup row>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Enero</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_enero: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Febrero</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_febrero: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Marzo</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_marzo: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Abril</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_abril: e.target.value})}
+                />
+              </Col>                                          
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Mayo</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_mayo: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Junio</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_junio: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Julio</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_julio: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Agosto</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_agosto: e.target.value})}
+                />
+              </Col>                                          
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Septiembre</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_septiembre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Octubre</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_octubre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Noviembre</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_noviembre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Diciembre</Label>
+                <Input 
+                  onChange={(e) => this.setState({cantidad_diciembre: e.target.value})}
+                />
+              </Col>                                          
+              </FormGroup>                     
 
         </Form>
       </ModalBody>
       
       <ModalFooter>
         <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
-          <Button onClick={this.crearVinculacion} color="success" type="submit" className="boton-crear-modal">
+          <Button onClick={this.crearVinculacion} color="success" type="submit" className="boton-crear-modal-vinculacion">
             Crear vinculación de acción y producto
           </Button>
           
@@ -350,13 +467,105 @@ export class VinculacionPoaPresupuesto extends Component {
                 })}
               </Input>
               </Col>
-            </FormGroup>
+              </FormGroup>
+              <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+              <Label>Programación Mensual de las Compras:</Label>
+              </Col>
+              </FormGroup>              
+              <FormGroup row>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Enero</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_enero}
+                  onChange={(e) => this.setState({cantidad_enero: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Febrero</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_febrero}
+                  onChange={(e) => this.setState({cantidad_febrero: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Marzo</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_marzo}
+                  onChange={(e) => this.setState({cantidad_marzo: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Abril</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_abril}
+                  onChange={(e) => this.setState({cantidad_abril: e.target.value})}
+                />
+              </Col>                                          
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Mayo</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_mayo}
+                  onChange={(e) => this.setState({cantidad_mayo: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Junio</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_junio}
+                  onChange={(e) => this.setState({cantidad_junio: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Julio</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_julio}
+                  onChange={(e) => this.setState({cantidad_julio: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Agosto</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_agosto}
+                  onChange={(e) => this.setState({cantidad_agosto: e.target.value})}
+                />
+              </Col>                                          
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Septiembre</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_septiembre}
+                  onChange={(e) => this.setState({cantidad_septiembre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Octubre</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_octubre}
+                  onChange={(e) => this.setState({cantidad_octubre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Noviembre</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_noviembre}
+                  onChange={(e) => this.setState({cantidad_noviembre: e.target.value})}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4} lg={4}>
+                <Label>Diciembre</Label>
+                <Input 
+                  defaultValue={this.state.cantidad_diciembre}
+                  onChange={(e) => this.setState({cantidad_diciembre: e.target.value})}
+                />
+              </Col>                                          
+              </FormGroup>              
+
           </Form>
         </ModalBody>
         
         <ModalFooter>
           <Col className="text-center" xs={12} sm={12} md={12} lg={12} >
-            <Button color="success" onClick={this.editarVinculacion} className="boton-crear-modal">
+            <Button color="success" onClick={this.editarVinculacion} className="boton-crear-modal-vinculacion">
               Editar vinculación
             </Button>
             
