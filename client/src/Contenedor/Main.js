@@ -45,9 +45,10 @@ import ObjetivosEstrategicos from '../Componentes/Antecedentes/ObjetivosEstrateg
 import DetalleAntecedente from '../Componentes/Antecedentes/DetalleAntecedente';
 import CargaDeDatos from '../Componentes/CargaDeDatos/CargaDeDatos';
 import SolicitudRequerimientos from '../Componentes/Requerimientos/SolicitudRequerimientos';
-import ConsultarSolicitudesRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudesRequerimientos'
-import ConsultarSolicitudRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudRequerimientos'
-import ConsolidadoSolicitudRequerimientos from '../Componentes/Requerimientos/ConsolidadoSolicitudRequerimientos'
+import ConsultarSolicitudesRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudesRequerimientos';
+import ConsultarSolicitudRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudRequerimientos';
+import ConsolidadoSolicitudRequerimientos from '../Componentes/Requerimientos/ConsolidadoSolicitudRequerimientos';
+import VinculacionPoaPresupuesto from '../Componentes/VinculacionPoaPresupuesto/VinculacionPoaPresupuesto';
 
 /**
  * TO DO
@@ -107,6 +108,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
             <Route path={this.props.match.path + '/presupuesto/productos'} component={Productos}/>
+            <Route path={this.props.match.path + '/presupuesto/vinculacion-poa-presupuesto'} component={VinculacionPoaPresupuesto}/>
             <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
           </Switch>
         </Container>
