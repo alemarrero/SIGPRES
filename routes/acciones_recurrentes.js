@@ -54,6 +54,48 @@ router.post("/obtener_acciones_recurrentes", autorizarAdministrador, function(re
   })
 });
 
+router.get("/obtener_acciones_recurrentes_periodo_actual", autorizarAdministrador, function(req, res){
+  let acciones = [];
+  const fecha = new Date();
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
+  models.acciones_recurrentes.findAll(
+    {
+      include:[
+        {
+          model: models.objetivos_especificos,
+          as: "objetivo_especifico",
+          attributes:["propuesta_id"],
+          include: [
+            {
+              model: models.propuestas_plan_operativo_anual,
+              as: "propuesta",
+              where: {periodo: `${año}`},
+              attributes: ["area_id", "periodo"],
+            }
+          ]
+        }
+      ]
+    }
+  )
+  .then(resultado => {
+    if(resultado.length > 0){
+      resultado.map(accion => { 
+        let info_accion = {};
+        if (accion.objetivo_especifico.propuesta !== null){
+          info_accion["accion_id"] = accion.id;
+          info_accion["nombre"] = accion.accion_recurrente;
+          acciones.push(info_accion);
+        }
+      })
+    }
+    res.status(200).json(acciones);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  })
+});
+
 router.post("/obtener_accion_recurrente", autorizarAdministrador, function(req, res){
   models.acciones_recurrentes.findAll({where: {id: req.body.id}})
   .then(accion_recurrente => {

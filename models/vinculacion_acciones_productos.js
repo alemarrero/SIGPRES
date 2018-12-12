@@ -29,12 +29,12 @@ module.exports = (sequelize, DataTypes) => {
   });
   
   vinculacion_acciones_productos.associate = function(models) {
-    vinculacion_acciones_productos.hasMany(models.productos, {
-      foreignKey: 'id',
-      as: 'productos',
+    vinculacion_acciones_productos.belongsTo(models.productos, {
+      foreignKey: 'producto_id',
+      as: 'productos'
     });
-    vinculacion_acciones_productos.hasMany(models.acciones_recurrentes, {
-      foreignKey: 'id',
+    vinculacion_acciones_productos.belongsTo(models.acciones_recurrentes, {
+      foreignKey: 'accion_id',
       as: 'acciones_recurrentes',
     });
   };
