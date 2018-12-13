@@ -254,10 +254,10 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                       generica.especificas.map(especifica => { 
                         if (especifica.productos.length > 0) {
                             especifica.productos.map(producto => {                                                          
-                              let consolidado_producto = {};
                               if(producto.vinculacion_acciones_productos.length > 0) {
                                 if (producto.entradas_solicitud_de_requerimientos.length > 0) {
                                     producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
+                                      let consolidado_producto = {};
                                       if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                         consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
                                         consolidado_producto['area_id'] = vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id;
@@ -288,9 +288,9 @@ router.get('/obtener_vinculacion_acciones_productos', function(req, res){
                                         consolidado_producto['cantidad_total'] = vinculacion_accion_producto.cantidad;
                                         console.log(consolidado_producto);
                                         console.log(vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id);
-                                        vinculacion.push(consolidado_producto);
 
                                       }
+                                      vinculacion.push(consolidado_producto);
                                      
                                     })
                               }  
