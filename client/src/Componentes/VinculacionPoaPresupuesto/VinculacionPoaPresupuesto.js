@@ -646,6 +646,12 @@ export class VinculacionPoaPresupuesto extends Component {
                 <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
                   <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar reporte
                 </Button>                        
+              </a>   
+
+              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_poa_financiero_full">
+                <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
+                  <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar POA Financiero
+                </Button>                        
               </a>              
             </Col>
           </Row>

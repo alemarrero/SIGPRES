@@ -209,10 +209,18 @@ export default class DetallePOA extends Component {
                             <th>Acción Recurrente</th>
                             <th className="text-center">Unidad de Medida</th>
                             <th className="text-center">Meta Física Anual</th>
-                            <th className="text-center">I</th>
-                            <th className="text-center">II</th>
-                            <th className="text-center">III</th>
-                            <th className="text-center">IV</th>
+                            <th className="text-center">Enero</th>
+                            <th className="text-center">Febrero</th>
+                            <th className="text-center">Marzo</th>
+                            <th className="text-center">Abril</th>
+                            <th className="text-center">Mayo</th>
+                            <th className="text-center">Junio</th>
+                            <th className="text-center">Julio</th>
+                            <th className="text-center">Agosto</th>
+                            <th className="text-center">Septiembre</th>
+                            <th className="text-center">Octubre</th>
+                            <th className="text-center">Noviembre</th>
+                            <th className="text-center">Diciembre</th>
                             <th className="text-center">Medio de Verificación</th>
                           </tr>
                         </thead>
@@ -225,17 +233,25 @@ export default class DetallePOA extends Component {
                                   <td>{accion.accion_recurrente}</td>
                                   <td className="text-center">{accion.unidad_de_medida.nombre}</td>
                                   <td className="text-center">{accion.meta_fisica_anual}</td>
-                                  <td className="text-center">{accion.programacion_primer_trimestre}</td>
-                                  <td className="text-center">{accion.programacion_segundo_trimestre}</td>
-                                  <td className="text-center">{accion.programacion_tercer_trimestre}</td>
-                                  <td className="text-center">{accion.programacion_cuarto_trimestre}</td>
+                                  <td className="text-center">{accion.programacion_enero}</td>
+                                  <td className="text-center">{accion.programacion_febrero}</td>
+                                  <td className="text-center">{accion.programacion_marzo}</td>
+                                  <td className="text-center">{accion.programacion_abril}</td>
+                                  <td className="text-center">{accion.programacion_mayo}</td>
+                                  <td className="text-center">{accion.programacion_junio}</td>
+                                  <td className="text-center">{accion.programacion_julio}</td>
+                                  <td className="text-center">{accion.programacion_agosto}</td>
+                                  <td className="text-center">{accion.programacion_septiembre}</td>
+                                  <td className="text-center">{accion.programacion_octubre}</td>
+                                  <td className="text-center">{accion.programacion_noviembre}</td>
+                                  <td className="text-center">{accion.programacion_diciembre}</td>
                                   <td className="text-center">{accion.medio_de_verificacion.nombre}</td>
                                 </tr>
                               ) 
                             })
                             : 
                             <tr>
-                              <td colSpan="9" className="text-center"><h4>Este objetivo específico no tiene ninguna acción recurrente asociada</h4></td>
+                              <td colSpan="17" className="text-center"><h4>Este objetivo específico no tiene ninguna acción recurrente asociada</h4></td>
                             </tr>
                           }
                         </tbody>
