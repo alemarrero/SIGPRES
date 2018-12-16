@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
 var models = require('../models');
+var XLSX = require('xlsx');
 
 router.post('/crear_vinculacion_accion_producto', autorizarAdministrador, function(req, res, next) {
   var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
@@ -590,5 +591,125 @@ router.get('/obtener_presupuesto_final', function(req, res){
     res.status(500).json('err');
   })
 });
+
+router.get('/obtener_poa_financiero', function(req, res){
+  let date = new Date();
+  models.propuestas_plan_operativo_anual.findAll(
+    { 
+      include: [
+        {
+          model: models.areas, 
+          as: "area",
+          where: {id: req.session.area_id}
+        },
+        {
+          model: models.objetivos_especificos, 
+          as: "objetivos_especificos",
+          separate: true,
+          include: [{
+            model: models.acciones_recurrentes,
+            as: "acciones_recurrentes",
+            separate: true,
+            include: [
+              {
+                model: models.unidades_de_medida,
+                as: "unidad_de_medida",
+              },
+              {
+                model: models.medios_de_verificacion,
+                as: "medio_de_verificacion"
+              },
+              {
+                model: models.vinculacion_acciones_productos,
+                as: "vinculacion_acciones_productos",
+                separate: true,
+                include: [
+                  {
+                    model: models.productos,
+                    as: "productos"
+                  }
+                ]
+              },
+            ]
+            
+          }]
+        },
+      ]
+    })
+  .then(resultado => {
+    let poa_data = parsearPropuestaPOAFinanciero(resultado); 
+
+    //res.json(resultado).status(200);
+    
+    var workbook = XLSX.utils.book_new();
+
+    var worksheet = XLSX.utils.aoa_to_sheet(poa_data);
+    
+    XLSX.utils.book_append_sheet(workbook, worksheet, "POA");
+
+    // res.status(200).json(propuestas);
+    res.setHeader('Content-Disposition', 'attachment; filename="POA_financiero.' + "xls" + '";'); 
+    res.end(XLSX.write(workbook, {type:"buffer", bookType:"xls"}));
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json("err");
+  })
+});
+
+
+function parsearPropuestaPOAFinanciero(propuestas){
+  let filas = [["Actividad", "Unidad Ejecutora", "N° de Acción", "Nombre de la Acción", "Unidad de Medida", 
+  "Valores totales programados", "Monto Total (BsS)", "MEDIO DE VERIFICACIÓN"]];
+  
+  if(propuestas.length !== undefined){
+    propuestas.map(propuesta => {
+      propuesta.objetivos_especificos.map(objetivo => {
+        objetivo.acciones_recurrentes.map(accion_recurrente => {
+          let monto_total_accion = 0;
+
+          accion_recurrente.vinculacion_acciones_productos.map(vinculacion => {
+            monto_total_accion = monto_total_accion + (vinculacion.cantidad * vinculacion.productos.total);
+          });
+
+          filas.push([
+            "51", 
+            propuesta.area.descripcion,
+            accion_recurrente.id,
+            accion_recurrente.accion_recurrente,
+            accion_recurrente.unidad_de_medida.nombre, 
+            accion_recurrente.meta_fisica_anual,
+            monto_total_accion,  
+            accion_recurrente.medio_de_verificacion.nombre
+          ])
+        })
+      })
+    })
+  }
+  else{
+    propuestas.objetivos_especificos.map(objetivo => {
+      objetivo.acciones_recurrentes.map(accion_recurrente => {
+        let monto_total_accion = 0;
+
+        accion_recurrente.vinculacion_acciones_productos.map(vinculacion => {
+          monto_total_accion = monto_total_accion + (vinculacion.cantidad * vinculacion.productos.total);
+        });
+
+        filas.push([
+          "51", 
+          propuestas.area.descripcion,
+          accion_recurrente.id,
+          accion_recurrente.accion_recurrente,
+          accion_recurrente.unidad_de_medida.nombre, 
+          accion_recurrente.meta_fisica_anual,
+          monto_total_accion,  
+          accion_recurrente.medio_de_verificacion.nombre
+        ])
+      })
+    })
+  }
+
+  return filas;
+}
 
 module.exports = router;

@@ -458,14 +458,12 @@ export default class Productos extends Component {
 
      const partidas_request = await fetch('/api/partidas_presupuestarias/obtener_partida_desde_subespecifica', request_options);
      const partidas_response = await partidas_request.json();
-     console.log(partidas_response);
  
      if(partidas_response !== 'err'){
        let partida_completa = {
                                numero: `${partidas_response.especifica.generica.partida_presupuestaria.numero_partida}.${partidas_response.especifica.generica.numero_generica}.${partidas_response.especifica.numero_especifica}.${partidas_response.numero_subespecifica}`, 
                                denominacion:`${partidas_response.denominacion}`
                            };
-       console.log(partida_completa);   
        return partida_completa;  
      }
      else{
@@ -486,16 +484,15 @@ export default class Productos extends Component {
                             if (especifica.subespecificas.length > 0) {
                                 especifica.subespecificas.map(subespecifica => {  
                                     opciones.push(
-                                        <option value={`subespecifica_${subespecifica.id}`}>
+                                        <option value={`subespecifica_${subespecifica.id}`} key={`partida_${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.${subespecifica.numero_subespecifica}`}>
                                             {partida.numero_partida}.{generica.numero_generica}.{especifica.numero_especifica}.{subespecifica.numero_subespecifica} - {subespecifica.denominacion} 
                                         </option>)    
                             })}
                             else{
                                 opciones.push(
-                                    <option value={`especifica_${especifica.id}`}>
+                                    <option value={`especifica_${especifica.id}`} key={`${partida.numero_partida}.${generica.numero_generica}.${especifica.numero_especifica}.00`}>
                                         {partida.numero_partida}.{generica.numero_generica}.{especifica.numero_especifica}.00 - {especifica.denominacion} 
                                     </option>)   
-                                console.log(opciones);
                             }
 
                 })

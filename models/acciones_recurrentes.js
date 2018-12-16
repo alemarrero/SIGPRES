@@ -31,19 +31,51 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    programacion_primer_trimestre: {
+    programacion_enero: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    programacion_segundo_trimestre: {
+    programacion_febrero: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    programacion_tercer_trimestre: {
+    programacion_marzo: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    programacion_cuarto_trimestre: {
+    programacion_abril: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_mayo: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_junio: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_julio: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_agosto: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_septiembre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_octubre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_noviembre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    programacion_diciembre: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
