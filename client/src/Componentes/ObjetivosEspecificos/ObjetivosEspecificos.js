@@ -97,7 +97,7 @@ export class ObjetivosEspecificos extends Component {
     const crear_propuesta_response = await crear_propuesta_request.json();
 
     if(crear_propuesta_response.estado !== "err"){
-      this.setState({...crear_propuesta_response.data});
+      this.setState({...crear_propuesta_response.data}, () => window.location.reload());
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al crear la propuesta de Plan Operativo Anual"});
