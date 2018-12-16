@@ -49,6 +49,7 @@ import ConsultarSolicitudesRequerimientos from '../Componentes/Requerimientos/Co
 import ConsultarSolicitudRequerimientos from '../Componentes/Requerimientos/ConsultarSolicitudRequerimientos';
 import ConsolidadoSolicitudRequerimientos from '../Componentes/Requerimientos/ConsolidadoSolicitudRequerimientos';
 import VinculacionPoaPresupuesto from '../Componentes/VinculacionPoaPresupuesto/VinculacionPoaPresupuesto';
+import PresupuestoFinal from '../Componentes/PresupuestoFinal/PresupuestoFinal';
 
 /**
  * TO DO
@@ -108,6 +109,7 @@ export default class Main extends PureComponent {
             <Route path={this.props.match.path + '/presupuesto/requerimientos/requerimientos-y-necesidades'} component={RequerimientosYNecesidades}/>
             <Route path={this.props.match.path + '/presupuesto/requerimientos'} component={Requerimientos}/>
             <Route path={this.props.match.path + '/presupuesto/productos'} component={Productos}/>
+            <Route path={this.props.match.path + '/presupuesto/presupuesto-final'} component={PresupuestoFinal}/>
             <Route path={this.props.match.path + '/presupuesto/vinculacion-poa-presupuesto'} component={VinculacionPoaPresupuesto}/>
             <Route path={this.props.match.path + '/presupuesto'} component={Presupuesto}/>
           </Switch>
