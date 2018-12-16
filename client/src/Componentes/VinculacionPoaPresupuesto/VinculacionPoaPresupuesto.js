@@ -642,6 +642,11 @@ export class VinculacionPoaPresupuesto extends Component {
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar nueva vinculación entre acción y producto
               </Button>
+              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_reporte_vinculacion_acciones_productos">
+                <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
+                  <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar reporte
+                </Button>                        
+              </a>              
             </Col>
           </Row>
 
