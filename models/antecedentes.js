@@ -12,6 +12,22 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false
     },
+    oportunidades_fortalezas: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
+    oportunidades_debilidades: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
+    amenazas_fortalezas: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
+    amenazas_debilidades: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
     objetivo_general: {
       type: DataTypes.STRING(2000),
       allowNull: false
