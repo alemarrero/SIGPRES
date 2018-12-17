@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Areas.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
 
@@ -380,6 +380,14 @@ export class Areas extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/areas`)} >Gestión de Áreas</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_area}
           {modal_editar_area}

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
 import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class ConsultarSolicitudPersonal extends Component {
   constructor(props){
@@ -135,6 +132,16 @@ export class ConsultarSolicitudPersonal extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/solicitud-personal/`)}>Solicitudes de Personal</BreadcrumbItem>
+              <BreadcrumbItem active>Consultar Solicitud de Personal</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_operacion_fallida}
 

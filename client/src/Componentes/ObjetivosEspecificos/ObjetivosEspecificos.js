@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import withContext from '../../Contenedor/withContext';
 import './ObjetivosEspecificos.css';
@@ -406,6 +406,15 @@ export class ObjetivosEspecificos extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+              <BreadcrumbItem active>Gestión de Objetivos Específicos</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_objetivo_especifico}
           {modal_editar_objetivo_especifico}

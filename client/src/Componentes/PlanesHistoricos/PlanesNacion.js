@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button,  Modal, ModalHeader, 
+import { Breadcrumb, BreadcrumbItem, Container, Row, Col, Button,  Modal, ModalHeader, 
   ModalBody, ModalFooter, Input, Label, Form, FormGroup, Table} from 'reactstrap';
 import nacion from '../../assets/img/venezuela.png';
 import './PlanesHistoricos.css';
@@ -566,6 +566,16 @@ export class PlanesNacion extends Component {
 
     return (
       <Container fluid className="container-planes">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion/planes-historicos`)} >Planes Históricos</BreadcrumbItem>          
+            <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/planes-historicos/planes-nacion`)} >Gestión de Gacetas Oficiales
+de la Nación</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_crear_plan}
         {modal_editar_plan}

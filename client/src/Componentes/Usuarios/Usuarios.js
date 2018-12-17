@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, 
+import {Breadcrumb, BreadcrumbItem, Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, 
   FormGroup, Input, Label, Table } from 'reactstrap';
 import './Usuarios.css'
 import usuarios from '../../assets/img/usuarios.png';
@@ -891,6 +891,13 @@ import withContext from './../../Contenedor/withContext';
 
     return (
       <Container fluid className="container-usuarios">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+            <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/usuarios`)} >Gestión de usuarios</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
 
         {/* Modales del componente */}
         {modal_registrar_usuario}

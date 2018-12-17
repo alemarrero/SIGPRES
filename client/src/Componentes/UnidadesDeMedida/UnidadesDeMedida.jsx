@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './UnidadesDeMedida.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import medida from '../../assets/img/unidad-medida.png';
 import withContext from '../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
@@ -365,6 +365,14 @@ export class UnidadesDeMedida extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/unidades-de-medida`)} >Gestión de Unidades de Medida</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_unidad}
           {modal_editar_unidad}

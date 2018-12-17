@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import contabilidad from '../../assets/img/contabilidad.png';
 import withContext from './../../Contenedor/withContext';
 import './VinculacionPoaPresupuesto.css'
@@ -623,6 +623,15 @@ export class VinculacionPoaPresupuesto extends Component {
 
     return (
         <Container fluid className="container-solicitud-de-requerimientos">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem active>Vinculación POA - Presupuesto</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_vinculacion_accion_producto}
           {modal_editar_vinculacion}

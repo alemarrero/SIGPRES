@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import consolidado from '../../assets/img/consolidado.png';
-import { request } from 'http';
 import withContext from '../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
 
 
 export class PresupuestoFinal extends Component {
@@ -63,6 +60,15 @@ export class PresupuestoFinal extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem active>Resumen Financiero por Partida Presupuestaria</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+          
           {/* Modales del componente */}
           {modal_operacion_fallida}
 

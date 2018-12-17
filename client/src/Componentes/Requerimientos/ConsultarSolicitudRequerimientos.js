@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
 import { request } from 'http';
 import withContext from '../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class ConsultarSolicitudRequerimientos extends Component {
   constructor(props){
@@ -244,6 +241,18 @@ export class ConsultarSolicitudRequerimientos extends Component {
 
     return (
       <Container fluid className="container-solicitud-de-requerimientos">
+
+      <div>
+        <Breadcrumb>
+          <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+          <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+          <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Solicitudes de Requerimientos y Necesidades</BreadcrumbItem>
+          <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/consultar-solicitudes-de-requerimientos`)}>Consultar Solicitudes de Requerimientos y Necesidades Enviadas</BreadcrumbItem>
+          <BreadcrumbItem active>Consultar Solicitud de Requerimientos y Necesidades</BreadcrumbItem>
+
+        </Breadcrumb>
+      </div>
+
       {/* Modales del componente */}
       {modal_operacion_fallida}
       {modal_confirmacion_eliminar}

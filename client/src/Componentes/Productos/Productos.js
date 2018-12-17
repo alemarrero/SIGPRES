@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 //import './Productos.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import productos from '../../assets/img/productos.png';
-import { request } from 'http';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export default class Productos extends Component {
   constructor(props){
@@ -761,6 +757,15 @@ export default class Productos extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem active>Gestión de Productos</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_producto}
           {modal_editar_producto}

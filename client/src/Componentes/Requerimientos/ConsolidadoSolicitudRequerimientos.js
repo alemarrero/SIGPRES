@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import consolidado from '../../assets/img/consolidado.png';
 import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class ConsolidadoSolicitudRequerimientos extends Component {
   constructor(props){
@@ -64,6 +61,18 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
+              <BreadcrumbItem active>Consolidado de Solicitudes de Requerimientos</BreadcrumbItem>
+
+            </Breadcrumb>
+          </div>
+          
           {/* Modales del componente */}
           {modal_operacion_fallida}
 
@@ -71,7 +80,7 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <img src={consolidado} className="icono-titulo"/>    
-              <h1 className="titulo-solicitud-personal">Consolidado de Solicitudes de Personal</h1>
+              <h1 className="titulo-solicitud-personal">Consolidado de Solicitudes de Requerimientos</h1>
             </Col>
           </Row>
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PartidasPresupuestarias.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import { request } from 'http';
 
@@ -376,6 +376,15 @@ export default class PartidasPresupuestarias extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem active>Gestión de Partidas Presupuestarias</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_partida_presupuestaria}
           {modal_editar_partida_presupuestaria}

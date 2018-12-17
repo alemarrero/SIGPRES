@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './AccionesRecurrentes.css';
 
@@ -1063,6 +1063,15 @@ console.log(meta_fisica_anual);
 
     return (
       <Container fluid className="container-unidades-de-medida">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion/objetivos-especificos`)}>Gestión de Objetivos Específicos</BreadcrumbItem>
+            <BreadcrumbItem active>Gestión de Acciones Recurrentes</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_crear_accion_recurrente}
         {modal_editar_accion_recurrente}

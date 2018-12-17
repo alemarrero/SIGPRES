@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './RevisionPOA.css';
 
@@ -170,6 +170,16 @@ export default class DetallePOA extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion/revision-poa`)}>Revisión de POA</BreadcrumbItem>
+            <BreadcrumbItem active>Detalle de POA</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
@@ -201,7 +211,7 @@ export default class DetallePOA extends Component {
                         <thead>
                           <tr>
                             <th colspan="4" scope="colgroup"></th>                  
-                            <th colspan="4" scope="colgroup" className="text-center">Programación Física Trimestral</th>
+                            <th colspan="12" scope="colgroup" className="text-center">Programación Física Trimestral</th>
                             <th colspan="1" scope="colgroup" align="center"></th>
                           </tr>
                           <tr>

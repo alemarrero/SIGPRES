@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './MediosDeVerificacion.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import verificacion from '../../assets/img/verificacion.png';
 import withContext from '../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
@@ -331,6 +331,14 @@ export class MediosDeVerificacion extends Component {
 
     return (
         <Container fluid className="container-medios-de-verificacion">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/medios-de-verificacion`)} >Gestión de Medios de Verificación</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_medio}
           {modal_editar_medio}

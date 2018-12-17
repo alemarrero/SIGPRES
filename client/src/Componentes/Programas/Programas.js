@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Table, Row, Col, Button, Input, Form, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Container, Table, Row, Col, Button, Input, Form, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './Programas.css';
 import medida from '../../assets/img/unidad-medida.png';
 import withContext from './../../Contenedor/withContext';
@@ -597,6 +597,15 @@ export class Programas extends Component {
 
     return (
       <Container fluid className="container-programas">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+            <BreadcrumbItem active>Programas</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_crear_programa}
         {modal_editar_programa}

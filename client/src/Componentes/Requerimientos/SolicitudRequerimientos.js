@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Requerimientos.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
 import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
@@ -488,6 +488,18 @@ export class SolicitudRequerimientos extends Component {
     if(this.state.enviada){
         return (
             <Container fluid className="container-solicitud-de-requerimientos">
+
+              <div>
+                <Breadcrumb>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
+                  <BreadcrumbItem active>Solicitud de Requerimientos y Necesidades</BreadcrumbItem>
+
+                </Breadcrumb>
+              </div>
+
               {/* Modales del componente */}
               {modal_operacion_fallida}
               {modal_operacion_exitosa}
@@ -602,6 +614,18 @@ export class SolicitudRequerimientos extends Component {
       else{        
         return(
             <Container fluid className="container-solicitud-de-requerimientos">
+
+              <div>
+                <Breadcrumb>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+                  <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
+                  <BreadcrumbItem active>Solicitud de Requerimientos y Necesidades</BreadcrumbItem>
+
+                </Breadcrumb>
+              </div>
+
             {/* Modales del componente */}
             {modal_operacion_fallida}
             {modal_operacion_exitosa}
