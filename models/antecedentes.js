@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false
     },
+    objetivo_general: {
+      type: DataTypes.STRING(2000),
+      allowNull: false
+    },
     mision: {
       type: DataTypes.STRING(2000),
       allowNull: false

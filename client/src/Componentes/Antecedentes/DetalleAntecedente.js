@@ -83,6 +83,13 @@ export default class DetalleAntecedente extends Component {
           <hr/>
 
           <Row className="fila-detalle-antecedente">
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <h3 className="text-center">Objetivo General</h3>
+                <p>{this.state.objetivo_general}</p>
+              </Col>            
+            </Col>
+
             <Col xs={12} sm={12} md={6} lg={6}>
               <h3 className="text-center">Misión</h3>
               <p>{this.state.mision}</p>

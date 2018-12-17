@@ -12,6 +12,7 @@ router.post('/crear_antecedente', autorizarAdministrador, function(req, res, nex
     debilidades: req.body.debilidades,
     fortalezas: req.body.fortalezas,
     amenazas: req.body.amenazas,
+    objetivo_general: req.body.objetivo_general,
     oportunidades: req.body.oportunidades
   })  
   .then(response => {
@@ -34,6 +35,7 @@ router.post('/actualizar_antecedente', autorizarAdministrador, function(req, res
     debilidades: req.body.debilidades,
     fortalezas: req.body.fortalezas,
     amenazas: req.body.amenazas,
+    objetivo_general: req.body.objetivo_general,
     oportunidades: req.body.oportunidades
   },
   {where: {id: req.body.id}})

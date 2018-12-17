@@ -12,6 +12,7 @@ export class Antecedentes extends Component {
       antecedentes: [],
       inicio_periodo: 1950,
       fin_periodo: 1950,
+      objetivo_general: undefined,
       periodo: undefined,
       mision: undefined,
       vision: undefined,
@@ -68,6 +69,14 @@ export class Antecedentes extends Component {
       document.getElementById("error-periodo").style.display = "none";
     }
 
+    if(this.state.objetivo_general === undefined || this.state.objetivo_general === ""){
+      formulario_valido = false;
+      document.getElementById("error-objetivo-general").style.display = "block";
+    }
+    else{
+      document.getElementById("error-objetivo-general").style.display = "none";
+    }
+
     if(this.state.mision === undefined || this.state.mision === ""){
       formulario_valido = false;
       document.getElementById("error-mision").style.display = "block";
@@ -100,6 +109,7 @@ export class Antecedentes extends Component {
           fortalezas: this.state.fortalezas,
           amenazas: this.state.amenazas,
           oportunidades: this.state.oportunidades,
+          objetivo_general: this.state.objetivo_general,
           periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`
         })
       }
@@ -131,6 +141,7 @@ export class Antecedentes extends Component {
           fortalezas: this.state.fortalezas,
           amenazas: this.state.amenazas,
           oportunidades: this.state.oportunidades,
+          objetivo_general: this.state.objetivo_general,
           periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`,
           id: this.state.id
         })
@@ -308,6 +319,12 @@ export class Antecedentes extends Component {
             </FormGroup>
             
             <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Objetivo General*</Label>
+                <Input onChange={(e) => this.setState({objetivo_general: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-objetivo-general">Objetivo general inválido. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Misión*</Label>
                 <Input onChange={(e) => this.setState({mision: e.target.value})} type="textarea"></Input>
@@ -412,6 +429,12 @@ export class Antecedentes extends Component {
             </FormGroup>
             
             <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Objetivo General*</Label>
+                <Input defaultValue={this.state.objetivo_general} onChange={(e) => this.setState({objetivo_general: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-objetivo-general">Objetivo general inválido. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Misión*</Label>
                 <Input defaultValue={this.state.mision} onChange={(e) => this.setState({mision: e.target.value})} type="textarea"></Input>
