@@ -46,6 +46,9 @@ export class VinculacionPoaPresupuesto extends Component {
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerAcciones = this.obtenerAcciones.bind(this);
     this.obtenerArea = this.obtenerArea.bind(this);
+    this.validarModalCreacion = this.validarModalCreacion.bind(this);
+    this.validarModalEdicion = this.validarModalEdicion.bind(this);
+    this.eliminarVinculacion = this.eliminarVinculacion.bind(this);
   }
 
   async obtenerVinculacionAccionesProductos(){
@@ -100,13 +103,10 @@ export class VinculacionPoaPresupuesto extends Component {
     if(productos_response !== 'err'){
       if(productos_response.length > 0) {
         this.setState({producto_id: productos_response[0].id,productos: productos_response});
-        console.log(productos_response[0].id);
-        console.log(this.state.producto_id);
         }
         else{
           this.setState({productos: productos_response});
         }     
-        console.log(this.state.productos);
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los productos "});
@@ -114,6 +114,7 @@ export class VinculacionPoaPresupuesto extends Component {
   }
 
   async editarVinculacion(){
+    if (this.validarModalEdicion()){
       const request_options = {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -136,14 +137,9 @@ export class VinculacionPoaPresupuesto extends Component {
           cantidad_diciembre: this.state.cantidad_diciembre          
         })
       };
-      console.log(this.state.producto_id);
-      console.log(this.state.accion_id);
-      console.log(this.state.id);
-
 
       const editar_vinculacion_request = await fetch(`/api/vinculacion_acciones_productos/actualizar_vinculacion_accion_producto`, request_options);
       const editar_vinculacion_response = await editar_vinculacion_request.json();
-      console.log(editar_vinculacion_response);
 
       if(editar_vinculacion_response !== 'err'){
         this.setState({modal_editar_vinculacion_abierto: false, modal_operacion_exitosa: true, mensaje: "Vinculación entre acción y producto editada correctamente"}, async () => {
@@ -155,9 +151,11 @@ export class VinculacionPoaPresupuesto extends Component {
       else{
         this.setState({modal_operacion_fallida: true, modal_editar_vinculacion_abierto: false, mensaje: "Error editando la vinculación entre acción y producto"});
       }
+    }
   }
 
   async crearVinculacion() {
+    if (this.validarModalCreacion()){
       const request_options = {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -179,7 +177,6 @@ export class VinculacionPoaPresupuesto extends Component {
           cantidad_diciembre: this.state.cantidad_diciembre          
         })
       };
-
       const crear_vinculacion_request = await fetch(`/api/vinculacion_acciones_productos/crear_vinculacion_accion_producto`, request_options);
       const crear_vinculacion_response = await crear_vinculacion_request.json();
 
@@ -193,6 +190,8 @@ export class VinculacionPoaPresupuesto extends Component {
       else{
         this.setState({modal_operacion_fallida: true, modal_crear_vinculacion_abierto: false, mensaje: "Error creando la vinculación entre acción y producto"});
       }
+    }
+
   }
 
   async obtenerVinculacionAccionesProductos(){
@@ -239,9 +238,9 @@ export class VinculacionPoaPresupuesto extends Component {
       this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la vinculación entre acción y producto"});
     }
   }
+
   cargarModalEditarVinculacion(ind) {
     const vinculacion_accion_producto = this.state.vinculacion_acciones_productos[ind];
-    console.log(vinculacion_accion_producto);
     this.setState({
       id: vinculacion_accion_producto.id,
       accion_id: vinculacion_accion_producto.accion_id,
@@ -270,50 +269,238 @@ export class VinculacionPoaPresupuesto extends Component {
       modal_confirmacion_eliminar_abierto: true
     });
   }
-    let formulario_valido = true;
 
-    // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
-      document.getElementById("nombre-modal-creacion").style.display = 'block';
+
+  validarModalCreacion(){
+    let formulario_valido = true;
+    let vinculacion_existente = this.state.vinculacion_acciones_productos.filter(vinculacion => vinculacion.accion_id === this.state.accion_id && vinculacion.producto_id === this.state.producto_id);
+
+    // Validación de la vinculacion
+    if(vinculacion_existente.length > 0){
+      document.getElementById("vinculacion-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("nombre-modal-creacion").style.display = 'none';
+      document.getElementById("vinculacion-modal-creacion").style.display = 'none';
     }    
 
-    // Validación de la descripcion
-    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+[,\.]{0,1}((\s)[A-Za-z\u00C0-\u017F]+[,\.]{0,1})*$/)){
-      document.getElementById("descripcion-modal-creacion").style.display = 'block';
-      formulario_valido = false;    
-    }
-    else{
-      document.getElementById("descripcion-modal-creacion").style.display = 'none';
-    }
-    return formulario_valido;
-  }
-  
-  validarModalEdicion(){
-    let formulario_valido = true;
-
-    // Validación del nombre
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
-      document.getElementById("nombre-modal-edicion").style.display = 'block';
+    // Validación de cantidad enero
+    if(`${this.state.cantidad_enero}` === undefined || !`${this.state.cantidad_enero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-enero-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("nombre-modal-edicion").style.display = 'none';
+      document.getElementById("cantidad-enero-modal-creacion").style.display = 'none';
     }
     
-    // Validación de la descripcion    
-    if(this.state.descripcion === undefined || !this.state.descripcion.match(/^[A-Za-z\u00C0-\u017F]+[,\.]{0,1}((\s)[A-Za-z\u00C0-\u017F]+[,\.]{0,1})*$/)){
-      document.getElementById("descripcion-modal-edicion").style.display = 'block';
+    // Validación de cantidad febrero
+    if(`${this.state.cantidad_febrero}` === undefined || !`${this.state.cantidad_febrero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-febrero-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("descripcion-modal-edicion").style.display = 'none';
+      document.getElementById("cantidad-febrero-modal-creacion").style.display = 'none';
     }
+
+    // Validación de cantidad marzo
+    if(`${this.state.cantidad_marzo}` === undefined || !`${this.state.cantidad_marzo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-marzo-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-marzo-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad abril
+    if(`${this.state.cantidad_abril}` === undefined || !`${this.state.cantidad_abril}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-abril-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-abril-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad junio
+    if(`${this.state.cantidad_junio}` === undefined || !`${this.state.cantidad_junio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-junio-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-junio-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad julio
+    if(`${this.state.cantidad_julio}` === undefined || !`${this.state.cantidad_julio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-julio-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-julio-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad agosto
+    if(`${this.state.cantidad_agosto}` === undefined || !`${this.state.cantidad_agosto}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-agosto-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-agosto-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad septiembre
+    if(`${this.state.cantidad_septiembre}` === undefined || !`${this.state.cantidad_septiembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-septiembre-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-septiembre-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad octubre
+    if(`${this.state.cantidad_octubre}` === undefined || !`${this.state.cantidad_octubre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-octubre-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-octubre-modal-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad noviembre
+    if(`${this.state.cantidad_noviembre}` === undefined || !`${this.state.cantidad_noviembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-noviembre-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-noviembre-modal-creacion").style.display = 'none';
+    }          
+    
+    // Validación de cantidad diciembre
+    if(`${this.state.cantidad_diciembre}` === undefined || !`${this.state.cantidad_diciembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-diciembre-modal-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-diciembre-modal-creacion").style.display = 'none';
+    }       
+
     return formulario_valido;
-  }*/
+  }
+
+  validarModalEdicion(){
+    let formulario_valido = true;
+    let accion_id = parseInt(this.state.accion_id);
+    let producto_id = parseInt(this.state.producto_id);
+    let vinculacion_existente = this.state.vinculacion_acciones_productos.filter(vinculacion => vinculacion.accion_id === accion_id && vinculacion.producto_id === producto_id && vinculacion.id !== this.state.id);
+    
+    // Validación de la vinculacion
+    if(vinculacion_existente.length > 0){
+      document.getElementById("vinculacion-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("vinculacion-modal-edicion").style.display = 'none';
+    }    
+
+    // Validación de cantidad enero
+    if(`${this.state.cantidad_enero}` === undefined || !`${this.state.cantidad_enero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-enero-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-enero-modal-edicion").style.display = 'none';
+    }
+    
+    // Validación de cantidad febrero
+    if(`${this.state.cantidad_febrero}` === undefined || !`${this.state.cantidad_febrero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-febrero-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-febrero-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad marzo
+    if(`${this.state.cantidad_marzo}` === undefined || !`${this.state.cantidad_marzo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-marzo-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-marzo-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad abril
+    if(`${this.state.cantidad_abril}` === undefined || !`${this.state.cantidad_abril}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-abril-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-abril-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad junio
+    if(`${this.state.cantidad_junio}` === undefined || !`${this.state.cantidad_junio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-junio-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-junio-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad julio
+    if(`${this.state.cantidad_julio}` === undefined || !`${this.state.cantidad_julio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-julio-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-julio-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad agosto
+    if(`${this.state.cantidad_agosto}` === undefined || !`${this.state.cantidad_agosto}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-agosto-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-agosto-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad septiembre
+    if(`${this.state.cantidad_septiembre}` === undefined || !`${this.state.cantidad_septiembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-septiembre-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-septiembre-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad octubre
+    if(`${this.state.cantidad_octubre}` === undefined || !`${this.state.cantidad_octubre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-octubre-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-octubre-modal-edicion").style.display = 'none';
+    }
+
+    // Validación de cantidad noviembre
+    if(`${this.state.cantidad_noviembre}` === undefined || !`${this.state.cantidad_noviembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-noviembre-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-noviembre-modal-edicion").style.display = 'none';
+    }          
+    
+    // Validación de cantidad diciembre
+    if(`${this.state.cantidad_diciembre}` === undefined || !`${this.state.cantidad_diciembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-diciembre-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-diciembre-modal-edicion").style.display = 'none';
+    }    
+    return formulario_valido;
+  }  
 
   render() {
 
@@ -341,6 +528,7 @@ export class VinculacionPoaPresupuesto extends Component {
 
     </Modal>
   ;
+      
     // Modal que muestra el formulario para poder crear una nueva área
     let modal_crear_vinculacion_accion_producto = 
       <Modal isOpen={this.state.modal_crear_vinculacion_abierto} toggle={() => this.setState({modal_crear_vinculacion_abierto: !this.state.modal_crear_vinculacion_abierto})} size="md">
@@ -360,7 +548,7 @@ export class VinculacionPoaPresupuesto extends Component {
               >
                 {this.state.acciones.map((accion, index) => {
                   return(
-                    <option value={accion.accion_id} key={`accion_${accion.index}`}>{accion.nombre}</option>
+                    <option value={accion.accion_id} key={`accion_${accion.index}_${accion.id}`}>{accion.nombre}</option>
                   )
                 })}
               </Input>
@@ -377,10 +565,11 @@ export class VinculacionPoaPresupuesto extends Component {
               >
                 {this.state.productos.map((producto, index) => {
                   return(
-                    <option value={producto.id} key={`producto_${producto.index}`}>{producto.producto}</option>
+                    <option value={producto.id} key={`producto_${producto.index}_${producto.id}`}>{producto.producto}</option>
                   )
                 })}
               </Input>
+              <span id="vinculacion-modal-creacion" className="error-vinculacion">La vinculación entre este producto y acción ya existe.</span>                
             </Col>
           </FormGroup> 
           <FormGroup row>
@@ -392,74 +581,109 @@ export class VinculacionPoaPresupuesto extends Component {
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Enero</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_enero}
                   onChange={(e) => this.setState({cantidad_enero: e.target.value})}
                 />
+              <span id="cantidad-enero-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Febrero</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_febrero}
                   onChange={(e) => this.setState({cantidad_febrero: e.target.value})}
                 />
+              <span id="cantidad-febrero-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Marzo</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_marzo}
                   onChange={(e) => this.setState({cantidad_marzo: e.target.value})}
                 />
+              <span id="cantidad-marzo-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Abril</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_abril}
                   onChange={(e) => this.setState({cantidad_abril: e.target.value})}
                 />
-              </Col>                                          
+              <span id="cantidad-abril-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
+              </Col>                  
+                                      
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Mayo</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_mayo}
                   onChange={(e) => this.setState({cantidad_mayo: e.target.value})}
                 />
+              <span id="cantidad-mayo-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Junio</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_junio}
                   onChange={(e) => this.setState({cantidad_junio: e.target.value})}
                 />
+              <span id="cantidad-junio-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Julio</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_julio}
                   onChange={(e) => this.setState({cantidad_julio: e.target.value})}
                 />
+              <span id="cantidad-julio-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+              
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Agosto</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_agosto}
                   onChange={(e) => this.setState({cantidad_agosto: e.target.value})}
                 />
+              <span id="cantidad-agosto-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>                                          
+              
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Septiembre</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_septiembre}
                   onChange={(e) => this.setState({cantidad_septiembre: e.target.value})}
                 />
+              <span id="cantidad-septiembre-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+              
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Octubre</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_octubre}
                   onChange={(e) => this.setState({cantidad_octubre: e.target.value})}
                 />
+              <span id="cantidad-octubre-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Noviembre</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_noviembre}
                   onChange={(e) => this.setState({cantidad_noviembre: e.target.value})}
                 />
+              <span id="cantidad-noviembre-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
+              
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Diciembre</Label>
                 <Input 
+                  defaultValue={this.state.cantidad_diciembre}
                   onChange={(e) => this.setState({cantidad_diciembre: e.target.value})}
                 />
+              <span id="cantidad-diciembre-modal-creacion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>                                          
               </FormGroup>                     
 
@@ -500,7 +724,7 @@ export class VinculacionPoaPresupuesto extends Component {
               >
                 {this.state.acciones.map((accion, index) => {
                   return(
-                    <option value={accion.accion_id} key={`accion_${accion.index}`}>{accion.nombre}</option>
+                    <option value={accion.accion_id} key={`accion_${accion.index}_${accion.id}`}>{accion.nombre}</option>
                   )
                 })}
               </Input>
@@ -518,10 +742,11 @@ export class VinculacionPoaPresupuesto extends Component {
               >
                 {this.state.productos.map((producto, index) => {
                   return(
-                    <option value={producto.id} key={`producto_${producto.index}`}>{producto.producto}</option>
+                    <option value={producto.id} key={`producto_${producto.index}_${producto.id}`}>{producto.producto}</option>
                   )
                 })}
               </Input>
+              <span id="vinculacion-modal-edicion" className="error-vinculacion">La vinculación entre este producto y acción ya existe.</span>                
               </Col>
               </FormGroup>
               <FormGroup row>
@@ -536,6 +761,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_enero}
                   onChange={(e) => this.setState({cantidad_enero: e.target.value})}
                 />
+              <span id="cantidad-enero-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Febrero</Label>
@@ -543,6 +769,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_febrero}
                   onChange={(e) => this.setState({cantidad_febrero: e.target.value})}
                 />
+              <span id="cantidad-febrero-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Marzo</Label>
@@ -550,6 +777,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_marzo}
                   onChange={(e) => this.setState({cantidad_marzo: e.target.value})}
                 />
+              <span id="cantidad-marzo-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Abril</Label>
@@ -557,6 +785,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_abril}
                   onChange={(e) => this.setState({cantidad_abril: e.target.value})}
                 />
+              <span id="cantidad-abril-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>                                          
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Mayo</Label>
@@ -564,6 +793,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_mayo}
                   onChange={(e) => this.setState({cantidad_mayo: e.target.value})}
                 />
+              <span id="cantidad-mayo-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Junio</Label>
@@ -571,6 +801,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_junio}
                   onChange={(e) => this.setState({cantidad_junio: e.target.value})}
                 />
+              <span id="cantidad-junio-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Julio</Label>
@@ -578,6 +809,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_julio}
                   onChange={(e) => this.setState({cantidad_julio: e.target.value})}
                 />
+              <span id="cantidad-julio-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Agosto</Label>
@@ -585,6 +817,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_agosto}
                   onChange={(e) => this.setState({cantidad_agosto: e.target.value})}
                 />
+              <span id="cantidad-agosto-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>                                          
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Septiembre</Label>
@@ -592,6 +825,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_septiembre}
                   onChange={(e) => this.setState({cantidad_septiembre: e.target.value})}
                 />
+              <span id="cantidad-septiembre-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Octubre</Label>
@@ -599,6 +833,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_octubre}
                   onChange={(e) => this.setState({cantidad_octubre: e.target.value})}
                 />
+              <span id="cantidad-octubre-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Noviembre</Label>
@@ -606,6 +841,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_noviembre}
                   onChange={(e) => this.setState({cantidad_noviembre: e.target.value})}
                 />
+              <span id="cantidad-noviembre-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                              
               </Col>
               <Col xs={4} sm={4} md={4} lg={4}>
                 <Label>Diciembre</Label>
@@ -613,6 +849,7 @@ export class VinculacionPoaPresupuesto extends Component {
                   defaultValue={this.state.cantidad_diciembre}
                   onChange={(e) => this.setState({cantidad_diciembre: e.target.value})}
                 />
+              <span id="cantidad-diciembre-modal-edicion" className="error-vinculacion">La cantidad mensual debe ser un número entero, sin decimales.</span>                
               </Col>                                          
               </FormGroup>              
 
@@ -713,9 +950,9 @@ export class VinculacionPoaPresupuesto extends Component {
           <Table striped className="tabla-solicitud-de-requerimientos">                              
             <thead>  
               <tr>
-                <th colspan="11" scope="colgroup"></th>                  
-                <th colspan="12" scope="colgroup" className="text-center">Planificación Mensual de las Compras</th>
-                <th colspan="3" scope="colgroup" align="center"></th>
+                <th colSpan="11" scope="colgroup"></th>                  
+                <th colSpan="12" scope="colgroup" className="text-center">Planificación Mensual de las Compras</th>
+                <th colSpan="3" scope="colgroup" align="center"></th>
               </tr>                               
               <tr>
                 <th>N° de Acción</th>
@@ -749,7 +986,7 @@ export class VinculacionPoaPresupuesto extends Component {
                 <tbody>
                 {this.state.vinculacion_acciones_productos.map((vinculacion, index) => {
                     return(                       
-                    <tr key={`vinculacion_${vinculacion.id}`}>
+                    <tr key={`vinculacion_${vinculacion.id}_${index}`}>
                         <td>{vinculacion.accion_id}</td>
                         <td>{this.obtenerArea(vinculacion.area_id)}</td>
                         <td>{vinculacion.nombre_accion}</td>
@@ -776,18 +1013,21 @@ export class VinculacionPoaPresupuesto extends Component {
                         <td>{vinculacion.cantidad_total}</td>
                         <td>{vinculacion.monto_total_producto}</td>
                         <td>
-                        <Button 
-                              color="info" className="boton-gestionar"
-                              onClick={() => this.cargarModalEditarVinculacion(index)}
+                          <Button 
+                            color="info" className="boton-actualizar"
+                            onClick={() => this.cargarModalEditarVinculacion(index)}
                           >
+                            <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                            Editar
+                          </Button>
                           <Button 
                             color="danger" className="boton-eliminar"
                             onClick={() => this.cargarModalEliminarVinculacion(index)}
                           >
                             <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
                             Eliminar
-                          </Button>
-                          </td>                        
+                          </Button>                          
+                        </td>                        
                     </tr>
                     )
                 })}
