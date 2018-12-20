@@ -107,4 +107,20 @@ router.get('/obtener_areas', autorizarAdministrador, function(req, res){
   })
 });
 
+router.post('/eliminar_area', autorizarAdministrador, function(req, res){
+  models.areas.destroy({where: {id: req.body.id}})
+  .then(resultado => {
+    if(resultado){
+      res.status(200).json('ok');
+    }
+    else{
+      res.status(404).json('err');
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
+  });
+});
+
 module.exports = router;
