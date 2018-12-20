@@ -199,9 +199,19 @@ router.get('/session', function(req, res){
   }
 });
 
-router.get('/hola', function(req, res){
-  bcrypt.hash("admin", 10, function(err, hash){
-    res.json(hash);
+router.post('/eliminar_usuario', autorizarAdministrador, function(req, res){
+  models.usuarios.destroy({where: {id: req.body.id}})
+  .then(resultado => {
+    if(resultado){
+      res.status(200).json('ok');
+    }
+    else{
+      res.status(404).json('err');
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json('err');
   });
 });
 

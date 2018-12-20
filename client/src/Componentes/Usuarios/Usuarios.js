@@ -9,6 +9,7 @@ import withContext from './../../Contenedor/withContext';
   constructor(props){
     super(props);
     this.state = {
+      modal_confirmacion_abierto: false,
       apellido: undefined,
       cargo: undefined,
       correo: undefined,
@@ -40,7 +41,31 @@ import withContext from './../../Contenedor/withContext';
     this.cargarModalEditarUsuario = this.cargarModalEditarUsuario.bind(this);
     this.habilitarUsuario = this.habilitarUsuario.bind(this);
     this.deshabilitarUsuario = this.deshabilitarUsuario.bind(this);
+    this.eliminarUsuario = this.eliminarUsuario.bind(this);
     this.correo_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  }
+
+  async eliminarUsuario(){
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
+
+    const eliminar_usuario_request = await fetch('/api/auth/eliminar_usuario', request_options);
+    const eliminar_usuario_response = await eliminar_usuario_request.json();
+
+    if(eliminar_usuario_response !== "err"){
+        this.setState({modal_confirmacion_abierto: false, modal_operacion_exitosa: true, mensaje: "Usuario eliminado correctamente"}, async () => {
+          this.obtenerUsuarios();
+        })
+    }
+    else{
+      this.setState({modal_confirmacion_abierto: false, modal_operacion_fallida: true, mensaje: "Error al eliminar el usuario."});
+    }
   }
 
   async habilitarUsuario() {
@@ -487,6 +512,32 @@ import withContext from './../../Contenedor/withContext';
 
     const maxDate = date.toISOString().substring(0,10);
 
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar solicitud de personal
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar el usuario?</p>          
+          <p>Si lo elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarUsuario} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+    
+
     // Modal que muestra el formulario para poder crear a un nuevo usuario
     let modal_registrar_usuario = 
       <Modal isOpen={this.state.modal_registrar_usuario_abierto} toggle={() => this.setState({modal_registrar_usuario_abierto: !this.state.modal_registrar_usuario_abierto})} size="lg">
@@ -836,6 +887,10 @@ import withContext from './../../Contenedor/withContext';
               </Button>
                 
             }
+
+            <Button color="danger" onClick={() => this.setState({modal_editar_usuario_abierto: false, modal_confirmacion_abierto: true})} className="boton-cancelar-modal">
+              Eliminar
+            </Button>
             
             <Button color="danger" onClick={() => this.setState({modal_editar_usuario_abierto: false})} className="boton-cancelar-modal">
               Cancelar
@@ -904,6 +959,7 @@ import withContext from './../../Contenedor/withContext';
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
         {modal_editar_usuario}
+        {modal_confirmacion_eliminar}
         
         <Row>
           {/* Título de la sección */}
