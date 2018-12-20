@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './AccionesRecurrentes.css';
 
@@ -20,10 +20,18 @@ export default class AccionesRecurrentes extends Component {
       accion_recurrente: undefined,
       unidad_medida_id: undefined,
       meta_fisica_anual: undefined,
-      programacion_primer_trimestre: 0,
-      programacion_segundo_trimestre: 0,
-      programacion_tercer_trimestre: 0,
-      programacion_cuarto_trimestre: 0,
+      programacion_enero: 0,
+      programacion_febrero: 0,
+      programacion_marzo: 0,
+      programacion_abril: 0,
+      programacion_mayo: 0,
+      programacion_junio: 0,
+      programacion_julio: 0,
+      programacion_agosto: 0,
+      programacion_septiembre: 0,
+      programacion_octubre: 0,
+      programacion_noviembre: 0,
+      programacion_diciembre: 0,
       medio_verificacion_id: undefined,
       unidades_de_medida: [],
       medios_de_verificacion: [],
@@ -95,7 +103,9 @@ export default class AccionesRecurrentes extends Component {
 
   async crearAccionRecurrente(){
     if(this.validarCreacionAccionRecurrente()){
-      let meta_fisica_anual = this.state.programacion_primer_trimestre + this.state.programacion_segundo_trimestre + this.state.programacion_tercer_trimestre + this.state.programacion_cuarto_trimestre;
+      let meta_fisica_anual = parseInt(this.state.programacion_enero, 10) + parseInt(this.state.programacion_febrero, 10) + parseInt(this.state.programacion_marzo, 10) + parseInt(this.state.programacion_abril, 10)
+      + parseInt(this.state.programacion_mayo, 10) + parseInt(this.state.programacion_junio, 10) + parseInt(this.state.programacion_julio, 10) + parseInt(this.state.programacion_agosto, 10) + parseInt(this.state.programacion_septiembre, 10) + 
+      parseInt(this.state.programacion_octubre, 10) + parseInt(this.state.programacion_noviembre, 10) +parseInt(this.state.programacion_diciembre, 10);
 
       const request_options = {
         method: "POST",
@@ -106,10 +116,18 @@ export default class AccionesRecurrentes extends Component {
           accion_recurrente: this.state.accion_recurrente,
           unidad_medida_id: this.state.unidad_medida_id,
           meta_fisica_anual: meta_fisica_anual,
-          programacion_primer_trimestre: this.state.programacion_primer_trimestre,
-          programacion_segundo_trimestre: this.state.programacion_segundo_trimestre,
-          programacion_tercer_trimestre: this.state.programacion_tercer_trimestre,
-          programacion_cuarto_trimestre: this.state.programacion_cuarto_trimestre,
+          programacion_enero: this.state.programacion_enero,
+          programacion_febrero: this.state.programacion_febrero,
+          programacion_marzo: this.state.programacion_marzo,
+          programacion_abril: this.state.programacion_abril,
+          programacion_mayo: this.state.programacion_mayo,
+          programacion_junio: this.state.programacion_junio,
+          programacion_julio: this.state.programacion_julio,
+          programacion_agosto: this.state.programacion_agosto,
+          programacion_septiembre: this.state.programacion_septiembre,
+          programacion_octubre: this.state.programacion_octubre,
+          programacion_noviembre: this.state.programacion_noviembre,
+          programacion_diciembre: this.state.programacion_diciembre,
           medio_verificacion_id: this.state.medio_verificacion_id,
         })
       };
@@ -147,44 +165,125 @@ export default class AccionesRecurrentes extends Component {
       document.getElementById("unidad_medida_id-modal-creacion").style.display = "none";
     }
 
-    const programacion_primer_trimestre = this.state.programacion_primer_trimestre !== undefined ? parseInt(this.state.programacion_primer_trimestre, 10) : 0;
-    const programacion_segundo_trimestre = this.state.programacion_segundo_trimestre !== undefined ? parseInt(this.state.programacion_segundo_trimestre, 10) : 0;
-    const programacion_tercer_trimestre = this.state.programacion_tercer_trimestre !== undefined ? parseInt(this.state.programacion_tercer_trimestre, 10) : 0;
-    const programacion_cuarto_trimestre = this.state.programacion_cuarto_trimestre !== undefined ? parseInt(this.state.programacion_cuarto_trimestre, 10) : 0;
+    const programacion_enero = this.state.programacion_enero !== undefined ? parseInt(this.state.programacion_enero, 10) : 0;
+    const programacion_febrero = this.state.programacion_febrero !== undefined ? parseInt(this.state.programacion_febrero, 10) : 0;
+    const programacion_marzo = this.state.programacion_marzo !== undefined ? parseInt(this.state.programacion_marzo, 10) : 0;
+    const programacion_abril = this.state.programacion_abril !== undefined ? parseInt(this.state.programacion_abril, 10) : 0;
+    const programacion_mayo = this.state.programacion_mayo !== undefined ? parseInt(this.state.programacion_mayo, 10) : 0;
+    const programacion_junio = this.state.programacion_junio !== undefined ? parseInt(this.state.programacion_junio, 10) : 0;
+    const programacion_julio = this.state.programacion_julio !== undefined ? parseInt(this.state.programacion_julio, 10) : 0;
+    const programacion_agosto = this.state.programacion_agosto !== undefined ? parseInt(this.state.programacion_agosto, 10) : 0;
+    const programacion_septiembre = this.state.programacion_septiembre !== undefined ? parseInt(this.state.programacion_septiembre, 10) : 0;
+    const programacion_octubre = this.state.programacion_octubre !== undefined ? parseInt(this.state.programacion_octubre, 10) : 0;
+    const programacion_noviembre = this.state.programacion_noviembre !== undefined ? parseInt(this.state.programacion_noviembre, 10) : 0;
+    const programacion_diciembre = this.state.programacion_diciembre !== undefined ? parseInt(this.state.programacion_diciembre, 10) : 0;
 
-    const suma_programacion_trimestral = programacion_primer_trimestre + programacion_segundo_trimestre + programacion_tercer_trimestre + programacion_cuarto_trimestre;
+    const suma_programacion_trimestral = programacion_enero + programacion_febrero + programacion_marzo + programacion_abril + programacion_mayo + programacion_junio + 
+    programacion_julio + programacion_agosto + programacion_septiembre + programacion_octubre + programacion_noviembre + programacion_diciembre;
 
 
-    if(this.state.programacion_primer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_primer_trimestre)){
+    if(this.state.programacion_enero === undefined || !/^[0-9]+$/.test(this.state.programacion_enero)){
       formulario_valido = false;
-      document.getElementById("programacion_primer_trimestre-modal-creacion").style.display = "block";
+      document.getElementById("programacion_enero-modal-creacion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_primer_trimestre-modal-creacion").style.display = "none";
+      document.getElementById("programacion_enero-modal-creacion").style.display = "none";
     }
 
-    if(this.state.programacion_segundo_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_segundo_trimestre)){
+    if(this.state.programacion_febrero === undefined || !/^[0-9]+$/.test(this.state.programacion_febrero)){
       formulario_valido = false;
-      document.getElementById("programacion_segundo_trimestre-modal-creacion").style.display = "block";
+      document.getElementById("programacion_febrero-modal-creacion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_segundo_trimestre-modal-creacion").style.display = "none";
+      document.getElementById("programacion_febrero-modal-creacion").style.display = "none";
     }
 
-    if(this.state.programacion_tercer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_tercer_trimestre)){
+    if(this.state.programacion_marzo === undefined || !/^[0-9]+$/.test(this.state.programacion_marzo)){
       formulario_valido = false;
-      document.getElementById("programacion_tercer_trimestre-modal-creacion").style.display = "block";
+      document.getElementById("programacion_marzo-modal-creacion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_tercer_trimestre-modal-creacion").style.display = "none";
+      document.getElementById("programacion_marzo-modal-creacion").style.display = "none";
     }
 
-    if(this.state.programacion_cuarto_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_cuarto_trimestre)){
+    if(this.state.programacion_abril === undefined || !/^[0-9]+$/.test(this.state.programacion_abril)){
       formulario_valido = false;
-      document.getElementById("programacion_cuarto_trimestre-modal-creacion").style.display = "block";
+      document.getElementById("programacion_abril-modal-creacion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_cuarto_trimestre-modal-creacion").style.display = "none";
+      document.getElementById("programacion_abril-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_mayo === undefined || !/^[0-9]+$/.test(this.state.programacion_mayo)){
+      formulario_valido = false;
+      document.getElementById("programacion_mayo-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_mayo-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_mayo === undefined || !/^[0-9]+$/.test(this.state.programacion_mayo)){
+      formulario_valido = false;
+      document.getElementById("programacion_mayo-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_mayo-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_junio === undefined || !/^[0-9]+$/.test(this.state.programacion_junio)){
+      formulario_valido = false;
+      document.getElementById("programacion_junio-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_junio-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_julio === undefined || !/^[0-9]+$/.test(this.state.programacion_julio)){
+      formulario_valido = false;
+      document.getElementById("programacion_julio-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_julio-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_agosto === undefined || !/^[0-9]+$/.test(this.state.programacion_agosto)){
+      formulario_valido = false;
+      document.getElementById("programacion_agosto-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_agosto-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_septiembre === undefined || !/^[0-9]+$/.test(this.state.programacion_septiembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_septiembre-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_septiembre-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_octubre === undefined || !/^[0-9]+$/.test(this.state.programacion_octubre)){
+      formulario_valido = false;
+      document.getElementById("programacion_octubre-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_octubre-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_noviembre === undefined || !/^[0-9]+$/.test(this.state.programacion_noviembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_noviembre-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_noviembre-modal-creacion").style.display = "none";
+    }
+
+    if(this.state.programacion_diciembre === undefined || !/^[0-9]+$/.test(this.state.programacion_diciembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_diciembre-modal-creacion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_diciembre-modal-creacion").style.display = "none";
     }
 
     if(this.state.medio_verificacion_id === undefined){
@@ -200,8 +299,9 @@ export default class AccionesRecurrentes extends Component {
 
   async editarAccionRecurrente(){
     if(this.validarEdicionAccionRecurrente()){
-      let meta_fisica_anual = this.state.programacion_primer_trimestre + this.state.programacion_segundo_trimestre + this.state.programacion_tercer_trimestre + this.state.programacion_cuarto_trimestre;
+      let meta_fisica_anual = this.state.programacion_enero + this.state.programacion_febrero + this.state.programacion_marzo + this.state.programacion_abril + this.state.programacion_mayo + this.state.programacion_junio + this.state.programacion_julio + this.state.programacion_agosto + this.state.programacion_septiembre +  this.state.programacion_octubre + this.state.programacion_noviembre + this.state.programacion_diciembre;
 
+console.log(meta_fisica_anual);
       const request_options = {
         method: "POST",
         credentials: "include",
@@ -211,14 +311,24 @@ export default class AccionesRecurrentes extends Component {
           accion_recurrente: this.state.accion_recurrente,
           unidad_medida_id: this.state.unidad_medida_id,
           meta_fisica_anual: meta_fisica_anual,
-          programacion_primer_trimestre: this.state.programacion_primer_trimestre,
-          programacion_segundo_trimestre: this.state.programacion_segundo_trimestre,
-          programacion_tercer_trimestre: this.state.programacion_tercer_trimestre,
-          programacion_cuarto_trimestre: this.state.programacion_cuarto_trimestre,
+          programacion_enero: this.state.programacion_enero,
+          programacion_febrero: this.state.programacion_febrero,
+          programacion_marzo: this.state.programacion_marzo,
+          programacion_abril: this.state.programacion_abril,
+          programacion_mayo: this.state.programacion_mayo,
+          programacion_junio: this.state.programacion_junio,
+          programacion_julio: this.state.programacion_julio,
+          programacion_agosto: this.state.programacion_agosto,
+          programacion_septiembre: this.state.programacion_septiembre,
+          programacion_octubre: this.state.programacion_octubre,
+          programacion_noviembre: this.state.programacion_noviembre,
+          programacion_diciembre: this.state.programacion_diciembre,
           medio_verificacion_id: this.state.medio_verificacion_id,
           id: this.state.id
         })
       };
+
+      console.log(request_options);
 
       const modificar_accion_recurrente_request = await fetch('/api/acciones_recurrentes/modificar_accion_recurrente', request_options);
       const modificar_accion_recurrente_response = await modificar_accion_recurrente_request.json(); 
@@ -253,45 +363,118 @@ export default class AccionesRecurrentes extends Component {
       document.getElementById("unidad_medida_id-modal-edicion").style.display = "none";
     }
 
-    const programacion_primer_trimestre = this.state.programacion_primer_trimestre !== undefined ? parseInt(this.state.programacion_primer_trimestre, 10) : 0;
-    const programacion_segundo_trimestre = this.state.programacion_segundo_trimestre !== undefined ? parseInt(this.state.programacion_segundo_trimestre, 10) : 0;
-    const programacion_tercer_trimestre = this.state.programacion_tercer_trimestre !== undefined ? parseInt(this.state.programacion_tercer_trimestre, 10) : 0;
-    const programacion_cuarto_trimestre = this.state.programacion_cuarto_trimestre !== undefined ? parseInt(this.state.programacion_cuarto_trimestre, 10) : 0;
+    const programacion_enero = this.state.programacion_enero !== undefined ? parseInt(this.state.programacion_enero, 10) : 0;
+    const programacion_febrero = this.state.programacion_febrero !== undefined ? parseInt(this.state.programacion_febrero, 10) : 0;
+    const programacion_marzo = this.state.programacion_marzo !== undefined ? parseInt(this.state.programacion_marzo, 10) : 0;
+    const programacion_abril = this.state.programacion_abril !== undefined ? parseInt(this.state.programacion_abril, 10) : 0;
 
-    const suma_programacion_trimestral = programacion_primer_trimestre + programacion_segundo_trimestre + programacion_tercer_trimestre + programacion_cuarto_trimestre;
+    const suma_programacion_trimestral = programacion_enero + programacion_febrero + programacion_marzo + programacion_abril;
 
 
-    if(this.state.programacion_primer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_primer_trimestre)){
+    if(this.state.programacion_enero === undefined || !/^[0-9]+$/.test(this.state.programacion_enero)){
       formulario_valido = false;
-      document.getElementById("programacion_primer_trimestre-modal-edicion").style.display = "block";
+      document.getElementById("programacion_enero-modal-edicion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_primer_trimestre-modal-edicion").style.display = "none";
+      document.getElementById("programacion_enero-modal-edicion").style.display = "none";
     }
 
-    if(this.state.programacion_segundo_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_segundo_trimestre)){
+    if(this.state.programacion_febrero === undefined || !/^[0-9]+$/.test(this.state.programacion_febrero)){
       formulario_valido = false;
-      document.getElementById("programacion_segundo_trimestre-modal-edicion").style.display = "block";
+      document.getElementById("programacion_febrero-modal-edicion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_segundo_trimestre-modal-edicion").style.display = "none";
+      document.getElementById("programacion_febrero-modal-edicion").style.display = "none";
     }
 
-    if(this.state.programacion_tercer_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_tercer_trimestre)){
+    if(this.state.programacion_marzo === undefined || !/^[0-9]+$/.test(this.state.programacion_marzo)){
       formulario_valido = false;
-      document.getElementById("programacion_tercer_trimestre-modal-edicion").style.display = "block";
+      document.getElementById("programacion_marzo-modal-edicion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_tercer_trimestre-modal-edicion").style.display = "none";
+      document.getElementById("programacion_marzo-modal-edicion").style.display = "none";
     }
 
-    if(this.state.programacion_cuarto_trimestre === undefined || !/^[0-9]+$/.test(this.state.programacion_cuarto_trimestre)){
+    if(this.state.programacion_abril === undefined || !/^[0-9]+$/.test(this.state.programacion_abril)){
       formulario_valido = false;
-      document.getElementById("programacion_cuarto_trimestre-modal-edicion").style.display = "block";
+      document.getElementById("programacion_abril-modal-edicion").style.display = "block";
     }
     else{
-      document.getElementById("programacion_cuarto_trimestre-modal-edicion").style.display = "none";
+      document.getElementById("programacion_abril-modal-edicion").style.display = "none";
     }
+
+    if(this.state.programacion_mayo === undefined || !/^[0-9]+$/.test(this.state.programacion_mayo)){
+      formulario_valido = false;
+      document.getElementById("programacion_mayo-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_mayo-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_mayo === undefined || !/^[0-9]+$/.test(this.state.programacion_mayo)){
+      formulario_valido = false;
+      document.getElementById("programacion_mayo-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_mayo-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_junio === undefined || !/^[0-9]+$/.test(this.state.programacion_junio)){
+      formulario_valido = false;
+      document.getElementById("programacion_junio-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_junio-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_julio === undefined || !/^[0-9]+$/.test(this.state.programacion_julio)){
+      formulario_valido = false;
+      document.getElementById("programacion_julio-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_julio-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_agosto === undefined || !/^[0-9]+$/.test(this.state.programacion_agosto)){
+      formulario_valido = false;
+      document.getElementById("programacion_agosto-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_agosto-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_septiembre === undefined || !/^[0-9]+$/.test(this.state.programacion_septiembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_septiembre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_septiembre-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_octubre === undefined || !/^[0-9]+$/.test(this.state.programacion_octubre)){
+      formulario_valido = false;
+      document.getElementById("programacion_octubre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_octubre-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_noviembre === undefined || !/^[0-9]+$/.test(this.state.programacion_noviembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_noviembre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_noviembre-modal-edicion").style.display = "none";
+    }
+
+    if(this.state.programacion_diciembre === undefined || !/^[0-9]+$/.test(this.state.programacion_diciembre)){
+      formulario_valido = false;
+      document.getElementById("programacion_diciembre-modal-edicion").style.display = "block";
+    }
+    else{
+      document.getElementById("programacion_diciembre-modal-edicion").style.display = "none";
+    }
+
 
     if(this.state.medio_verificacion_id === undefined){
       formulario_valido = false;
@@ -356,7 +539,6 @@ export default class AccionesRecurrentes extends Component {
     const acciones_recurrentes_response = await acciones_recurrentes_request.json();
     
     if(acciones_recurrentes_response.estado !== "err"){
-      console.log(acciones_recurrentes_response);
       this.setState({
         acciones_recurrentes: acciones_recurrentes_response
       });
@@ -429,51 +611,131 @@ export default class AccionesRecurrentes extends Component {
           </FormGroup> 
 
           <FormGroup row>
-            {/* Programación física trimestral*/}
+            {/* Programación física mensual*/}
             <Col xs={12} sm={12} md={12} lg={12}>
-              <Label>Programación física trimestral*</Label>
+              <Label>Programación física mensual*</Label>
               <br/>
               <span id="programacion_fisica_trimestral-modal-creacion" className="error-acciones-recurrentes">La suma de la programación física trimestral no coincide con la meta física anual.</span>
             </Col>
 
-            {/* Programación física del primer trimestre*/}
+            {/* Programación física de enero*/}
             <Col xs={12} sm={12} md={3} lg={3}>
-              <Label>Primer trimestre*</Label>
+              <Label>Enero*</Label>
               <Input 
-                defaultValue={this.state.programacion_primer_trimestre}
-                onChange={(e) => this.setState({programacion_primer_trimestre: e.target.value})}
+                defaultValue={this.state.programacion_enero}
+                onChange={(e) => this.setState({programacion_enero: parseInt(e.target.value, 10)})}
               />
-              <span id="programacion_primer_trimestre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+              <span id="programacion_enero-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
             </Col>
 
-            {/* Programación física del segundo trimestre*/}
+            {/* Programación física de febrero*/}
             <Col xs={12} sm={12} md={3} lg={3}>
-              <Label>Segundo trimestre*</Label>
+              <Label>Febrero*</Label>
               <Input 
-                defaultValue={this.state.programacion_segundo_trimestre}
-                onChange={(e) => this.setState({programacion_segundo_trimestre: e.target.value})}
+                defaultValue={this.state.programacion_febrero}
+                onChange={(e) => this.setState({programacion_febrero: parseInt(e.target.value, 10)})}
               />
-              <span id="programacion_segundo_trimestre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+              <span id="programacion_febrero-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
             </Col>
 
-            {/* Programación física del tercer trimestre*/}
+            {/* Programación física de marzo*/}
             <Col xs={12} sm={12} md={3} lg={3}>
-              <Label>Tercer trimestre*</Label>
+              <Label>Marzo*</Label>
               <Input 
-                defaultValue={this.state.programacion_tercer_trimestre}
-                onChange={(e) => this.setState({programacion_tercer_trimestre: e.target.value})}
+                defaultValue={this.state.programacion_marzo}
+                onChange={(e) => this.setState({programacion_marzo: parseInt(e.target.value, 10)})}
               />
-              <span id="programacion_tercer_trimestre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+              <span id="programacion_marzo-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
             </Col>
 
-            {/* Programación física del cuarto trimestre*/}
+            {/* Programación física de abril*/}
             <Col xs={12} sm={12} md={3} lg={3}>
-              <Label>Cuarto trimestre*</Label>
+              <Label>Abril*</Label>
               <Input 
-                defaultValue={this.state.programacion_cuarto_trimestre}
-                onChange={(e) => this.setState({programacion_cuarto_trimestre: e.target.value})}
+                defaultValue={this.state.programacion_abril}
+                onChange={(e) => this.setState({programacion_abril: parseInt(e.target.value, 10)})}
               />
-              <span id="programacion_cuarto_trimestre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+              <span id="programacion_abril-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de mayo*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Mayo*</Label>
+              <Input 
+                defaultValue={this.state.programacion_mayo}
+                onChange={(e) => this.setState({programacion_mayo: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_mayo-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de junio*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Junio*</Label>
+              <Input 
+                defaultValue={this.state.programacion_junio}
+                onChange={(e) => this.setState({programacion_junio: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_junio-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de julio*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Julio*</Label>
+              <Input 
+                defaultValue={this.state.programacion_julio}
+                onChange={(e) => this.setState({programacion_julio: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_julio-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de agosto*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Agosto*</Label>
+              <Input 
+                defaultValue={this.state.programacion_agosto}
+                onChange={(e) => this.setState({programacion_agosto: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_agosto-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de septiembre*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Septiembre*</Label>
+              <Input 
+                defaultValue={this.state.programacion_septiembre}
+                onChange={(e) => this.setState({programacion_septiembre: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_septiembre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de octubre*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Octubre*</Label>
+              <Input 
+                defaultValue={this.state.programacion_octubre}
+                onChange={(e) => this.setState({programacion_octubre: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_octubre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de noviembre*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Noviembre*</Label>
+              <Input 
+                defaultValue={this.state.programacion_noviembre}
+                onChange={(e) => this.setState({programacion_noviembre: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_noviembre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+            </Col>
+
+            {/* Programación física de diciembre*/}
+            <Col xs={12} sm={12} md={3} lg={3}>
+              <Label>Diciembre*</Label>
+              <Input 
+                defaultValue={this.state.programacion_diciembre}
+                onChange={(e) => this.setState({programacion_diciembre: parseInt(e.target.value, 10)})}
+              />
+              <span id="programacion_diciembre-modal-creacion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
             </Col>
           </FormGroup>    
 
@@ -552,49 +814,129 @@ export default class AccionesRecurrentes extends Component {
             <FormGroup row>
               {/* Programación física trimestral*/}
               <Col xs={12} sm={12} md={12} lg={12}>
-                <Label>Programación física trimestral*</Label>
+                <Label>Programación física mensual*</Label>
                 <br/>
                 <span id="programacion_fisica_trimestral-modal-edicion" className="error-acciones-recurrentes">La suma de la programación física trimestral no coincide con la meta física anual.</span>
               </Col>
 
-              {/* Programación física del primer trimestre*/}
+              {/* Programación física de enero*/}
               <Col xs={12} sm={12} md={3} lg={3}>
-                <Label>Primer trimestre*</Label>
+                <Label>Enero*</Label>
                 <Input 
-                  defaultValue={this.state.programacion_primer_trimestre}
-                  onChange={(e) => this.setState({programacion_primer_trimestre: e.target.value})}
+                  defaultValue={this.state.programacion_enero}
+                  onChange={(e) => this.setState({programacion_enero: parseInt(e.target.value, 10)})}
                 />
-                <span id="programacion_primer_trimestre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+                <span id="programacion_enero-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
               </Col>
 
-              {/* Programación física del segundo trimestre*/}
+              {/* Programación física de febrero*/}
               <Col xs={12} sm={12} md={3} lg={3}>
                 <Label>Segundo trimestre*</Label>
                 <Input 
-                  defaultValue={this.state.programacion_segundo_trimestre}
-                  onChange={(e) => this.setState({programacion_segundo_trimestre: e.target.value})}
+                  defaultValue={this.state.programacion_febrero}
+                  onChange={(e) => this.setState({programacion_febrero: parseInt(e.target.value, 10)})}
                 />
-                <span id="programacion_segundo_trimestre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+                <span id="programacion_febrero-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
               </Col>
 
-              {/* Programación física del tercer trimestre*/}
+              {/* Programación física de marzo*/}
               <Col xs={12} sm={12} md={3} lg={3}>
-                <Label>Tercer trimestre*</Label>
+                <Label>Marzo*</Label>
                 <Input 
-                  defaultValue={this.state.programacion_tercer_trimestre}
-                  onChange={(e) => this.setState({programacion_tercer_trimestre: e.target.value})}
+                  defaultValue={this.state.programacion_marzo}
+                  onChange={(e) => this.setState({programacion_marzo: parseInt(e.target.value, 10)})}
                 />
-                <span id="programacion_tercer_trimestre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+                <span id="programacion_marzo-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
               </Col>
 
-              {/* Programación física del cuarto trimestre*/}
+              {/* Programación física de abril*/}
               <Col xs={12} sm={12} md={3} lg={3}>
-                <Label>Cuarto trimestre*</Label>
+                <Label>Abril*</Label>
                 <Input 
-                  defaultValue={this.state.programacion_cuarto_trimestre}
-                  onChange={(e) => this.setState({programacion_cuarto_trimestre: e.target.value})}
+                  defaultValue={this.state.programacion_abril}
+                  onChange={(e) => this.setState({programacion_abril: parseInt(e.target.value, 10)})}
                 />
-                <span id="programacion_cuarto_trimestre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este trimestre, coloque 0.</span>
+                <span id="programacion_abril-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de mayo*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Mayo*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_mayo}
+                  onChange={(e) => this.setState({programacion_mayo: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_mayo-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de junio*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Junio*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_junio}
+                  onChange={(e) => this.setState({programacion_junio: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_junio-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de julio*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Julio*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_julio}
+                  onChange={(e) => this.setState({programacion_julio: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_julio-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de agosto*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Agosto*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_agosto}
+                  onChange={(e) => this.setState({programacion_agosto: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_agosto-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de Septiembre*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Septiembre*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_septiembre}
+                  onChange={(e) => this.setState({programacion_septiembre: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_septiembre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de octubre*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Octubre*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_octubre}
+                  onChange={(e) => this.setState({programacion_octubre: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_octubre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+              {/* Programación física de noviembre*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Noviembre*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_noviembre}
+                  onChange={(e) => this.setState({programacion_noviembre: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_noviembre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
+              </Col>
+
+            {/* Programación física de diciembre*/}
+              <Col xs={12} sm={12} md={3} lg={3}>
+                <Label>Diciembre*</Label>
+                <Input 
+                  defaultValue={this.state.programacion_diciembre}
+                  onChange={(e) => this.setState({programacion_diciembre: parseInt(e.target.value, 10)})}
+                />
+                <span id="programacion_diciembre-modal-edicion" className="error-acciones-recurrentes">Programación inválida. Utilice únicamente números enteros no negativos. Si no desea una programación para este mes, coloque 0.</span>
               </Col>
             </FormGroup>    
 
@@ -721,6 +1063,15 @@ export default class AccionesRecurrentes extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion/objetivos-especificos`)}>Gestión de Objetivos Específicos</BreadcrumbItem>
+            <BreadcrumbItem active>Gestión de Acciones Recurrentes</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_crear_accion_recurrente}
         {modal_editar_accion_recurrente}
@@ -739,7 +1090,7 @@ export default class AccionesRecurrentes extends Component {
 
         <Row>
           <Col xs={12}>
-            <Table striped>
+            <Table striped >
               <thead>
                 <tr>
                   <th colSpan="4">Objetivo específico asociado</th>
@@ -778,22 +1129,30 @@ export default class AccionesRecurrentes extends Component {
             </Col>
             
             <Col xs={12}>
-              <Table striped>
+              <Table striped className="tabla-unidad-solicitante">
                 <thead>
                   <tr>
-                    <th colspan="4" scope="colgroup"></th>                  
-                    <th colspan="4" scope="colgroup" className="text-center">Programación Física Trimestral</th>
-                    <th colspan="2" scope="colgroup" align="center"></th>
+                    <th colSpan="4" scope="colgroup"></th>                  
+                    <th colSpan="12" scope="colgroup" className="text-center">Programación Física Mensual</th>
+                    <th colSpan="2" scope="colgroup" align="center"></th>
                   </tr>
                   <tr>
                     <th>ID</th>
                     <th>Acción Recurrente</th>
                     <th>Unidad de Medida</th>
                     <th>Meta Física Anual</th>
-                    <th className="text-center">I</th>
-                    <th className="text-center">II</th>
-                    <th className="text-center">III</th>
-                    <th className="text-center">IV</th>
+                    <th className="text-center">Ene</th>
+                    <th className="text-center">Feb</th>
+                    <th className="text-center">Mar</th>
+                    <th className="text-center">Abr</th>
+                    <th className="text-center">May</th>
+                    <th className="text-center">Jun</th>
+                    <th className="text-center">Jul</th>
+                    <th className="text-center">Ago</th>
+                    <th className="text-center">Sep</th>
+                    <th className="text-center">Oct</th>
+                    <th className="text-center">Nov</th>
+                    <th className="text-center">Dic</th>
                     <th>Medio de Verificación</th>
                     <th>Opciones</th>
                   </tr>
@@ -801,22 +1160,30 @@ export default class AccionesRecurrentes extends Component {
                 <tbody>
                   {this.state.acciones_recurrentes.map((accion, index) => {
                     return(
-                      <tr>
+                      <tr key={`accion_recurrente_${accion.id}`}>
                         <td>{accion.id}</td>
                         <td>{accion.accion_recurrente}</td>
                         <td className="text-center">{this.obtenerNombreUnidadDeMedida(accion.unidad_medida_id)}</td>
                         <td className="text-center">{accion.meta_fisica_anual}</td>
-                        <td className="text-center">{accion.programacion_primer_trimestre}</td>
-                        <td className="text-center">{accion.programacion_segundo_trimestre}</td>
-                        <td className="text-center">{accion.programacion_tercer_trimestre}</td>
-                        <td className="text-center">{accion.programacion_cuarto_trimestre}</td>
+                        <td className="text-center">{accion.programacion_enero}</td>
+                        <td className="text-center">{accion.programacion_febrero}</td>
+                        <td className="text-center">{accion.programacion_marzo}</td>
+                        <td className="text-center">{accion.programacion_abril}</td>
+                        <td className="text-center">{accion.programacion_mayo}</td>
+                        <td className="text-center">{accion.programacion_junio}</td>
+                        <td className="text-center">{accion.programacion_julio}</td>
+                        <td className="text-center">{accion.programacion_agosto}</td>
+                        <td className="text-center">{accion.programacion_septiembre}</td>
+                        <td className="text-center">{accion.programacion_octubre}</td>
+                        <td className="text-center">{accion.programacion_noviembre}</td>
+                        <td className="text-center">{accion.programacion_diciembre}</td>
                         <td className="text-center">{this.obtenerNombreMedioDeVerificacion(accion.medio_verificacion_id)}</td>
                         <td>
                           <Button 
                             color="info" className="boton-gestionar"
                             onClick={() => this.cargarModalEdicion(index)}
                           >
-                            <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                             Gestionar
                           </Button>
                         </td>

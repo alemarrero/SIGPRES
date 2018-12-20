@@ -12,6 +12,11 @@ router.post('/crear_antecedente', autorizarAdministrador, function(req, res, nex
     debilidades: req.body.debilidades,
     fortalezas: req.body.fortalezas,
     amenazas: req.body.amenazas,
+    objetivo_general: req.body.objetivo_general,
+    oportunidades_fortalezas: req.body.oportunidades_fortalezas,
+    oportunidades_debilidades: req.body.oportunidades_debilidades,
+    amenazas_fortalezas: req.body.amenazas_fortalezas,
+    amenazas_debilidades: req.body.amenazas_debilidades,
     oportunidades: req.body.oportunidades
   })  
   .then(response => {
@@ -34,6 +39,11 @@ router.post('/actualizar_antecedente', autorizarAdministrador, function(req, res
     debilidades: req.body.debilidades,
     fortalezas: req.body.fortalezas,
     amenazas: req.body.amenazas,
+    objetivo_general: req.body.objetivo_general,
+    oportunidades_fortalezas: req.body.oportunidades_fortalezas,
+    oportunidades_debilidades: req.body.oportunidades_debilidades,
+    amenazas_fortalezas: req.body.amenazas_fortalezas,
+    amenazas_debilidades: req.body.amenazas_debilidades,
     oportunidades: req.body.oportunidades
   },
   {where: {id: req.body.id}})

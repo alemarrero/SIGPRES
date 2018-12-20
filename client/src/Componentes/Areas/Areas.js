@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Areas.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
 
@@ -9,6 +9,7 @@ export class Areas extends Component {
     super(props);
     this.state = {
       areas: [],
+      modal_confirmacion_abierto: false,
       modal_crear_area_abierto: false,
       modal_editar_area_abierto: false,
       nombre: undefined,
@@ -27,6 +28,30 @@ export class Areas extends Component {
     this.editarArea = this.editarArea.bind(this);
     this.validarModalCreacion = this.validarModalCreacion.bind(this);
     this.validarModalEdicion = this.validarModalEdicion.bind(this);
+    this.eliminarArea = this.eliminarArea.bind(this);
+  }
+
+  async eliminarArea(){
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
+
+    const eliminar_area_request = await fetch('/api/areas/eliminar_area', request_options);
+    const eliminar_area_response = await eliminar_area_request.json();
+
+    if(eliminar_area_response !== "err"){
+        this.setState({modal_confirmacion_abierto: false, modal_operacion_exitosa: true, mensaje: "Area eliminada correctamente"}, async () => {
+          this.obtenerAreas();
+        })
+    }
+    else{
+      this.setState({modal_confirmacion_abierto: false, modal_operacion_fallida: true, mensaje: "Error al eliminar el Area."});
+    }
   }
 
   async editarArea(){
@@ -326,6 +351,10 @@ export class Areas extends Component {
               </Button>
             }
             
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_area_abierto: false})} className="boton-cancelar-modal">
+              Eliminar
+            </Button>
+
             <Button color="danger" onClick={() => this.setState({modal_editar_area_abierto: false})} className="boton-cancelar-modal">
               Cancelar
             </Button>
@@ -378,13 +407,47 @@ export class Areas extends Component {
       </Modal>
     ;
 
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar área
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar el área?</p>          
+          <p>Si la elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarArea} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+
     return (
         <Container fluid className="container-unidades-de-medida">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/areas`)} >Gestión de Áreas</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_area}
           {modal_editar_area}
           {modal_operacion_fallida}
           {modal_operacion_exitosa}
+          {modal_confirmacion_eliminar}
 
           <Row>
             {/* Título de la sección */}

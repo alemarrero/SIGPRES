@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './UnidadesDeMedida.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import medida from '../../assets/img/unidad-medida.png';
 import withContext from '../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
@@ -18,8 +18,10 @@ export class UnidadesDeMedida extends Component {
       tipo: "acciones recurrentes",
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
+      modal_confirmacion_abierto: false
     };
     this.obtenerUnidadesDeMedida = this.obtenerUnidadesDeMedida.bind(this);
+    this.eliminarUnidadDeMedida = this.eliminarUnidadDeMedida.bind(this);
     this.verificarSesion = this.verificarSesion.bind(this);
     this.crearUnidadDeMedida = this.crearUnidadDeMedida.bind(this);
     this.cargarModalEditarUnidad = this.cargarModalEditarUnidad.bind(this);
@@ -28,6 +30,29 @@ export class UnidadesDeMedida extends Component {
     this.editarUnidad = this.editarUnidad.bind(this);
     this.validarModalCreacion = this.validarModalCreacion.bind(this);
     this.validarModalEdicion = this.validarModalEdicion.bind(this);
+  }
+
+  async eliminarUnidadDeMedida(){
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
+
+    const eliminar_unidad_request = await fetch('/api/unidades_de_medida/eliminar_unidad_de_medida', request_options);
+    const eliminar_unidad_response = await eliminar_unidad_request.json();
+
+    if(eliminar_unidad_response !== "err"){
+        this.setState({modal_confirmacion_abierto: false, modal_operacion_exitosa: true, mensaje: "Unidad de medida eliminada correctamente"}, async () => {
+          this.obtenerUnidadesDeMedida();
+        })
+    }
+    else{
+      this.setState({modal_confirmacion_abierto: false, modal_operacion_fallida: true, mensaje: "Error al eliminar la unidad de medida."});
+    }
   }
 
   async editarUnidad(){
@@ -206,6 +231,31 @@ export class UnidadesDeMedida extends Component {
 
   render() {
 
+    let modal_confirmacion_eliminar = 
+        <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+            Eliminar unidad de medida
+          </ModalHeader>
+
+          <ModalBody>
+            <p>¿Seguro que desea eliminar la unidad de medida?</p>          
+            <p>Si la elimina no podrá recuperarlo luego.</p>
+          </ModalBody>
+
+          <ModalFooter>
+            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <Button color="danger" onClick={this.eliminarUnidadDeMedida} className="boton-eliminar-solicitud">
+                Eliminar
+              </Button>   
+              <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+                Cancelar
+              </Button>
+            </Col>
+          </ModalFooter>
+
+        </Modal>
+      ;
+
     // Modal que muestra el formulario para poder crear una nueva unidad de medida
     let modal_crear_unidad = 
       <Modal isOpen={this.state.modal_crear_unidad_abierto} toggle={() => this.setState({modal_crear_unidad_abierto: !this.state.modal_crear_unidad_abierto})} size="md">
@@ -311,6 +361,10 @@ export class UnidadesDeMedida extends Component {
               </Button>
             }
             
+            <Button color="danger" onClick={() => this.setState({modal_editar_unidad_abierto: false, modal_confirmacion_abierto: true})} className="boton-cancelar-modal">
+              Eliminar
+            </Button>
+
             <Button color="danger" onClick={() => this.setState({modal_editar_unidad_abierto: false})} className="boton-cancelar-modal">
               Cancelar
             </Button>
@@ -365,11 +419,20 @@ export class UnidadesDeMedida extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/unidades-de-medida`)} >Gestión de Unidades de Medida</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_unidad}
           {modal_editar_unidad}
           {modal_operacion_fallida}
           {modal_operacion_exitosa}
+          {modal_confirmacion_eliminar}
 
           <Row>
             {/* Título de la sección */}

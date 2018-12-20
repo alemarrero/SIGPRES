@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import contabilidad from '../../assets/img/contabilidad.png';
 import withContext from './../../Contenedor/withContext';
 import './VinculacionPoaPresupuesto.css'
@@ -916,6 +916,15 @@ export class VinculacionPoaPresupuesto extends Component {
 
     return (
         <Container fluid className="container-solicitud-de-requerimientos">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem active>Vinculación POA - Presupuesto</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_vinculacion_accion_producto}
           {modal_editar_vinculacion}
@@ -939,6 +948,12 @@ export class VinculacionPoaPresupuesto extends Component {
               <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_reporte_vinculacion_acciones_productos">
                 <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
                   <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar reporte
+                </Button>                        
+              </a>   
+
+              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_poa_financiero_full">
+                <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
+                  <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar POA Financiero
                 </Button>                        
               </a>              
             </Col>

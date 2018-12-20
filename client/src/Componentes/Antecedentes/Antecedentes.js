@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Antecedentes.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
@@ -12,6 +12,7 @@ export class Antecedentes extends Component {
       antecedentes: [],
       inicio_periodo: 1950,
       fin_periodo: 1950,
+      objetivo_general: undefined,
       periodo: undefined,
       mision: undefined,
       vision: undefined,
@@ -19,6 +20,10 @@ export class Antecedentes extends Component {
       fortalezas: undefined,
       amenazas: undefined,
       oportunidades: undefined,
+      oportunidades_fortalezas: undefined,
+      oportunidades_debilidades: undefined,
+      amenazas_fortalezas: undefined,
+      amenazas_debilidades: undefined,
       modal_operacion_fallida: false,
       modal_operacion_exitosa: false,
       modal_confirmacion_abierto: false,
@@ -68,6 +73,46 @@ export class Antecedentes extends Component {
       document.getElementById("error-periodo").style.display = "none";
     }
 
+    if(this.state.objetivo_general === undefined || this.state.objetivo_general === ""){
+      formulario_valido = false;
+      document.getElementById("error-objetivo-general").style.display = "block";
+    }
+    else{
+      document.getElementById("error-objetivo-general").style.display = "none";
+    }
+
+    if(this.state.oportunidades_fortalezas === undefined || this.state.oportunidades_fortalezas === ""){
+      formulario_valido = false;
+      document.getElementById("error-oportunidades-fortalezas").style.display = "block";
+    }
+    else{
+      document.getElementById("error-oportunidades-fortalezas").style.display = "none";
+    }
+
+    if(this.state.oportunidades_debilidades === undefined || this.state.oportunidades_debilidades === ""){
+      formulario_valido = false;
+      document.getElementById("error-oportunidades-debilidades").style.display = "block";
+    }
+    else{
+      document.getElementById("error-oportunidades-debilidades").style.display = "none";
+    }
+
+    if(this.state.amenazas_fortalezas === undefined || this.state.amenazas_fortalezas === ""){
+      formulario_valido = false;
+      document.getElementById("error-amenazas-fortalezas").style.display = "block";
+    }
+    else{
+      document.getElementById("error-amenazas-fortalezas").style.display = "none";
+    }
+
+    if(this.state.amenazas_debilidades === undefined || this.state.amenazas_debilidades === ""){
+      formulario_valido = false;
+      document.getElementById("error-amenazas-debilidades").style.display = "block";
+    }
+    else{
+      document.getElementById("error-amenazas-debilidades").style.display = "none";
+    }
+
     if(this.state.mision === undefined || this.state.mision === ""){
       formulario_valido = false;
       document.getElementById("error-mision").style.display = "block";
@@ -100,6 +145,11 @@ export class Antecedentes extends Component {
           fortalezas: this.state.fortalezas,
           amenazas: this.state.amenazas,
           oportunidades: this.state.oportunidades,
+          objetivo_general: this.state.objetivo_general,
+          oportunidades_fortalezas: this.state.oportunidades_fortalezas,
+          oportunidades_debilidades: this.state.oportunidades_debilidades,
+          amenazas_fortalezas: this.state.amenazas_fortalezas,
+          amenazas_debilidades: this.state.amenazas_debilidades,
           periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`
         })
       }
@@ -131,6 +181,11 @@ export class Antecedentes extends Component {
           fortalezas: this.state.fortalezas,
           amenazas: this.state.amenazas,
           oportunidades: this.state.oportunidades,
+          objetivo_general: this.state.objetivo_general,
+          oportunidades_fortalezas: this.state.oportunidades_fortalezas,
+          oportunidades_debilidades: this.state.oportunidades_debilidades,
+          amenazas_fortalezas: this.state.amenazas_fortalezas,
+          amenazas_debilidades: this.state.amenazas_debilidades,
           periodo: `${this.state.inicio_periodo}-${this.state.fin_periodo}`,
           id: this.state.id
         })
@@ -308,6 +363,12 @@ export class Antecedentes extends Component {
             </FormGroup>
             
             <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Objetivo General*</Label>
+                <Input onChange={(e) => this.setState({objetivo_general: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-objetivo-general">Objetivo general inválido. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Misión*</Label>
                 <Input onChange={(e) => this.setState({mision: e.target.value})} type="textarea"></Input>
@@ -323,14 +384,14 @@ export class Antecedentes extends Component {
             
             <FormGroup row>
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Fortalezas</Label>
+                <Label>Fortalezas*</Label>
                 <Input onChange={(e) => this.setState({fortalezas: e.target.value})} type="textarea"></Input>
                 <span className="error-antecedentes" id="error-fortalezas">Fortalezas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Debilidades</Label>
+                <Label>Debilidades*</Label>
                 <Input onChange={(e) => this.setState({debilidades: e.target.value})} type="textarea"></Input>
                 <span className="error-antecedentes" id="error-debilidades">Debilidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
@@ -339,16 +400,46 @@ export class Antecedentes extends Component {
             
             <FormGroup row>
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Oportunidades</Label>
+                <Label>Oportunidades*</Label>
                 <Input onChange={(e) => this.setState({oportunidades: e.target.value})} type="textarea"></Input>
                 <span className="error-antecedentes" id="error-oportunidades">Oportunidades inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
 
               </Col>
 
               <Col xs={12} sm={12} md={6} lg={6}>
-                <Label>Amenazas</Label>
+                <Label>Amenazas*</Label>
                 <Input onChange={(e) => this.setState({amenazas: e.target.value})} type="textarea"></Input>
                 <span className="error-antecedentes" id="error-amenazas">Amenazas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Oportunidades - Fortalezas (OF)*</Label>
+                <Input onChange={(e) => this.setState({oportunidades_fortalezas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-oportunidades-fortalezas">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Oportunidades - Debilidades (OD)*</Label>
+                <Input onChange={(e) => this.setState({oportunidades_debilidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-oportunidades-debilidades">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Amenazas - Fortalezas (OF)*</Label>
+                <Input onChange={(e) => this.setState({amenazas_fortalezas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-amenazas-fortalezas">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Amenazas - Debilidades (OD)*</Label>
+                <Input onChange={(e) => this.setState({amenazas_debilidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-amenazas-debilidades">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
               </Col>
             </FormGroup>
           </Form>
@@ -412,6 +503,12 @@ export class Antecedentes extends Component {
             </FormGroup>
             
             <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Label>Objetivo General*</Label>
+                <Input defaultValue={this.state.objetivo_general} onChange={(e) => this.setState({objetivo_general: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-objetivo-general">Objetivo general inválido. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+
               <Col xs={12} sm={12} md={6} lg={6}>
                 <Label>Misión*</Label>
                 <Input defaultValue={this.state.mision} onChange={(e) => this.setState({mision: e.target.value})} type="textarea"></Input>
@@ -455,6 +552,36 @@ export class Antecedentes extends Component {
                 <span className="error-antecedentes" id="error-amenazas">Amenazas inválidas. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
               </Col>
             </FormGroup>
+
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Oportunidades - Fortalezas (OF)*</Label>
+                <Input defaultValue={this.state.oportunidades_fortalezas} onChange={(e) => this.setState({oportunidades_fortalezas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-oportunidades-fortalezas">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Oportunidades - Debilidades (OD)*</Label>
+                <Input defaultValue={this.state.oportunidades_debilidades} onChange={(e) => this.setState({oportunidades_debilidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-oportunidades-debilidades">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Amenazas - Fortalezas (OF)*</Label>
+                <Input defaultValue={this.state.amenazas_fortalezas} onChange={(e) => this.setState({amenazas_fortalezas: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-amenazas-fortalezas">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+
+              </Col>
+
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Label>Estrategia de Amenazas - Debilidades (OD)*</Label>
+                <Input defaultValue={this.state.amenazas_debilidades} onChange={(e) => this.setState({amenazas_debilidades: e.target.value})} type="textarea"></Input>
+                <span className="error-antecedentes" id="error-amenazas-debilidades">Estrategia inválida. El campo no puede estar vacío y puede tener hasta un máximo de 2000 caracteres.</span>                
+              </Col>
+            </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
@@ -481,6 +608,14 @@ export class Antecedentes extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>
+            <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/antecedentes/`)} >Gestión de Información Institucional de la CMB</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
         {/* Modales del componente */}
         {modal_confirmacion}
         {modal_operacion_fallida}

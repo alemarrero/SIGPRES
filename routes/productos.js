@@ -464,6 +464,8 @@ router.post('/cargar_productos',
 function cargarProductos(productos, next){
   Promise.all(productos.map(
     producto => {
+      let componentes_partida_presupuestaria = producto.partida.split(".");
+      let numero_partida_presupuestaria = `${componentes_partida_presupuestaria[0]}${componentes_partida_presupuestaria[1]}`;
       let especifica_id;
       let subespecifica_id;
       let unidad_de_medida_id;
@@ -472,275 +474,282 @@ function cargarProductos(productos, next){
       // Se busca el id de la unidad de medida asociada al producto. 
       // Si la unidad de medida no se encuentra en la base de datos
       // se crea una nueva unidad de medida
-      models.unidades_de_medida.findOne({where: {nombre: producto.unidad_de_medida}})
-      .then(unidad_de_medida => {
-        if(unidad_de_medida){
-          unidad_de_medida_id = unidad_de_medida.dataValues.id;
-
-          // Se verifica si el producto pertenece a una partida subespecífica (subespecifica !== 00)
-          // o si pertenece a una partida específica (especifica === 00)
-          if(producto.subespecifica === "00"){
-            models.especificas.findOne({where: {numero_especifica: producto.especifica}})
+      models.partidas_presupuestarias.findOne({where: {numero_partida: numero_partida_presupuestaria}})
+      .then(partida_presupuestaria => {
+        models.genericas.findOne({where: {numero_generica: `${producto.generica}`, partida_presupuestaria_id: partida_presupuestaria.dataValues.id}})
+        .then(generica => {
+          models.especificas.findOne({where: {numero_especifica: `${producto.especifica}`, generica_id: generica.dataValues.id}})
             .then(especifica => {
-              especifica_id = especifica.dataValues.id;
-              
-              // Se verifica si el producto ya se encuentra en la base de datos;
-              // en caso de encontrarse, se actualiza su información,
-              // de lo contrario, se crea un producto nuevo
-              models.productos.findOne({where: {codigo: producto.codigo}})
-              .then(prod => {
-                if(prod){
-                  models.productos.update({
-                    nombre: `${producto.nombre}`,
-                    precio: parseFloat(producto.precio, 10),
-                    especifica_id: especifica_id,
-                    unidad_de_medida_id: unidad_de_medida_id,
-                    iva: parseFloat(iva, 10),
-                    monto_iva: parseFloat(producto.monto_iva, 10),
-                    total: parseFloat(producto.precio_total, 10)
-                  }, 
-                  {where: {id: prod.dataValues.codigo}})
-                  .then(producto_actualizado => {
-                    if(producto_actualizado[0]){
-                      console.log(`Producto ${producto.nombre} actualizado correctamente`);
-                    }
-                  })
-                  .catch(err => {
-                    console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre}`);
-                    console.log(err);
-                  });
-                }
-                else{
-                  models.productos.create({
-                    codigo: producto.codigo,
-                    nombre: `${producto.nombre}`,
-                    precio: parseFloat(producto.precio, 10),
-                    especifica_id: especifica_id,
-                    unidad_de_medida_id: unidad_de_medida_id,
-                    iva: parseFloat(iva, 10),
-                    monto_iva: parseFloat(producto.monto_iva, 10),
-                    total: parseFloat(producto.precio_total, 10)
-                  })
-                  .then(producto_creado => {
-                    if(producto_creado){
-                      console.log(`Producto ${producto.nombre} creado`);
-                    }
-                  })
-                  .catch(err => {
-                    console.log(`Error creando el producto ${producto.nombre}`);
-                    console.log(err);
-                  });
-                }
-              })
-              
-            })
-            .catch(err => {
-              console.log('Error al procesar el producto ');
-              console.log(producto.nombre);
-            });
-          }
-          else{
-            models.subespecificas.findOne({where: {numero_subespecifica: producto.subespecifica}})
-            .then(subespecifica => {
-              subespecifica_id = subespecifica.dataValues.id;
-    
-              // Se verifica si el producto ya se encuentra en la base de datos;
-              // en caso de encontrarse, se actualiza su información,
-              // de lo contrario, se crea un producto nuevo
-              models.productos.findOne({where: {codigo: producto.codigo}})
-              .then(prod => {
-                if(prod){
-                  models.productos.update({
-                    nombre: `${producto.nombre}`,
-                    nombre: `${producto.nombre}`,
-                    precio: parseFloat(producto.precio, 10),
-                    subespecifica_id: subespecifica_id,
-                    unidad_de_medida_id: unidad_de_medida_id,
-                    iva: parseFloat(iva, 10),
-                    monto_iva: parseFloat(producto.monto_iva, 10),
-                    total: parseFloat(producto.precio_total, 10)
-                  }, 
-                  {where: {id: prod.dataValues.codigo}})
-                  .then(producto_actualizado => {
-                    console.log(producto_actualizado);
-                    if(producto_actualizado[0]){
-                      // console.log(`Producto ${producto.nombre} actualizado correctamente`);
-                    }
-                  })
-                  .catch(err => {
-                    console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre}`);
-                    console.log(err);
-                  });
-                }
-                else{
-                  models.productos.create({
-                    codigo: producto.codigo,
-                    nombre: `${producto.nombre}`,
-                    precio: parseFloat(producto.precio, 10),
-                    subespecifica_id: subespecifica_id,
-                    unidad_de_medida_id: unidad_de_medida_id,
-                    iva: parseFloat(iva, 10),
-                    monto_iva: parseFloat(producto.monto_iva, 10),
-                    total: parseFloat(producto.precio_total, 10)
-                  })
-                  .then(producto_creado => {
-                    if(producto_creado){
-                      console.log(`Producto ${producto.nombre} creado`);
-                    }
-                  })
-                  .catch(err => {
-                    console.log(`Error creando el producto ${producto.nombre}`);
-                    // console.log(err);
-                  });
-                }
-              })
-    
-            })
-            .catch(err => {
-              console.error(err);
-              // res.status(500).json("err")
-            });
-          }
-        }
-        else{
-          models.unidades_de_medida.create({nombre: producto.unidad_de_medida, tipo: "productos"})
-          .then(unidad_de_medida => {
-            unidad_de_medida_id = unidad_de_medida.dataValues.id;
+              models.unidades_de_medida.findOne({where: {nombre: producto.unidad_de_medida}})
+                .then(unidad_de_medida => {
+                  if(unidad_de_medida){
+                    unidad_de_medida_id = unidad_de_medida.dataValues.id;
 
-            // Se verifica si el producto pertenece a una partida subespecífica (subespecifica !== 00)
-            // o si pertenece a una partida específica (especifica === 00)
-            if(producto.subespecifica === "00"){
-              models.especificas.findOne({where: {numero_especifica: producto.especifica}})
-              .then(especifica => {
-                especifica_id = especifica.dataValues.id;
+                    // Se verifica si el producto pertenece a una partida subespecífica (subespecifica !== 00)
+                    // o si pertenece a una partida específica (especifica === 00)
+                    if(producto.subespecifica === "00"){
+                      especifica_id = especifica.dataValues.id;
+                        
+                      // Se verifica si el producto ya se encuentra en la base de datos;
+                      // en caso de encontrarse, se actualiza su información,
+                      // de lo contrario, se crea un producto nuevo
+                      models.productos.findOne({where: {codigo: producto.codigo}})
+                        .then(prod => {
+                          if(prod){
+                            models.productos.update({
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              especifica_id: especifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            }, 
+                            {where: {id: prod.dataValues.id}})
+                            .then(producto_actualizado => {
+                              if(producto_actualizado[0]){
+                                //console.log(`Producto ${producto.nombre} actualizado correctamente`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 515`);
+                              console.log(err);
+                            });
+                          }
+                          else{
+                            models.productos.create({
+                              codigo: producto.codigo,
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              especifica_id: especifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            })
+                            .then(producto_creado => {
+                              if(producto_creado){
+                                //console.log(`Producto ${producto.nombre} creado`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error creando el producto ${producto.nombre} - linea 536`);
+                              console.log(err);
+                            });
+                          }
+                        });
+                    }
+                    else{
+                       models.subespecificas.findOne({where: {numero_subespecifica: producto.subespecifica, especifica_id: especifica.dataValues.id}})
+                        .then(subespecifica => {
+                          subespecifica_id = subespecifica.dataValues.id;
                 
-                // Se verifica si el producto ya se encuentra en la base de datos;
-                // en caso de encontrarse, se actualiza su información,
-                // de lo contrario, se crea un producto nuevo
-                models.productos.findOne({where: {codigo: producto.codigo}})
-                .then(prod => {
-                  if(prod){
-                    models.productos.update({
-                      nombre: `${producto.nombre}`,
-                      precio: parseFloat(producto.precio, 10),
-                      especifica_id: especifica_id,
-                      unidad_de_medida_id: unidad_de_medida_id,
-                      iva: parseFloat(iva, 10),
-                      monto_iva: parseFloat(producto.monto_iva, 10),
-                      total: parseFloat(producto.precio_total, 10)
-                    }, 
-                    {where: {id: prod.dataValues.codigo}})
-                    .then(producto_actualizado => {
-                      if(producto_actualizado[0]){
-                        console.log(`Producto ${producto.nombre} actualizado correctamente`);
-                      }
-                    })
-                    .catch(err => {
-                      console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre}`);
-                      console.log(err);
-                    });
+                          // Se verifica si el producto ya se encuentra en la base de datos;
+                          // en caso de encontrarse, se actualiza su información,
+                          // de lo contrario, se crea un producto nuevo
+                          models.productos.findOne({where: {codigo: producto.codigo}})
+                          .then(prod => {
+                            if(prod){
+                              models.productos.update({
+                                nombre: `${producto.nombre}`,
+                                precio: parseFloat(producto.precio, 10),
+                                subespecifica_id: subespecifica_id,
+                                unidad_de_medida_id: unidad_de_medida_id,
+                                iva: parseFloat(iva, 10),
+                                monto_iva: parseFloat(producto.monto_iva, 10),
+                                total: parseFloat(producto.precio_total, 10)
+                              }, 
+                              {where: {id: prod.dataValues.id}})
+                              .then(producto_actualizado => {
+                                console.log(producto_actualizado);
+                                if(producto_actualizado[0]){
+                                  // console.log(`Producto ${producto.nombre} actualizado correctamente`);
+                                }
+                              })
+                              .catch(err => {
+                                console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 570`);
+                                console.log(err);
+                              });
+                            }
+                            else{
+                              models.productos.create({
+                                codigo: producto.codigo,
+                                nombre: `${producto.nombre}`,
+                                precio: parseFloat(producto.precio, 10),
+                                subespecifica_id: subespecifica_id,
+                                unidad_de_medida_id: unidad_de_medida_id,
+                                iva: parseFloat(iva, 10),
+                                monto_iva: parseFloat(producto.monto_iva, 10),
+                                total: parseFloat(producto.precio_total, 10)
+                              })
+                              .then(producto_creado => {
+                                if(producto_creado){
+                                  //console.log(`Producto ${producto.nombre} creado`);
+                                }
+                              })
+                              .catch(err => {
+                                console.log(`Error creando el producto ${producto.nombre} - linea 591`);
+                                // console.log(err);
+                              });
+                            }
+                          })
+                
+                        })
+                        .catch(err => {
+                          console.log(err);
+                          // res.status(500).json("err")
+                        });
+                    }
                   }
                   else{
-                    models.productos.create({
-                      codigo: producto.codigo,
-                      nombre: `${producto.nombre}`,
-                      precio: parseFloat(producto.precio, 10),
-                      especifica_id: especifica_id,
-                      unidad_de_medida_id: unidad_de_medida_id,
-                      iva: parseFloat(iva, 10),
-                      monto_iva: parseFloat(producto.monto_iva, 10),
-                      total: parseFloat(producto.precio_total, 10)
-                    })
-                    .then(producto_creado => {
-                      if(producto_creado){
-                        console.log(`Producto ${producto.nombre} creado`);
-                      }
+                    models.unidades_de_medida.create({nombre: producto.unidad_de_medida, tipo: "productos"})
+                    .then(unidad_de_medida => {
+                      unidad_de_medida_id = unidad_de_medida.dataValues.id;
+
+                      // Se verifica si el producto pertenece a una partida subespecífica (subespecifica !== 00)
+                    // o si pertenece a una partida específica (especifica === 00)
+                    if(producto.subespecifica === "00"){
+                      especifica_id = especifica.dataValues.id;
+                        
+                      // Se verifica si el producto ya se encuentra en la base de datos;
+                      // en caso de encontrarse, se actualiza su información,
+                      // de lo contrario, se crea un producto nuevo
+                      models.productos.findOne({where: {codigo: producto.codigo}})
+                        .then(prod => {
+                          if(prod){
+                            models.productos.update({
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              especifica_id: especifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            }, 
+                            {where: {id: prod.dataValues.id}})
+                            .then(producto_actualizado => {
+                              if(producto_actualizado[0]){
+                                console.log(`Producto ${producto.nombre} actualizado correctamente - linea 632`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 636`);
+                              //console.log(err);
+                            });
+                          }
+                          else{
+                            models.productos.create({
+                              codigo: producto.codigo,
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              especifica_id: especifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            })
+                            .then(producto_creado => {
+                              if(producto_creado){
+                                console.log(`Producto ${producto.nombre} creado - linea 653`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error creando el producto ${producto.nombre} - linea 657`);
+                              console.log(err);
+                            });
+                          }
+                        });
+                    }
+                    else{
+                      models.subespecificas.findOne({where: {numero_subespecifica: producto.subespecifica, especifica_id: especifica.dataValues.id}})
+                      .then(subespecifica => {
+                        subespecifica_id = subespecifica.dataValues.id;
+              
+                        // Se verifica si el producto ya se encuentra en la base de datos;
+                        // en caso de encontrarse, se actualiza su información,
+                        // de lo contrario, se crea un producto nuevo
+                        models.productos.findOne({where: {codigo: producto.codigo}})
+                        .then(prod => {
+                          if(prod){
+                            models.productos.update({
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              subespecifica_id: subespecifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            }, 
+                            {where: {id: prod.dataValues.id}})
+                            .then(producto_actualizado => {
+                              console.log(producto_actualizado);
+                              if(producto_actualizado[0]){
+                                // console.log(`Producto ${producto.nombre} actualizado correctamente`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 691`);
+                              //console.log(err);
+                            });
+                          }
+                          else{
+                            models.productos.create({
+                              codigo: producto.codigo,
+                              nombre: `${producto.nombre}`,
+                              precio: parseFloat(producto.precio, 10),
+                              subespecifica_id: subespecifica_id,
+                              unidad_de_medida_id: unidad_de_medida_id,
+                              iva: parseFloat(iva, 10),
+                              monto_iva: parseFloat(producto.monto_iva, 10),
+                              total: parseFloat(producto.precio_total, 10)
+                            })
+                            .then(producto_creado => {
+                              if(producto_creado){
+                                //console.log(`Producto ${producto.nombre} creado`);
+                              }
+                            })
+                            .catch(err => {
+                              console.log(`Error creando el producto ${producto.nombre} - linea 712`);
+                              // console.log(err);
+                            });
+                          }
+                        })
+                        .catch(err => {
+                          console.log(err);
+                          // res.status(500).json("err")
+                        });
+                      })
+                      .catch(err => {
+                        console.log(err);
+                        // res.status(500).json("err")
+                      });
+                    }
                     })
                     .catch(err => {
-                      console.log(`Error creando el producto ${producto.nombre}`);
+                      console.log('Error al procesar el producto (linea 729)');
                       console.log(err);
                     });
                   }
                 })
-                
-              })
-              .catch(err => {
-                console.log('Error al procesar el producto ');
-                console.log(producto.nombre);
-              });
-            }
-            else{
-              models.subespecificas.findOne({where: {numero_subespecifica: producto.subespecifica}})
-              .then(subespecifica => {
-                subespecifica_id = subespecifica.dataValues.id;
-      
-                // Se verifica si el producto ya se encuentra en la base de datos;
-                // en caso de encontrarse, se actualiza su información,
-                // de lo contrario, se crea un producto nuevo
-                models.productos.findOne({where: {codigo: producto.codigo}})
-                .then(prod => {
-                  if(prod){
-                    models.productos.update({
-                      nombre: `${producto.nombre}`,
-                      nombre: `${producto.nombre}`,
-                      precio: parseFloat(producto.precio, 10),
-                      subespecifica_id: subespecifica_id,
-                      unidad_de_medida_id: unidad_de_medida_id,
-                      iva: parseFloat(iva, 10),
-                      monto_iva: parseFloat(producto.monto_iva, 10),
-                      total: parseFloat(producto.precio_total, 10)
-                    }, 
-                    {where: {id: prod.dataValues.codigo}})
-                    .then(producto_actualizado => {
-                      console.log(producto_actualizado);
-                      if(producto_actualizado[0]){
-                        // console.log(`Producto ${producto.nombre} actualizado correctamente`);
-                      }
-                    })
-                    .catch(err => {
-                      console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre}`);
-                      console.log(err);
-                    });
-                  }
-                  else{
-                    models.productos.create({
-                      codigo: producto.codigo,
-                      nombre: `${producto.nombre}`,
-                      precio: parseFloat(producto.precio, 10),
-                      subespecifica_id: subespecifica_id,
-                      unidad_de_medida_id: unidad_de_medida_id,
-                      iva: parseFloat(iva, 10),
-                      monto_iva: parseFloat(producto.monto_iva, 10),
-                      total: parseFloat(producto.precio_total, 10)
-                    })
-                    .then(producto_creado => {
-                      if(producto_creado){
-                        console.log(`Producto ${producto.nombre} creado`);
-                      }
-                    })
-                    .catch(err => {
-                      console.log(`Error creando el producto ${producto.nombre}`);
-                      // console.log(err);
-                    });
-                  }
-                })
-      
-              })
-              .catch(err => {
-                console.error(err);
-                // res.status(500).json("err")
-              });
-            }
-          })
-          .catch(err => {
-            console.err(err);
-          });
-        }
+                .catch(err => {
+                  console.log('Error al procesar el producto (linea 735)');
+                  console.log(err);
+                  console.log(producto);
+                });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+          //res.status(500).json("err");
+        })
       })
       .catch(err => {
-        console.log('Error al procesar el producto (linea 474)');
-        console.log(producto);
-      });
+        console.log(err);
+        //res.status(500).json("err");
+      })
     }
   ))
   .then(() => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
 import "./CargaDeDatos.css";
@@ -591,6 +591,15 @@ export default class CargaDeDatos extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>
+            <BreadcrumbItem active >Carga de Datos</BreadcrumbItem>    
+        
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_operacion_exitosa}
         {modal_operacion_fallida}

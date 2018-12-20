@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import queja from '../../assets/img/queja.png';
-import { Button, Col, Row, Table, Label, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Col, Row, Table, Label, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import withContext from '../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
@@ -256,6 +256,14 @@ export class Quejas extends Component {
 
     return (
       <React.Fragment >
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/oac/`)}>Atención al Ciudadano</BreadcrumbItem>
+            <BreadcrumbItem active>Quejas</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}

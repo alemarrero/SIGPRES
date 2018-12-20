@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Card, CardBody} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Row, Col, Card, CardBody} from 'reactstrap';
 import './Requerimientos.css';
 import personal from '../../assets/img/personal.png';
 import cargo from '../../assets/img/cargo.png';
@@ -11,22 +11,32 @@ import consolidado from '../../assets/img/consolidado.png';
 export default class Menu extends Component {
   render() {
     return (
-      <Row className="fila-opciones-menu-principal">
-        {/* Requerimientos y Necesidades */}   
-        <OpcionMenu ruta={'/requerimientos-personal/'} nombre="Solicitud de Personal" icono={personal}/>
-        
-        {/* Historicos */}
-        <OpcionMenu ruta={'solicitudes-anteriores/'} nombre="Histórico" icono={requerimientosViejos}/>
-        
-        {/* Gestion de cargos */}   
-        <OpcionMenu ruta={'/cargos/'} nombre="Gestión de Cargos" icono={cargo}/> 
+      <React.Fragment>
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+            <BreadcrumbItem active>Solicitudes de Personal</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
 
-        {/* Consulta de solicitudes de personal */}   
-        <OpcionMenu ruta={'/consultar-solicitudes-personal/'} nombre="Consultar Solicitudes de Personal" icono={consultar}/> 
+        <Row className="fila-opciones-menu-principal">
+          {/* Requerimientos y Necesidades */}   
+          <OpcionMenu ruta={'/requerimientos-personal/'} nombre="Solicitud de Personal" icono={personal}/>
+          
+          {/* Historicos */}
+          <OpcionMenu ruta={'solicitudes-anteriores/'} nombre="Histórico" icono={requerimientosViejos}/>
+          
+          {/* Gestion de cargos */}   
+          <OpcionMenu ruta={'/cargos/'} nombre="Gestión de Cargos" icono={cargo}/> 
 
-        {/* Consulta consolidado de solicitudes de personal */}   
-        <OpcionMenu ruta={'/consolidado-solicitudes-personal/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>         
-      </Row>
+          {/* Consulta de solicitudes de personal */}   
+          <OpcionMenu ruta={'/consultar-solicitudes-personal/'} nombre="Consultar Solicitudes de Personal" icono={consultar}/> 
+
+          {/* Consulta consolidado de solicitudes de personal */}   
+          <OpcionMenu ruta={'/consolidado-solicitudes-personal/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>         
+        </Row>
+      </React.Fragment>
     )
   }
 }

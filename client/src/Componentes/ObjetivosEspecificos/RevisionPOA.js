@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Table} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Table} from 'reactstrap';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import './DetallePOA.css';
 
@@ -85,6 +85,14 @@ export default class RevisionPOA extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/planeacion`)}>Planeación</BreadcrumbItem>
+            <BreadcrumbItem active>Revisión de POA</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
         {/* Modales del componente */}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}

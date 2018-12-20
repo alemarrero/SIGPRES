@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import consultar from '../../assets/img/consultar.png';
 import { request } from 'http';
 import withContext from '../../Contenedor/withContext';
@@ -76,6 +76,18 @@ export class ConsultarSolicitudesRequerimientos extends Component {
     if(this.state.solicitudes_de_requerimientos.length > 0){
       return (
         <Container fluid className="container-unidades-de-medida">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
+            <BreadcrumbItem active>Consultar Solicitudes de Requerimientos y Necesidades Enviadas</BreadcrumbItem>
+
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_operacion_fallida}
 
@@ -122,18 +134,30 @@ export class ConsultarSolicitudesRequerimientos extends Component {
     else{
       return (
         <Container fluid className="container-unidades-de-medida">
-        {/* Modales del componente */}
-        {modal_operacion_fallida}
 
-        <Row>
-            {/* Título de la sección */}
-            <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={consultar} className="icono-titulo"/>    
-            <h1 className="titulo-solicitud-personal">Consultar Solicitudes de Requerimientos y Necesidades Enviadas</h1>
-            </Col>
-        </Row>
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
+              <BreadcrumbItem active>Consultar Solicitudes de Requerimientos y Necesidades Enviadas</BreadcrumbItem>
+            </Breadcrumb>
+        </div>
+        
 
-        <h1> Actualmente ninguna dirección ha enviado su solicitud de requerimientos y necesidades.</h1>
+          {/* Modales del componente */}
+          {modal_operacion_fallida}
+
+          <Row>
+              {/* Título de la sección */}
+              <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              <img src={consultar} className="icono-titulo"/>    
+              <h1 className="titulo-solicitud-personal">Consultar Solicitudes de Requerimientos y Necesidades Enviadas</h1>
+              </Col>
+          </Row>
+
+          <h1> Actualmente ninguna dirección ha enviado su solicitud de requerimientos y necesidades.</h1>
 
         </Container>         
     )

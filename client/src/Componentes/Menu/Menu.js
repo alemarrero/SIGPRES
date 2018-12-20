@@ -7,23 +7,32 @@ import planeacion from '../../assets/img/solution.png';
 import atencion_ciudadano from '../../assets/img/atencion_ciudadano.png';
 import OpcionMenu from './OpcionMenu';
 import withContext from '../../Contenedor/withContext';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 export class Menu extends Component {
   render() {
     return (
-      <Row fluid={true} className="fila-opciones-menu-principal">
-        {/* Administración */}   
-        <OpcionMenu ruta={'administracion/'} nombre="Administración" icono={administracion}/>
-        
-        {/* Gestión de planeación */}
-        <OpcionMenu ruta={'planeacion/'} nombre="Planeación" icono={planeacion}/>        
-        
-        {/* Gestión presupuestal  */}
-        <OpcionMenu ruta={'presupuesto/'} nombre="Presupuesto" icono={presupuesto}/>
+      <React.Fragment>
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
 
-        {/* Gestión de atención al ciudadano */}
-        <OpcionMenu ruta={'oac/'} nombre="Atención al Ciudadano" icono={atencion_ciudadano}/>
-      </Row>
+        <Row fluid={true} className="fila-opciones-menu-principal">
+          {/* Administración */}   
+          <OpcionMenu ruta={'administracion/'} nombre="Administración" icono={administracion}/>
+          
+          {/* Gestión de planeación */}
+          <OpcionMenu ruta={'planeacion/'} nombre="Planeación" icono={planeacion}/>        
+          
+          {/* Gestión presupuestal  */}
+          <OpcionMenu ruta={'presupuesto/'} nombre="Presupuesto" icono={presupuesto}/>
+
+          {/* Gestión de atención al ciudadano */}
+          <OpcionMenu ruta={'oac/'} nombre="Atención al Ciudadano" icono={atencion_ciudadano}/>
+        </Row>
+      </React.Fragment>
     )
   }
 }

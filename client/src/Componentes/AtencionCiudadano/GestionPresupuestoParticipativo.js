@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import presupuesto_participativo from '../../assets/img/presupuesto_participativo.png';
-import { Button, Col, Row, Table, Label, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Col, Row, Table, Label, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import withContext from '../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
@@ -256,6 +256,15 @@ export class PresupuestoParticipativo extends Component {
 
     return (
       <React.Fragment >
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/oac/`)}>Atención al Ciudadano</BreadcrumbItem>
+            <BreadcrumbItem active>Sugerencias de Presupuesto Participativo</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}

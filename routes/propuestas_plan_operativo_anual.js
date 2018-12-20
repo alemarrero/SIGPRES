@@ -394,7 +394,7 @@ router.post("/eliminar_propuesta", autorizarAdministrador, function(req, res){
 function parsearPropuestaPOA(propuestas){
   let filas = [["N° DE ACCIÓN", "N° DE ACTIVIDAD", "OBJETIVO ESPECÍFICO", 
   "ACCIONES RECURRENTES", "UNIDAD DE MEDIDA", 
-  "META FÍSICA ANUAL", "1ER", "2DO", "3ER", "4TO", 
+  "META FÍSICA MENSUAL", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC", 
   "MEDIO DE VERIFICACIÓN"]];
   
   if(propuestas.length !== undefined){
@@ -408,8 +408,12 @@ function parsearPropuestaPOA(propuestas){
             accion_recurrente.accion_recurrente,
             accion_recurrente.unidad_de_medida.nombre, 
             accion_recurrente.meta_fisica_anual,
-            accion_recurrente.programacion_primer_trimestre, accion_recurrente.programacion_segundo_trimestre, 
-            accion_recurrente.programacion_tercer_trimestre, accion_recurrente.programacion_cuarto_trimestre, 
+            accion_recurrente.programacion_enero, accion_recurrente.programacion_febrero, 
+            accion_recurrente.programacion_marzo, accion_recurrente.programacion_abril, 
+            accion_recurrente.programacion_mayo, accion_recurrente.programacion_junio, 
+            accion_recurrente.programacion_julio, accion_recurrente.programacion_agosto,
+            accion_recurrente.programacion_septiembre, accion_recurrente.programacion_octubre, 
+            accion_recurrente.programacion_noviembre, accion_recurrente.programacion_diciembre,  
             accion_recurrente.medio_de_verificacion.nombre
           ])
         })
@@ -426,8 +430,12 @@ function parsearPropuestaPOA(propuestas){
           accion_recurrente.accion_recurrente,
           accion_recurrente.unidad_de_medida.nombre, 
           accion_recurrente.meta_fisica_anual,
-          accion_recurrente.programacion_primer_trimestre, accion_recurrente.programacion_segundo_trimestre, 
-          accion_recurrente.programacion_tercer_trimestre, accion_recurrente.programacion_cuarto_trimestre, 
+          accion_recurrente.programacion_enero, accion_recurrente.programacion_febrero, 
+            accion_recurrente.programacion_marzo, accion_recurrente.programacion_abril, 
+            accion_recurrente.programacion_mayo, accion_recurrente.programacion_junio, 
+            accion_recurrente.programacion_julio, accion_recurrente.programacion_agosto,
+            accion_recurrente.programacion_septiembre, accion_recurrente.programacion_octubre, 
+            accion_recurrente.programacion_noviembre, accion_recurrente.programacion_diciembre,
           accion_recurrente.medio_de_verificacion.nombre
         ])
       })

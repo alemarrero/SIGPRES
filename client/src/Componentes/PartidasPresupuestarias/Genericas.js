@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Genericas.css'
 
@@ -408,6 +408,17 @@ export default class Genericas extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/partidas-presupuestarias`)}>Gestión de Partidas Presupuestarias</BreadcrumbItem>
+              <BreadcrumbItem active>Gestión de Genéricas de {this.props.match.params.numero_partida}</BreadcrumbItem>
+
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_generica}
           {modal_editar_generica}

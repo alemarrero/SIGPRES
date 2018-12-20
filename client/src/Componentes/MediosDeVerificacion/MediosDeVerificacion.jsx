@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './MediosDeVerificacion.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import verificacion from '../../assets/img/verificacion.png';
 import withContext from '../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
@@ -17,6 +17,7 @@ export class MediosDeVerificacion extends Component {
       habilitado: false,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
+      modal_confirmacion_abierto: false
     };
     this.obtenerdMediosDeVerificacion = this.obtenerdMediosDeVerificacion.bind(this);
     this.verificarSesion = this.verificarSesion.bind(this);
@@ -27,6 +28,30 @@ export class MediosDeVerificacion extends Component {
     this.editarMedio = this.editarMedio.bind(this);
     this.validarModalCreacion = this.validarModalCreacion.bind(this);
     this.validarModalEdicion = this.validarModalEdicion.bind(this);
+    this.eliminarMedioDeVerificacion = this.eliminarMedioDeVerificacion.bind(this);
+  }
+
+  async eliminarMedioDeVerificacion(){
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        id: this.state.id
+      })
+    };
+
+    const eliminar_usuario_request = await fetch('/api/medios_de_verificacion/eliminar_medio_de_verificacion', request_options);
+    const eliminar_usuario_response = await eliminar_usuario_request.json();
+
+    if(eliminar_usuario_response !== "err"){
+        this.setState({modal_confirmacion_abierto: false, modal_operacion_exitosa: true, mensaje: "Medio de verificación eliminado correctamente"}, async () => {
+          this.obtenerUsuarios();
+        })
+    }
+    else{
+      this.setState({modal_confirmacion_abierto: false, modal_operacion_fallida: true, mensaje: "Error al eliminar el medio de verificación."});
+    }
   }
 
   async editarMedio(){
@@ -277,6 +302,10 @@ export class MediosDeVerificacion extends Component {
               </Button>
             }
             
+            <Button color="danger" onClick={() => this.setState({modal_editar_medio_abierto: false, modal_confirmacion_abierto: true})} className="boton-cancelar-modal">
+              Eliminar
+            </Button>
+
             <Button color="danger" onClick={() => this.setState({modal_editar_medio_abierto: false})} className="boton-cancelar-modal">
               Cancelar
             </Button>
@@ -329,13 +358,47 @@ export class MediosDeVerificacion extends Component {
       </Modal>
     ;
 
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar medio de verificación
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar el medio de verificación?</p>          
+          <p>Si lo elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarMedioDeVerificacion} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+
     return (
         <Container fluid className="container-medios-de-verificacion">
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>          
+              <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/medios-de-verificacion`)} >Gestión de Medios de Verificación</BreadcrumbItem>          
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_medio}
           {modal_editar_medio}
           {modal_operacion_fallida}
           {modal_operacion_exitosa}
+          {modal_confirmacion_eliminar}
 
           <Row>
             {/* Título de la sección */}

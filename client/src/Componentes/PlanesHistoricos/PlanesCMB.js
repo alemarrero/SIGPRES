@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, Button,  Modal, ModalHeader, 
+import {Breadcrumb, BreadcrumbItem,  Container, Row, Col, Button,  Modal, ModalHeader, 
   ModalBody, ModalFooter, Input, Label, Form, FormGroup, Table} from 'reactstrap';
 import contraloria from '../../assets/img/contraloria.png';
 import './PlanesHistoricos.css';
@@ -11,6 +11,7 @@ export class PlanesCMB extends Component {
     super(props);
     this.state = {
       planes_operativos: [],
+      modal_confirmacion_abierto: false,
       modal_crear_plan_operativo_abierto: false,
       modal_editar_plan_operativo_abierto: false,
       nombre: undefined,
@@ -55,6 +56,7 @@ export class PlanesCMB extends Component {
     if(eliminar_plan_response !== 'err'){
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
+        modal_confirmacion_abierto: false,
         modal_operacion_exitosa: true, 
         mensaje: "Gaceta Municipal de la Contraloría Municipal de Baruta eliminado exitosamente"}, async () => {
         this.obtenerPlanesOperativos();
@@ -508,7 +510,7 @@ export class PlanesCMB extends Component {
               Editar plan
             </Button>
 
-            <Button onClick={this.eliminarPlanOperativo} color="warning" type="submit" className="boton-eliminar-modal">
+            <Button onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_plan_operativo_abierto: false})} color="warning" type="submit" className="boton-eliminar-modal">
               Eliminar plan
             </Button>
             
@@ -517,6 +519,31 @@ export class PlanesCMB extends Component {
             </Button>
           </Col>
         </ModalFooter>
+      </Modal>
+    ;
+
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar documento
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar este elemento?</p>          
+          <p>Si lo elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarPlanOperativo} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
       </Modal>
     ;
 
@@ -566,11 +593,22 @@ export class PlanesCMB extends Component {
 
     return (
       <Container fluid className="container-planes">
+
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion/planes-historicos`)} >Planes Históricos</BreadcrumbItem>          
+            <BreadcrumbItem active onClick={() => this.props.history.push(`/inicio/administracion/planes-historicos/planes-cmb`)} >Gestión de Gacetas Municipales
+de la Contraloría Municipal de Baruta</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
         {/* Modales del componente */}
         {modal_crear_plan}
         {modal_editar_plan}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
+        {modal_confirmacion_eliminar}
 
         <Row>
           {/* Título de la sección */}

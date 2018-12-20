@@ -19,3 +19,8 @@ ol.lista-objetivos-estrategicos, .titulo-lista-objetivos-estrategicos{
 div.fila-detalle-antecedente{
   margin: 30px auto;
 }
+
+th p.matriz-foda-header {
+	font-weight: lighter !important;
+	text-align: left;
+}

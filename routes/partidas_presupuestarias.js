@@ -252,7 +252,7 @@ router.post('/cargar_especificas', recibirArchivo, async function(req, res, next
   let especificas = cuentas.filter(cuenta => cuenta.tipo === "especifica");
 
   // // Se introducen las específicas
-  cargarPartidasEspecificas(especificas, res, next);
+  await cargarPartidasEspecificas(especificas, res, next);
   }
 );
 
@@ -263,77 +263,89 @@ router.post('/cargar_subespecificas', recibirArchivo, async function(req, res, n
   let subespecificas = cuentas.filter(cuenta => cuenta.tipo === "subespecifica");
 
   // Se introducen las subespecíficas
-  cargarPartidasSubespecificas(subespecificas, res, next);
-
+  await cargarPartidasSubespecificas(subespecificas, res, next);
   }
 );
 
 
 module.exports = router;
 
-function cargarPartidasSubespecificas(subespecificas, res, next) {
+async function cargarPartidasSubespecificas(subespecificas, res, next) {
   Promise.all(subespecificas.map(subespecifica => {
     let numero_partida = subespecifica.numero.split(".");
     let numero_especifica = `${numero_partida[3]}`;
     let numero_subespecifica = `${numero_partida[4]}`;
+    let numero_generica = `${numero_partida[2]}`;
     let id_partida_especifica;
     // Primero se busca en la base de datos el id de la partida específica a la cual
     // está asociada la subespecífica
-    models.especificas.findOne({ where: { numero_especifica: numero_especifica } })
-      .then(partida_especifica => {
-        id_partida_especifica = partida_especifica.dataValues.id;
-        // Se busca en la base de datos si la subespecífica ya existe
-        models.subespecificas.findOne({ where: { numero_subespecifica: numero_subespecifica, especifica_id: id_partida_especifica } })
-          .then(resultado => {
-            // Si ya existe, entonces se actualiza con la nueva información
-            if (resultado) {
-              models.subespecificas.update({ denominacion: subespecifica.denominacion }, { where: { id: resultado.dataValues.id } })
-                .then(subespecifica_actualizada => {
-                  if (subespecifica_actualizada[0]) {
-                    console.log(`Partida subespecífica ${numero_subespecifica} actualizada correctamente.`);
+    models.partidas_presupuestarias.findOne({ where: { numero_partida: `${numero_partida[0]}${numero_partida[1]}` } })
+    .then(partida_presupuestaria => {
+      models.genericas.findOne({ where: { numero_generica: numero_generica, partida_presupuestaria_id: partida_presupuestaria.dataValues.id } })
+        .then(partida_generica => {
+          id_partida_generica = partida_generica.dataValues.id;
+          // Se busca en la base de datos si la específica ya existe
+          models.especificas.findOne({ where: { numero_especifica: numero_especifica, generica_id: id_partida_generica } })
+            .then(partida_especifica => {
+              id_partida_especifica = partida_especifica.dataValues.id;
+              // Se busca en la base de datos si la subespecífica ya existe
+              models.subespecificas.findOne({ where: { numero_subespecifica: numero_subespecifica, especifica_id: id_partida_especifica } })
+                .then(resultado => {
+                  // Si ya existe, entonces se actualiza con la nueva información
+                  if (resultado) {
+                    models.subespecificas.update({ denominacion: subespecifica.denominacion }, { where: { id: resultado.dataValues.id } })
+                      .then(subespecifica_actualizada => {
+                        if (subespecifica_actualizada[0]) {
+                          console.log(`Partida subespecífica ${numero_partida[0]}${numero_partida[1]}.${numero_partida[2]}.${numero_especifica}.${numero_subespecifica} actualizada correctamente.`);
+                        }
+                      })
+                      .catch(err => {
+                        console.log(err);
+                        // res.status(500).json("err");
+                      });
                   }
-                })
-                .catch(err => {
-                  console.log(err);
-                  // res.status(500).json("err");
-                });
-            }
-            else {
-              // De lo contrario, entonces se crea la subespecífica
-              models.subespecificas.create({
-                numero_subespecifica: numero_subespecifica,
-                denominacion: subespecifica.denominacion,
-                especifica_id: id_partida_especifica
-              })
-                .then(subespecifica_creada => {
-                  if (subespecifica_creada) {
-                    console.log(`Partida subespecífica ${numero_subespecifica} creada correctamente.`);
+                  else {
+                    // De lo contrario, entonces se crea la subespecífica
+                    models.subespecificas.create({
+                      numero_subespecifica: numero_subespecifica,
+                      denominacion: subespecifica.denominacion,
+                      especifica_id: id_partida_especifica
+                    })
+                    .then(subespecifica_creada => {
+                      if (subespecifica_creada) {
+                        console.log(`Partida subespecífica ${numero_partida[0]}${numero_partida[1]}.${numero_partida[2]}.${numero_especifica}.${numero_subespecifica} creada correctamente.`);
+                      }
+                    })
+                    .catch(err => {
+                      console.log(err);
+                      res.status(500).json("err");
+                    });
                   }
                 })
                 .catch(err => {
                   console.log(err);
                   res.status(500).json("err");
+
                 });
-            }
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).json("err");
-
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json("err");
-
-      });
+            })
+            .catch(err => {
+              console.log("Error al buscar la información de la partida específica " + numero_especifica + " con id de genérica: " + id_partida_generica);
+              console.log(err);
+              res.status(500).json("err");
+            });    
+        })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json("err");
+    });
   }))
   .then(() => {
-    res.status(200).json("ok"); 
+    res.json("ok").status(200);
   });
 }
 
-function cargarPartidasEspecificas(especificas, res, next) {
+async function cargarPartidasEspecificas(especificas, res, next) {
   Promise.all(especificas.map(especifica => {
     let numero_partida = especifica.numero.split(".");
     let numero_generica = `${numero_partida[2]}`;
@@ -341,52 +353,60 @@ function cargarPartidasEspecificas(especificas, res, next) {
     let id_partida_generica;
     // Primero se busca en la base de datos el id de la partida genérica a la cual
     // está asociada la específica
-    models.genericas.findOne({ where: { numero_generica: numero_generica } })
-      .then(partida_generica => {
-        id_partida_generica = partida_generica.dataValues.id;
-        // Se busca en la base de datos si la específica ya existe
-        models.especificas.findOne({ where: { numero_especifica: numero_especifica, generica_id: id_partida_generica } })
-          .then(resultado => {
-            // Si ya existe, entonces se actualiza con la nueva información
-            if (resultado) {
-              models.especificas.update({ denominacion: especifica.denominacion }, { where: { id: resultado.dataValues.id } })
-                .then(especifica_actualizada => {
-                  if (especifica_actualizada[0]) {
-                    console.log(`Partida específica ${numero_especifica} actualizada correctamente.`);
-                  }
+    models.partidas_presupuestarias.findOne({ where: { numero_partida: `${numero_partida[0]}${numero_partida[1]}` } })
+    .then(partida_presupuestaria => {
+      models.genericas.findOne({ where: { numero_generica: numero_generica, partida_presupuestaria_id: partida_presupuestaria.dataValues.id } })
+        .then(partida_generica => {
+          id_partida_generica = partida_generica.dataValues.id;
+          // Se busca en la base de datos si la específica ya existe
+          models.especificas.findOne({ where: { numero_especifica: numero_especifica, generica_id: id_partida_generica } })
+            .then(resultado => {
+              // Si ya existe, entonces se actualiza con la nueva información
+              if (resultado) {
+                models.especificas.update({ denominacion: especifica.denominacion }, { where: { id: resultado.dataValues.id } })
+                  .then(especifica_actualizada => {
+                    if (especifica_actualizada[0]) {
+                      console.log(`Partida específica ${numero_partida[0]}${numero_partida[1]}.${numero_partida[2]}.${numero_especifica}.00 actualizada correctamente.`);
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                    res.status(500).json("err");
+                  });
+              }
+              else {
+                // De lo contrario, entonces se crea la específica
+                models.especificas.create({
+                  numero_especifica: numero_especifica,
+                  denominacion: especifica.denominacion,
+                  generica_id: id_partida_generica
                 })
-                .catch(err => {
-                  console.log(err);
-                  res.status(500).json("err");
-                });
-            }
-            else {
-              // De lo contrario, entonces se crea la específica
-              models.especificas.create({
-                numero_especifica: numero_especifica,
-                denominacion: especifica.denominacion,
-                generica_id: id_partida_generica
-              })
-                .then(especifica_creada => {
-                  if (especifica_creada) {
-                    console.log(`Partida específica ${numero_especifica} creada correctamente.`);
-                  }
-                })
-                .catch(err => {
-                  console.log(err);
-                  res.status(500).json("err");
-                });
-            }
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).json("err");
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json("err");
-      });
+                  .then(especifica_creada => {
+                    if (especifica_creada) {
+                      console.log(`Partida específica ${numero_partida[0]}${numero_partida[1]}.${numero_partida[2]}.${numero_especifica}.00 creada correctamente.`);
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                    res.status(500).json("err");
+                  });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json("err");
+            });
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json("err");
+        });
+      
+    })
+    .catch(err => {
+      console.log(err);
+      res.json("err").status(500);
+    })
   }))
   .then(() => {
     res.status(200).json("ok"); 
@@ -412,7 +432,7 @@ function cargarPartidasGenericas(genericas, res, next) {
               models.genericas.update({ denominacion: generica.denominacion }, { where: { id: resultado.dataValues.id } })
                 .then(generica_actualizada => {
                   if (generica_actualizada[0]) {
-                    console.log(`Partida genérica ${numero_generica} actualizada correctamente.`);
+                    console.log(`Partida genérica ${numero_partida[0]}${numero_partida[1]}.${numero_generica}.00.00 actualizada correctamente.`);
                   }
                 })
                 .catch(err => {
@@ -429,7 +449,7 @@ function cargarPartidasGenericas(genericas, res, next) {
               })
                 .then(generica_creada => {
                   if (generica_creada) {
-                    console.log(`Partida genérica ${numero_generica} creada correctamente.`);
+                    console.log(`Partida genérica ${numero_partida[0]}${numero_partida[1]}.${numero_generica}.00.00 creada correctamente.`);
                   }
                 })
                 .catch(err => {

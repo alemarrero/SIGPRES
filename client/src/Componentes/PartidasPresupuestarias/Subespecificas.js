@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import { request } from 'http';
 import './Subespecificas.css'
@@ -410,6 +410,18 @@ export default class Subespecificas extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
+
+          <div>
+            <Breadcrumb>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/partidas-presupuestarias`)}>Gestión de Partidas Presupuestarias</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/partida-presupuestaria/${this.props.match.params.numero_partida}`)}>Gestión de Genéricas de {this.props.match.params.numero_partida}</BreadcrumbItem>
+              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/partida-presupuestaria/${this.props.match.params.numero_partida}/generica/${this.props.match.params.numero_generica}`)}>Gestión de Específicas de {this.props.match.params.numero_partida}.{this.props.match.params.numero_generica}</BreadcrumbItem>
+              <BreadcrumbItem active>Gestión de Subespecíficas de {this.props.match.params.numero_partida}.{this.props.match.params.numero_generica}.{this.props.match.params.numero_especifica}</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           {/* Modales del componente */}
           {modal_crear_subespecifica}
           {modal_editar_subespecifica}

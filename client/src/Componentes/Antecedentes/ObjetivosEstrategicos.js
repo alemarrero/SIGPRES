@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ObjetivosEstrategicos.css';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
@@ -304,6 +304,16 @@ export class ObjetivosEstrategicos extends Component {
 
     return (
       <Container fluid className="container-unidades-de-medida">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion`)} >Administración</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion/antecedentes/`)} >Gestión de Información Institucional de la CMB</BreadcrumbItem>    
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/administracion/antecedente/${this.props.match.params.id_eje}/ejes-estrategicos`)}>Gestión de Ejes Estratégicos</BreadcrumbItem>                  
+            <BreadcrumbItem active>Gestión de Objetivos Estratégicos Institucionales</BreadcrumbItem>          
+          </Breadcrumb>
+        </div>
+
         {/* Modales del componente */}
         {modal_confirmacion}
         {modal_operacion_fallida}
