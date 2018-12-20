@@ -15,6 +15,7 @@ export class VinculacionPoaPresupuesto extends Component {
       accion_id: undefined,
       modal_crear_vinculacion_abierto: false,
       modal_editar_vinculacion_abierto: false,
+      modal_confirmacion_eliminar_abierto: false,      
       nombre_accion: undefined,
       area_accion: undefined,
       precio_producto: 0,
@@ -40,6 +41,7 @@ export class VinculacionPoaPresupuesto extends Component {
     this.obtenerVinculacionAccionesProductos = this.obtenerVinculacionAccionesProductos.bind(this);
     this.crearVinculacion = this.crearVinculacion.bind(this);
     this.cargarModalEditarVinculacion = this.cargarModalEditarVinculacion.bind(this);
+    this.cargarModalEliminarVinculacion = this.cargarModalEliminarVinculacion.bind(this);
     this.editarVinculacion = this.editarVinculacion.bind(this);
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerAcciones = this.obtenerAcciones.bind(this);
@@ -213,6 +215,30 @@ export class VinculacionPoaPresupuesto extends Component {
     await this.obtenerVinculacionAccionesProductos();
   }
 
+  async eliminarVinculacion(id){
+    const request_options = {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        id: id
+      })
+    };
+
+    const eliminar_requerimiento_personal_request = await fetch(`/api/vinculacion_acciones_productos/eliminar_vinculacion_accion_producto`, request_options);
+    const eliminar_requerimiento_personal_response = await eliminar_requerimiento_personal_request.json();
+
+    if(eliminar_requerimiento_personal_response !== 'err'){
+      this.setState({modal_confirmacion_eliminar_abierto: false, modal_operacion_exitosa: true, mensaje: "Vinculación entre acción y producto eliminada correctamente"}, async () => {
+        await this.obtenerProductos();
+        await this.obtenerAcciones();        
+        await this.obtenerVinculacionAccionesProductos();
+      });
+    }
+    else{
+      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la vinculación entre acción y producto"});
+    }
+  }
   cargarModalEditarVinculacion(ind) {
     const vinculacion_accion_producto = this.state.vinculacion_acciones_productos[ind];
     console.log(vinculacion_accion_producto);
@@ -237,7 +263,13 @@ export class VinculacionPoaPresupuesto extends Component {
     });
   }
 
-  /*validarModalCreacion(){
+  cargarModalEliminarVinculacion(ind) {
+    const vinculacion_accion_producto = this.state.vinculacion_acciones_productos[ind];
+    this.setState({
+      id: vinculacion_accion_producto.id,
+      modal_confirmacion_eliminar_abierto: true
+    });
+  }
     let formulario_valido = true;
 
     // Validación del nombre
@@ -285,6 +317,30 @@ export class VinculacionPoaPresupuesto extends Component {
 
   render() {
 
+    let modal_confirmacion_eliminar = 
+    <Modal isOpen={this.state.modal_confirmacion_eliminar_abierto} toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
+      <ModalHeader toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
+        Eliminar vinculación
+      </ModalHeader>
+
+      <ModalBody>
+        <p>¿Seguro que desea eliminar la vinculación entre el producto y la acción recurrente?</p>          
+        <p>Si la elimina no podrá recuperarla luego.</p>
+      </ModalBody>
+
+      <ModalFooter>
+        <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+          <Button color="danger" onClick={() => this.setState(this.eliminarVinculacion(this.state.id))} className="boton-eliminar-solicitud">
+            Eliminar
+          </Button>   
+          <Button color="danger" onClick={() => this.setState({modal_confirmacion_eliminar_abierto: false})}>
+            Cancelar
+          </Button>
+        </Col>
+      </ModalFooter>
+
+    </Modal>
+  ;
     // Modal que muestra el formulario para poder crear una nueva área
     let modal_crear_vinculacion_accion_producto = 
       <Modal isOpen={this.state.modal_crear_vinculacion_abierto} toggle={() => this.setState({modal_crear_vinculacion_abierto: !this.state.modal_crear_vinculacion_abierto})} size="md">
@@ -628,6 +684,7 @@ export class VinculacionPoaPresupuesto extends Component {
           {modal_editar_vinculacion}
           {modal_operacion_fallida}
           {modal_operacion_exitosa}
+          {modal_confirmacion_eliminar}
 
           <Row>
             {/* Título de la sección */}
@@ -723,8 +780,12 @@ export class VinculacionPoaPresupuesto extends Component {
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarVinculacion(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
-                              Gestionar
+                          <Button 
+                            color="danger" className="boton-eliminar"
+                            onClick={() => this.cargarModalEliminarVinculacion(index)}
+                          >
+                            <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
+                            Eliminar
                           </Button>
                           </td>                        
                     </tr>
