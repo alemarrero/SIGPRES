@@ -13,6 +13,7 @@ export class Alcaldia extends Component {
       planes_operativos: [],
       modal_crear_plan_operativo_abierto: false,
       modal_editar_plan_operativo_abierto: false,
+      modal_confirmacion_abierto: false,
       nombre: undefined,
       inicio_periodo: 1950,
       fin_periodo: 1950,
@@ -55,6 +56,7 @@ export class Alcaldia extends Component {
     if(eliminar_plan_response !== 'err'){
       this.setState({
         modal_editar_plan_operativo_abierto: false, 
+        modal_confirmacion_abierto: false,
         modal_operacion_exitosa: true, 
         mensaje: "Gaceta Municipal de la Alcaldía eliminado exitosamente"}, async () => {
         this.obtenerPlanesOperativos();
@@ -317,6 +319,31 @@ export class Alcaldia extends Component {
       años.push(i);
     }
 
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar documento
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar este elemento?</p>          
+          <p>Si lo elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarPlanOperativo} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
+      </Modal>
+    ;
+
     let modal_crear_plan = 
       <Modal isOpen={this.state.modal_crear_plan_operativo_abierto} toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})} size="md">
         <ModalHeader toggle={() => this.setState({modal_crear_plan_operativo_abierto: !this.state.modal_crear_plan_operativo_abierto})}>
@@ -508,7 +535,7 @@ export class Alcaldia extends Component {
               Editar plan
             </Button>
 
-            <Button onClick={this.eliminarPlanOperativo} color="warning" type="submit" className="boton-eliminar-modal">
+            <Button onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_plan_operativo_abierto: false})} color="warning" type="submit" className="boton-eliminar-modal">
               Eliminar plan
             </Button>
             
@@ -581,6 +608,7 @@ de la Alcaldía</BreadcrumbItem>
         {modal_editar_plan}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
+        {modal_confirmacion_eliminar}
 
         <Row>
           {/* Título de la sección */}
