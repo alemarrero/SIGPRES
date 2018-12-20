@@ -510,7 +510,7 @@ export class PlanesCMB extends Component {
               Editar plan
             </Button>
 
-            <Button onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_plan_operativo_abierto: false}))} color="warning" type="submit" className="boton-eliminar-modal">
+            <Button onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_plan_operativo_abierto: false})} color="warning" type="submit" className="boton-eliminar-modal">
               Eliminar plan
             </Button>
             

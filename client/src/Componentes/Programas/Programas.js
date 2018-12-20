@@ -12,6 +12,7 @@ export class Programas extends Component {
       modal_editar_programa_abierto: false,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
+      modal_confirmacion_abierto: false,
       mensaje: undefined,
       nombre: undefined,
       duracion_programa: '1',
@@ -61,7 +62,7 @@ export class Programas extends Component {
     return `${_fecha[2]} de ${meses[_fecha[1]]} del ${_fecha[0]}`;
   }
 
-  async validarCamposModalCreacion() {
+  validarCamposModalCreacion() {
     let formulario_valido = true;
 
     if(this.state.nombre === undefined || this.state.nombre === "" || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
@@ -92,6 +93,7 @@ export class Programas extends Component {
     const fecha_finalizacion = new Date(this.state.fecha_finalizacion);
 
     if(fecha_inicio.getTime() > fecha_finalizacion.getTime()){
+      formulario_valido = false;
       document.getElementById("fecha-modal-creacion").style.display = "block";
     }
     else{
@@ -125,9 +127,10 @@ export class Programas extends Component {
     }
 
     return formulario_valido;
+    //return false;
   }
 
-  async validarCamposModalEdicion() {
+  validarCamposModalEdicion() {
     let formulario_valido = true;
 
     if(this.state.nombre === undefined || this.state.nombre === ""){
@@ -296,9 +299,10 @@ export class Programas extends Component {
   async componentDidMount(){
     document.title = "SICMB - Gestión de Programas";
 
-    if( this.verificarSesion()){
-       this.obtenerProgramas();
-       this.obtenerAreas();
+    await this.obtenerProgramas();
+    
+    if(this.state.area_id === undefined || this.state.area_id === ""){
+        this.setState({area_id: this.props.areas[0].id})
     }
   }
 
@@ -538,7 +542,7 @@ export class Programas extends Component {
               Editar
             </Button>
 
-            <Button color="warning" onClick={this.eliminarPrograma} className="boton-eliminar-modal-programas">
+            <Button color="warning" onClick={() => this.setState({modal_confirmacion_abierto: true, modal_editar_programa_abierto: false})} className="boton-eliminar-modal-programas">
               Eliminar
             </Button>
             
@@ -548,6 +552,32 @@ export class Programas extends Component {
           </Col>
         </ModalFooter>
         
+      </Modal>
+    ;
+
+
+    let modal_confirmacion_eliminar = 
+      <Modal isOpen={this.state.modal_confirmacion_abierto} toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+        <ModalHeader toggle={() => this.setState({modal_confirmacion_abierto: !this.state.modal_confirmacion_abierto})}>
+          Eliminar programa
+        </ModalHeader>
+
+        <ModalBody>
+          <p>¿Seguro que desea eliminar el programa?</p>          
+          <p>Si lo elimina no podrá recuperarlo luego.</p>
+        </ModalBody>
+
+        <ModalFooter>
+          <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            <Button color="danger" onClick={this.eliminarPrograma} className="boton-eliminar-solicitud">
+              Eliminar
+            </Button>   
+            <Button color="danger" onClick={() => this.setState({modal_confirmacion_abierto: false})}>
+              Cancelar
+            </Button>
+          </Col>
+        </ModalFooter>
+
       </Modal>
     ;
 
@@ -611,6 +641,7 @@ export class Programas extends Component {
         {modal_editar_programa}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
+        {modal_confirmacion_eliminar}
 
         <Row>
           {/* Título de la sección */}
