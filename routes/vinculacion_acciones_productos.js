@@ -2193,7 +2193,7 @@ function parsearPresupuestoPartida(presupuesto_final){
     let total_presupuesto = 0;
     presupuesto_final.map(presupuesto => {
       if (presupuesto.es_partida === true){
-        total_presupuesto = total_presupuesto + presupuesto.monto_total;
+        total_presupuesto = total_presupuesto + parseFloat(presupuesto.monto_total, 10);
         filas.push([
           presupuesto.partida,
           presupuesto.generica,
