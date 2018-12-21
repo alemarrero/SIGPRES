@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consultar from '../../assets/img/consultar.png';
-import { request } from 'http';
 import withContext from '../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class ConsultarSolicitudesRequerimientos extends Component {
   constructor(props){
@@ -35,7 +31,6 @@ export class ConsultarSolicitudesRequerimientos extends Component {
 
     if(solicitudes_de_requerimientos_response !== 'err'){
       this.setState({solicitudes_de_requerimientos: solicitudes_de_requerimientos_response});
-      console.log(this.state)
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las solicitudes de personal enviadas"});

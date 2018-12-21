@@ -43,7 +43,7 @@ export default class Especificas extends Component {
       const obtener_generica_request = await fetch(`/api/genericas/obtener_generica`, request_options);
       const obtener_generica_response = await obtener_generica_request.json();
 
-      if(obtener_generica_response == 'err'){
+      if(obtener_generica_response === 'err'){
         this.setState({modal_operacion_fallida: true, mensaje: "Error obteniendo la generica"});
       }
       else{

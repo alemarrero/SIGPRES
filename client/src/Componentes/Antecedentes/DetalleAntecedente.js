@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import './DetalleAntecedente.css';
 

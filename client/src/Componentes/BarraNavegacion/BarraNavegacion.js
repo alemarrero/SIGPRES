@@ -4,7 +4,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
          UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col,
          Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import logo from '../../assets/img/logo-cmb.png';
-import {withRouter, Link} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import withContext from '../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 

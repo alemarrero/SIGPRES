@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consultar from '../../assets/img/consultar.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 
 export class ConsultarSolicitudesPersonal extends Component {
@@ -32,7 +31,6 @@ export class ConsultarSolicitudesPersonal extends Component {
 
     if(solicitud_personal_response !== 'err'){
       this.setState({solicitudes_personal: solicitud_personal_response});
-      console.log(this.state)
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las solicitudes de personal enviadas"});

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Breadcrumb, BreadcrumbItem, Row, Col, Card, CardBody} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Row} from 'reactstrap';
 import './Requerimientos.css';
 import personal from '../../assets/img/personal.png';
 import cargo from '../../assets/img/cargo.png';
@@ -33,7 +33,7 @@ export class Menu extends Component {
           {autorizarDirectorRH(this.props.usuario.rol) &&        
           <OpcionMenu ruta={'solicitudes-anteriores/'} nombre="Histórico" icono={requerimientosViejos}/>
           }
-          
+
           {/* Gestion de cargos */}   
           <OpcionMenu ruta={'/cargos/'} nombre="Gestión de Cargos" icono={cargo}/> 
 

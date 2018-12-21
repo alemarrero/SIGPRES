@@ -194,19 +194,6 @@ export class VinculacionPoaPresupuesto extends Component {
 
   }
 
-  async obtenerVinculacionAccionesProductos(){
-    const vinculacion_request = await fetch('/api/vinculacion_acciones_productos/obtener_vinculacion_acciones_productos', {credentials: 'include'});
-    const vinculacion_response = await vinculacion_request.json();
-
-    if(vinculacion_response !== 'err'){
-      this.setState({vinculacion_acciones_productos: vinculacion_response});
-    }
-    else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener la vinculacion de POA con Presupuesto"});
-    }
-
-  }
-
   async componentDidMount(){
     document.title = "SICMB - Vinculación POA - Preuspuesto";
     await this.obtenerProductos();
@@ -397,8 +384,8 @@ export class VinculacionPoaPresupuesto extends Component {
 
   validarModalEdicion(){
     let formulario_valido = true;
-    let accion_id = parseInt(this.state.accion_id);
-    let producto_id = parseInt(this.state.producto_id);
+    let accion_id = parseInt(this.state.accion_id, 10);
+    let producto_id = parseInt(this.state.producto_id, 10);
     let vinculacion_existente = this.state.vinculacion_acciones_productos.filter(vinculacion => vinculacion.accion_id === accion_id && vinculacion.producto_id === producto_id && vinculacion.id !== this.state.id);
     
     // Validación de la vinculacion

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consolidado from '../../assets/img/consolidado.png';
 import withContext from '../../Contenedor/withContext';
 
@@ -17,7 +17,6 @@ export class PresupuestoFinal extends Component {
   async obtenerPresupuestoFinal(){
     const presupuesto_final_request = await fetch('/api/vinculacion_acciones_productos/obtener_presupuesto_final', {credentials: 'include'});
     const presupuesto_final_response = await presupuesto_final_request.json();
-    console.log(presupuesto_final_response);
     if(presupuesto_final_response !== 'err'){
       this.setState({presupuesto_final: presupuesto_final_response});
     }

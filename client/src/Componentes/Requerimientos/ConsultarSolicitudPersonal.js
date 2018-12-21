@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Container, Table } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 
 export class ConsultarSolicitudPersonal extends Component {
@@ -46,10 +45,8 @@ export class ConsultarSolicitudPersonal extends Component {
           id: this.props.match.params.id_solicitud
         })
       };
-      console.log(this.props.match.params.id_solicitud);
     const solicitud_personal_request = await fetch('/api/solicitud_personal/obtener_solicitud_personal_enviada', request_options);
     const solicitud_personal_response = await solicitud_personal_request.json();
-    console.log(solicitud_personal_response);
 
     if(solicitud_personal_response !== 'err'){
       this.setState({...solicitud_personal_response});

@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import './Cargos.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import cargo from '../../assets/img/cargo.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class Cargos extends Component {
   constructor(props){

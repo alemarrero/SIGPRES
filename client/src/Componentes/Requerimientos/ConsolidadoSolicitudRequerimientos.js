@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consolidado from '../../assets/img/consolidado.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 
 export class ConsolidadoSolicitudRequerimientos extends Component {
@@ -18,7 +17,6 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
   async obtenerConsolidadoSolicitudRequerimientos(){
     const consolidado_solicitud_requerimientos_request = await fetch('/api/productos/obtener_consolidado_presupuesto', {credentials: 'include'});
     const consolidado_solicitud_requerimientos_response = await consolidado_solicitud_requerimientos_request.json();
-    console.log(consolidado_solicitud_requerimientos_response);
     if(consolidado_solicitud_requerimientos_response !== 'err'){
       this.setState({consolidado_solicitud_requerimientos: consolidado_solicitud_requerimientos_response});
     }
@@ -61,18 +59,6 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
 
     return (
         <Container fluid className="container-unidades-de-medida">
-
-          <div>
-            <Breadcrumb>
-              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
-              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
-              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
-              <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/`)}>Requerimientos y Necesidades</BreadcrumbItem>
-              <BreadcrumbItem active>Consolidado de Solicitudes de Requerimientos</BreadcrumbItem>
-
-            </Breadcrumb>
-          </div>
-          
           {/* Modales del componente */}
           {modal_operacion_fallida}
 
@@ -80,11 +66,12 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <img src={consolidado} className="icono-titulo"/>    
-              <h1 className="titulo-solicitud-personal">Consolidado de Solicitudes de Requerimientos</h1>
+              <h1 className="titulo-solicitud-personal">Consolidado de Solicitudes de Personal</h1>
             </Col>
           </Row>
 
           <Row className="row-unidades-de-medida">
+
           <Table striped className="tabla-unidad-solicitante">                              
             <thead>
                 <tr>

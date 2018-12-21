@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
-import { request } from 'http';
 import './Subespecificas.css'
 
 export default class Subespecificas extends Component {
@@ -44,7 +43,7 @@ export default class Subespecificas extends Component {
       const obtener_especifica_request = await fetch(`/api/especificas/obtener_especifica`, request_options);
       const obtener_especifica_response = await obtener_especifica_request.json();
 
-      if(obtener_especifica_response == 'err'){
+      if(obtener_especifica_response === 'err'){
         this.setState({modal_operacion_fallida: true, mensaje: "Error obteniendo la especifica"});
       }
       else{
@@ -165,7 +164,6 @@ export default class Subespecificas extends Component {
     };    
     const subespecificas_request = await fetch('/api/subespecificas/obtener_subespecificas', request_options);
     const subespecificas_response = await subespecificas_request.json();
-    console.log(subespecificas_response);
 
     if(subespecificas_response !== 'err'){
       this.setState({subespecificas: subespecificas_response});

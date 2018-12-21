@@ -223,7 +223,7 @@ export class Antecedentes extends Component {
       credentials: "include",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify({
-        id: parseInt(this.state.id)
+        id: parseInt(this.state.id, 10)
       })
     }
 

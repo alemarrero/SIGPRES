@@ -608,6 +608,7 @@ de la Nación</BreadcrumbItem>
         {modal_editar_plan}
         {modal_operacion_fallida}
         {modal_operacion_exitosa}
+        {modal_confirmacion_eliminar}
 
         <Row>
           {/* Título de la sección */}

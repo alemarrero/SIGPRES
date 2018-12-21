@@ -60,21 +60,16 @@ export class Productos extends Component {
   }
 
   async formatearRowsProductos(){
-      let productos = [];
-
     let intermedio = this.state.productos.map(async (producto, index) => {
         let partida=[];
             if (producto.especifica_id !== null){
                 partida = await this.obtenerPartidaDesdeEspecifica(producto.especifica_id);
             }
             else{
-                console.log(producto.subespecifica_id);
                 partida = await this.obtenerPartidaDesdeSubespecifica(producto.subespecifica_id);
-
             }
         
         let nombre_unidad = this.obtenerNombreUnidad(producto.unidad_de_medida_id);
-        //let nombre_unidad=[];
         let temp = 
             <tr key={`${producto.id}_${producto.nombre}`}>
                 <th scope="row">{producto.id}</th>
@@ -105,8 +100,6 @@ export class Productos extends Component {
 
         return temp;
     });
-
-    // console.log(intermedio)
 
     Promise.all(intermedio).then(resultado => {
         this.setState({rows_productos: resultado});
@@ -224,8 +217,6 @@ export class Productos extends Component {
             subespecifica_id: this.state.subespecifica_id,
         })
      };
-      console.log(this.state.subespecifica_id);
-      console.log(this.state.especifica_id);
 
       const crear_producto_request = await fetch(`/api/productos/crear_producto`, request_options);
       const crear_producto_response = await crear_producto_request.json();

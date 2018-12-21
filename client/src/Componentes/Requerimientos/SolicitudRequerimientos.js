@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './Requerimientos.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Container, Table } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class SolicitudRequerimientos extends Component {
   constructor(props){
@@ -159,7 +155,6 @@ export class SolicitudRequerimientos extends Component {
       });
     }
     else{
-      console.log("errooor");
       this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de personal"});
     }
   }
@@ -348,7 +343,7 @@ export class SolicitudRequerimientos extends Component {
 
   validarCreacionEntradaSolicitudDeRequerimiento(){
     let formulario_valido = true;
-    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id == this.state.producto_id);
+    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id === this.state.producto_id);
 
     // Validación del cargo
     if(this.state.producto_id === undefined || requerimiento_existente.length > 0){
@@ -485,7 +480,7 @@ export class SolicitudRequerimientos extends Component {
     let cantidad_noviembre = document.getElementById(`cantidad_noviembre_requerimiento_${id}`).value;
     let cantidad_diciembre = document.getElementById(`cantidad_diciembre_requerimiento_${id}`).value;
     let producto_id = document.getElementById(`producto_id_entrada_solicitud_de_requerimientos_${id}`).value;    
-    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id == producto_id && requerimiento.id !== id);
+    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id === producto_id && requerimiento.id !== id);
     
     // Validación del cargo
     if(producto_id === undefined || requerimiento_existente.length > 0){
