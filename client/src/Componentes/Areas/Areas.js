@@ -3,6 +3,7 @@ import './Areas.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import areas from '../../assets/img/areas.png';
 import withContext from './../../Contenedor/withContext';
+import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
 export class Areas extends Component {
   constructor(props){
@@ -457,12 +458,15 @@ export class Areas extends Component {
             </Col>
 
             {/* Botón para agregar áreas */}
+            {autorizarAdministrador(this.props.usuario.rol) && 
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_area_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar área
               </Button>
-            </Col>
+            </Col>            
+            }
+
           </Row>
 
           {/* Si existen áreas, muestra una tabla con su información */}
@@ -487,6 +491,7 @@ export class Areas extends Component {
                           <td>{area.descripcion}</td>
                           <td>{area.habilitado ? <span>Si</span> : <span>No</span>}</td>
                           <td>
+                          {autorizarAdministrador(this.props.usuario.rol) && 
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarArea(index)}
@@ -494,6 +499,7 @@ export class Areas extends Component {
                               <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )
