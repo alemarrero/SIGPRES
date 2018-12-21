@@ -203,6 +203,8 @@ router.get('/obtener_productos', function(req, res){
 
 router.get('/obtener_consolidado_presupuesto', function(req, res){
   let consolidado = [];
+  const fecha = new Date();
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
   models.partidas_presupuestarias.findAll({
     attributes: ["denominacion", "numero_partida", "id"],
@@ -236,7 +238,7 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                             model: models.solicitudes_de_requerimientos,
                             as: "solicitud_de_requerimiento",
                             attributes: ["periodo", "area_id"],
-                            where: {periodo: "2018", enviada: true},
+                            where: {periodo: `${año}`, enviada: true},
                             required: false,
                           }                   
                         ]
@@ -265,7 +267,7 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                         as: "solicitud_de_requerimiento",
                         attributes: ["periodo", "area_id"],
                         required: false,
-                        where: {periodo: "2018", enviada: true},
+                        where: {periodo: `${año}`, enviada: true},
                       }
                     ]
                   },
