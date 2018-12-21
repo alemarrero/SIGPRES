@@ -106,10 +106,14 @@ export class BarraNavegacion extends Component {
                       Gestión de requerimientos de cada área
                     </DropdownItem>
 
-                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/contabilidad-presupuestaria`)}>
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/vinculacion-poa-presupuesto`)}>
                       Vinculación POA - Presupuesto
                     </DropdownItem>
                     
+                    <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/presupuesto-final`)}>
+                      Presupuesto Final
+                    </DropdownItem>
+
                     <DropdownItem className="dropdown-navbar" onClick={() => this.props.history.push(`/inicio/presupuesto/productos`)}>
                       Gestión de productos
                     </DropdownItem>                  
