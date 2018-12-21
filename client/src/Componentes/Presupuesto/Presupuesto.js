@@ -4,6 +4,7 @@ import './Presupuesto.css';
 import partidas from '../../assets/img/partidas.png';
 import requerimientos from '../../assets/img/requerimientos.png';
 import contabilidad from '../../assets/img/contabilidad.png';
+import presupuesto_final from '../../assets/img/presupuesto_final.png';
 import productos from '../../assets/img/productos.png';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 import withContext from './../../Contenedor/withContext';
@@ -60,7 +61,7 @@ export class Menu extends Component {
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
                 <Card onClick={() => this.props.history.push(this.props.match.path + '/presupuesto-final')} body outline color="success">
                     <CardBody>
-                    <img src={contabilidad} className="iconos-menu"/>    
+                    <img src={presupuesto_final} className="iconos-menu"/>    
                     <h2 className="modulo-menu">Presupuesto Final</h2>
                     </CardBody>
                 </Card>

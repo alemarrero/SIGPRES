@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
-import consolidado from '../../assets/img/consolidado.png';
+import presupuesto_final from '../../assets/img/presupuesto_final.png';
 import withContext from '../../Contenedor/withContext';
 
 
@@ -74,7 +74,7 @@ export class PresupuestoFinal extends Component {
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <img src={consolidado} className="icono-titulo"/>    
+              <img src={presupuesto_final} className="icono-titulo"/>    
               <h1 className="titulo-solicitud-personal">Resumen Financiero por Partida Presupuestaria</h1>
             </Col>
 
