@@ -85,7 +85,7 @@ export class PresupuestoFinal extends Component {
                   <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar reporte
                 </Button>                        
               </a> 
-              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos//obtener_reporte_presupuesto_final_por_partida">
+              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_reporte_presupuesto_final_por_partida">
                 <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
                   <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar Resumen Créditos Presupuestarios Por Partida
                 </Button>                        
