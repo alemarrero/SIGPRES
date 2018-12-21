@@ -320,6 +320,15 @@ export class VinculacionPoaPresupuesto extends Component {
       document.getElementById("cantidad-abril-modal-creacion").style.display = 'none';
     }
 
+    // Validación de cantidad mayo
+    if(`${this.state.cantidad_mayo}` === undefined || !`${this.state.cantidad_mayo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'none';
+    }  
+
     // Validación de cantidad junio
     if(`${this.state.cantidad_junio}` === undefined || !`${this.state.cantidad_junio}`.match(/^[0-9]+$/)){
       document.getElementById("cantidad-junio-modal-creacion").style.display = 'block';
@@ -436,6 +445,15 @@ export class VinculacionPoaPresupuesto extends Component {
     else{
       document.getElementById("cantidad-abril-modal-edicion").style.display = 'none';
     }
+
+    // Validación de cantidad mayo
+    if(`${this.state.cantidad_mayo}` === undefined || !`${this.state.cantidad_mayo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'none';
+    }  
 
     // Validación de cantidad junio
     if(`${this.state.cantidad_junio}` === undefined || !`${this.state.cantidad_junio}`.match(/^[0-9]+$/)){
