@@ -153,7 +153,7 @@ router.get('/obtener_reporte_vinculacion_acciones_productos', function(req, res)
                             model: models.solicitudes_de_requerimientos,
                             as: "solicitud_de_requerimiento",
                             attributes: ["periodo", "area_id"],
-                            where: {periodo: "2018", enviada: true},
+                            where: {periodo: `${año}`, enviada: true},
                             required: false,
                           }                   
                         ]
@@ -208,7 +208,7 @@ router.get('/obtener_reporte_vinculacion_acciones_productos', function(req, res)
                         as: "solicitud_de_requerimiento",
                         attributes: ["periodo", "area_id"],
                         required: false,
-                        where: {periodo: "2018", enviada: true},
+                        where: {periodo: `${año}`, enviada: true},
                       }
                     ]
                   },
@@ -411,7 +411,7 @@ function vinculacionAccionesProductos(res){
                             model: models.solicitudes_de_requerimientos,
                             as: "solicitud_de_requerimiento",
                             attributes: ["periodo", "area_id"],
-                            where: {periodo: "2018", enviada: true},
+                            where: {periodo: `${año}`, enviada: true},
                             required: false,
                           }                   
                         ]
@@ -466,7 +466,7 @@ function vinculacionAccionesProductos(res){
                         as: "solicitud_de_requerimiento",
                         attributes: ["periodo", "area_id"],
                         required: false,
-                        where: {periodo: "2018", enviada: true},
+                        where: {periodo: `${año}`, enviada: true},
                       }
                     ]
                   },
