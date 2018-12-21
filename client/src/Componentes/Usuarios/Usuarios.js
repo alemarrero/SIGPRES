@@ -682,6 +682,7 @@ import withContext from './../../Contenedor/withContext';
                 >
                   <option value="administrador">Administrador</option>
                   <option value="director pp">Director de Planificación y Presupuesto</option>
+                  <option value="director rh">Director de Recursos Humanos</option>
                   <option value="director">Director</option>
                   <option value="regular">Regular</option>
                 </Input>        
