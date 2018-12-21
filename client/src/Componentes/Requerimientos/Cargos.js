@@ -3,11 +3,13 @@ import './Cargos.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import cargo from '../../assets/img/cargo.png';
 import { request } from 'http';
+import withContext from './../../Contenedor/withContext';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 // https://www.flaticon.com/free-icon/compass_1156951
 
 
-export default class Cargos extends Component {
+export class Cargos extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -399,12 +401,15 @@ export default class Cargos extends Component {
             </Col>
 
             {/* Botón para agregar cargos */}
+            {autorizarDirectorPP(this.props.usuario.rol) &&                    
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_cargo_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar cargo 
               </Button>
             </Col>
+            }
+
           </Row>
 
           {/* Si existen cargos, muestra  tabla con su información */}
@@ -429,6 +434,7 @@ export default class Cargos extends Component {
                           <td>{cargo.cargo}</td>
                           <td>{cargo.habilitado ? <span>Si</span> : <span>No</span>}</td>
                           <td>
+                          {autorizarDirectorPP(this.props.usuario.rol) &&                    
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarCargo(index)}
@@ -436,6 +442,7 @@ export default class Cargos extends Component {
                               <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )
@@ -448,3 +455,5 @@ export default class Cargos extends Component {
     )
   }
 }
+export default withContext(Cargos);
+
