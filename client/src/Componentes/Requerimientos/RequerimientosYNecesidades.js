@@ -8,6 +8,7 @@ import consultar from '../../assets/img/consultar.png';
 import consolidado from '../../assets/img/consolidado.png';
 import withContext from './../../Contenedor/withContext';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import autorizarDirector from '../../Utilidades/autorizarDirector.js';
 
 
 export class Menu extends Component {
@@ -28,12 +29,17 @@ export class Menu extends Component {
 
 
         <Row className="fila-opciones-menu-principal">
+
           {/* Requerimientos y Necesidades */}   
+          {autorizarDirector(this.props.usuario.rol) &&          
           <OpcionMenu ruta={'/solicitud-de-requerimientos/'} nombre="Solicitud de Requerimientos y Necesidades" icono={requerimientos}/>
-          
+          }
+
           {/* Solicitud de requerimientosViejos */}
+          {autorizarDirector(this.props.usuario.rol) &&          
           <OpcionMenu ruta={'requerimientos-anteriores/'} nombre="Históricos" icono={requerimientosViejos}/>
-          
+          }
+
           {/* Consulta de solicitudes de requerimientos y necesidades */}   
           {autorizarDirectorPP(this.props.usuario.rol) &&          
           <OpcionMenu ruta={'/consultar-solicitudes-de-requerimientos/'} nombre="Consultar Solicitudes de Requerimientos y Necesidades" icono={consultar}/> 

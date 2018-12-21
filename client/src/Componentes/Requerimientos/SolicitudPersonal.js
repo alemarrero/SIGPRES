@@ -8,7 +8,8 @@ import OpcionMenu from '../Menu/OpcionMenu';
 import consultar from '../../assets/img/consultar.png';
 import consolidado from '../../assets/img/consolidado.png';
 import withContext from './../../Contenedor/withContext';
-import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import autorizarDirectorRH from '../../Utilidades/autorizarDirectorRH.js';
+import autorizarDirector from '../../Utilidades/autorizarDirector.js';
 
 export class Menu extends Component {
   render() {
@@ -24,21 +25,25 @@ export class Menu extends Component {
 
         <Row className="fila-opciones-menu-principal">
           {/* Requerimientos y Necesidades */}   
+          {autorizarDirector(this.props.usuario.rol) &&        
           <OpcionMenu ruta={'/requerimientos-personal/'} nombre="Solicitud de Personal" icono={personal}/>
-          
+          }
+
           {/* Historicos */}
+          {autorizarDirectorRH(this.props.usuario.rol) &&        
           <OpcionMenu ruta={'solicitudes-anteriores/'} nombre="Histórico" icono={requerimientosViejos}/>
+          }
           
           {/* Gestion de cargos */}   
           <OpcionMenu ruta={'/cargos/'} nombre="Gestión de Cargos" icono={cargo}/> 
 
           {/* Consulta de solicitudes de personal */}
-          {autorizarDirectorPP(this.props.usuario.rol) &&        
+          {autorizarDirectorRH(this.props.usuario.rol) &&        
           <OpcionMenu ruta={'/consultar-solicitudes-personal/'} nombre="Consultar Solicitudes de Personal" icono={consultar}/> 
           }
 
           {/* Consulta consolidado de solicitudes de personal */}   
-          {autorizarDirectorPP(this.props.usuario.rol) &&        
+          {autorizarDirectorRH(this.props.usuario.rol) &&        
           <OpcionMenu ruta={'/consolidado-solicitudes-personal/'} nombre="Consultar Consolidado de Solicitudes de Personal" icono={consolidado}/>         
           }
         </Row>
