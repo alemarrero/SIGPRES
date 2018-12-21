@@ -5,8 +5,10 @@ import partidas from '../../assets/img/partidas.png';
 import requerimientos from '../../assets/img/requerimientos.png';
 import contabilidad from '../../assets/img/contabilidad.png';
 import productos from '../../assets/img/productos.png';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from './../../Contenedor/withContext';
 
-export default class Menu extends Component {
+export class Menu extends Component {
   render() {
     return (
         <React.Fragment>
@@ -20,6 +22,7 @@ export default class Menu extends Component {
 
             <Row className="fila-opciones-menu-principal">
                 {/* Gestión de partidas presupuestarias */}
+                {autorizarDirectorPP(this.props.usuario.rol) &&
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
                 <Card onClick={() => this.props.history.push(this.props.match.path + '/partidas-presupuestarias')} body outline color="success">
                     <CardBody>
@@ -27,7 +30,8 @@ export default class Menu extends Component {
                     <h2 className="modulo-menu">Gestión de partidas presupuestarias</h2>
                     </CardBody>
                 </Card>
-                </Col>    
+                </Col>  
+                }  
                 
                 {/* Gestión presupuestal  */}
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
@@ -40,6 +44,7 @@ export default class Menu extends Component {
                 </Col>
 
                 {/* Gestión de objetivos específicos */}
+                {autorizarDirectorPP(this.props.usuario.rol) &&
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
                 <Card onClick={() => this.props.history.push(this.props.match.path + '/vinculacion-poa-presupuesto')} body outline color="success">
                     <CardBody>
@@ -47,9 +52,11 @@ export default class Menu extends Component {
                     <h2 className="modulo-menu">Vinculación POA - Presupuesto</h2>
                     </CardBody>
                 </Card>
-                </Col>             
+                </Col>           
+                }  
 
                 {/* Gestión de objetivos específicos */}
+                {autorizarDirectorPP(this.props.usuario.rol) &&
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
                 <Card onClick={() => this.props.history.push(this.props.match.path + '/presupuesto-final')} body outline color="success">
                     <CardBody>
@@ -57,7 +64,8 @@ export default class Menu extends Component {
                     <h2 className="modulo-menu">Presupuesto Final</h2>
                     </CardBody>
                 </Card>
-                </Col>             
+                </Col> 
+                }            
 
                 {/* Gestión de objetivos específicos */}
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
@@ -75,3 +83,4 @@ export default class Menu extends Component {
     )
   }
 }
+export default withContext(Menu);
