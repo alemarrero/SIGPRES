@@ -623,14 +623,14 @@ export class RequerimientosPersonal extends Component {
                             color="info" className="boton-actualizar"
                             onClick={() => this.editarRequerimientoPersonal(requerimiento_personal.id)}
                         >
-                            <i class="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
                             Actualizar
                         </Button>
                         <Button 
                             color="danger" className="boton-eliminar"
                             onClick={() => this.eliminarRequerimientoPersonal(requerimiento_personal.id)}
                         >
-                            <i class="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
                             Eliminar
                         </Button>                          
                         </td>

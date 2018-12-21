@@ -112,7 +112,7 @@ export class ConsultarSolicitudesPersonal extends Component {
                             <Button 
                             color="info" className="boton-ver"
                             onClick={() => this.props.history.push('/inicio/presupuesto/requerimientos/solicitud-personal/consultar-solicitudes-personal/' + solicitud_personal.id)}>
-                                <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                                 Ver solicitud de personal
                             </Button>   
                             </td> 

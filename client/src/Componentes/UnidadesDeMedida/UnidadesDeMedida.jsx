@@ -481,7 +481,7 @@ export class UnidadesDeMedida extends Component {
                                   color="info" className="boton-gestionar"
                                   onClick={() => this.cargarModalEditarUnidad(index)}
                               >
-                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                                   Gestionar
                               </Button>
                             </td>

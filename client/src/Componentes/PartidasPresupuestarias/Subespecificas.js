@@ -470,7 +470,7 @@ export default class Subespecificas extends Component {
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarSubespecifica(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
                           </td>

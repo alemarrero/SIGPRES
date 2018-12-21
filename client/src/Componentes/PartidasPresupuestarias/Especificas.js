@@ -467,14 +467,14 @@ export default class Especificas extends Component {
                               color="info" className="boton-ver"
                               onClick={() => this.props.history.push(`/inicio/presupuesto/partida-presupuestaria/${this.props.match.params.numero_partida}/generica/${this.props.match.params.numero_generica}/especifica/${especifica.numero_especifica}`)}
                           >
-                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Sub-específica
                           </Button>
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarEspecifica(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
                           </td>

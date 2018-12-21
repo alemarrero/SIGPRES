@@ -439,7 +439,7 @@ export class Cargos extends Component {
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarCargo(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
                           }

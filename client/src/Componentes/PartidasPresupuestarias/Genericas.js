@@ -467,14 +467,14 @@ export default class Genericas extends Component {
                               color="info" className="boton-ver"
                               onClick={() => this.props.history.push(`/inicio/presupuesto/partida-presupuestaria/${this.props.match.params.numero_partida}/generica/${generica.numero_generica}`)}
                           >
-                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Específica
                           </Button>
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarGenerica(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
                           </td>

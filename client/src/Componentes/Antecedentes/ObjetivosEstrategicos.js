@@ -369,7 +369,7 @@ export class ObjetivosEstrategicos extends Component {
                               style={{marginLeft: "5px"}}
                               onClick={() => this.setState({modal_editar_objetivo_estrategico_abierto: true, ...objetivo})}
                             >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                             </Button>
                           </td>

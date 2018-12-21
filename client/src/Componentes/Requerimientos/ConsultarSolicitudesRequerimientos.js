@@ -118,7 +118,7 @@ export class ConsultarSolicitudesRequerimientos extends Component {
                             <Button 
                             color="info" className="boton-ver"
                             onClick={() => this.props.history.push('/inicio/presupuesto/requerimientos/requerimientos-y-necesidades/consultar-solicitudes-de-requerimientos/' + solicitud_de_requerimientos.id)}>
-                                <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                                 Ver solicitud de requerimientos
                             </Button>   
                             </td> 

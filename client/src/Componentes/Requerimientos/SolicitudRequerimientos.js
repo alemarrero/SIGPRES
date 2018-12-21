@@ -1103,14 +1103,14 @@ export class SolicitudRequerimientos extends Component {
                                 color="info" className="boton-actualizar"
                                 onClick={() => this.editarEntradaSolicitudRequerimiento(entrada_solicitud_de_requerimientos.id)}
                             >
-                                <i class="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
                                 Actualizar
                             </Button>
                             <Button 
                                 color="danger" className="boton-eliminar"
                                 onClick={() => this.cargarModalEliminar(entrada_solicitud_de_requerimientos.id)}
                             >
-                                <i class="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
                                 Eliminar
                             </Button>                          
                             </td>
