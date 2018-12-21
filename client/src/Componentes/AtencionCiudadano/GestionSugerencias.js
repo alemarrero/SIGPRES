@@ -271,7 +271,7 @@ export class Sugerencias extends Component {
         {modal_detalle_sugerencia}
         {modal_confirmacion}
 
-        <Row fluid={true}>
+        <Row fluid>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
             <img src={sugerencia} className="icono-titulo"/>    
