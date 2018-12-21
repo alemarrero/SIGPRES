@@ -16,6 +16,7 @@ export class SolicitudRequerimientos extends Component {
       enviada: false,
       id: undefined,
       productos: [],
+      entrada_id: undefined,
       nombre_area: undefined,
       producto_id: undefined,
       cantidad: 0,
@@ -34,6 +35,7 @@ export class SolicitudRequerimientos extends Component {
       indice_producto: undefined,
       modal_operacion_exitosa: false,
       modal_operacion_fallida: false,
+      modal_confirmacion_eliminar_entrada: false,
     };
     this.obtenerProductos = this.obtenerProductos.bind(this);
     this.obtenerUnidadDeMedida = this.obtenerUnidadDeMedida.bind(this);
@@ -46,11 +48,19 @@ export class SolicitudRequerimientos extends Component {
     this.crearEntradaSolicitudRequerimiento = this.crearEntradaSolicitudRequerimiento.bind(this);
     this.editarEntradaSolicitudRequerimiento = this.editarEntradaSolicitudRequerimiento.bind(this);
     this.eliminarEntradaSolicitudRequerimientos = this.eliminarEntradaSolicitudRequerimientos.bind(this);    
-    //this.validarCreacionRequerimientoPersonal = this.validarCreacionRequerimientoPersonal.bind(this);
-    //this.validarEdicionRequerimientoPersonal = this.validarEdicionRequerimientoPersonal.bind(this);
+    this.validarCreacionEntradaSolicitudDeRequerimiento = this.validarCreacionEntradaSolicitudDeRequerimiento.bind(this);
+    this.validarEdicionEntradaSolicitudDeRequerimiento = this.validarEdicionEntradaSolicitudDeRequerimiento.bind(this);
     this.obtenerArea = this.obtenerArea.bind(this);
     this.verificarEntradaSolicitudRequerimiento = this.verificarEntradaSolicitudRequerimiento.bind(this);
+    this.cargarModalEliminar = this.cargarModalEliminar.bind(this);
   }
+
+  cargarModalEliminar(id) {
+    this.setState({
+      entrada_id: id,
+      modal_confirmacion_eliminar_entrada_abierto: true
+    });
+  }  
 
   obtenerArea(id){
     const area = this.props.areas.filter(area => area.id === id);
@@ -206,7 +216,7 @@ export class SolicitudRequerimientos extends Component {
     }
   }
   async crearEntradaSolicitudRequerimiento() {
-    //if(this.validarCreacionRequerimientoPersonal()){
+    if(this.validarCreacionEntradaSolicitudDeRequerimiento()){
       const request_options = {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -238,11 +248,11 @@ export class SolicitudRequerimientos extends Component {
       else{
         this.setState({modal_crear_cargo_abierto: false, mensaje: "Error creando el requerimiento de personal"});
       }
-    //}
+    }
   }
 
   async editarEntradaSolicitudRequerimiento(id){
-   // if(this.validarEdicionRequerimientoPersonal(id)){
+    if(this.validarEdicionEntradaSolicitudDeRequerimiento(id)){
       const request_options = {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -276,7 +286,7 @@ export class SolicitudRequerimientos extends Component {
       else{
         this.setState({modal_operacion_fallida: true, mensaje: "Error actualizando el requerimiento personal"});
       }
-    //}
+    }
   }
 
   async eliminarEntradaSolicitudRequerimientos(id){
@@ -293,12 +303,12 @@ export class SolicitudRequerimientos extends Component {
     const eliminar_requerimiento_response = await eliminar_requerimiento_request.json();
 
     if(eliminar_requerimiento_response !== 'err'){
-      this.setState({modal_operacion_exitosa: true, mensaje: "Requerimiento de personal eliminado correctamente"}, async () => {
+      this.setState({modal_confirmacion_eliminar_entrada_abierto: false, modal_operacion_exitosa: true, mensaje: "Requerimiento eliminado correctamente"}, async () => {
         await this.obtenerEntradasSolicitudRequerimientos();
       });
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando el requerimiento de personal"});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando el requerimiento"});
     }
   }
 
@@ -336,6 +346,265 @@ export class SolicitudRequerimientos extends Component {
     }
   }
 
+  validarCreacionEntradaSolicitudDeRequerimiento(){
+    let formulario_valido = true;
+    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id == this.state.producto_id);
+
+    // Validación del cargo
+    if(this.state.producto_id === undefined || requerimiento_existente.length > 0){
+        document.getElementById("producto-creacion").style.display = 'block';
+        formulario_valido = false;
+      }
+     else{
+        document.getElementById("producto-creacion").style.display = 'none';
+      }    
+    
+    // Validación de cantidad enero
+    if(`${this.state.cantidad_enero}` === undefined || !`${this.state.cantidad_enero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-enero-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-enero-creacion").style.display = 'none';
+    }
+    
+    // Validación de cantidad febrero
+    if(`${this.state.cantidad_febrero}` === undefined || !`${this.state.cantidad_febrero}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-febrero-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-febrero-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad marzo
+    if(`${this.state.cantidad_marzo}` === undefined || !`${this.state.cantidad_marzo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-marzo-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-marzo-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad abril
+    if(`${this.state.cantidad_abril}` === undefined || !`${this.state.cantidad_abril}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-abril-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-abril-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad mayo
+    if(`${this.state.cantidad_mayo}` === undefined || !`${this.state.cantidad_mayo}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-mayo-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-mayo-creacion").style.display = 'none';
+    }      
+
+    // Validación de cantidad junio
+    if(`${this.state.cantidad_junio}` === undefined || !`${this.state.cantidad_junio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-junio-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-junio-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad julio
+    if(`${this.state.cantidad_julio}` === undefined || !`${this.state.cantidad_julio}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-julio-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-julio-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad agosto
+    if(`${this.state.cantidad_agosto}` === undefined || !`${this.state.cantidad_agosto}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-agosto-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-agosto-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad septiembre
+    if(`${this.state.cantidad_septiembre}` === undefined || !`${this.state.cantidad_septiembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-septiembre-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-septiembre-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad octubre
+    if(`${this.state.cantidad_octubre}` === undefined || !`${this.state.cantidad_octubre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-octubre-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-octubre-creacion").style.display = 'none';
+    }
+
+    // Validación de cantidad noviembre
+    if(`${this.state.cantidad_noviembre}` === undefined || !`${this.state.cantidad_noviembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-noviembre-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-noviembre-creacion").style.display = 'none';
+    }          
+    
+    // Validación de cantidad diciembre
+    if(`${this.state.cantidad_diciembre}` === undefined || !`${this.state.cantidad_diciembre}`.match(/^[0-9]+$/)){
+      document.getElementById("cantidad-diciembre-creacion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("cantidad-diciembre-creacion").style.display = 'none';
+    }       
+
+    return formulario_valido;
+  }
+
+  validarEdicionEntradaSolicitudDeRequerimiento(id){
+    let formulario_valido = true;
+    let cantidad_enero = document.getElementById(`cantidad_enero_requerimiento_${id}`).value;
+    let cantidad_febrero = document.getElementById(`cantidad_febrero_requerimiento_${id}`).value;
+    let cantidad_marzo = document.getElementById(`cantidad_marzo_requerimiento_${id}`).value;
+    let cantidad_abril = document.getElementById(`cantidad_abril_requerimiento_${id}`).value;
+    let cantidad_mayo = document.getElementById(`cantidad_mayo_requerimiento_${id}`).value;
+    let cantidad_junio = document.getElementById(`cantidad_junio_requerimiento_${id}`).value;
+    let cantidad_julio = document.getElementById(`cantidad_julio_requerimiento_${id}`).value;
+    let cantidad_agosto = document.getElementById(`cantidad_agosto_requerimiento_${id}`).value;
+    let cantidad_septiembre = document.getElementById(`cantidad_septiembre_requerimiento_${id}`).value;
+    let cantidad_octubre = document.getElementById(`cantidad_octubre_requerimiento_${id}`).value;
+    let cantidad_noviembre = document.getElementById(`cantidad_noviembre_requerimiento_${id}`).value;
+    let cantidad_diciembre = document.getElementById(`cantidad_diciembre_requerimiento_${id}`).value;
+    let producto_id = document.getElementById(`producto_id_entrada_solicitud_de_requerimientos_${id}`).value;    
+    let requerimiento_existente = this.state.entradas_solicitud_de_requerimientos.filter(requerimiento => requerimiento.producto_id == producto_id && requerimiento.id !== id);
+    
+    // Validación del cargo
+    if(producto_id === undefined || requerimiento_existente.length > 0){
+      document.getElementById(`producto-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`producto-edicion-${id}`).style.display = 'none';
+    }  
+  
+    // Validación de cantidad enero
+    if(`${cantidad_enero}` === undefined || !`${cantidad_enero}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-enero-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-enero-edicion-${id}`).style.display = 'none';
+    }
+    
+    // Validación de cantidad febrero
+    if(`${cantidad_febrero}` === undefined || !`${cantidad_febrero}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-febrero-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-febrero-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad marzo
+    if(`${cantidad_marzo}` === undefined || !`${cantidad_marzo}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-marzo-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-marzo-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad abril
+    if(`${cantidad_abril}` === undefined || !`${cantidad_abril}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-abril-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-abril-edicion-${id}`).style.display = 'none';
+    }
+
+    // Validación de cantidad mayo
+    if(`${cantidad_mayo}` === undefined || !`${cantidad_mayo}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-mayo-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-mayo-edicion-${id}`).style.display = 'none';
+    }    
+    
+    // Validación de cantidad junio
+    if(`${cantidad_junio}` === undefined || !`${cantidad_junio}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-junio-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-junio-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad julio
+    if(`${cantidad_julio}` === undefined || !`${cantidad_julio}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-julio-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-julio-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad agosto
+    if(`${cantidad_agosto}` === undefined || !`${cantidad_agosto}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-agosto-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-agosto-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad septiembre
+    if(`${cantidad_septiembre}` === undefined || !`${cantidad_septiembre}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-septiembre-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-septiembre-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad octubre
+    if(`${cantidad_octubre}` === undefined || !`${cantidad_octubre}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-octubre-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-octubre-edicion-${id}`).style.display = 'none';
+    }
+  
+    // Validación de cantidad noviembre
+    if(`${cantidad_noviembre}` === undefined || !`${cantidad_noviembre}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-noviembre-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-noviembre-edicion-${id}`).style.display = 'none';
+    }          
+    
+    // Validación de cantidad diciembre
+    if(`${cantidad_diciembre}` === undefined || !`${cantidad_diciembre}`.match(/^[0-9]+$/)){
+      document.getElementById(`cantidad-diciembre-edicion-${id}`).style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById(`cantidad-diciembre-edicion-${id}`).style.display = 'none';
+    }    
+    return formulario_valido;
+  }
 
  /* validarEdicionRequerimientoPersonal(id){
     let formulario_valido = true;
@@ -419,11 +688,11 @@ export class SolicitudRequerimientos extends Component {
     let modal_confirmacion_eliminar = 
       <Modal isOpen={this.state.modal_confirmacion_eliminar_abierto} toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
         <ModalHeader toggle={() => this.setState({modal_confirmacion_eliminar_abierto: !this.state.modal_confirmacion_eliminar_abierto})}>
-          Eliminar solicitud de personal
+          Eliminar solicitud de requerimientos y necesidades
         </ModalHeader>
 
         <ModalBody>
-          <p>¿Seguro que desea eliminar su solicitud de personal?</p>          
+          <p>¿Seguro que desea eliminar su solicitud de requerimientos y necesidades?</p>          
           <p>Si la elimina no podrá recuperarla luego.</p>
         </ModalBody>
 
@@ -485,6 +754,30 @@ export class SolicitudRequerimientos extends Component {
       </Modal>
     ;
 
+    let modal_confirmacion_eliminar_entrada = 
+    <Modal isOpen={this.state.modal_confirmacion_eliminar_entrada_abierto} toggle={() => this.setState({modal_confirmacion_eliminar_entrada_abierto: !this.state.modal_confirmacion_eliminar_entrada_abierto})}>
+      <ModalHeader toggle={() => this.setState({modal_confirmacion_eliminar_entrada_abierto: !this.state.modal_confirmacion_eliminar_entrada_abierto})}>
+        Eliminar entrada de requerimiento
+      </ModalHeader>
+
+      <ModalBody>
+        <p>¿Seguro que desea eliminar este requerimiento?</p>          
+      </ModalBody>
+
+      <ModalFooter>
+        <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+          <Button color="danger" onClick={() => this.eliminarEntradaSolicitudRequerimientos(this.state.entrada_id)} className="boton-eliminar-solicitud">
+            Eliminar
+          </Button>   
+          <Button color="danger" onClick={() => this.setState({modal_confirmacion_eliminar_entrada_abierto: false})}>
+            Cancelar
+          </Button>
+        </Col>
+      </ModalFooter>
+
+    </Modal>
+  ;    
+
     if(this.state.enviada){
         return (
             <Container fluid className="container-solicitud-de-requerimientos">
@@ -504,6 +797,7 @@ export class SolicitudRequerimientos extends Component {
               {modal_operacion_fallida}
               {modal_operacion_exitosa}
               {modal_confirmacion_eliminar}
+              {modal_confirmacion_eliminar_entrada}
   
               <Row>
                 {/* Título de la sección */}
@@ -534,9 +828,9 @@ export class SolicitudRequerimientos extends Component {
               <Table striped className="tabla-unidad-solicitante">                              
                 <thead>
                   <tr>
-                    <th colspan="4" scope="colgroup"></th>                  
-                    <th colspan="12" scope="colgroup" className="text-center">Planificación Mensual</th>
-                    <th colspan="2" scope="colgroup" align="center"></th>
+                    <th colSpan="4" scope="colgroup"></th>                  
+                    <th colSpan="12" scope="colgroup" className="text-center">Planificación Mensual</th>
+                    <th colSpan="2" scope="colgroup" align="center"></th>
                   </tr>                   
                   <tr>
                     <th>ID</th>  
@@ -573,7 +867,7 @@ export class SolicitudRequerimientos extends Component {
                             >
                               {this.state.productos.map((producto, index) => {
                                 return(
-                                  <option value={producto.id} key={`producto_${producto.index}`}>{producto.nombre}</option>
+                                  <option value={producto.id} key={`producto_${producto.id}_${producto.index}`}>{producto.nombre}</option>
                                 )
                               })}
                             </Input>
@@ -630,6 +924,7 @@ export class SolicitudRequerimientos extends Component {
             {modal_operacion_fallida}
             {modal_operacion_exitosa}
             {modal_confirmacion_operacion}
+            {modal_confirmacion_eliminar_entrada}
 
             <Row>
                 {/* Título de la sección */}
@@ -660,9 +955,9 @@ export class SolicitudRequerimientos extends Component {
                 <Table striped className="tabla-solicitud-de-requerimientos">                                             
                 <thead>
                     <tr>
-                      <th colspan="4" scope="colgroup"></th>                  
-                      <th colspan="12" scope="colgroup" className="text-center">Programación Mensual</th>
-                      <th colspan="2" scope="colgroup" align="center"></th>
+                      <th colSpan="4" scope="colgroup"></th>                  
+                      <th colSpan="12" scope="colgroup" className="text-center">Programación Mensual</th>
+                      <th colSpan="2" scope="colgroup" align="center"></th>
                     </tr>                                                                                                       
                     <tr>
                     <th>ID</th>  
@@ -699,11 +994,11 @@ export class SolicitudRequerimientos extends Component {
                             >
                                 {this.state.productos.map((producto, index) => {
                                 return(
-                                    <option value={producto.id} key={`producto_${producto.index}`}>{producto.nombre}</option>
+                                    <option value={producto.id} key={`producto_${producto.id}_${producto.index}`}>{producto.nombre}</option>
                                 )
                                 })}
-                            <span id="cargo-edicion" className="error-solicitud-personal">No se pueden tener dos requerimientos de personal con el mismo cargo</span>                
                             </Input>
+                            <span id={`producto-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">No se pueden tener dos requerimientos con el mismo producto</span>                
                             </td>
                             <td>{this.obtenerUnidadDeMedida(entrada_solicitud_de_requerimientos.producto_id)}</td>
                             <td>                
@@ -712,7 +1007,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_enero}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-enero-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -720,7 +1015,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_febrero}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-febrero-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -728,7 +1023,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_marzo}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-marzo-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -736,7 +1031,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_abril}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-abril-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>
                             <td>                
                             <Input 
@@ -744,7 +1039,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_mayo}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-mayo-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -752,7 +1047,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_junio}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-junio-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -760,7 +1055,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_julio}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-julio-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -768,7 +1063,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_agosto}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-agosto-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>
                             <td>                
                             <Input 
@@ -776,7 +1071,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_septiembre}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-septiembre-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -784,7 +1079,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_octubre}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-octubre-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -792,7 +1087,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_noviembre}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-noviembre-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>  
                             <td>                
                             <Input 
@@ -800,7 +1095,7 @@ export class SolicitudRequerimientos extends Component {
                                 defaultValue={entrada_solicitud_de_requerimientos.cantidad_diciembre}
                                 className="solicitud-requerimientos"
                             />
-                            <span id="numero-persona-edicion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                        
+                            <span id={`cantidad-diciembre-edicion-${entrada_solicitud_de_requerimientos.id}`} className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                        
                             </td>                                                        
                             <td>{entrada_solicitud_de_requerimientos.cantidad}</td>                                                                                                                                  
                             <td>
@@ -813,7 +1108,7 @@ export class SolicitudRequerimientos extends Component {
                             </Button>
                             <Button 
                                 color="danger" className="boton-eliminar"
-                                onClick={() => this.eliminarEntradaSolicitudRequerimientos(entrada_solicitud_de_requerimientos.id)}
+                                onClick={() => this.cargarModalEliminar(entrada_solicitud_de_requerimientos.id)}
                             >
                                 <i class="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
                                 Eliminar
@@ -822,6 +1117,7 @@ export class SolicitudRequerimientos extends Component {
                         </tr>
                         )
                     })}
+                  <tr>
                     <th scope="row"></th>
                     <td>{this.obtenerSubespecifica(parseInt(this.state.producto_id, 10))}</td>
                     <td>
@@ -831,11 +1127,11 @@ export class SolicitudRequerimientos extends Component {
                         >
                         {this.state.productos.map((producto, index) => {
                         return(
-                            <option value={producto.id} key={`producto_${producto.index}`}>{producto.nombre}</option>
+                            <option value={producto.id} key={`producto_${producto.id}_${producto.index}`}>{producto.nombre}</option>
                         )
                         })}                            
                     </Input>
-                    <span id="producto-id-creacion" className="error-solicitud-personal">No se pueden tener dos requerimientos de personal con el mismo cargo ni se puede dejar vacío este campo</span>                                
+                    <span id="producto-creacion" className="error-solicitud-personal">No se pueden tener dos requerimientos con el mismo producto ni se puede dejar vacío este campo</span>                                
                     </td> 
                     <td>{this.obtenerUnidadDeMedida(parseInt(this.state.producto_id, 10))}</td>
                     <td>                
@@ -844,7 +1140,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_enero: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-enero-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>   
                     <td>                
                     <Input 
@@ -852,7 +1148,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_febrero: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-febrero-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -860,7 +1156,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_marzo: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-marzo-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -868,7 +1164,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_abril: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-abril-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td> 
                     <td>                
                     <Input 
@@ -876,7 +1172,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_mayo: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-mayo-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>   
                     <td>                
                     <Input 
@@ -884,7 +1180,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_junio: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-junio-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -892,7 +1188,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_julio: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-julio-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -900,7 +1196,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_agosto: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-agosto-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td> 
                     <td>                
                     <Input 
@@ -908,7 +1204,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_septiembre: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-septiembre-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>   
                     <td>                
                     <Input 
@@ -916,7 +1212,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_octubre: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-octubre-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -924,7 +1220,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_noviembre: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-noviembre-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>  
                     <td>                
                     <Input 
@@ -932,7 +1228,7 @@ export class SolicitudRequerimientos extends Component {
                         onChange={(e) => this.setState({cantidad_diciembre: parseInt(e.target.value, 10)})}
                         className="solicitud-requerimientos"
                     />
-                    <span id="numero-personas-creacion" className="error-solicitud-personal">Número de personas debe ser un número y no puede estar vacío</span>                                                      
+                    <span id="cantidad-diciembre-creacion" className="error-solicitud-personal">La cantidad mensual debe ser un número entero, sin decimales.</span>                                                      
                     </td>                                         
                     <td>{this.state.cantidad_abril + this.state.cantidad_enero + this.state.cantidad_febrero + this.state.cantidad_marzo + this.state.cantidad_mayo + this.state.cantidad_junio + this.state.cantidad_julio + this.state.cantidad_agosto + this.state.cantidad_septiembre + this.state.cantidad_octubre + this.state.cantidad_noviembre + this.state.cantidad_diciembre}</td>
 
@@ -945,6 +1241,7 @@ export class SolicitudRequerimientos extends Component {
                         Agregar requerimiento
                     </Button>                         
                     </td>
+                    </tr>
                     </tbody>                    
                 </Table>
                 </Row>        
