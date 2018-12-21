@@ -2175,7 +2175,7 @@ router.get('/obtener_reporte_presupuesto_final_por_partida', function(req, res){
   let presupuesto_data = parsearPresupuestoPartida(presupuesto);
   var workbook = XLSX.utils.book_new();
   var worksheet = XLSX.utils.aoa_to_sheet(presupuesto_data);
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Resumen Créditos Presupuestarios Por Partidas");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Resumen Por Partidas");
   res.setHeader('Content-Disposition', 'attachment; filename="ResumenCréditosPresupuestariosPorPartidas.' + "xls" + '";'); 
   res.end(XLSX.write(workbook, {type:"buffer", bookType:"xls"}));    
 })
