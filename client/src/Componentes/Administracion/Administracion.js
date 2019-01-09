@@ -7,6 +7,7 @@ import planes from '../../assets/img/planes-historicos.png';
 import indicadores from '../../assets/img/indicadores.png';
 import verificacion from '../../assets/img/verificacion.png';
 import diagnostico from '../../assets/img/diagnostico.png';
+import carga_de_datos from '../../assets/img/carga_de_datos.png';
 import medida from '../../assets/img/unidad-medida.png';
 import OpcionMenu from '../Menu/OpcionMenu';
 import withContext from '../../Contenedor/withContext';
@@ -52,7 +53,7 @@ export class Menu extends Component {
 
                 {/* Carga de datos */}
                 {autorizarAdministrador(this.props.usuario.rol) && 
-                    <OpcionMenu ruta={'/carga-de-datos/'} nombre="Carga de Datos" icono={diagnostico}/>
+                    <OpcionMenu ruta={'/carga-de-datos/'} nombre="Carga de Datos" icono={carga_de_datos}/>
                 }
               </Row>
             </div>

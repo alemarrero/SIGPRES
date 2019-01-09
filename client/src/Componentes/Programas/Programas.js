@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Container, Table, Row, Col, Button, Input, Form, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './Programas.css';
-import medida from '../../assets/img/unidad-medida.png';
+import programas from '../../assets/img/usuarios.png';
 import withContext from './../../Contenedor/withContext';
 
 export class Programas extends Component {
@@ -646,7 +646,7 @@ export class Programas extends Component {
         <Row>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={medida} className="icono-titulo"/>    
+            <img src={programas} className="icono-titulo"/>    
             <h1 className="titulo-programas">Gestión de Programas</h1>
           </Col>
 

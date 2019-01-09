@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './ObjetivosEstrategicos.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
-import areas from '../../assets/img/areas.png';
+import diagnostico from '../../assets/img/diagnostico.png';
 import withContext from './../../Contenedor/withContext';
 import autorizarAdministrador from '../../Utilidades/autorizarAdministrador.js';
 
@@ -324,7 +324,7 @@ export class ObjetivosEstrategicos extends Component {
         <Row>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={areas} className="icono-titulo"/>    
+            <img src={diagnostico} className="icono-titulo"/>    
             <h1 className="titulo-unidades-de-medida">Gestión de Objetivos Estratégicos Institucionales</h1>
           </Col>
 

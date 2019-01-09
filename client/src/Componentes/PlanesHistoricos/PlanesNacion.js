@@ -11,7 +11,7 @@ export class PlanesNacion extends Component {
     super(props);
     this.state = {
       planes_operativos: [],
-      modal_confirmacion_abierto: true,
+      modal_confirmacion_abierto: false,
       modal_crear_plan_operativo_abierto: false,
       modal_editar_plan_operativo_abierto: false,
       nombre: undefined,
