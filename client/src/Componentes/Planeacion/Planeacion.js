@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import OpcionMenu from '../Menu/OpcionMenu';
-import programas from '../../assets/img/usuarios.png';
+import programas from '../../assets/img/programas.png';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import revision_poa from "./../../assets/img/revision_poa.png";
 import { Breadcrumb, BreadcrumbItem, Row } from 'reactstrap';

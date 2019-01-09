@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Container, Table, Row, Col, Button, Input, Form, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './Programas.css';
-import programas from '../../assets/img/usuarios.png';
+import programas from '../../assets/img/programas.png';
 import withContext from './../../Contenedor/withContext';
 
 export class Programas extends Component {
