@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consultar from '../../assets/img/consultar.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 
 export class ConsultarSolicitudesPersonal extends Component {
@@ -32,7 +31,6 @@ export class ConsultarSolicitudesPersonal extends Component {
 
     if(solicitud_personal_response !== 'err'){
       this.setState({solicitudes_personal: solicitud_personal_response});
-      console.log(this.state)
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener las solicitudes de personal enviadas"});
@@ -112,7 +110,7 @@ export class ConsultarSolicitudesPersonal extends Component {
                             <Button 
                             color="info" className="boton-ver"
                             onClick={() => this.props.history.push('/inicio/presupuesto/requerimientos/solicitud-personal/consultar-solicitudes-personal/' + solicitud_personal.id)}>
-                                <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                                <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                                 Ver solicitud de personal
                             </Button>   
                             </td> 

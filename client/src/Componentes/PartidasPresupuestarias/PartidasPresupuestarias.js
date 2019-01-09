@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './PartidasPresupuestarias.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
-import { request } from 'http';
 
 export default class PartidasPresupuestarias extends Component {
   constructor(props){
@@ -433,14 +432,14 @@ export default class PartidasPresupuestarias extends Component {
                               color="info" className="boton-ver"
                               onClick={() => this.props.history.push('/inicio/presupuesto/partida-presupuestaria/' + partida_presupuestaria.numero_partida)}
                           >
-                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Genérica
                           </Button>
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarPartidaPresupuestaria(index)}
                           >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
                           </td>

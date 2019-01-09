@@ -445,7 +445,7 @@ export class MediosDeVerificacion extends Component {
                                   color="info" className="boton-gestionar"
                                   onClick={() => this.cargarModalEditarMedio(index)}
                               >
-                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                                   Gestionar
                               </Button>
                             </td>

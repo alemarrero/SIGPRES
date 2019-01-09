@@ -8,14 +8,16 @@ var models = require('../models');
 /* */
 router.post('/crear_solicitud_de_requerimientos', autorizarDirector, function(req, res, next) {
   const fecha = new Date();
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
+
   models.solicitudes_de_requerimientos.findOne(
-    {where: {area_id: req.body.area_id, periodo: `${fecha.getFullYear()}`}}
+    {where: {area_id: req.body.area_id, periodo: `${año}`}}
   )
   .then(solicitud => {
     if(!solicitud){
       models.solicitudes_de_requerimientos.create({
         enviada: false,
-        periodo: `${fecha.getFullYear()}`,
+        periodo: `${año}`,
         area_id: req.body.area_id
       })
       .then(solicitud => {

@@ -521,14 +521,14 @@ export class ObjetivosEspecificos extends Component {
                                     color="info" className="boton-ver"
                                     onClick={() => this.props.history.push(`/inicio/planeacion/objetivos-especificos/${objetivo.id}`)}
                                 >
-                                    <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                                    <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                                     Acciones recurrentes
                                 </Button>
                                 <Button 
                                     color="info" className="boton-gestionar"
                                     onClick={() => this.cargarModalEditarObjetivo(index)}
                                 >
-                                    <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                    <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                                     Gestionar
                                 </Button>
                               </td>

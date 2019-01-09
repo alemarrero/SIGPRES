@@ -14,7 +14,7 @@ export default class Planeacion extends Component {
 
   render() {
     return (
-      <Container fluid={true}>
+      <Container fluid>
         <Switch>
           <Route exact path={this.props.match.path + '/'} component={MenuAtencionCiudadano}/>
           <Route path={this.props.match.path + '/quejas'} component={Quejas}/>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import diagnostico from '../../assets/img/diagnostico.png';
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import './DetalleAntecedente.css';
 
 export default class DetalleAntecedente extends Component {

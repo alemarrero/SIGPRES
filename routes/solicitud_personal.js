@@ -7,15 +7,17 @@ var models = require('../models');
 /* */
 router.post('/crear_solicitud_personal', autorizarDirector, function(req, res, next) {
   const fecha = new Date();
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
+
   models.solicitud_personal.findOne(
-    {where: {area_id: req.body.area_id, periodo: `${fecha.getFullYear()}`}}
+    {where: {area_id: req.body.area_id, periodo: `${año}`}}
   )
   .then(solicitud => {
     if(!solicitud){
       models.solicitud_personal.create({
         justificacion: req.body.numero,
         enviada: false,
-        periodo: `${fecha.getFullYear()}`,
+        periodo: `${año}`,
         area_id: req.body.area_id
       })
       .then(solicitud => {

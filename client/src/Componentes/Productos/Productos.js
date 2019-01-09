@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 //import './Productos.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import productos from '../../assets/img/productos.png';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from './../../Contenedor/withContext';
 
-export default class Productos extends Component {
+
+export class Productos extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -57,21 +60,16 @@ export default class Productos extends Component {
   }
 
   async formatearRowsProductos(){
-      let productos = [];
-
     let intermedio = this.state.productos.map(async (producto, index) => {
         let partida=[];
             if (producto.especifica_id !== null){
                 partida = await this.obtenerPartidaDesdeEspecifica(producto.especifica_id);
             }
             else{
-                console.log(producto.subespecifica_id);
                 partida = await this.obtenerPartidaDesdeSubespecifica(producto.subespecifica_id);
-
             }
         
         let nombre_unidad = this.obtenerNombreUnidad(producto.unidad_de_medida_id);
-        //let nombre_unidad=[];
         let temp = 
             <tr key={`${producto.id}_${producto.nombre}`}>
                 <th scope="row">{producto.id}</th>
@@ -87,6 +85,7 @@ export default class Productos extends Component {
                 <td>{partida.denominacion}</td>
                 <td>{producto.habilitado ? <span>Si</span> : <span>No</span>}</td>
                 <td>
+                {autorizarDirectorPP(this.props.usuario.rol) &&
                 <Button 
                     color="info" className="boton-gestionar"
                     onClick={() => this.cargarModalEditarProducto(index)}
@@ -94,14 +93,13 @@ export default class Productos extends Component {
                     <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                     Gestionar
                 </Button>
+                }
                 </td>
             </tr>
         ;
 
         return temp;
     });
-
-    // console.log(intermedio)
 
     Promise.all(intermedio).then(resultado => {
         this.setState({rows_productos: resultado});
@@ -219,8 +217,6 @@ export default class Productos extends Component {
             subespecifica_id: this.state.subespecifica_id,
         })
      };
-      console.log(this.state.subespecifica_id);
-      console.log(this.state.especifica_id);
 
       const crear_producto_request = await fetch(`/api/productos/crear_producto`, request_options);
       const crear_producto_response = await crear_producto_request.json();
@@ -780,12 +776,14 @@ export default class Productos extends Component {
             </Col>
 
             {/* Botón para agregar productos */}
+            {autorizarDirectorPP(this.props.usuario.rol) &&
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_producto_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar producto
               </Button>
             </Col>
+            }
           </Row>
 
           {/* Si existen productos, muestra  tabla con su información */}
@@ -823,3 +821,4 @@ export default class Productos extends Component {
     )
   }
 }
+export default withContext(Productos);

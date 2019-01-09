@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Container, Table } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
-import { request } from 'http';
 import withContext from '../../Contenedor/withContext';
 
 export class ConsultarSolicitudRequerimientos extends Component {
@@ -59,7 +58,6 @@ export class ConsultarSolicitudRequerimientos extends Component {
       });
     }
     else{
-      console.log("errooor");
       this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de personal"});
     }
   }
@@ -111,10 +109,8 @@ export class ConsultarSolicitudRequerimientos extends Component {
           id: this.props.match.params.id_solicitud
         })
       };
-      console.log(this.props.match.params.id_solicitud);
     const solicitud_requerimientos_request = await fetch('/api/solicitudes_de_requerimientos/obtener_solicitud_de_requerimientos_enviada', request_options);
     const solicitud_requerimientos_response = await solicitud_requerimientos_request.json();
-    console.log(solicitud_requerimientos_response);
 
     if(solicitud_requerimientos_response !== 'err'){
       this.setState({...solicitud_requerimientos_response});

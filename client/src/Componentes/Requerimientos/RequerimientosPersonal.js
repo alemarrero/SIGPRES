@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Container, Table } from 'reactstrap';
 import personal from '../../assets/img/personal.png';
 import withContext from './../../Contenedor/withContext';
-
-// https://www.flaticon.com/free-icon/compass_1156951
-
 
 export class RequerimientosPersonal extends Component {
   constructor(props){
@@ -62,7 +59,6 @@ export class RequerimientosPersonal extends Component {
       };
       const crear_solicitud_personal_request = await fetch(`/api/solicitud_personal/crear_solicitud_personal`, request_options);
       const crear_solicitud_personal_response = await crear_solicitud_personal_request.json();
-      console.log(crear_solicitud_personal_response);
       if(crear_solicitud_personal_response !== 'err'){
         this.setState({id: crear_solicitud_personal_response}, async () => {
         });
@@ -85,7 +81,6 @@ export class RequerimientosPersonal extends Component {
 
       const editar_solicitud_personal_request = await fetch(`/api/solicitud_personal/actualizar_solicitud_personal`, request_options);
       const editar_solicitud_personal_response = await editar_solicitud_personal_request.json();
-      console.log(this.state.justificacion);
       if(editar_solicitud_personal_response !== 'err'){
         this.setState(async () => {
           this.obtenerSolicitudPersonal();
@@ -149,11 +144,9 @@ export class RequerimientosPersonal extends Component {
   async obtenerSolicitudPersonal(){
     const solicitud_personal_request = await fetch('/api/solicitud_personal/obtener_solicitud_personal', {credentials: 'include'});
     const solicitud_personal_response = await solicitud_personal_request.json();
-    console.log(solicitud_personal_response);
 
     if(solicitud_personal_response !== 'err'){
       this.setState({...solicitud_personal_response});
-      console.log(this.state)
     }
     else{
       this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener la solicitud de personal"});
@@ -302,7 +295,7 @@ export class RequerimientosPersonal extends Component {
     let formulario_valido = true;
     let numero_personas = document.getElementById(`numero_personas_requerimiento_${id}`).value;
     let cargo_id = document.getElementById(`cargo_id_requerimiento_${id}`).value;
-    let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id == cargo_id);
+    let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id === cargo_id);
    
     // Validación del numero de personas por cargo 
     if(numero_personas === undefined || !numero_personas.match(/^[0-9]+$/)){
@@ -326,7 +319,7 @@ export class RequerimientosPersonal extends Component {
   
   validarCreacionRequerimientoPersonal(){
     let formulario_valido = true;
-    let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id == this.state.cargo_id);
+    let requerimiento_existente = this.state.requerimientos_personal.filter(requerimiento => requerimiento.cargo_id === this.state.cargo_id);
 
     // Validación del cargo
     if(this.state.cargo_id === undefined || requerimiento_existente.length > 0){
@@ -623,14 +616,14 @@ export class RequerimientosPersonal extends Component {
                             color="info" className="boton-actualizar"
                             onClick={() => this.editarRequerimientoPersonal(requerimiento_personal.id)}
                         >
-                            <i class="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-redo-alt" aria-hidden="true"></i>                          
                             Actualizar
                         </Button>
                         <Button 
                             color="danger" className="boton-eliminar"
                             onClick={() => this.eliminarRequerimientoPersonal(requerimiento_personal.id)}
                         >
-                            <i class="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-trash-alt" aria-hidden="true"></i>                          
                             Eliminar
                         </Button>                          
                         </td>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Breadcrumb, BreadcrumbItem, Row, Col, Card, CardBody} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Row} from 'reactstrap';
 import './Requerimientos.css';
 import requerimientos from '../../assets/img/requerimientos.png';
 import personal from '../../assets/img/personal.png';

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './RequerimientosPersonal.css';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
 import consolidado from '../../assets/img/consolidado.png';
-import { request } from 'http';
 import withContext from './../../Contenedor/withContext';
 
 export class ConsolidadoSolicitudPersonal extends Component {
@@ -18,7 +17,6 @@ export class ConsolidadoSolicitudPersonal extends Component {
   async obtenerRequerimientosPersonal(){
     const requerimientos_personal_request = await fetch('/api/solicitud_personal/obtener_consolidado', {credentials: 'include'});
     const requerimientos_personal_response = await requerimientos_personal_request.json();
-    console.log(requerimientos_personal_response);
     if(requerimientos_personal_response !== 'err'){
       this.setState({requerimientos_personal: requerimientos_personal_response});
     }

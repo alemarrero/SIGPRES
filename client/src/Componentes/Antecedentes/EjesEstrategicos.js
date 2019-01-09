@@ -389,7 +389,7 @@ export class EjesEstrategicos extends Component {
                             color="info" className="boton-gestionar"
                             onClick={() => this.props.history.push(`/inicio/administracion/antecedente/${this.state.antecedente.id}/ejes-estrategicos/${eje.id}`)}
                           >
-                            <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                            <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                             Objetivos Estratégicos
                           </Button>
 
@@ -399,7 +399,7 @@ export class EjesEstrategicos extends Component {
                               style={{marginLeft: "5px"}}
                               onClick={() => this.setState({modal_editar_eje_estrategico_abierto: true, ...eje})}
                             >
-                              <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                             </Button>
                           }

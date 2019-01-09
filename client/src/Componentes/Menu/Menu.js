@@ -19,7 +19,7 @@ export class Menu extends Component {
           </Breadcrumb>
         </div>
 
-        <Row fluid={true} className="fila-opciones-menu-principal">
+        <Row fluid className="fila-opciones-menu-principal">
           {/* Administración */}   
           <OpcionMenu ruta={'administracion/'} nombre="Administración" icono={administracion}/>
           

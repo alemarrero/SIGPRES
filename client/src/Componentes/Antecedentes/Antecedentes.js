@@ -223,7 +223,7 @@ export class Antecedentes extends Component {
       credentials: "include",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify({
-        id: parseInt(this.state.id)
+        id: parseInt(this.state.id, 10)
       })
     }
 
@@ -663,7 +663,7 @@ export class Antecedentes extends Component {
                               color="info" className="boton-gestionar"
                               onClick={() => this.props.history.push(`/inicio/administracion/antecedente/detalle/${antecedente.id}`)}
                             >
-                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Ver
                             </Button>
                             {autorizarAdministrador(this.props.usuario.rol) && 
@@ -677,7 +677,7 @@ export class Antecedentes extends Component {
                                     this.setState({modal_editar_antecedente_abierto: true, ...antecedente, inicio_periodo: periodo[0], fin_periodo: periodo[1]})
                                   }}
                                 >
-                                  <i class="iconos fa fa-cogs" aria-hidden="true"></i>                          
+                                  <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                                   Gestionar
                                 </Button>
 
@@ -685,7 +685,7 @@ export class Antecedentes extends Component {
                                   color="danger" className="boton-gestionar"
                                   onClick={() => this.setState({id: antecedente.id, modal_confirmacion_abierto: true})}
                                 >
-                                  <i class="iconos fa fa-trash" aria-hidden="true"></i>                          
+                                  <i className="iconos fa fa-trash" aria-hidden="true"></i>                          
                                   Eliminar
                                 </Button>
                               </React.Fragment>

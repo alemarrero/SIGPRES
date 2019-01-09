@@ -45,7 +45,7 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
       credentials: "include",
       headers: {"Content-type": "application/json"},
       body: JSON.stringify({
-        id: parseInt(this.props.match.params.id)
+        id: parseInt(this.props.match.params.id, 10)
       })
     }
 
@@ -77,7 +77,7 @@ export default class DetalleSugerenciaPresupuestoParticipativo extends Component
       method: "post",
       credentials: "include",
       body: JSON.stringify({
-        id: parseInt(this.props.match.params.id)
+        id: parseInt(this.props.match.params.id, 10)
       }),
       headers: {"content-type": "application/json"}
     };

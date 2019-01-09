@@ -60,7 +60,7 @@ export default class Main extends PureComponent {
   render() {
     return (
       <ContextProvider>
-        <Container fluid={"true"} style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
+        <Container fluid style={{paddingRight: "0px !important", paddingLeft: "0px !important", backgroundColor: "white" }}>
           <BarraNavegacion/>
           
           {/* Rutas */}

@@ -301,7 +301,6 @@ export default class AccionesRecurrentes extends Component {
     if(this.validarEdicionAccionRecurrente()){
       let meta_fisica_anual = this.state.programacion_enero + this.state.programacion_febrero + this.state.programacion_marzo + this.state.programacion_abril + this.state.programacion_mayo + this.state.programacion_junio + this.state.programacion_julio + this.state.programacion_agosto + this.state.programacion_septiembre +  this.state.programacion_octubre + this.state.programacion_noviembre + this.state.programacion_diciembre;
 
-console.log(meta_fisica_anual);
       const request_options = {
         method: "POST",
         credentials: "include",
@@ -327,8 +326,6 @@ console.log(meta_fisica_anual);
           id: this.state.id
         })
       };
-
-      console.log(request_options);
 
       const modificar_accion_recurrente_request = await fetch('/api/acciones_recurrentes/modificar_accion_recurrente', request_options);
       const modificar_accion_recurrente_response = await modificar_accion_recurrente_request.json(); 

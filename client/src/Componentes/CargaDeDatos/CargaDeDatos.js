@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import carga_de_datos from '../../assets/img/carga_de_datos.png';
 import withContext from './../../Contenedor/withContext';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Form, Label } from 'reactstrap';
 import "./CargaDeDatos.css";
 
 export default class CargaDeDatos extends Component {

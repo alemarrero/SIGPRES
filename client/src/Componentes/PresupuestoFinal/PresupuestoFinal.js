@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
-import consolidado from '../../assets/img/consolidado.png';
+import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
+import presupuesto_final from '../../assets/img/presupuesto_final.png';
 import withContext from '../../Contenedor/withContext';
 
 
@@ -17,7 +17,6 @@ export class PresupuestoFinal extends Component {
   async obtenerPresupuestoFinal(){
     const presupuesto_final_request = await fetch('/api/vinculacion_acciones_productos/obtener_presupuesto_final', {credentials: 'include'});
     const presupuesto_final_response = await presupuesto_final_request.json();
-    console.log(presupuesto_final_response);
     if(presupuesto_final_response !== 'err'){
       this.setState({presupuesto_final: presupuesto_final_response});
     }
@@ -75,7 +74,7 @@ export class PresupuestoFinal extends Component {
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <img src={consolidado} className="icono-titulo"/>    
+              <img src={presupuesto_final} className="icono-titulo"/>    
               <h1 className="titulo-solicitud-personal">Resumen Financiero por Partida Presupuestaria</h1>
             </Col>
 
@@ -84,7 +83,12 @@ export class PresupuestoFinal extends Component {
                 <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
                   <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar reporte
                 </Button>                        
-              </a>              
+              </a> 
+              <a target="_blank" href="http://sicmb.herokuapp.com/api/vinculacion_acciones_productos/obtener_reporte_presupuesto_final_por_partida">
+                <Button color="info" className="boton-agregar" style={{marginLeft: "10px"}}>    
+                  <i className="iconos fa fa-download" aria-hidden="true"></i>  Descargar Resumen Créditos Presupuestarios Por Partida
+                </Button>                        
+              </a>                                          
             </Col>            
           </Row>
 

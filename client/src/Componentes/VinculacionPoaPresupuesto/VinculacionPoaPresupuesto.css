@@ -3,3 +3,9 @@
     font-family: 'Roboto', sans-serif;
     width:70%;
 }
+
+.error-vinculacion{
+    display: none;
+    color: red;
+    font-size: 15px;
+}

@@ -6,8 +6,6 @@ var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
 
 router.post('/crear_producto', autorizarAdministrador, function(req, res, next) {
-  console.log(req.body.subespecifica_id);
-  console.log(req.body.especifica_id);
   if (req.body.subespecifica_id !== undefined){
     var precio = parseFloat(req.body.precio,10);
     var iva = parseFloat(req.body.iva,10);
@@ -204,26 +202,9 @@ router.get('/obtener_productos', function(req, res){
 });
 
 router.get('/obtener_consolidado_presupuesto', function(req, res){
-  // let query = 
-  // "SELECT * " 
-  // + "FROM partidas_presupuestarias pp " 
-  // + "JOIN genericas g on pp.id = g.partida_presupuestaria_id "
-  // + "JOIN especificas e on e.generica_id = g.id "
-  // + "JOIN subespecificas sub on sub.especifica_id = e.id " 
-  // + "JOIN productos p on p.subespecifica_id = sub.id "
-  // + "JOIN entradas_solicitud_de_requerimientos esr on esr.producto_id = p.id " 
-  // + "JOIN solicitudes_de_requerimientos sol on sol.id = esr.solicitud_id "
-  // + "WHERE sol.periodo = :periodo AND sol.enviada = true "
-  // ;
-  // models.sequelize.query(query, {replacements: { periodo: '2018'}, type: models.sequelize.QueryTypes.SELECT})
-  // .then(resultado => {
-  //   res.status(200).json(resultado)
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json("err");
-  // });
   let consolidado = [];
+  const fecha = new Date();
+  const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
 
   models.partidas_presupuestarias.findAll({
     attributes: ["denominacion", "numero_partida", "id"],
@@ -257,7 +238,7 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                             model: models.solicitudes_de_requerimientos,
                             as: "solicitud_de_requerimiento",
                             attributes: ["periodo", "area_id"],
-                            where: {periodo: "2018", enviada: true},
+                            where: {periodo: `${año}`, enviada: true},
                             required: false,
                           }                   
                         ]
@@ -286,7 +267,7 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                         as: "solicitud_de_requerimiento",
                         attributes: ["periodo", "area_id"],
                         required: false,
-                        where: {periodo: "2018", enviada: true},
+                        where: {periodo: `${año}`, enviada: true},
                       }
                     ]
                   },
@@ -365,7 +346,6 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                                 consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
                                 consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;                                                                
                                 consolidado_producto['cantidad_total'] = cantidad_total;
-                                console.log(consolidado_producto);
                                 consolidado.push(consolidado_producto);
                               }  
                       })}
@@ -426,7 +406,6 @@ router.get('/obtener_consolidado_presupuesto', function(req, res){
                                 consolidado_producto['cantidad_noviembre'] = cantidad_noviembre;
                                 consolidado_producto['cantidad_diciembre'] = cantidad_diciembre;  
                                 consolidado_producto['cantidad_total'] = cantidad_total;
-                                console.log(consolidado_producto);
                                 consolidado.push(consolidado_producto);
                               }                            
                           })}})}                        
@@ -449,7 +428,6 @@ router.post('/cargar_productos',
     function(req, res, next){
       // Contiene el archivo XLS subido por el usuario
       const workbook = XLSX.readFile(req.file.path);
-      // console.log(workbook.Sheets);
       const productos = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
 
       // // Se introducen las genéricas
@@ -508,7 +486,6 @@ function cargarProductos(productos, next){
                             {where: {id: prod.dataValues.id}})
                             .then(producto_actualizado => {
                               if(producto_actualizado[0]){
-                                //console.log(`Producto ${producto.nombre} actualizado correctamente`);
                               }
                             })
                             .catch(err => {
@@ -529,7 +506,6 @@ function cargarProductos(productos, next){
                             })
                             .then(producto_creado => {
                               if(producto_creado){
-                                //console.log(`Producto ${producto.nombre} creado`);
                               }
                             })
                             .catch(err => {
@@ -561,9 +537,7 @@ function cargarProductos(productos, next){
                               }, 
                               {where: {id: prod.dataValues.id}})
                               .then(producto_actualizado => {
-                                console.log(producto_actualizado);
                                 if(producto_actualizado[0]){
-                                  // console.log(`Producto ${producto.nombre} actualizado correctamente`);
                                 }
                               })
                               .catch(err => {
@@ -584,12 +558,10 @@ function cargarProductos(productos, next){
                               })
                               .then(producto_creado => {
                                 if(producto_creado){
-                                  //console.log(`Producto ${producto.nombre} creado`);
                                 }
                               })
                               .catch(err => {
                                 console.log(`Error creando el producto ${producto.nombre} - linea 591`);
-                                // console.log(err);
                               });
                             }
                           })
@@ -597,7 +569,6 @@ function cargarProductos(productos, next){
                         })
                         .catch(err => {
                           console.log(err);
-                          // res.status(500).json("err")
                         });
                     }
                   }
@@ -634,7 +605,6 @@ function cargarProductos(productos, next){
                             })
                             .catch(err => {
                               console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 636`);
-                              //console.log(err);
                             });
                           }
                           else{
@@ -682,14 +652,11 @@ function cargarProductos(productos, next){
                             }, 
                             {where: {id: prod.dataValues.id}})
                             .then(producto_actualizado => {
-                              console.log(producto_actualizado);
                               if(producto_actualizado[0]){
-                                // console.log(`Producto ${producto.nombre} actualizado correctamente`);
                               }
                             })
                             .catch(err => {
                               console.log(`Error al actualizar el producto ${producto_actualizado.dataValues.nombre} - linea 691`);
-                              //console.log(err);
                             });
                           }
                           else{
@@ -734,7 +701,6 @@ function cargarProductos(productos, next){
                 .catch(err => {
                   console.log('Error al procesar el producto (linea 735)');
                   console.log(err);
-                  console.log(producto);
                 });
             })
             .catch(err => {

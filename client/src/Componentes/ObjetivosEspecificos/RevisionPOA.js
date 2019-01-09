@@ -133,7 +133,7 @@ export default class RevisionPOA extends Component {
                               color="info" className="boton-ver"
                               onClick={() => this.props.history.push(`/inicio/planeacion/revision-poa/${propuesta.id}`)}
                           >
-                              <i class="iconos fa fa-eye" aria-hidden="true"></i>                          
+                              <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Ver POA
                           </Button>
                         </td>
