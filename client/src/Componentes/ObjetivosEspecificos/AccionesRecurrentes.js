@@ -149,7 +149,7 @@ export default class AccionesRecurrentes extends Component {
   validarCreacionAccionRecurrente(){
     let formulario_valido = true;
 
-    if(this.state.accion_recurrente === undefined || !this.state.accion_recurrente.match(this.string_regex)){
+    if(this.state.accion_recurrente === undefined || state.accion_recurrente === ""){
       formulario_valido = false;
       document.getElementById("accion_recurrente-modal-creacion").style.display = "block";
     }
@@ -344,7 +344,7 @@ export default class AccionesRecurrentes extends Component {
   validarEdicionAccionRecurrente(){
     let formulario_valido = true;
 
-    if(this.state.accion_recurrente === undefined || !this.state.accion_recurrente.match(this.string_regex)){
+    if(this.state.accion_recurrente === undefined || this.state.accion_recurrente === ""){
       formulario_valido = false;
       document.getElementById("accion_recurrente-modal-edicion").style.display = "block";
     }
