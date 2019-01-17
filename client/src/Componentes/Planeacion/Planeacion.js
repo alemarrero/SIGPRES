@@ -4,6 +4,7 @@ import programas from '../../assets/img/programas.png';
 import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
 import revision_poa from "./../../assets/img/revision_poa.png";
 import { Breadcrumb, BreadcrumbItem, Row } from 'reactstrap';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export default class Planeacion extends Component {
   render() {
@@ -26,7 +27,9 @@ export default class Planeacion extends Component {
           <OpcionMenu ruta={'/objetivos-especificos/'} nombre="Gestión de POA" icono={objetivos_especificos}/>
 
           {/* Revisión de POA */}
-          <OpcionMenu ruta={'/revision-poa/'} nombre="Revisión de POA" icono={revision_poa}/>
+          {autorizarDirectorPP(this.props.usuario.rol) &&
+            <OpcionMenu ruta={'/revision-poa/'} nombre="Revisión de POA" icono={revision_poa}/>
+          }
           
         </Row>
       </React.Fragment>
