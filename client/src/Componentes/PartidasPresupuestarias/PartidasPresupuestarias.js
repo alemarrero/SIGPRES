@@ -249,7 +249,7 @@ export default class PartidasPresupuestarias extends Component {
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
-              <span id="denominacion-modal-creacion" className="error-partidas_presupuestarias">Denominación inválida</span>
+              <span id="denominacion-modal-creacion" className="error-partidas_presupuestarias">Denominación inválida. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>          
 
@@ -299,7 +299,7 @@ export default class PartidasPresupuestarias extends Component {
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}
                 />
-                <span id="denominacion-modal-edicion" className="error-partidas_presupuestarias">Denominación inválida</span>
+                <span id="denominacion-modal-edicion" className="error-partidas_presupuestarias">Denominación inválida. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
           </Form>

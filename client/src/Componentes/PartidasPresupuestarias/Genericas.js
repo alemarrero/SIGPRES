@@ -271,7 +271,7 @@ export default class Genericas extends Component {
               <Input 
                 onChange={(e) => this.setState({numero_generica: e.target.value})}
               />
-              <span id="numero_generica-modal-creacion" className="error-genericas">Número de genérica inválido</span>
+              <span id="numero_generica-modal-creacion" className="error-genericas">Número de genérica inválido. Este campo debe contener exactamente dos (2) números.</span>
             </Col>
           </FormGroup>
 
@@ -282,7 +282,7 @@ export default class Genericas extends Component {
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
-              <span id="denominacion-modal-creacion" className="error-genericas">Denominación inválida</span>
+              <span id="denominacion-modal-creacion" className="error-genericas">Denominación inválida. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>          
 
@@ -320,7 +320,7 @@ export default class Genericas extends Component {
                   defaultValue={this.state.numero_generica}
                   onChange={(e) => this.setState({numero_generica: e.target.value})}
                 />
-                <span id="numero_generica-modal-edicion" className="error-genericas">Número de genérica inválido</span>
+                <span id="numero_generica-modal-edicion" className="error-genericas">Número de genérica inválido. Este campo debe contener exactamente dos (2) números.</span>
               </Col>
             </FormGroup>
 
@@ -332,7 +332,7 @@ export default class Genericas extends Component {
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}
                 />
-                <span id="denominacion-modal-edicion" className="error-genericas">Denominación inválida</span>
+                <span id="denominacion-modal-edicion" className="error-genericas">Denominación inválida. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
           </Form>

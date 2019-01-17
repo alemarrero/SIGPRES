@@ -269,7 +269,7 @@ export class Areas extends Component {
               <Input 
                 onChange={(e) => this.setState({nombre: e.target.value})}
               />
-              <span id="nombre-modal-creacion" className="error-areas">Nombre inválido</span>
+              <span id="nombre-modal-creacion" className="error-areas">Nombre inválido. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>
 
@@ -280,7 +280,7 @@ export class Areas extends Component {
               <Input 
                 onChange={(e) => this.setState({descripcion: e.target.value})}
               />
-              <span id="descripcion-modal-creacion" className="error-areas">Descripción inválida</span>
+              <span id="descripcion-modal-creacion" className="error-areas">Descripción inválida. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>          
 
@@ -318,7 +318,7 @@ export class Areas extends Component {
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
-                <span id="nombre-modal-edicion" className="error-areas">Nombre inválido</span>
+                <span id="nombre-modal-edicion" className="error-areas">Nombre inválido. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
 
@@ -330,7 +330,7 @@ export class Areas extends Component {
                   defaultValue={this.state.descripcion}
                   onChange={(e) => this.setState({descripcion: e.target.value})}
                 />
-                <span id="descripcion-modal-edicion" className="error-areas">Descripción inválida</span>
+                <span id="descripcion-modal-edicion" className="error-areas">Descripción inválida. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
           </Form>

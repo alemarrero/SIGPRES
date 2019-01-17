@@ -271,7 +271,7 @@ export default class Subespecificas extends Component {
               <Input 
                 onChange={(e) => this.setState({numero_subespecifica: e.target.value})}
               />
-              <span id="numero_subespecifica-modal-creacion" className="error-subespecificas">Número de subespecífica inválido</span>
+              <span id="numero_subespecifica-modal-creacion" className="error-subespecificas">Número de subespecífica inválido. Este campo debe contener exactamente dos (2) números.</span>
             </Col>
           </FormGroup>
 
@@ -282,7 +282,7 @@ export default class Subespecificas extends Component {
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
-              <span id="denominacion-modal-creacion" className="error-subespecificas">Denominación inválida</span>
+              <span id="denominacion-modal-creacion" className="error-subespecificas">Denominación inválida. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>          
 

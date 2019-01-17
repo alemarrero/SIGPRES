@@ -27,7 +27,7 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
   } 
 
   async componentDidMount(){
-    document.title = "SICMB - Requerimientos de Personal";
+    document.title = "SICMB - Consolidado de Requerimientos y Necesidades";
     this.obtenerConsolidadoSolicitudRequerimientos();
   }
 
@@ -66,7 +66,7 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <img src={consolidado} className="icono-titulo"/>    
-              <h1 className="titulo-solicitud-personal">Consolidado de Solicitudes de Personal</h1>
+              <h1 className="titulo-solicitud-personal">Consolidado de Requerimientos y Necesidades</h1>
             </Col>
           </Row>
 

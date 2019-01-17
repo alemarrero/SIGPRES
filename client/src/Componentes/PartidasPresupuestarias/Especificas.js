@@ -271,7 +271,7 @@ export default class Especificas extends Component {
               <Input 
                 onChange={(e) => this.setState({numero_especifica: e.target.value})}
               />
-              <span id="numero_especifica-modal-creacion" className="error-especificas">Número de específica inválido</span>
+              <span id="numero_especifica-modal-creacion" className="error-especificas">Número de específica inválido. Este campo debe contener exactamente dos (2) números.</span>
             </Col>
           </FormGroup>
 
@@ -282,7 +282,7 @@ export default class Especificas extends Component {
               <Input 
                 onChange={(e) => this.setState({denominacion: e.target.value})}
               />
-              <span id="denominacion-modal-creacion" className="error-especificas">Denominación inválida</span>
+              <span id="denominacion-modal-creacion" className="error-especificas">Denominación inválida. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>          
 
@@ -320,7 +320,7 @@ export default class Especificas extends Component {
                   defaultValue={this.state.numero_especifica}
                   onChange={(e) => this.setState({numero_especifica: e.target.value})}
                 />
-                <span id="numero_especifica-modal-edicion" className="error-especificas">Número de específica inválido</span>
+                <span id="numero_especifica-modal-edicion" className="error-especificas">Número de específica inválido. Este campo debe contener exactamente dos (2) números.</span>
               </Col>
             </FormGroup>
 
@@ -332,7 +332,7 @@ export default class Especificas extends Component {
                   defaultValue={this.state.denominacion}
                   onChange={(e) => this.setState({denominacion: e.target.value})}
                 />
-                <span id="denominacion-modal-edicion" className="error-especificas">Denominación inválida</span>
+                <span id="denominacion-modal-edicion" className="error-especificas">Denominación inválida. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
           </Form>
