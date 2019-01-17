@@ -553,7 +553,7 @@ import withContext from './../../Contenedor/withContext';
                 <Input 
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
-                <span id="nombre-modal-registro" className="error-usuarios">Nombre inválido</span>
+                <span id="nombre-modal-registro" className="error-usuarios">Nombre inválido. Este campo solo puede contener letras y espacios.</span>
               </Col>
               
               {/* Apellido del usuario */}
@@ -562,7 +562,7 @@ import withContext from './../../Contenedor/withContext';
                 <Input
                   onChange={(e) => this.setState({apellido: e.target.value})}
                 />
-                <span id="apellido-modal-registro" className="error-usuarios">Apellido inválido</span>
+                <span id="apellido-modal-registro" className="error-usuarios">Apellido inválido. Este campo solo puede contener letras y espacios.</span>
               </Col>
             </FormGroup>
 
@@ -580,7 +580,7 @@ import withContext from './../../Contenedor/withContext';
                   <option value="J">J</option>
                 </Input>
                 <Input onChange={(e) => this.setState({numero_cedula: e.target.value})} className="numero-cedula"/>
-                <span id="numero-cedula-modal-registro" className="error-usuarios">Número de cédula inválido</span>                
+                <span id="numero-cedula-modal-registro" className="error-usuarios">Número de cédula inválido. Este campo solo puede contener números.</span>                
               </Col>
 
             {/* Correo electrónico del usuario */}
@@ -589,7 +589,7 @@ import withContext from './../../Contenedor/withContext';
                 <Input
                   onChange={(e) => this.setState({correo: e.target.value})}
                 />
-                <span id="correo-modal-registro" className="error-usuarios">Correo electrónico inválido</span>
+                <span id="correo-modal-registro" className="error-usuarios">Correo electrónico inválido. Debe ser un correo con el formato: nombre@dominio.com</span>
               </Col>
             </FormGroup>            
 
@@ -634,7 +634,7 @@ import withContext from './../../Contenedor/withContext';
                   })}
                 </Input>
 
-                <span id="area-modal-registro" className="error-usuarios">Dirección inválida</span>
+                <span id="area-modal-registro" className="error-usuarios">Dirección inválida. Seleccione una opción de la lista.</span>
               </Col>
               
               {/* Cargo del usuario */}
@@ -643,7 +643,7 @@ import withContext from './../../Contenedor/withContext';
                 <Input
                   onChange={(e) => this.setState({cargo: e.target.value})}
                 />
-                <span id="cargo-modal-registro" className="error-usuarios">Cargo inválido</span>
+                <span id="cargo-modal-registro" className="error-usuarios">Cargo inválido. Este campo solo puede contener letras y espacios.</span>
               </Col>
             </FormGroup>            
                         
@@ -656,7 +656,7 @@ import withContext from './../../Contenedor/withContext';
                   placeholder={this.state.nombre && this.state.apellido ? `Recomendación: ${(this.state.nombre.charAt(0) + this.state.apellido).toLowerCase()}` : undefined}
                   onChange={(e) => this.setState({usuario: e.target.value})}
                 />
-                <span id="usuario-modal-registro" className="error-usuarios">Nombre de usuario inválido</span>
+                <span id="usuario-modal-registro" className="error-usuarios">Nombre de usuario inválido. Utilice únicamente letras y números, no incluya símbolos ni espacios.</span>
                 <span id="usuario-existente-modal-registro" className="error-usuarios">Nombre de usuario ya existe</span>
               </Col>
 
@@ -668,7 +668,7 @@ import withContext from './../../Contenedor/withContext';
                   type="password"
                   onChange={(e) => this.setState({password: e.target.value})}
                 />
-                <span id="password-modal-registro" className="error-usuarios">password inválida</span>
+                <span id="password-modal-registro" className="error-usuarios">Contrseña inválida</span>
               </Col>
             </FormGroup>
 
@@ -686,7 +686,7 @@ import withContext from './../../Contenedor/withContext';
                   <option value="director">Director</option>
                   <option value="regular">Regular</option>
                 </Input>        
-                <span id="rol-modal-registro" className="error-usuarios">Rol inválido</span>
+                <span id="rol-modal-registro" className="error-usuarios">Rol inválido. Selecciona una opción de la lista.</span>
               </Col>
             </FormGroup>
           </Form>
@@ -723,7 +723,7 @@ import withContext from './../../Contenedor/withContext';
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
-                <span id="nombre-modal-edicion" className="error-usuarios">Nombre inválido</span>
+                <span id="nombre-modal-edicion" className="error-usuarios">Nombre inválido´. Este campo solo puede contener letras y espacios.</span>
               </Col>
               
               {/* Apellido del usuario */}
@@ -733,7 +733,7 @@ import withContext from './../../Contenedor/withContext';
                   defaultValue={this.state.apellido}
                   onChange={(e) => this.setState({apellido: e.target.value})}
                 />
-                <span id="apellido-modal-edicion" className="error-usuarios">Apellido inválido</span>
+                <span id="apellido-modal-edicion" className="error-usuarios">Apellido inválido. Este campo solo puede contener letras y espacios.</span>
               </Col>
             </FormGroup>
 
@@ -756,7 +756,7 @@ import withContext from './../../Contenedor/withContext';
                   onChange={(e) => this.setState({numero_cedula: e.target.value})}
                   className="numero-cedula"
                 />
-                <span id="numero-cedula-modal-edicion" className="error-usuarios">Número de cédula inválido</span>                
+                <span id="numero-cedula-modal-edicion" className="error-usuarios">Número de cédula inválido. Este campo solo puede contener números.</span>                
               </Col>
 
               {/* Correo electrónico del usuario */}
@@ -766,7 +766,7 @@ import withContext from './../../Contenedor/withContext';
                   defaultValue={this.state.correo}
                   onChange={(e) => this.setState({correo: e.target.value})}
                 />
-                <span id="correo-modal-edicion" className="error-usuarios">Correo electrónico inválido</span>
+                <span id="correo-modal-edicion" className="error-usuarios">Correo electrónico inválido. Ingrese un correo de la forma nombre@dominio.com</span>
               </Col>
             </FormGroup>
 
@@ -811,7 +811,7 @@ import withContext from './../../Contenedor/withContext';
                     )
                   })}
                </Input>
-                <span id="area-modal-edicion" className="error-usuarios">Dirección inválida</span>
+                <span id="area-modal-edicion" className="error-usuarios">Dirección inválida. Seleccione una opción de la lista.</span>
               </Col>
               
               {/* Cargo del usuario */}
@@ -821,7 +821,7 @@ import withContext from './../../Contenedor/withContext';
                   defaultValue={this.state.cargo}
                   onChange={(e) => this.setState({cargo: e.target.value})}
                 />
-                <span id="cargo-modal-edicion" className="error-usuarios">Cargo inválido</span>
+                <span id="cargo-modal-edicion" className="error-usuarios">Cargo inválido. Este campo solo puede contener letras y espacios.</span>
               </Col>
             </FormGroup>
             
@@ -835,7 +835,7 @@ import withContext from './../../Contenedor/withContext';
                   defaultValue={this.state.usuario}
                   onChange={(e) => this.setState({usuario: e.target.value})}
                 />
-                <span id="usuario-modal-edicion" className="error-usuarios">Nombre de usuario inválido</span>
+                <span id="usuario-modal-edicion" className="error-usuarios">Nombre de usuario inválido. Utilice únicamente letras y números, no incluya símbolos ni espacios.</span>
                 <span id="usuario-existente-modal-edicion" className="error-usuarios">Nombre de usuario ya existe</span>
               </Col>
 
@@ -865,7 +865,7 @@ import withContext from './../../Contenedor/withContext';
                   <option value="director">Director</option>
                   <option value="regular">Regular</option>
                 </Input>        
-                <span id="rol-modal-edicion" className="error-usuarios">Rol inválido</span>
+                <span id="rol-modal-edicion" className="error-usuarios">Rol inválido. Selecciona una opción de la lista.</span>
               </Col>
             </FormGroup>
           </Form>
