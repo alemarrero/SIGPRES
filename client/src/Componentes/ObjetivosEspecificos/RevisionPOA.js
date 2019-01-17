@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Table} from 'reactstrap';
-import objetivos_especificos from "./../../assets/img/objetivos_especificos.png";
+import revision_poa from "./../../assets/img/revision_poa.png";
 import './DetallePOA.css';
 
 export default class RevisionPOA extends Component {
@@ -100,7 +100,7 @@ export default class RevisionPOA extends Component {
         <Row>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={objetivos_especificos} className="icono-titulo"/>    
+            <img src={revision_poa} className="icono-titulo"/>    
             <h1 className="titulo-unidades-de-medida">Revisión de Propuestas de POA</h1>
             <h2>Año {año}</h2>
             <a target="_blank" href="http://sicmb.herokuapp.com/api/propuestas_plan_operativo_anual/obtener_propuestas_full">

@@ -60,7 +60,7 @@ export default class Login extends Component {
               {/* Nombre de usuario */}
               <FormGroup row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <h3 className="titulo">SICMB</h3>
+                  <h3 className="titulo">SIGPRES CMB</h3>
                   <Input type="text" placeholder="Nombre de usuario" name='usuario' onKeyPress={(e) => this._handleKeyPress(e)} onChange={(e) => this.setState({usuario: e.target.value})}/>
                 </Col>
               </FormGroup>

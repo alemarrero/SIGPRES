@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import diagnostico from '../../assets/img/diagnostico.png';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Table } from 'reactstrap';
-import areas from '../../assets/img/areas.png';
 import './DetalleAntecedente.css';
 
 export default class DetalleAntecedente extends Component {
@@ -74,7 +74,7 @@ export default class DetalleAntecedente extends Component {
           <Row>
             {/* Título de la sección */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-              <img src={areas} className="icono-titulo"/>    
+              <img src={diagnostico} className="icono-titulo"/>    
               <h1 className="titulo-unidades-de-medida">Antecedentes de la CMB</h1>
               <h2>Periodo {this.state.periodo}</h2>
             </Col>

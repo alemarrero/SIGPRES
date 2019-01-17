@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import carga_de_datos from '../../assets/img/carga_de_datos.png';
+import withContext from './../../Contenedor/withContext';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Form, Label } from 'reactstrap';
-import areas from '../../assets/img/areas.png';
 import "./CargaDeDatos.css";
 
 export default class CargaDeDatos extends Component {
@@ -607,7 +608,7 @@ export default class CargaDeDatos extends Component {
         <Row>
           {/* Título de la sección */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <img src={areas} className="icono-titulo"/>    
+            <img src={carga_de_datos} className="icono-titulo"/>    
             <h1 className="titulo-unidades-de-medida">Carga de Datos</h1>
           </Col>
 

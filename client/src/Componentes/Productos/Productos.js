@@ -317,7 +317,7 @@ export class Productos extends Component {
       }
 
     // Validación del nombre del producto
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
+    if(this.state.nombre === undefined || this.state.nombre === "" ){
       document.getElementById("nombre-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -362,7 +362,7 @@ export class Productos extends Component {
       }
 
     // Validación del nombre del producto
-    if(this.state.nombre === undefined || !this.state.nombre.match(/^[A-Za-z\u00C0-\u017F]+((\s)[A-Za-z\u00C0-\u017F]+)*$/)){
+    if(this.state.nombre === undefined || this.state.nombre === ""){
       document.getElementById("nombre-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }

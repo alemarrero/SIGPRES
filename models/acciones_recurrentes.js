@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     accion_recurrente: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
       allowNull: false
     },
     unidad_medida_id: {

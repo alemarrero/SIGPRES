@@ -65,7 +65,7 @@ export class BarraNavegacion extends Component {
           <Navbar light expand="sm" className="navbar">
             <NavbarBrand href="/inicio">        
               <img src={logo} className="logo"/>
-              SICMB - Inicio
+              SIGPRES CMB - Inicio
             </NavbarBrand>
 
             <NavbarToggler onClick={() => this.setState({barra_navegacion_colapsada: !this.state.barra_navegacion_colapsada})} />
