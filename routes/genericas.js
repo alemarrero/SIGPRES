@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 
 
-router.post('/crear_generica', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_generica', autorizarDirectorPP, function(req, res, next) {
   models.genericas
   .create({
     numero_generica: req.body.numero_generica, 
@@ -23,7 +24,7 @@ router.post('/crear_generica', autorizarAdministrador, function(req, res, next) 
 });
 
 
-router.post('/actualizar_generica', autorizarAdministrador, function(req, res){
+router.post('/actualizar_generica', autorizarDirectorPP, function(req, res){
   models.genericas.update({
     numero_generica: req.body.numero_generica,
     habilitada: req.body.habilitada,
@@ -44,7 +45,7 @@ router.post('/actualizar_generica', autorizarAdministrador, function(req, res){
   });
 });
 
-router.post('/eliminar_generica', autorizarAdministrador, function(req, res){
+router.post('/eliminar_generica', autorizarDirectorPP, function(req, res){
   models.genericas.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -61,7 +62,7 @@ router.post('/eliminar_generica', autorizarAdministrador, function(req, res){
 });
 
 
-router.post('/habilitar_generica', autorizarAdministrador, function(req, res){
+router.post('/habilitar_generica', autorizarDirectorPP, function(req, res){
   models.genericas.update({
     habilitada: true 
   }, {where: {id: req.body.id}})
@@ -79,7 +80,7 @@ router.post('/habilitar_generica', autorizarAdministrador, function(req, res){
   })
 });
 
-router.post('/deshabilitar_generica', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_generica', autorizarDirectorPP, function(req, res){
   models.genericas.
   update({
     habilitada: false 
@@ -98,7 +99,7 @@ router.post('/deshabilitar_generica', autorizarAdministrador, function(req, res)
   })
 });
 
-router.post('/obtener_genericas', autorizarAdministrador, function(req, res){
+router.post('/obtener_genericas', function(req, res){
   models.genericas.findAll({
     where: {partida_presupuestaria_id: req.body.partida_presupuestaria_id}
   })
@@ -111,7 +112,7 @@ router.post('/obtener_genericas', autorizarAdministrador, function(req, res){
   })
 });
 
-router.post('/obtener_generica', autorizarAdministrador, function(req, res){
+router.post('/obtener_generica', function(req, res){
     models.genericas.findOne({
       where: {numero_generica: req.body.numero_generica}
     })

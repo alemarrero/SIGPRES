@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 var models = require('../models');
 
 /**
@@ -17,7 +17,7 @@ var models = require('../models');
  * @return estado 200 y {estado: 'ok', id: <id de la propuesta>} si la propuesta se creó correctamente.
  * @return estado 500 y {estado: 'err'} si ocurrió algún error en el servidor.
  */
-router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, res){
+router.post('/crear_accion_recurrente', autorizarDirector, function(req, res){
   models.acciones_recurrentes.create({
     accion_recurrente: req.body.accion_recurrente,
     objetivo_especifico_id: req.body.objetivo_especifico_id,
@@ -51,7 +51,7 @@ router.post('/crear_accion_recurrente', autorizarAdministrador, function(req, re
   })
 });
 
-router.post("/obtener_acciones_recurrentes", autorizarAdministrador, function(req, res){
+router.post("/obtener_acciones_recurrentes", autorizarDirector, function(req, res){
   models.acciones_recurrentes.findAll({where: {objetivo_especifico_id: req.body.objetivo_especifico_id}})
   .then(acciones => {
     res.status(200).json(acciones);
@@ -62,7 +62,7 @@ router.post("/obtener_acciones_recurrentes", autorizarAdministrador, function(re
   })
 });
 
-router.get("/obtener_acciones_recurrentes_periodo_actual", autorizarAdministrador, function(req, res){
+router.get("/obtener_acciones_recurrentes_periodo_actual", autorizarDirector, function(req, res){
   let acciones = [];
   const fecha = new Date();
   const año = parseInt(fecha.toDateString().split(" ")[3], 10) + 1;
@@ -104,7 +104,7 @@ router.get("/obtener_acciones_recurrentes_periodo_actual", autorizarAdministrado
   })
 });
 
-router.post("/obtener_accion_recurrente", autorizarAdministrador, function(req, res){
+router.post("/obtener_accion_recurrente", autorizarDirector, function(req, res){
   models.acciones_recurrentes.findAll({where: {id: req.body.id}})
   .then(accion_recurrente => {
     res.status(200).json(accion_recurrente);
@@ -115,7 +115,7 @@ router.post("/obtener_accion_recurrente", autorizarAdministrador, function(req, 
   })
 });
 
-router.post("/modificar_accion_recurrente", autorizarAdministrador, function(req, res){
+router.post("/modificar_accion_recurrente", autorizarDirector, function(req, res){
   models.acciones_recurrentes.update({
     accion_recurrente: req.body.accion_recurrente,
     unidad_medida_id: req.body.unidad_medida_id,
@@ -149,7 +149,7 @@ router.post("/modificar_accion_recurrente", autorizarAdministrador, function(req
   });
 });
 
-router.post("/eliminar_accion_recurrente", autorizarAdministrador, function(req, res){
+router.post("/eliminar_accion_recurrente", autorizarDirector, function(req, res){
   models.acciones_recurrentes.destroy({where: {id: req.body.id}})
   .then( (resultado) => {
     if(resultado){

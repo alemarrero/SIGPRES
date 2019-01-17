@@ -4,7 +4,7 @@ var models = require('../models');
 const uuidv4 = require('uuid/v4');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var subirArchivo = require('../controllers/manejoDeArchivos/subirArchivo');
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 
 /**
  * Endpoint que se encarga de crear una sugerencia_presupuesto_participativo de los ciudadanos
@@ -124,7 +124,7 @@ router.post('/obtener_sugerencia_presupuesto_participativo', function(req, res){
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.post('/eliminar_sugerencia_presupuesto_participativo', autorizarAdministrador, function(req, res){
+router.post('/eliminar_sugerencia_presupuesto_participativo', autorizarDirector, function(req, res){
   models.sugerencia_presupuesto_participativo.destroy({where: {id: req.body.id}})
   .then(sugerencia_presupuesto_participativo => {
     if(sugerencia_presupuesto_participativo){

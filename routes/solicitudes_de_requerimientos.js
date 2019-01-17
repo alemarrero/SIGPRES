@@ -41,7 +41,7 @@ router.post('/crear_solicitud_de_requerimientos', autorizarDirector, function(re
 });
 
 
-router.post('/eliminar_solicitud_de_requerimientos', autorizarAdministrador, function(req, res){
+router.post('/eliminar_solicitud_de_requerimientos', autorizarDirector, function(req, res){
   models.solicitudes_de_requerimientos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -57,7 +57,7 @@ router.post('/eliminar_solicitud_de_requerimientos', autorizarAdministrador, fun
   });
 });
 
-router.get('/obtener_solicitudes_de_requerimientos', autorizarDirector, function(req, res){
+router.get('/obtener_solicitudes_de_requerimientos', function(req, res){
   models.solicitudes_de_requerimientos.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -68,7 +68,7 @@ router.get('/obtener_solicitudes_de_requerimientos', autorizarDirector, function
   })
 });
 
-router.get('/obtener_solicitudes_de_requerimientos_enviadas', autorizarDirector, function(req, res){
+router.get('/obtener_solicitudes_de_requerimientos_enviadas', function(req, res){
   models.solicitudes_de_requerimientos.findAll({
     where: {enviada: true}
   })
@@ -81,7 +81,7 @@ router.get('/obtener_solicitudes_de_requerimientos_enviadas', autorizarDirector,
   })
 });
 
-router.get('/obtener_solicitud_de_requerimientos', autorizarDirector, function(req, res){
+router.get('/obtener_solicitud_de_requerimientos', function(req, res){
   models.solicitudes_de_requerimientos.findOne({
     where: {area_id: req.session.area_id}
   })
@@ -94,7 +94,7 @@ router.get('/obtener_solicitud_de_requerimientos', autorizarDirector, function(r
   })
 });
 
-router.post('/obtener_solicitud_de_requerimientos_enviada', autorizarDirector, function(req, res){
+router.post('/obtener_solicitud_de_requerimientos_enviada', function(req, res){
   models.solicitudes_de_requerimientos.findOne({
     where: {id: req.body.id}
   })

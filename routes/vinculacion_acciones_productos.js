@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 var models = require('../models');
 var XLSX = require('xlsx');
 
-router.post('/crear_vinculacion_accion_producto', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_vinculacion_accion_producto', autorizarDirector, function(req, res, next) {
   var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
   var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
   var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
@@ -47,7 +47,7 @@ router.post('/crear_vinculacion_accion_producto', autorizarAdministrador, functi
 });
 
 
-router.post('/actualizar_vinculacion_accion_producto', autorizarAdministrador, function(req, res){
+router.post('/actualizar_vinculacion_accion_producto', autorizarDirector, function(req, res){
   var cantidad_enero = parseInt(req.body.cantidad_enero, 10);
   var cantidad_febrero = parseInt(req.body.cantidad_febrero, 10);
   var cantidad_marzo = parseInt(req.body.cantidad_marzo, 10);
@@ -93,7 +93,7 @@ router.post('/actualizar_vinculacion_accion_producto', autorizarAdministrador, f
   });
 });
 
-router.post('/eliminar_vinculacion_accion_producto', autorizarAdministrador, function(req, res){
+router.post('/eliminar_vinculacion_accion_producto', autorizarDirector, function(req, res){
   models.vinculacion_acciones_productos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){

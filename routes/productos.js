@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
 
-router.post('/crear_producto', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_producto', autorizarDirectorPP, function(req, res, next) {
   if (req.body.subespecifica_id !== undefined){
     var precio = parseFloat(req.body.precio,10);
     var iva = parseFloat(req.body.iva,10);
@@ -59,7 +60,7 @@ router.post('/crear_producto', autorizarAdministrador, function(req, res, next) 
 });
 
 
-router.post('/actualizar_producto', autorizarAdministrador, function(req, res){
+router.post('/actualizar_producto', autorizarDirectorPP, function(req, res){
   var precio = parseFloat(req.body.precio,10);
   var iva = parseFloat(req.body.iva,10);
   var monto_iva = (iva/100) * precio;
@@ -91,7 +92,7 @@ router.post('/actualizar_producto', autorizarAdministrador, function(req, res){
   });
 });
 
-router.post('/eliminar_producto', autorizarAdministrador, function(req, res){
+router.post('/eliminar_producto', autorizarDirectorPP, function(req, res){
   models.productos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -108,7 +109,7 @@ router.post('/eliminar_producto', autorizarAdministrador, function(req, res){
 });
 
 
-router.post('/habilitar_producto', autorizarAdministrador, function(req, res){
+router.post('/habilitar_producto', autorizarDirectorPP, function(req, res){
   models.productos.update({
     habilitado: true 
   }, {where: {id: req.body.id}})
@@ -126,7 +127,7 @@ router.post('/habilitar_producto', autorizarAdministrador, function(req, res){
   })
 });
 
-router.post('/deshabilitar_producto', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_producto', autorizarDirectorPP, function(req, res){
   models.productos.update({
     habilitado: false 
   }, {where: {id: req.body.id}})

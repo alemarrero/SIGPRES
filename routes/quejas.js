@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 var models = require('../models');
 const uuidv4 = require('uuid/v4');
 
@@ -107,7 +107,7 @@ router.post('/obtener_queja', function(req, res){
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.post('/eliminar_queja', autorizarAdministrador, function(req, res){
+router.post('/eliminar_queja', autorizarDirector, function(req, res){
   models.quejas.destroy({where: {id: req.body.id}})
   .then(queja => {
     if(queja){

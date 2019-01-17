@@ -57,7 +57,7 @@ router.post('/eliminar_objetivo_estrategico', autorizarAdministrador, function(r
   });
 });
 
-router.get('/obtener_objetivos_estrategicos', autorizarAdministrador, function(req, res){
+router.get('/obtener_objetivos_estrategicos', function(req, res){
   models.objetivos_estrategicos.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -69,7 +69,7 @@ router.get('/obtener_objetivos_estrategicos', autorizarAdministrador, function(r
 });
 
 
-router.post('/obtener_objetivo_estrategico', autorizarAdministrador, function(req, res){
+router.post('/obtener_objetivo_estrategico', function(req, res){
   models.objetivos_estrategicos.findOne({where: {id: req.body.id}})
   .then( resultado => {
     res.json(resultado).status(200);

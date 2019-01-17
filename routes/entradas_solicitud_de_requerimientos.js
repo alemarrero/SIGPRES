@@ -107,7 +107,7 @@ router.post('/actualizar_entrada_solicitud_de_requerimientos', autorizarDirector
   });
 });
 
-router.post('/eliminar_entrada_solicitud_de_requerimientos', autorizarAdministrador, function(req, res){
+router.post('/eliminar_entrada_solicitud_de_requerimientos', autorizarDirector, function(req, res){
   models.entradas_solicitud_de_requerimientos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){

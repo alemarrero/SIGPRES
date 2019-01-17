@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 
 
-router.post('/crear_subespecifica', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_subespecifica', autorizarDirectorPP, function(req, res, next) {
   models.subespecificas
   .create({
     numero_subespecifica: req.body.numero_subespecifica, 
@@ -23,7 +23,7 @@ router.post('/crear_subespecifica', autorizarAdministrador, function(req, res, n
 });
 
 
-router.post('/actualizar_subespecifica', autorizarAdministrador, function(req, res){
+router.post('/actualizar_subespecifica', autorizarDirectorPP, function(req, res){
   models.subespecificas.update({
     numero_subespecifica: req.body.numero_subespecifica,
     habilitada: req.body.habilitada,
@@ -44,7 +44,7 @@ router.post('/actualizar_subespecifica', autorizarAdministrador, function(req, r
   });
 });
 
-router.post('/eliminar_subespecifica', autorizarAdministrador, function(req, res){
+router.post('/eliminar_subespecifica', autorizarDirectorPP, function(req, res){
   models.subespecificas.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -61,7 +61,7 @@ router.post('/eliminar_subespecifica', autorizarAdministrador, function(req, res
 });
 
 
-router.post('/habilitar_subespecifica', autorizarAdministrador, function(req, res){
+router.post('/habilitar_subespecifica', autorizarDirectorPP, function(req, res){
   models.subespecificas.update({
     habilitada: true 
   }, {where: {id: req.body.id}})
@@ -79,7 +79,7 @@ router.post('/habilitar_subespecifica', autorizarAdministrador, function(req, re
   })
 });
 
-router.post('/deshabilitar_subespecifica', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_subespecifica', autorizarDirectorPP, function(req, res){
   models.subespecificas.update({
     habilitada: false 
   }, {where: {id: req.body.id}})
@@ -97,7 +97,7 @@ router.post('/deshabilitar_subespecifica', autorizarAdministrador, function(req,
   })
 });
 
-router.post('/obtener_subespecificas', autorizarAdministrador, function(req, res){
+router.post('/obtener_subespecificas', function(req, res){
   models.subespecificas.findAll({
     where: {especifica_id: req.body.especifica_id}
   }

@@ -57,7 +57,7 @@ router.post('/actualizar_requerimientos_personal', autorizarDirector, function(r
   });
 });
 
-router.post('/eliminar_requerimiento_personal', autorizarAdministrador, function(req, res){
+router.post('/eliminar_requerimiento_personal', autorizarDirector, function(req, res){
   models.requerimientos_personal.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){

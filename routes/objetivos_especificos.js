@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 var models = require('../models');
 
 /**
@@ -17,7 +18,7 @@ var models = require('../models');
  * @return estado 200 y {estado: 'ok', id: <id de la propuesta>} si la propuesta se creó correctamente.
  * @return estado 500 y {estado: 'err'} si ocurrió algún error en el servidor.
  */
-router.post('/crear_objetivo_especifico', autorizarAdministrador, function(req, res){
+router.post('/crear_objetivo_especifico', autorizarDirector, function(req, res){
   models.objetivos_especificos.create({
     numero_actividad: 51,
     objetivo: req.body.objetivo,
@@ -37,7 +38,7 @@ router.post('/crear_objetivo_especifico', autorizarAdministrador, function(req, 
   })
 });
 
-router.post("/obtener_objetivos", autorizarAdministrador, function(req, res){
+router.post("/obtener_objetivos", function(req, res){
   models.objetivos_especificos.findAll({where: {propuesta_id: req.body.propuesta_id}})
   .then(objetivos => {
     res.status(200).json(objetivos);
@@ -48,7 +49,7 @@ router.post("/obtener_objetivos", autorizarAdministrador, function(req, res){
   })
 });
 
-router.post("/obtener_objetivo", autorizarAdministrador, function(req, res){
+router.post("/obtener_objetivo", function(req, res){
   models.objetivos_especificos.findOne({where: {id: req.body.id}})
   .then(objetivo => {
     res.status(200).json(objetivo);
@@ -59,7 +60,7 @@ router.post("/obtener_objetivo", autorizarAdministrador, function(req, res){
   })
 });
 
-router.post("/modificar_objetivo", autorizarAdministrador, function(req, res){
+router.post("/modificar_objetivo", autorizarDirector, function(req, res){
   models.objetivos_especificos.update({
     objetivo: req.body.objetivo
   },
@@ -78,7 +79,7 @@ router.post("/modificar_objetivo", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/eliminar_objetivo", autorizarAdministrador, function(req, res){
+router.post("/eliminar_objetivo", autorizarDirector, function(req, res){
   models.objetivos_especificos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){

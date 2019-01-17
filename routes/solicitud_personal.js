@@ -60,7 +60,7 @@ router.post('/actualizar_solicitud_personal', autorizarDirector, function(req, r
   });
 });
 
-router.post('/eliminar_solicitud_personal', autorizarAdministrador, function(req, res){
+router.post('/eliminar_solicitud_personal', autorizarDirector, function(req, res){
   models.solicitud_personal.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){

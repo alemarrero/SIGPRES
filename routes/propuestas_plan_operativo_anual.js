@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 var models = require('../models');
 var XLSX = require('xlsx');
 // var wb = XLSX.readFile('./../temp');
@@ -19,7 +20,7 @@ var XLSX = require('xlsx');
  * @return estado 200 y {estado: 'ok', id: <id de la propuesta>} si la propuesta se creó correctamente.
  * @return estado 500 y {estado: 'err'} si ocurrió algún error en el servidor.
  */
-router.post('/crear_propuesta', autorizarAdministrador, function(req, res){
+router.post('/crear_propuesta', autorizarDirector, function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está creando una propuesta para el periodo que corresponde al año siguiente
@@ -41,7 +42,7 @@ router.post('/crear_propuesta', autorizarAdministrador, function(req, res){
   })
 });
 
-router.get("/obtener_historico_propuestas", autorizarAdministrador, function(req, res){
+router.get("/obtener_historico_propuestas", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.findAll()
   .then(propuestas => {
     res.status(200).json(propuestas);
@@ -278,7 +279,7 @@ router.get("/obtener_propuestas", function(req, res){
 /**
  * Obtiene la información de una propuesta para el periodo actual de una dirección en particular
  */
-router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
+router.get("/obtener_propuesta", autorizarDirector, function(req, res){
   const fecha = new Date();
   
   // Se le suma 1 al año porque se está buscando una propuesta para el periodo que corresponde al año siguiente
@@ -299,7 +300,7 @@ router.get("/obtener_propuesta", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
+router.post("/aprobar_propuesta", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.update({
     aprobada: true,
     observaciones: null
@@ -319,7 +320,7 @@ router.post("/aprobar_propuesta", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/desaprobar_propuesta", autorizarAdministrador, function(req, res){
+router.post("/desaprobar_propuesta", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.update({
     aprobada: false,
     enviada: false,
@@ -340,7 +341,7 @@ router.post("/desaprobar_propuesta", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/enviar_propuesta", autorizarAdministrador, function(req, res){
+router.post("/enviar_propuesta", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.update({
     enviada: true
   },
@@ -356,7 +357,7 @@ router.post("/enviar_propuesta", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/retirar_propuesta", autorizarAdministrador, function(req, res){
+router.post("/retirar_propuesta", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.update({
     enviada: false
   },
@@ -375,7 +376,7 @@ router.post("/retirar_propuesta", autorizarAdministrador, function(req, res){
   });
 });
 
-router.post("/eliminar_propuesta", autorizarAdministrador, function(req, res){
+router.post("/eliminar_propuesta", autorizarDirector, function(req, res){
   models.propuestas_plan_operativo_anual.destroy({where: {id: req.body.id}})
   .then( (resultado) => {
     if(resultado[0]){

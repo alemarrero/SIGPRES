@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
 
-router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_partida_presupuestaria', autorizarDirectorPP, function(req, res, next) {
   models.partidas_presupuestarias
   .create({
     numero_partida: req.body.numero_partida, 
@@ -24,7 +25,7 @@ router.post('/crear_partida_presupuestaria', autorizarAdministrador, function(re
 
 
 
-router.post('/actualizar_partida_presupuestaria', autorizarAdministrador, function(req, res){
+router.post('/actualizar_partida_presupuestaria', autorizarDirectorPP, function(req, res){
   models.partidas_presupuestarias.update({
     numero_partida: req.body.numero_partida,
     habilitado: req.body.habilitado,
@@ -45,7 +46,7 @@ router.post('/actualizar_partida_presupuestaria', autorizarAdministrador, functi
   });
 });
 
-router.post('/eliminar_partida_presupuestaria', autorizarAdministrador, function(req, res){
+router.post('/eliminar_partida_presupuestaria', autorizarDirectorPP, function(req, res){
   models.partidas_presupuestarias.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -62,7 +63,7 @@ router.post('/eliminar_partida_presupuestaria', autorizarAdministrador, function
 });
 
 
-router.post('/habilitar_partida_presupuestaria', autorizarAdministrador, function(req, res){
+router.post('/habilitar_partida_presupuestaria', autorizarDirectorPP, function(req, res){
   models.partidas_presupuestarias.update({
     habilitado: true 
   }, {where: {id: req.body.id}})
@@ -80,7 +81,7 @@ router.post('/habilitar_partida_presupuestaria', autorizarAdministrador, functio
   })
 });
 
-router.post('/deshabilitar_partida_presupuestaria', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_partida_presupuestaria', autorizarDirectorPP, function(req, res){
   models.partidas_presupuestarias.update({
     habilitado: false 
   }, {where: {id: req.body.id}})
@@ -98,7 +99,7 @@ router.post('/deshabilitar_partida_presupuestaria', autorizarAdministrador, func
   })
 });
 
-router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function(req, res){
+router.get('/obtener_partidas_presupuestarias', function(req, res){
   models.partidas_presupuestarias.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
@@ -109,7 +110,7 @@ router.get('/obtener_partidas_presupuestarias', autorizarAdministrador, function
   })
 });
 
-router.post('/obtener_partida_presupuestaria', autorizarAdministrador, function(req, res){
+router.post('/obtener_partida_presupuestaria', function(req, res){
   models.partidas_presupuestarias.findOne({
     where: {numero_partida: req.body.numero_partida}
   })

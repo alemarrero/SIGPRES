@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
+var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirectorPP');
 var models = require('../models');
 
 
-router.post('/crear_cargo', autorizarAdministrador, function(req, res, next) {
+router.post('/crear_cargo', autorizarDirectorPP, function(req, res, next) {
   models.cargos.create({
     codigo: req.body.codigo,
     cargo: req.body.cargo 
@@ -21,7 +22,7 @@ router.post('/crear_cargo', autorizarAdministrador, function(req, res, next) {
 });
 
 
-router.post('/actualizar_cargo', autorizarAdministrador, function(req, res){
+router.post('/actualizar_cargo', autorizarDirectorPP, function(req, res){
   models.cargos.update({
     codigo: req.body.codigo,  
     cargo: req.body.cargo,
@@ -42,7 +43,7 @@ router.post('/actualizar_cargo', autorizarAdministrador, function(req, res){
   });
 });
 
-router.post('/eliminar_cargo', autorizarAdministrador, function(req, res){
+router.post('/eliminar_cargo', autorizarDirectorPP, function(req, res){
   models.cargos.destroy({where: {id: req.body.id}})
   .then(resultado => {
     if(resultado){
@@ -59,7 +60,7 @@ router.post('/eliminar_cargo', autorizarAdministrador, function(req, res){
 });
 
 
-router.post('/habilitar_cargo', autorizarAdministrador, function(req, res){
+router.post('/habilitar_cargo', autorizarDirectorPP, function(req, res){
   models.cargos.update({
     habilitado: true 
   }, {where: {id: req.body.id}})
@@ -77,7 +78,7 @@ router.post('/habilitar_cargo', autorizarAdministrador, function(req, res){
   })
 });
 
-router.post('/deshabilitar_cargo', autorizarAdministrador, function(req, res){
+router.post('/deshabilitar_cargo', autorizarDirectorPP, function(req, res){
   models.cargos.update({
     habilitado: false 
   }, {where: {id: req.body.id}})
@@ -95,7 +96,7 @@ router.post('/deshabilitar_cargo', autorizarAdministrador, function(req, res){
   })
 });
 
-router.get('/obtener_cargos', autorizarAdministrador, function(req, res){
+router.get('/obtener_cargos', autorizarDirector, function(req, res){
   models.cargos.findAll()
   .then( resultado => {
     res.json(resultado).status(200);

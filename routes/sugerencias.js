@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 const uuidv4 = require('uuid/v4');
-var autorizarAdministrador = require('../controllers/autenticacion/autorizarAdministrador');
+var autorizarDirector = require('../controllers/autenticacion/autorizarDirector');
 
 /**
  * Endpoint que se encarga de crear una sugerencia de los ciudadanos
@@ -107,7 +107,7 @@ router.post('/obtener_sugerencia', function(req, res){
  * @return estado 401 y 'err' si el usuario no se encuentra autenticado.
  * @return estado 403 y 'err' si el usuario no posee el rol necesario.
  */
-router.post('/eliminar_sugerencia', autorizarAdministrador, function(req, res){
+router.post('/eliminar_sugerencia', autorizarDirector, function(req, res){
   models.sugerencias.destroy({where: {id: req.body.id}})
   .then(sugerencia => {
     if(sugerencia){
