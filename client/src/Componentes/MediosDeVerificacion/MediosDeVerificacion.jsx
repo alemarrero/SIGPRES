@@ -243,7 +243,7 @@ export class MediosDeVerificacion extends Component {
               <Input 
                 onChange={(e) => this.setState({nombre: e.target.value})}
               />
-              <span id="nombre-modal-creacion" className="error-medios-de-verificacion">Nombre inválido</span>
+              <span id="nombre-modal-creacion" className="error-medios-de-verificacion">Nombre inválido. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>
         </Form>
@@ -280,7 +280,7 @@ export class MediosDeVerificacion extends Component {
                   defaultValue={this.state.nombre}
                   onChange={(e) => this.setState({nombre: e.target.value})}
                 />
-                <span id="nombre-modal-edicion" className="error-medios-de-verificacion">Nombre inválido</span>
+                <span id="nombre-modal-edicion" className="error-medios-de-verificacion">Nombre inválido. Este campo no puede estar vacío.</span>
               </Col>
             </FormGroup>
           </Form>
