@@ -21,7 +21,7 @@ export class Menu extends Component {
           <Breadcrumb>
             <BreadcrumbItem onClick={() => this.props.history.push(`/inicio`)} >Inicio</BreadcrumbItem>          
             <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/`)}>Presupuesto</BreadcrumbItem>
-            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimiento`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
+            <BreadcrumbItem onClick={() => this.props.history.push(`/inicio/presupuesto/requerimientos`)}>Gestión de requerimientos de cada área</BreadcrumbItem>
             <BreadcrumbItem active>Requerimientos y Necesidades</BreadcrumbItem>
 
           </Breadcrumb>
