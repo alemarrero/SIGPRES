@@ -29,11 +29,6 @@ export class Menu extends Component {
           <OpcionMenu ruta={'/requerimientos-personal/'} nombre="Solicitud de Personal" icono={personal}/>
           }
 
-          {/* Historicos */}
-          {autorizarDirectorRH(this.props.usuario.rol) &&        
-          <OpcionMenu ruta={'solicitudes-anteriores/'} nombre="Histórico" icono={requerimientosViejos}/>
-          }
-
           {/* Gestion de cargos */}   
           <OpcionMenu ruta={'/cargos/'} nombre="Gestión de Cargos" icono={cargo}/> 
 
