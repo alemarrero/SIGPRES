@@ -309,11 +309,11 @@ export class VinculacionPoaPresupuesto extends Component {
 
     // Validación de cantidad mayo
     if(`${this.state.cantidad_mayo}` === undefined || !`${this.state.cantidad_mayo}`.match(/^[0-9]+$/)){
-      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'block';
+      document.getElementById("cantidad-mayo-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
     else{
-      document.getElementById("cantidad-mayo-modal-edicion").style.display = 'none';
+      document.getElementById("cantidad-mayo-modal-creacion").style.display = 'none';
     }  
 
     // Validación de cantidad junio
