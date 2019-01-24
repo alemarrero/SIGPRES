@@ -89,7 +89,7 @@ router.get("/obtener_acciones_recurrentes_periodo_actual", autorizarDirector, fu
     if(resultado.length > 0){
       resultado.map(accion => { 
         let info_accion = {};
-        if (accion.objetivo_especifico.propuesta !== null){
+        if (accion.objetivo_especifico !== null && accion.objetivo_especifico.propuesta !== null){
           info_accion["accion_id"] = accion.id;
           info_accion["nombre"] = accion.accion_recurrente;
           acciones.push(info_accion);

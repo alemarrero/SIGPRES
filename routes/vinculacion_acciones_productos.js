@@ -523,7 +523,7 @@ function vinculacionAccionesProductos(res){
                                 if (producto.entradas_solicitud_de_requerimientos.length > 0) {
                                     producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
                                       let consolidado_producto = {};
-                                      if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                      if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                         consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
                                         consolidado_producto['area_id'] = vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id;
                                         consolidado_producto['nombre_accion'] = vinculacion_accion_producto.acciones_recurrentes.accion_recurrente;
@@ -565,7 +565,7 @@ function vinculacionAccionesProductos(res){
                               if(producto.vinculacion_acciones_productos.length > 0) {
                                 if (producto.entradas_solicitud_de_requerimientos.length > 0) {
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                       consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
                                       consolidado_producto['area_id'] = vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id;
                                       consolidado_producto['nombre_accion'] = vinculacion_accion_producto.acciones_recurrentes.accion_recurrente;
