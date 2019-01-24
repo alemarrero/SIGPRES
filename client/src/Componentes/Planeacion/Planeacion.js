@@ -5,8 +5,10 @@ import objetivos_especificos from "./../../assets/img/objetivos_especificos.png"
 import revision_poa from "./../../assets/img/revision_poa.png";
 import { Breadcrumb, BreadcrumbItem, Row } from 'reactstrap';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from './../../Contenedor/withContext';
 
-export default class Planeacion extends Component {
+
+export class Planeacion extends Component {
   render() {
     return (
 
@@ -36,3 +38,4 @@ export default class Planeacion extends Component {
     )
   }
 }
+export default withContext(Planeacion);
