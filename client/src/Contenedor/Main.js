@@ -51,12 +51,8 @@ import ConsolidadoSolicitudRequerimientos from '../Componentes/Requerimientos/Co
 import VinculacionPoaPresupuesto from '../Componentes/VinculacionPoaPresupuesto/VinculacionPoaPresupuesto';
 import PresupuestoFinal from '../Componentes/PresupuestoFinal/PresupuestoFinal';
 
-/**
- * TO DO
- *  - Colocarle cursor: pointer a las opciones para que el puntero le indique al usuario que los cuadros son opciones
- */
-export default class Main extends PureComponent {
 
+export default class Main extends PureComponent {
   render() {
     return (
       <ContextProvider>
