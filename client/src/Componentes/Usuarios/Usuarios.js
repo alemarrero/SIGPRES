@@ -309,7 +309,16 @@ import withContext from './../../Contenedor/withContext';
     }
 
     // Validación de la fecha de nacimiento
-    const año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    let año_nacimiento = 9999;
+
+    if(this.state.fecha_nacimiento !== undefined){
+      año_nacimiento = this.state.fecha_nacimiento.split("-")[0];
+    }
+    else{
+      document.getElementById("fecha-nacimiento-modal-registro").style.display = 'block';
+      formulario_valido = false;
+    }
+
     const fecha_actual = new Date();
     const año_actual = fecha_actual.getFullYear();
 
