@@ -970,7 +970,7 @@ import withContext from './../../Contenedor/withContext';
 
           {/* Botón para agregar usuarios */}
           <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
-            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_registrar_usuario_abierto: true})}>
+            <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_registrar_usuario_abierto: true, area_id: this.props.areas[0].id})}>
             <i className="iconos fa fa-plus" aria-hidden="true"></i>              
             Agregar usuario
             </Button>
