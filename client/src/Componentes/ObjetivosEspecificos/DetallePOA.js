@@ -285,7 +285,6 @@ export default class DetallePOA extends Component {
             <Button 
                 color="danger" className="boton-ver"
                 onClick={() => this.setState({modal_desaprobar_propuesta_abierto: true})}
-                disabled={!this.state.aprobada}
             >
               Desaprobar propuesta
             </Button>
@@ -295,7 +294,6 @@ export default class DetallePOA extends Component {
             <Button 
               color="info" className="boton-ver"
               onClick={this.aprobarPropuesta}
-              disabled={this.state.aprobada}
             >
               Aprobar propuesta
             </Button>
