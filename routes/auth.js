@@ -44,31 +44,63 @@ router.post('/registro_usuario', autorizarAdministrador, function(req, res, next
 });
 
 router.post('/actualizar_usuario', autorizarAdministrador, function(req, res, next){
-  models.usuarios.update({
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    cedula: req.body.cedula,
-    fecha_ingreso: req.body.fecha_ingreso,
-    fecha_nacimiento: req.body.fecha_nacimiento,
-    area_id: req.body.area_id,
-    cargo: req.body.cargo,
-    rol: req.body.rol,
-    correo: req.body.correo
-  },
-  {where: {id: req.body.id}}
-  )
-    .then((resultado) => {
-      if(resultado[0]){
-        res.status(200).json('ok');
-      }
-      else{
-        res.status(404).json('usuario no encontrado')
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json('err');
+  if(req.body.actualizar_password){
+    bcrypt.hash(req.body.password, 10, function(err, hash){
+      models.usuarios.update({
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        cedula: req.body.cedula,
+        fecha_ingreso: req.body.fecha_ingreso,
+        fecha_nacimiento: req.body.fecha_nacimiento,
+        area_id: req.body.area_id,
+        cargo: req.body.cargo,
+        rol: req.body.rol,
+        correo: req.body.correo,
+        password: hash
+      },
+      {where: {id: req.body.id}}
+      )
+        .then((resultado) => {
+          if(resultado[0]){
+            res.status(200).json('ok');
+          }
+          else{
+            res.status(404).json('usuario no encontrado')
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json('err');
+        });
     });
+  }
+  else{
+    models.usuarios.update({
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      cedula: req.body.cedula,
+      fecha_ingreso: req.body.fecha_ingreso,
+      fecha_nacimiento: req.body.fecha_nacimiento,
+      area_id: req.body.area_id,
+      cargo: req.body.cargo,
+      rol: req.body.rol,
+      correo: req.body.correo
+    },
+    {where: {id: req.body.id}}
+    )
+      .then((resultado) => {
+        if(resultado[0]){
+          res.status(200).json('ok');
+        }
+        else{
+          res.status(404).json('usuario no encontrado')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json('err');
+      });
+  }
 });
 
 router.post('/habilitar_usuario', autorizarAdministrador, function(req, res){

@@ -26,6 +26,7 @@ import withContext from './../../Contenedor/withContext';
       nombre: undefined,
       numero_cedula: undefined,
       password: undefined,
+      actualizar_password: false,
       rol: "regular",
       tipo_cedula: "V",
       usuario: undefined,
@@ -242,7 +243,9 @@ import withContext from './../../Contenedor/withContext';
         rol: this.state.rol,
         correo: this.state.correo,
         usuario: this.state.usuario,
-        id: this.state.id
+        id: this.state.id,
+        password: this.state.password,
+        actualizar_password: this.state.actualizar_password
       });
 
       const request_options = {
@@ -500,6 +503,14 @@ import withContext from './../../Contenedor/withContext';
     }
     else{
       document.getElementById("rol-modal-edicion").style.display = 'none';
+    }
+
+    if(this.state.actualizar_password && (this.state.password === undefined || this.state.password.length < 6)){
+      document.getElementById("password-modal-edicion").style.display = 'block';
+      formulario_valido = false;
+    }
+    else{
+      document.getElementById("password-modal-edicion").style.display = 'none';
     }
 
     // Validación de la dirección de correo electrónico del usuario
@@ -875,6 +886,27 @@ import withContext from './../../Contenedor/withContext';
                   <option value="regular">Regular</option>
                 </Input>        
                 <span id="rol-modal-edicion" className="error-usuarios">Rol inválido. Selecciona una opción de la lista.</span>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Col xs={12} sm={12} md={12} lg={12}> 
+                <Col xs={12} sm={12} md={12} lg={12}> 
+                  <Label check>
+                    <Input type="checkbox" onChange={(e) => this.setState({actualizar_password: e.target.checked})}/>{' '}
+                    Cambiar contraseña
+                  </Label>
+                </Col>
+                {this.state.actualizar_password && 
+                  <Col>
+                    <Input 
+                      type="password"
+                      placeHolder="Introduzca la nueva contraseña"
+                      onChange={(e) => this.setState({password: e.target.value})}
+                    />
+                  </Col>
+                }
+                <span id="password-modal-edicion" className="error-usuarios">Contraseña inválida. Debe tener por lo menos 6 caracteres.</span>
               </Col>
             </FormGroup>
           </Form>
