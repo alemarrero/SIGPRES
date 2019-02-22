@@ -267,7 +267,7 @@ router.get('/obtener_reporte_vinculacion_acciones_productos', function(req, res)
                                       let consolidado_producto = {};
                                       let area = areas.filter(area => area.id === vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id);
                                       let nombre_area = area[0].descripcion;                                      
-                                      if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                      if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                         consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
                                         consolidado_producto['area_id'] = vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id;
                                         consolidado_producto['nombre_area'] = nombre_area;
@@ -316,7 +316,7 @@ router.get('/obtener_reporte_vinculacion_acciones_productos', function(req, res)
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
                                     let area = areas.filter(area => area.id === vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id);
                                     let nombre_area = area[0].descripcion;
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                       consolidado_producto['accion_id'] = vinculacion_accion_producto.accion_id;
                                       consolidado_producto['area_id'] = vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta.area_id;
                                       consolidado_producto['nombre_area'] = nombre_area;
@@ -862,7 +862,7 @@ router.get('/obtener_presupuesto_final', function(req, res){
                                 var cantidad_total = 0;                                  
                                 if(producto.vinculacion_acciones_productos.length > 0) {
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                     cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                     cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                     cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
@@ -1123,7 +1123,7 @@ router.get('/obtener_reporte_presupuesto_final', function(req, res){
                             var cantidad_total = 0;                                                                                  
                             if(producto.vinculacion_acciones_productos.length > 0) {
                               producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                   cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                   cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                   cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
@@ -1224,7 +1224,7 @@ router.get('/obtener_reporte_presupuesto_final', function(req, res){
                                 var cantidad_total = 0;                                  
                                 if(producto.vinculacion_acciones_productos.length > 0) {
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                     cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                     cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                     cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
@@ -1490,7 +1490,7 @@ router.get('/obtener_reporte_presupuesto_final', function(req, res){
                             var cantidad_total = 0;                                                                                  
                             if(producto.vinculacion_acciones_productos.length > 0) {
                               producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                   cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                   cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                   cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
@@ -1591,7 +1591,7 @@ router.get('/obtener_reporte_presupuesto_final', function(req, res){
                                 var cantidad_total = 0;                                  
                                 if(producto.vinculacion_acciones_productos.length > 0) {
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                     cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                     cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                     cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
@@ -2112,7 +2112,7 @@ router.get('/obtener_reporte_presupuesto_final_por_partida', function(req, res){
                             var cantidad_total = 0;                                                                                  
                             if(producto.vinculacion_acciones_productos.length > 0) {
                               producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){                                                                               
+                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){                                                                               
                                   cantidad_total = cantidad_total + vinculacion_accion_producto.cantidad;
                                 }
                               }
@@ -2136,7 +2136,7 @@ router.get('/obtener_reporte_presupuesto_final_por_partida', function(req, res){
                                 var cantidad_total = 0;                                  
                                 if(producto.vinculacion_acciones_productos.length > 0) {
                                   producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){                                                                               
+                                    if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){                                                                               
                                     cantidad_total = cantidad_total + vinculacion_accion_producto.cantidad;
                                   }
                                 })
