@@ -22,7 +22,7 @@ export default class Menu extends Component {
           <OpcionMenu ruta={'/requerimientos-y-necesidades/'} nombre="Requerimientos y Necesidades" icono={requerimientos}/>
           
           {/* Solicitud de Personal */}
-          <OpcionMenu ruta={'/solicitud-personal/'} nombre="Solicitud de Personal" icono={personal}/>
+          <OpcionMenu ruta={'/solicitud-personal/'} nombre="Solicitudes de Personal" icono={personal}/>
         </Row>
       </React.Fragment>
       

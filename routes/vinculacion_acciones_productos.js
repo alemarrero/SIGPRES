@@ -761,7 +761,7 @@ router.get('/obtener_presupuesto_final', function(req, res){
                             var cantidad_total = 0;                                                                                  
                             if(producto.vinculacion_acciones_productos.length > 0) {
                               producto.vinculacion_acciones_productos.map(vinculacion_accion_producto => {
-                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
+                                if (vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico !== null && vinculacion_accion_producto.acciones_recurrentes.objetivo_especifico.propuesta !== null){
                                   cantidad_enero = cantidad_enero + vinculacion_accion_producto.cantidad_enero;
                                   cantidad_febrero = cantidad_febrero + vinculacion_accion_producto.cantidad_febrero;
                                   cantidad_marzo = cantidad_marzo + vinculacion_accion_producto.cantidad_marzo;
