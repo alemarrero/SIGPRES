@@ -5,6 +5,25 @@ var autorizarDirectorPP = require('../controllers/autenticacion/autorizarDirecto
 var models = require('../models');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
+var mcache = require('memory-cache');
+
+var cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+};
 
 router.post('/crear_partida_presupuestaria', autorizarDirectorPP, function(req, res, next) {
   models.partidas_presupuestarias
@@ -123,7 +142,7 @@ router.post('/obtener_partida_presupuestaria', function(req, res){
   })
 });
 
-router.get('/obtener_partidas_completas', function(req,res){
+router.get('/obtener_partidas_completas', cache(604800000), function(req,res){
   models.partidas_presupuestarias.findAll({
     attributes: ["id", "numero_partida", "denominacion"], 
     include: [
@@ -159,7 +178,7 @@ router.get('/obtener_partidas_completas', function(req,res){
 
 });
 
-router.post('/obtener_partida_desde_especifica', function(req,res){
+router.post('/obtener_partida_desde_especifica', cache(604800000), function(req,res){
   models.especificas.findOne({
     where: {id: req.body.id},
     include: [
@@ -188,7 +207,7 @@ router.post('/obtener_partida_desde_especifica', function(req,res){
   })
 });
 
-router.post('/obtener_partida_desde_subespecifica', function(req,res){
+router.post('/obtener_partida_desde_subespecifica', cache(604800000), function(req,res){
   models.subespecificas.findOne({
     where: {id: req.body.id},
     include: [

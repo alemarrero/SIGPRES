@@ -6,6 +6,26 @@ var models = require('../models');
 var recibirArchivo = require('../controllers/manejoDeArchivos/recibirArchivos');
 var XLSX = require('xlsx');
 
+var mcache = require('memory-cache');
+
+var cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+};
+
 router.post('/crear_producto', autorizarDirectorPP, function(req, res, next) {
   if (req.body.subespecifica_id !== undefined){
     var precio = parseFloat(req.body.precio,10);
@@ -145,7 +165,7 @@ router.post('/deshabilitar_producto', autorizarDirectorPP, function(req, res){
   })
 });
 
-router.get('/obtener_productos', function(req, res){
+router.get('/obtener_productos', cache(604800000), function(req, res){
   models.productos.findAll({
       include:[
           {
