@@ -5,8 +5,9 @@ import requerimientos from '../../assets/img/requerimientos.png';
 import personal from '../../assets/img/personal.png';
 import OpcionMenu from '../Menu/OpcionMenu';
 import autorizarDirector from '../../Utilidades/autorizarDirector.js';
+import withContext from './../../Contenedor/withContext';
 
-export default class Menu extends Component {
+export class Menu extends Component {
   render() {
     return (
       <React.Fragment>
@@ -31,3 +32,5 @@ export default class Menu extends Component {
     )
   }
 }
+
+export default withContext(Menu);
