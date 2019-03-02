@@ -29,8 +29,8 @@ export class ObjetivosEstrategicos extends Component {
 
   async componentDidMount(){
     document.title = "SICMB - Objetivos Estratégicos Institucionale";
-    this.obtenerEjeEstrategico();
-    this.obtenerObjetivosEstrategicos();
+    await this.obtenerEjeEstrategico();
+    await this.obtenerObjetivosEstrategicos();
   }
 
   validarCreacionObjetivosEstrategicos(){
@@ -51,7 +51,7 @@ export class ObjetivosEstrategicos extends Component {
     if(this.validarCreacionObjetivosEstrategicos()){
       const request_options = {
         method: "POST",
-        crendentials: "include",
+        credentials: "include",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
           objetivo: this.state.objetivo,
@@ -77,7 +77,7 @@ export class ObjetivosEstrategicos extends Component {
     if(this.validarCreacionObjetivosEstrategicos()){
       const request_options = {
         method: "POST",
-        crendentials: "include",
+        credentials: "include",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
           objetivo: this.state.objetivo,
@@ -154,7 +154,16 @@ export class ObjetivosEstrategicos extends Component {
   }
 
   async obtenerObjetivosEstrategicos(){
-    const request = await fetch("/api/objetivos_estrategicos/obtener_objetivos_estrategicos", {credentials: "include"});
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        eje_estrategico_id: this.state.eje_estrategico.id
+      })
+    }
+
+    const request = await fetch("/api/objetivos_estrategicos/obtener_objetivos_estrategicos", request_options);
     const response = await request.json();
 
     if(response !== "err"){

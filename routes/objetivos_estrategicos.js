@@ -57,8 +57,8 @@ router.post('/eliminar_objetivo_estrategico', autorizarAdministrador, function(r
   });
 });
 
-router.get('/obtener_objetivos_estrategicos', function(req, res){
-  models.objetivos_estrategicos.findAll()
+router.post('/obtener_objetivos_estrategicos', function(req, res){
+  models.objetivos_estrategicos.findAll({where: {eje_estrategico_id: req.body.eje_estrategico_id}})
   .then( resultado => {
     res.json(resultado).status(200);
   })

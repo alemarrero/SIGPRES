@@ -29,8 +29,8 @@ export class EjesEstrategicos extends Component {
 
   async componentDidMount(){
     document.title = "SICMB - Ejes Estratégicos";
-    this.obtenerAntecedente();
-    this.obtenerEjesEstrategicos();
+    await this.obtenerAntecedente();
+    await this.obtenerEjesEstrategicos();
   }
 
   validarCreacionEjesEstrategicos(){
@@ -59,7 +59,7 @@ export class EjesEstrategicos extends Component {
     if(this.validarCreacionEjesEstrategicos()){
       const request_options = {
         method: "POST",
-        crendentials: "include",
+        credentials: "include",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
           nombre: this.state.nombre,
@@ -87,7 +87,7 @@ export class EjesEstrategicos extends Component {
     if(this.validarCreacionEjesEstrategicos()){
       const request_options = {
         method: "POST",
-        crendentials: "include",
+        credentials: "include",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
           nombre: this.state.nombre,
@@ -164,7 +164,16 @@ export class EjesEstrategicos extends Component {
   }
 
   async obtenerEjesEstrategicos(){
-    const request = await fetch("/api/ejes_estrategicos/obtener_ejes_estrategicos", {credentials: "include"});
+    const request_options = {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({
+        antecedente_id: this.state.antecedente.id
+      })
+    }
+
+    const request = await fetch("/api/ejes_estrategicos/obtener_ejes_estrategicos", request_options);
     const response = await request.json();
 
     if(response !== "err"){

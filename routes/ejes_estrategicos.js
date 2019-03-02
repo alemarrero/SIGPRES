@@ -59,8 +59,8 @@ router.post('/eliminar_eje_estrategico', autorizarAdministrador, function(req, r
   });
 });
 
-router.get('/obtener_ejes_estrategicos', autorizarAdministrador, function(req, res){
-  models.ejes_estrategicos.findAll()
+router.post('/obtener_ejes_estrategicos', autorizarAdministrador, function(req, res){
+  models.ejes_estrategicos.findAll({where: {antecedente_id: req.body.antecedente_id}})
   .then( resultado => {
     res.json(resultado).status(200);
   })
