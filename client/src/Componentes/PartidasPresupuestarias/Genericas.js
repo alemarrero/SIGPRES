@@ -3,9 +3,9 @@ import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, Modal
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Genericas.css'
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from '../../Contenedor/withContext';
 
-
-export default class Genericas extends Component {
+export class Genericas extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -495,3 +495,5 @@ export default class Genericas extends Component {
     )
   }
 }
+
+export default withContext(Genericas);

@@ -3,8 +3,9 @@ import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, Modal
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Especificas.css'
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from '../../Contenedor/withContext';
 
-export default class Especificas extends Component {
+export class Especificas extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -494,3 +495,5 @@ export default class Especificas extends Component {
     )
   }
 }
+
+export default withContext(Especificas);
