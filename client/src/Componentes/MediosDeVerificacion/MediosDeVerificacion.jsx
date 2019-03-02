@@ -179,7 +179,7 @@ export class MediosDeVerificacion extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Medios de Verificación";
+    document.title = "SIGPRES CMB -Medios de Verificación";
 
     if(this.verificarSesion()){
       this.obtenerdMediosDeVerificacion();

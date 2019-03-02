@@ -9,7 +9,7 @@ import MenuAtencionCiudadano from './MenuAtencionCiudadano';
 export default class Planeacion extends Component {
 
   componentDidMount(){
-    document.title = "SICMB - Atención al Ciudadano";
+    document.title = "SIGPRES CMB -Atención al Ciudadano";
   }
 
   render() {

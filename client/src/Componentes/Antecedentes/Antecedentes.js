@@ -39,7 +39,7 @@ export class Antecedentes extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Información Institucional";
+    document.title = "SIGPRES CMB -Información Institucional";
     this.obtenerAntecedentes();
   }
 

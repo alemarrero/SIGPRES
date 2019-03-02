@@ -308,7 +308,7 @@ export class PlanesNacion extends Component {
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Gacetas Oficiales de la Nación';
+    document.title = 'SIGPRES CMB -Gacetas Oficiales de la Nación';
     this.obtenerPlanesOperativos();
   }
 

@@ -25,7 +25,7 @@ export class PresupuestoParticipativo extends Component {
    * en el estado las sugerencias de presupuesto participativo existentes.
    */
   async componentDidMount(){
-    document.title = "SICMB - Gestión de Sugerencias de Presupuesto Participativo";
+    document.title = "SIGPRES CMB -Gestión de Sugerencias de Presupuesto Participativo";
     this.obtenerSugerenciasPresupuestoParticipativo();
   }
 

@@ -173,7 +173,7 @@ import withContext from './../../Contenedor/withContext';
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Gestión de Usuarios";
+    document.title = "SIGPRES CMB -Gestión de Usuarios";
     if(this.verificarSesion()){
       this.obtenerUsuarios();
       this.obtenerAreas()

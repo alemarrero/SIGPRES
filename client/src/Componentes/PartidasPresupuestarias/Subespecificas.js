@@ -188,7 +188,7 @@ export default class Subespecificas extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Subespecíficas";
+    document.title = "SIGPRES CMB -Subespecíficas";
 
     if(this.verificarSesion()){
       await this.obtenerInfoEspecifica();

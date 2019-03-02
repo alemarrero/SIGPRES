@@ -328,7 +328,7 @@ export class SolicitudRequerimientos extends Component {
   } 
 
   async componentDidMount(){
-    document.title = "SICMB - Solicitud de Requerimientos";
+    document.title = "SIGPRES CMB -Solicitud de Requerimientos";
     await this.obtenerProductos();
     await this.obtenerSolicitudDeRequerimientos();
     if (this.state.id !== undefined){      

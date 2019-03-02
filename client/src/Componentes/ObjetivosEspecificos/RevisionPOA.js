@@ -16,7 +16,7 @@ export default class RevisionPOA extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Revisión de POA";
+    document.title = "SIGPRES CMB -Revisión de POA";
     this.obtenerPropuestas();
   }
 

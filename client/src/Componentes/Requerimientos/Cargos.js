@@ -157,7 +157,7 @@ export class Cargos extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Cargos";
+    document.title = "SIGPRES CMB -Cargos";
 
     if(this.verificarSesion()){
       this.obtenerCargos();

@@ -189,7 +189,7 @@ export default class Genericas extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Genéricas";
+    document.title = "SIGPRES CMB -Genéricas";
 
     if(this.verificarSesion()){
       await this.obtenerInfoPartidaPresupuestaria();

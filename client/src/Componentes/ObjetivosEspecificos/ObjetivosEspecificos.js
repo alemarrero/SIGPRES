@@ -37,7 +37,7 @@ export class ObjetivosEspecificos extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Gestión de POA";
+    document.title = "SIGPRES CMB -Gestión de POA";
     await this.obtenerPropuesta();
     
     if(this.state.propuesta_id === undefined){

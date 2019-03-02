@@ -186,7 +186,7 @@ export class Areas extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Areas";
+    document.title = "SIGPRES CMB -Areas";
 
     if(this.verificarSesion()){
       this.obtenerAreas();

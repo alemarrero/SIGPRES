@@ -22,7 +22,7 @@ export default class DetallePOA extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Detalle de POA";
+    document.title = "SIGPRES CMB -Detalle de POA";
     this.obtenerPropuesta();
   }
 

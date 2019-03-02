@@ -156,7 +156,7 @@ export default class PartidasPresupuestarias extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Partidas Presupuestarias";
+    document.title = "SIGPRES CMB -Partidas Presupuestarias";
 
     if(this.verificarSesion()){
       this.obtenerPartidasPresupuestarias();

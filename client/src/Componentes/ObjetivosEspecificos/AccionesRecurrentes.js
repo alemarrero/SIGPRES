@@ -94,7 +94,7 @@ export default class AccionesRecurrentes extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Gestión de Acciones Recurrentes";
+    document.title = "SIGPRES CMB -Gestión de Acciones Recurrentes";
     this.obtenerAccionesRecurrentes();
     this.obtenerMediosDeVerificacion();
     this.obtenerUnidadesDeMedida();

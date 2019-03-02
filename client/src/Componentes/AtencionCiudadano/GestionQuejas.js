@@ -25,7 +25,7 @@ export class Quejas extends Component {
    * en el estado las quejas existentes.
    */
   async componentDidMount(){
-    document.title = "SICMB - Gestión de quejas";
+    document.title = "SIGPRES CMB -Gestión de quejas";
     this.obtenerQuejas();
   }
 

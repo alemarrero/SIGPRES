@@ -308,7 +308,7 @@ export class PlanesCMB extends Component {
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Gacetas Municipales de la CMB';
+    document.title = 'SIGPRES CMB -Gacetas Municipales de la CMB';
     this.obtenerPlanesOperativos();
   }
 

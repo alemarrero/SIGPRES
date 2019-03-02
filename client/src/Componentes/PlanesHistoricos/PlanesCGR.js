@@ -308,7 +308,7 @@ export class PlanesCGR extends Component {
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Gacetas Oficiales de la CGR';
+    document.title = 'SIGPRES CMB -Gacetas Oficiales de la CGR';
     this.obtenerPlanesOperativos();
   }
 

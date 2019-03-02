@@ -182,7 +182,7 @@ export class UnidadesDeMedida extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Unidades de Medida";
+    document.title = "SIGPRES CMB -Unidades de Medida";
 
     if(this.verificarSesion()){
       this.obtenerUnidadesDeMedida();

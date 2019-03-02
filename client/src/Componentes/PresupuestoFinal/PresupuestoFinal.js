@@ -27,7 +27,7 @@ export class PresupuestoFinal extends Component {
   } 
 
   async componentDidMount(){
-    document.title = "SICMB - Presupuesto Final";
+    document.title = "SIGPRES CMB -Presupuesto Final";
     this.obtenerPresupuestoFinal();
   }
 

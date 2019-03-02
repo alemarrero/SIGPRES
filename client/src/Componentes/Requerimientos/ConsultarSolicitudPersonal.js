@@ -95,7 +95,7 @@ export class ConsultarSolicitudPersonal extends Component {
   }  
 
   async componentDidMount(){
-    document.title = "SICMB - Requerimientos de Personal";
+    document.title = "SIGPRES CMB -Requerimientos de Personal";
     await this.obtenerCargos();
     await this.obtenerSolicitudPersonal();
     this.obtenerRequerimientosPersonal();

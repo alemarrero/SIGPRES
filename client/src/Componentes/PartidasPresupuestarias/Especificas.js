@@ -188,7 +188,7 @@ export default class Especificas extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Específicas";
+    document.title = "SIGPRES CMB -Específicas";
 
     if(this.verificarSesion()){
       await this.obtenerInfoGenerica();

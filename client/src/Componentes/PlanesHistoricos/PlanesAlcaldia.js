@@ -308,7 +308,7 @@ export class Alcaldia extends Component {
   }
 
   async componentDidMount(){
-    document.title = 'SICMB - Gacetas Municipales de la Alcaldía';
+    document.title = 'SIGPRES CMB -Gacetas Municipales de la Alcaldía';
     this.obtenerPlanesOperativos();
   }
 

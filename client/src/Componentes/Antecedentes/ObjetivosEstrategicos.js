@@ -28,7 +28,7 @@ export class ObjetivosEstrategicos extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Objetivos Estratégicos Institucionale";
+    document.title = "SIGPRES CMB -Objetivos Estratégicos Institucionale";
     await this.obtenerEjeEstrategico();
     await this.obtenerObjetivosEstrategicos();
   }

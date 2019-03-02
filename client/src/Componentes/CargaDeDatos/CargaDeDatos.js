@@ -40,7 +40,7 @@ export default class CargaDeDatos extends Component {
   }
 
   componentDidMount(){
-    document.title = "SICMB - Carga de Datos";
+    document.title = "SIGPRES CMB -Carga de Datos";
   }
 
   async cargarProductos() {

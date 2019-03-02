@@ -13,7 +13,7 @@ export default class Login extends Component {
   }
 
   componentDidMount(){
-    document.title = "SICMB - Ingresar";
+    document.title = "SIGPRES CMB -Ingresar";
   }
 
   _handleKeyPress = (e) => {

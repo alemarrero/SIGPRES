@@ -277,7 +277,7 @@ export class Productos extends Component {
   }  
 
   async componentDidMount(){
-    document.title = "SICMB - Productos";
+    document.title = "SIGPRES CMB -Productos";
     await this.obtenerProductos();
     await this.obtenerPartidas();
     await this.obtenerUnidadesDeMedida();

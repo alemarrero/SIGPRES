@@ -27,7 +27,7 @@ export class ConsolidadoSolicitudRequerimientos extends Component {
   } 
 
   async componentDidMount(){
-    document.title = "SICMB - Consolidado de Requerimientos y Necesidades";
+    document.title = "SIGPRES CMB -Consolidado de Requerimientos y Necesidades";
     this.obtenerConsolidadoSolicitudRequerimientos();
   }
 

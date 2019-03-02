@@ -28,7 +28,7 @@ export class EjesEstrategicos extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Ejes Estratégicos";
+    document.title = "SIGPRES CMB -Ejes Estratégicos";
     await this.obtenerAntecedente();
     await this.obtenerEjesEstrategicos();
   }

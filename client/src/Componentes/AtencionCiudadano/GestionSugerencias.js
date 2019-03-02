@@ -25,7 +25,7 @@ export class Sugerencias extends Component {
    * en el estado las sugerencias existentes.
    */
   async componentDidMount(){
-    document.title = "SICMB - Gestión de sugerencias";
+    document.title = "SIGPRES CMB -Gestión de sugerencias";
     this.obtenerSugerencias();
   }
 

@@ -297,7 +297,7 @@ export class Programas extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Gestión de Programas";
+    document.title = "SIGPRES CMB -Gestión de Programas";
 
     await this.obtenerProgramas();
     

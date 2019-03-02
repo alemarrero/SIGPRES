@@ -195,7 +195,7 @@ export class VinculacionPoaPresupuesto extends Component {
   }
 
   async componentDidMount(){
-    document.title = "SICMB - Vinculación POA - Preuspuesto";
+    document.title = "SIGPRES CMB -Vinculación POA - Preuspuesto";
     await this.obtenerProductos();
     await this.obtenerAcciones();
     await this.obtenerVinculacionAccionesProductos();
