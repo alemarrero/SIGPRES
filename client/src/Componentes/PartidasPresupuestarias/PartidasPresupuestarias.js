@@ -3,8 +3,9 @@ import './PartidasPresupuestarias.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+import withContext from '../../Contenedor/withContext';
 
-export default class PartidasPresupuestarias extends Component {
+export class PartidasPresupuestarias extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -459,3 +460,5 @@ export default class PartidasPresupuestarias extends Component {
     )
   }
 }
+
+export default withContext(PartidasPresupuestarias);
