@@ -96,7 +96,7 @@ router.post('/deshabilitar_area', autorizarAdministrador, function(req, res){
   })
 });
 
-router.get('/obtener_areas', autorizarAdministrador, function(req, res){
+router.get('/obtener_areas', function(req, res){
   models.areas.findAll()
   .then( resultado => {
     res.json(resultado).status(200);
