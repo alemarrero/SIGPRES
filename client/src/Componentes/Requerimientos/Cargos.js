@@ -249,7 +249,7 @@ export class Cargos extends Component {
               <Input 
                 onChange={(e) => this.setState({cargo: e.target.value})}
               />
-              <span id="cargo-modal-creacion" className="error-cargos">Nombre inválido. Este campo no puede estar vacío.. Este campo no puede estar vacío.</span>
+              <span id="cargo-modal-creacion" className="error-cargos">Nombre inválido. Este campo no puede estar vacío.</span>
             </Col>
           </FormGroup>
         </Form>
