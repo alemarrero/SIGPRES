@@ -4,6 +4,7 @@ import './Requerimientos.css';
 import requerimientos from '../../assets/img/requerimientos.png';
 import personal from '../../assets/img/personal.png';
 import OpcionMenu from '../Menu/OpcionMenu';
+import autorizarDirector from '../../Utilidades/autorizarDirector.js';
 
 export default class Menu extends Component {
   render() {
@@ -19,8 +20,9 @@ export default class Menu extends Component {
 
         <Row className="fila-opciones-menu-principal">
           {/* Requerimientos y Necesidades */}   
+          {autorizarDirector(this.props.usuario.rol) && 
           <OpcionMenu ruta={'/requerimientos-y-necesidades/'} nombre="Requerimientos y Necesidades" icono={requerimientos}/>
-          
+          }
           {/* Solicitud de Personal */}
           <OpcionMenu ruta={'/solicitud-personal/'} nombre="Solicitudes de Personal" icono={personal}/>
         </Row>
