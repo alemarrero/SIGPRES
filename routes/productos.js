@@ -165,7 +165,7 @@ router.post('/deshabilitar_producto', autorizarDirectorPP, function(req, res){
   })
 });
 
-router.get('/obtener_productos', cache(604800000), function(req, res){
+router.get('/obtener_productos', function(req, res){
   models.productos.findAll({
       include:[
           {

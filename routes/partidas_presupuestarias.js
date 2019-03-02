@@ -142,7 +142,7 @@ router.post('/obtener_partida_presupuestaria', function(req, res){
   })
 });
 
-router.get('/obtener_partidas_completas', cache(604800000), function(req,res){
+router.get('/obtener_partidas_completas', function(req,res){
   models.partidas_presupuestarias.findAll({
     attributes: ["id", "numero_partida", "denominacion"], 
     include: [
@@ -178,7 +178,7 @@ router.get('/obtener_partidas_completas', cache(604800000), function(req,res){
 
 });
 
-router.post('/obtener_partida_desde_especifica', cache(604800000), function(req,res){
+router.post('/obtener_partida_desde_especifica', function(req,res){
   models.especificas.findOne({
     where: {id: req.body.id},
     include: [
@@ -207,7 +207,7 @@ router.post('/obtener_partida_desde_especifica', cache(604800000), function(req,
   })
 });
 
-router.post('/obtener_partida_desde_subespecifica', cache(604800000), function(req,res){
+router.post('/obtener_partida_desde_subespecifica', function(req,res){
   models.subespecificas.findOne({
     where: {id: req.body.id},
     include: [
