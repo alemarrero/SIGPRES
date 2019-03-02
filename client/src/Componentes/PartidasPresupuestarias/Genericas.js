@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Genericas.css'
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
+
 
 export default class Genericas extends Component {
   constructor(props){
@@ -434,10 +436,12 @@ export default class Genericas extends Component {
 
             {/* Botón para agregar genéricas */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            {autorizarDirectorPP(this.props.usuario.rol) &&
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_generica_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar genérica
               </Button>
+            }
             </Col>
           </Row>
 
@@ -470,6 +474,7 @@ export default class Genericas extends Component {
                               <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Específica
                           </Button>
+                          {autorizarDirectorPP(this.props.usuario.rol) &&
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarGenerica(index)}
@@ -477,6 +482,7 @@ export default class Genericas extends Component {
                               <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )

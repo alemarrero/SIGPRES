@@ -129,7 +129,7 @@ export class SolicitudRequerimientos extends Component {
         this.setState({id: crear_solicitud_de_requerimientos_response});
       }
       else{
-        this.setState({modal_crear_cargo_abierto: false, mensaje: "Error guardando la solicitud de personal"});
+        this.setState({modal_crear_cargo_abierto: false, mensaje: "Error guardando la solicitud de requerimientos y necesidades"});
       }
   }
 
@@ -148,14 +148,14 @@ export class SolicitudRequerimientos extends Component {
 
     if(eliminar_solicitud_response !== 'err'){
       
-      this.setState({modal_confirmacion_eliminar_abierto: false, modal_operacion_exitosa: true, mensaje: "Solicitud de personal eliminada correctamente"}, async () => {
+      this.setState({modal_confirmacion_eliminar_abierto: false, modal_operacion_exitosa: true, mensaje: "Solicitud de requerimientos y necesidades eliminada correctamente"}, async () => {
       await this.crearSolicitudDeRequerimientos();
       await this.obtenerSolicitudDeRequerimientos();
         await this.obtenerEntradasSolicitudRequerimientos();
       });
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de personal"});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error eliminando la solicitud de requerimientos y necesidades"});
     }
   }
 
@@ -183,7 +183,7 @@ export class SolicitudRequerimientos extends Component {
       }
     }
     else {
-      this.setState({modal_operacion_fallida: true, mensaje: "Error enviando solicitud de personal, debe tener al menos un requerimiento de personal y la justificación no puede estar vacía."});      
+      this.setState({modal_operacion_fallida: true, mensaje: "Error enviando solicitud de requerimientos y necesidades, debe tener al menos un requerimiento."});      
     }
   }
 
@@ -241,7 +241,7 @@ export class SolicitudRequerimientos extends Component {
         this.obtenerEntradasSolicitudRequerimientos();
       }
       else{
-        this.setState({modal_crear_cargo_abierto: false, mensaje: "Error creando el requerimiento de personal"});
+        this.setState({modal_crear_cargo_abierto: false, mensaje: "Error creando el requerimiento"});
       }
     }
   }
@@ -274,12 +274,12 @@ export class SolicitudRequerimientos extends Component {
       const editar_requerimiento_response = await editar_requerimiento_request.json();
 
       if(editar_requerimiento_response !== 'err'){
-        this.setState({modal_operacion_exitosa: true, mensaje: "Requerimiento de personal de la solicitud actualizado correctamente"}, async () => {
+        this.setState({modal_operacion_exitosa: true, mensaje: "Requerimiento de la solicitud actualizado correctamente"}, async () => {
           await this.obtenerEntradasSolicitudRequerimientos();
         });
       }
       else{
-        this.setState({modal_operacion_fallida: true, mensaje: "Error actualizando el requerimiento personal"});
+        this.setState({modal_operacion_fallida: true, mensaje: "Error actualizando el requerimiento"});
       }
     }
   }
@@ -322,7 +322,7 @@ export class SolicitudRequerimientos extends Component {
       this.setState({entradas_solicitud_de_requerimientos: entradas_solicitud_de_requerimientos_response});
     }
     else{
-      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los requerimientos de personal de la solicitud "});
+      this.setState({modal_operacion_fallida: true, mensaje: "Error al obtener los requerimientos de la solicitud "});
     }
 
   } 
@@ -657,7 +657,7 @@ export class SolicitudRequerimientos extends Component {
     let modal_confirmacion_operacion = 
       <Modal isOpen={this.state.modal_confirmacion_operacion_abierto} toggle={() => this.setState({modal_confirmacion_operacion_abierto: !this.state.modal_confirmacion_operacion_abierto})}>
         <ModalHeader toggle={() => this.setState({modal_confirmacion_operacion_abierto: !this.state.modal_confirmacion_operacion_abierto})}>
-          Enviar solicitud de personal
+          Enviar solicitud de requerimientos
         </ModalHeader>
 
         <ModalBody>

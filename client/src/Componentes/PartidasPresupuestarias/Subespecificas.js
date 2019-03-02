@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Subespecificas.css'
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export default class Subespecificas extends Component {
   constructor(props){
@@ -435,10 +436,12 @@ export default class Subespecificas extends Component {
 
             {/* Botón para agregar subespecíficas */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+            {autorizarDirectorPP(this.props.usuario.rol) &&
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_subespecifica_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar subespecífica
               </Button>
+            }
             </Col>
           </Row>
 
@@ -464,6 +467,7 @@ export default class Subespecificas extends Component {
                           <td>{subespecifica.denominacion}</td>
                           <td>{subespecifica.habilitada ? <span>Si</span> : <span>No</span>}</td>
                           <td>
+                          {autorizarDirectorPP(this.props.usuario.rol) &&
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarSubespecifica(index)}
@@ -471,6 +475,7 @@ export default class Subespecificas extends Component {
                               <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )

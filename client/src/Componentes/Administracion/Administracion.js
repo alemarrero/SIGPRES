@@ -32,9 +32,7 @@ export class Menu extends Component {
                 }
 
                 {/* Gestión de áreas */}
-                {autorizarAdministrador(this.props.usuario.rol) && 
                     <OpcionMenu ruta={'/areas/'} nombre="Gestión de áreas" icono={areas}/>             
-                }
           
                 {/* Gestión de indicadores */}
                 <OpcionMenu ruta={'/indicadores/'} nombre="Gestión de indicadores" icono={indicadores}/>

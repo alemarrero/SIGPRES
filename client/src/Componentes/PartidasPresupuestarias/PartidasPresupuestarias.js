@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './PartidasPresupuestarias.css';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export default class PartidasPresupuestarias extends Component {
   constructor(props){
@@ -178,7 +179,7 @@ export default class PartidasPresupuestarias extends Component {
     let formulario_valido = true;
 
     // Validación del numero de la partida
-    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9][.][0-9]{2}$/)){
+    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9]{3}$/)){
       document.getElementById("numero_partida-modal-creacion").style.display = 'block';
       formulario_valido = false;
     }
@@ -201,7 +202,7 @@ export default class PartidasPresupuestarias extends Component {
     let formulario_valido = true;
 
     // Validación del numero de la partida
-    if(this.state.numero_partida === undefined || !this.state.numero_partida.match(/^[0-9][.][0-9]{2}$/)){
+    if(this.state.numero_partida === undefined || !`${this.state.numero_partida}`.match(/^[0-9]{3}$/)){
       document.getElementById("numero_partida-modal-edicion").style.display = 'block';
       formulario_valido = false;
     }
@@ -238,7 +239,7 @@ export default class PartidasPresupuestarias extends Component {
               <Input 
                 onChange={(e) => this.setState({numero_partida: e.target.value})}
               />
-              <span id="numero_partida-modal-creacion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma #.##. Donde cada # es un número.</span>
+              <span id="numero_partida-modal-creacion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma ###. Donde cada # es un número.</span>
             </Col>
           </FormGroup>
 
@@ -287,7 +288,7 @@ export default class PartidasPresupuestarias extends Component {
                   defaultValue={this.state.numero_partida}
                   onChange={(e) => this.setState({numero_partida: e.target.value})}
                 />
-                <span id="numero_partida-modal-edicion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma #.##. Donde cada # es un número.</span>
+                <span id="numero_partida-modal-edicion" className="error-partidas_presupuestarias">Número de partida inválido, deben ser de la forma ###. Donde cada # es un número.</span>
               </Col>
             </FormGroup>
 
@@ -397,13 +398,15 @@ export default class PartidasPresupuestarias extends Component {
               <h1 className="titulo-unidades-de-medida">Gestión de Partidas Presupuestarias</h1>
             </Col>
 
-            {/* Botón para agregar partidas presupuestarias */}
+            {/* Botón para agregar partidas presupuestarias */} 
+            {autorizarDirectorPP(this.props.usuario.rol) &&
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_partida_presupuestaria_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar partida
               </Button>
             </Col>
+            }
           </Row>
 
           {/* Si existen partidas presupuestarias, muestra una tabla con su información */}
@@ -435,6 +438,7 @@ export default class PartidasPresupuestarias extends Component {
                               <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Genérica
                           </Button>
+                          {autorizarDirectorPP(this.props.usuario.rol) &&
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarPartidaPresupuestaria(index)}
@@ -442,6 +446,7 @@ export default class PartidasPresupuestarias extends Component {
                               <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )

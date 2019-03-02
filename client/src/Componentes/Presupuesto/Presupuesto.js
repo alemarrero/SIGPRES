@@ -23,7 +23,6 @@ export class Menu extends Component {
 
             <Row className="fila-opciones-menu-principal">
                 {/* Gestión de partidas presupuestarias */}
-                {autorizarDirectorPP(this.props.usuario.rol) &&
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>
                 <Card onClick={() => this.props.history.push(this.props.match.path + '/partidas-presupuestarias')} body outline color="success">
                     <CardBody>
@@ -32,7 +31,6 @@ export class Menu extends Component {
                     </CardBody>
                 </Card>
                 </Col>  
-                }  
                 
                 {/* Gestión presupuestal  */}
                 <Col className="opcion-menu-principal" xs={12} sm={12} md={4} lg={4}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Container, Table, Form, Label } from 'reactstrap';
 import partidas_presupuestarias from '../../assets/img/partidas.png';
 import './Especificas.css'
+import autorizarDirectorPP from '../../Utilidades/autorizarDirectorPP.js';
 
 export default class Especificas extends Component {
   constructor(props){
@@ -434,10 +435,12 @@ export default class Especificas extends Component {
 
             {/* Botón para agregar específicas */}
             <Col className="text-center" xs={12} sm={12} md={12} lg={12}>
+              {autorizarDirectorPP(this.props.usuario.rol) &&
               <Button color="info" className="boton-agregar" onClick={() => this.setState({modal_crear_especifica_abierto: true})}>
                 <i className="iconos fa fa-plus" aria-hidden="true"></i>              
                 Agregar específica
               </Button>
+              }
             </Col>
           </Row>
 
@@ -470,6 +473,7 @@ export default class Especificas extends Component {
                               <i className="iconos fa fa-eye" aria-hidden="true"></i>                          
                               Sub-específica
                           </Button>
+                          {autorizarDirectorPP(this.props.usuario.rol) &&
                           <Button 
                               color="info" className="boton-gestionar"
                               onClick={() => this.cargarModalEditarEspecifica(index)}
@@ -477,6 +481,7 @@ export default class Especificas extends Component {
                               <i className="iconos fa fa-cogs" aria-hidden="true"></i>                          
                               Gestionar
                           </Button>
+                          }
                           </td>
                       </tr>
                       )
