@@ -15,6 +15,7 @@
 6) Crear una base de datos en Postgres que se llame `sigpres_dev`.
 7) Ejecutar las migraciones para poder crear las tablas necesarias para el funcionamiento del sistema. En un terminal, estando en el directorio raíz del repositorio, ejecutar el comando `sequelize db:migrate`. 
 8) Una vez ejecutadas las migraciones, estando en el directorio raíz del repositorio, ejecutar el comando `npm seed-db`. Este comando inicializa la base de datos con información básica de prueba para poder hacer un uso mínimo del sistema. 
+9) Para ejecutar el sistema, se debe ejecutar en un terminal que se encuentre posicionado en la raíz del directorio del repositorio el comando `npm start`, y se debe ejecutar el mismo comando, pero en otro terminal ubicado en la carpeta `client` dentro de la raíz del directorio del repositorio. Estos comandos iniciarán el backend y el front end del sistema respectivamente.
 
 \*: Contactar a la profesora Marla Corniel al correo `mcorniel [at] usb [dot] ve` para que proporcione el archivo `.env`. Para cualquier duda, contactar con ella. También se recomienda solicitar y revisar el Manual/Informe técnico del sistema el cual ofrece instrucciones sobre el sistema.
 
