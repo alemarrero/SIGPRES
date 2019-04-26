@@ -1,1 +1,27 @@
-# SICMB
+# SIGPRES - CMB
+## Sistema Integrado de Gestión Presupuestal - Contraloría Municipal de Baruta
+
+---
+### Requerimientos necesarios
+ - Node.js LTS (versión actual al 26/04/2019: 10.15.3)
+ - PostgreSQL v9.6 o superior.
+
+### Instrucciones de uso
+1) Crear un fork de este repositorio.
+2) Clonar el repositorio. 
+3) Acceder al directorio raíz del repositorio y ejecutar el comando `npm install`. Posteriormente, ingresar a la carpeta `client` dentro del directorio raíz del repositorio y ejecutar nuevamente `npm install`.
+4) Colocar el archivo `.env` en el directorio raíz del repositorio. (*)
+5) Instalar de manera global el paquete de NPM llamado `sequelize`, ejecutando el comando: `npm install -g sequelize`. Adicionalmente instalar de manera global el paquete de NPM llamado `nodemon`, ejecutando el comando `npm install -g nodemon`. 
+6) Crear una base de datos en Postgres que se llame `sicmb_dev`.
+7) Ejecutar las migraciones para poder crear las tablas necesarias para el funcionamiento del sistema. En un terminal, estando en el directorio raíz del repositorio, ejecutar el comando `sequelize db:migrate`. 
+8) Una vez ejecutadas las migraciones, estando en el directorio raíz del repositorio, ejecutar el comando `npm seed-db`. Este comando inicializa la base de datos con información básica de prueba para poder hacer un uso mínimo del sistema. 
+
+\*: Contactar a la profesora Marla Corniel al correo `mcorniel [at] usb [dot] ve` para que proporcione el archivo `.env`. Para cualquier duda, contactar con ella. También se recomienda solicitar y revisar el Manual/Informe técnico del sistema el cual ofrece instrucciones sobre el sistema.
+
+### Despliegue del sistema en producción (Heroku)
+Actualmente el sistema se encuentra alojado en un dyno en Heroku. Cada vez que se introduce un nuevo cambio en la rama `master` del repositorio, estos cambios son desplegados en Heroku. Contactar a la prof. Marla Corniel para que coordine el traspaso de esta aplicación en Heroku a los nuevos desarrolladores que continuarán con el desarrollo de SIGPRES - CMB. De esta manera, podrán actualizar la configuración de despligue continuo en Heroku para que los nuevos cambios que se introduzcan en la nueva rama master del repositorio, se desplieguen también en la aplicación de Heroku. Por esta razón, se recomienda que se utilice la metodología de trabajo denominada [git flow](https://nvie.com/posts/a-successful-git-branching-model/) con el fin de mantener ramas en donde se trabajen los nuevos features a ser introducidos, y una vez que hayan sido suficientemente testeados, se unan a `master`. 
+
+### Recomendaciones para futuros desarrollos
+ - Documentar el API con una herramienta como [Swagger](https://swagger.io/). 
+ - Elaborar una suite de pruebas de los endpoints del backend con una herramienta como [Postman](https://www.getpostman.com/). 
+ - Evaluar la actualización de la versión de React utilizada para introducir el uso de [React Hooks](https://reactjs.org/docs/hooks-intro.html), lo cual puede repercutir positivamente en el performance de la aplicación.
