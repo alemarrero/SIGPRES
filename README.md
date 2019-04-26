@@ -12,7 +12,7 @@
 3) Acceder al directorio raíz del repositorio y ejecutar el comando `npm install`. Posteriormente, ingresar a la carpeta `client` dentro del directorio raíz del repositorio y ejecutar nuevamente `npm install`.
 4) Colocar el archivo `.env` en el directorio raíz del repositorio. (*)
 5) Instalar de manera global el paquete de NPM llamado `sequelize`, ejecutando el comando: `npm install -g sequelize`. Adicionalmente instalar de manera global el paquete de NPM llamado `nodemon`, ejecutando el comando `npm install -g nodemon`. 
-6) Crear una base de datos en Postgres que se llame `sigpres_dev`.
+6) Crear una base de datos en Postgres que se llame `sicmb_dev`.
 7) Ejecutar las migraciones para poder crear las tablas necesarias para el funcionamiento del sistema. En un terminal, estando en el directorio raíz del repositorio, ejecutar el comando `sequelize db:migrate`. 
 8) Una vez ejecutadas las migraciones, estando en el directorio raíz del repositorio, ejecutar el comando `npm seed-db`. Este comando inicializa la base de datos con información básica de prueba para poder hacer un uso mínimo del sistema. 
 9) Para ejecutar el sistema, se debe ejecutar en un terminal que se encuentre posicionado en la raíz del directorio del repositorio el comando `npm start`, y se debe ejecutar el mismo comando, pero en otro terminal ubicado en la carpeta `client` dentro de la raíz del directorio del repositorio. Estos comandos iniciarán el backend y el front end del sistema respectivamente.
@@ -26,4 +26,4 @@ Actualmente el sistema se encuentra alojado en un dyno en Heroku asociado a la c
  - Documentar el API con una herramienta como [Swagger](https://swagger.io/). 
  - Elaborar una suite de pruebas de los endpoints del backend con una herramienta como [Postman](https://www.getpostman.com/). 
  - Evaluar la actualización de la versión de React utilizada para introducir el uso de [React Hooks](https://reactjs.org/docs/hooks-intro.html), lo cual puede repercutir positivamente en el performance de la aplicación.
-  - En un principio el sistema se llamó SICMB, siglas de Sistema Integrado de la Contraloría Municipal de Baruta. Posteriormente se cambió su nombre a SIGPRES. Actualizar las referencias que aún existan de SICMB a SIGPRES. 
+  - En un principio el sistema se llamó SICMB, siglas de Sistema Integrado de la Contraloría Municipal de Baruta. Posteriormente se cambió su nombre a SIGPRES. Actualizar las referencias que aún existan de SICMB a SIGPRES. Al hacer estos cambios, documentarlos y actualizar la documentación correspondiente. 
